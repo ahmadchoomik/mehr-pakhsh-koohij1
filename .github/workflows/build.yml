@@ -28,6 +28,7 @@ jobs:
         run: |
           mkdir -p project/www
           cp index.html project/www/
+          curl -sL https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js -o project/www/html2pdf.bundle.min.js
           cd project
           npm init -y
           npm install @capacitor/core@latest @capacitor/cli@latest @capacitor/android@latest
