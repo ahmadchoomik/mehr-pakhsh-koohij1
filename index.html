@@ -61,7 +61,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* بنر هوشمند بالای داشبورد */
     .hero-banner {
       background: var(--dark-card);
       color: white;
@@ -71,16 +70,6 @@
       box-shadow: 0 8px 20px -4px rgba(15, 23, 42, 0.25);
       position: relative;
       overflow: hidden;
-    }
-    .hero-banner::after {
-      content: '';
-      position: absolute;
-      left: -30px;
-      top: -30px;
-      width: 120px;
-      height: 120px;
-      background: radial-gradient(circle, rgba(37,99,235,0.3) 0%, transparent 70%);
-      border-radius: 50%;
     }
     .hero-header {
       display: flex;
@@ -95,9 +84,10 @@
       color: #f8fafc;
     }
     .hero-date {
-      font-size: 11px;
-      color: #94a3b8;
-      margin-top: 3px;
+      font-size: 12px;
+      color: #38bdf8;
+      font-weight: 700;
+      margin-top: 4px;
     }
     .hero-badge {
       background: rgba(16, 185, 129, 0.2);
@@ -109,7 +99,6 @@
       font-weight: 600;
     }
 
-    /* کارت ارزش انبار */
     .financial-card {
       margin-top: 14px;
       padding-top: 12px;
@@ -130,7 +119,6 @@
       color: #fbbf24;
     }
 
-    /* شبکه کارت‌های شاخص داشبورد */
     .stat-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -143,8 +131,6 @@
       padding: 14px;
       border: 1px solid var(--border);
       box-shadow: 0 2px 5px rgba(0,0,0,0.03);
-      position: relative;
-      overflow: hidden;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -174,7 +160,6 @@
       font-weight: 800;
     }
 
-    /* وضعیت سلامت انقضا */
     .health-bar-container {
       height: 8px;
       background: #e2e8f0;
@@ -210,7 +195,6 @@
       font-size: 13px;
     }
 
-    /* کارت‌های اصلی */
     .card {
       background: var(--card-bg);
       border-radius: var(--radius);
@@ -233,7 +217,6 @@
       color: var(--primary);
     }
 
-    /* دکمه‌ها */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -289,7 +272,6 @@
     .badge-available { background: #e0f2fe; color: #0369a1; }
     .badge-unavailable { background: #f1f5f9; color: #64748b; }
 
-    /* اقلام نیازمند توجه در داشبورد */
     .attention-item {
       display: flex;
       justify-content: space-between;
@@ -301,12 +283,9 @@
       border: 1px solid #fee2e2;
     }
 
-    /* نوار پایین */
     nav.bottom-nav {
       position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      bottom: 0; left: 0; right: 0;
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(8px);
       display: flex;
@@ -338,7 +317,6 @@
       fill: currentColor;
     }
 
-    /* پنجره‌های مودال */
     .modal-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -435,14 +413,13 @@
 <body>
 
   <main>
-    <!-- ۱. داشبورد پیشرفته -->
+    <!-- ۱. داشبورد -->
     <section id="view-dashboard" class="view-section active">
-      <!-- بنر اصلی -->
       <div class="hero-banner">
         <div class="hero-header">
           <div>
             <div class="hero-title" id="dashCompName">مهر پخش کوهیج</div>
-            <div class="hero-date" id="dashLiveDate">در حال دریافت تاریخ...</div>
+            <div class="hero-date" id="dashLiveDate">در حال محاسبه تاریخ...</div>
           </div>
           <div class="hero-badge">سامانه انبار فعال</div>
         </div>
@@ -452,7 +429,6 @@
         </div>
       </div>
 
-      <!-- شبکه کارت‌های آمار -->
       <div class="stat-grid">
         <div class="stat-card">
           <div class="stat-card-header">
@@ -480,21 +456,18 @@
 
         <div class="stat-card">
           <div class="stat-card-header">
-            <span class="stat-card-title">دسته‌بندی‌ها</span>
+            <span class="stat-card-title">دسته‌‌بندی‌ها</span>
             <div class="stat-card-icon" style="background:#f3e8ff; color:#9333ea;">📂</div>
           </div>
           <div class="stat-card-number" id="dashTotalCategories" style="color:#9333ea;">۰</div>
         </div>
       </div>
 
-      <!-- پایش هوشمند انقضا -->
       <div class="card">
         <div class="card-header">
           <div class="card-title">پایش انقضای انبار (خورشیدی)</div>
-          <span style="font-size:11px; color:var(--text-muted);">کلیک روی وضعیت = فیلتر</span>
         </div>
         
-        <!-- نوار وضعیت رنگی -->
         <div class="health-bar-container">
           <div id="barSafe" class="health-seg seg-safe" style="width: 25%"></div>
           <div id="barNear" class="health-seg seg-near" style="width: 25%"></div>
@@ -522,7 +495,6 @@
         </div>
       </div>
 
-      <!-- هشدارهای فوری انبار -->
       <div class="card">
         <div class="card-header">
           <div class="card-title">⚠️ کالاهای نیازمند توجه</div>
@@ -530,7 +502,6 @@
         <div id="dashAttentionContainer"></div>
       </div>
 
-      <!-- اقدامات سریع -->
       <div class="card">
         <div class="card-header">
           <div class="card-title">⚡ اقدامات سریع</div>
@@ -538,13 +509,13 @@
         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
           <button class="btn btn-primary" onclick="openProductModal()">➕ افزودن کالا</button>
           <button class="btn btn-secondary" onclick="navigateTo('view-export')">🧾 صدور فاکتور</button>
-          <button class="btn btn-secondary" onclick="navigateTo('view-categories')">📂 مدیریت دسته‌ها</button>
-          <button class="btn btn-success" onclick="openBackupCenterModal()">💾 پشتیبان‌گیری انبار</button>
+          <button class="btn btn-secondary" onclick="navigateTo('view-categories')">📂 دسته‌بندی‌ها</button>
+          <button class="btn btn-success" onclick="openBackupCenterModal()">💾 پشتیبان‌گیری</button>
         </div>
       </div>
     </section>
 
-    <!-- ۲. مدیریت کالاها -->
+    <!-- ۲. کالاها -->
     <section id="view-products" class="view-section">
       <div class="card">
         <div class="card-header">
@@ -588,7 +559,7 @@
       </div>
     </section>
 
-    <!-- ۴. صدور کاتالوگ و پیش‌فاکتور -->
+    <!-- ۴. صدور اسناد -->
     <section id="view-export" class="view-section">
       <div class="card">
         <div class="card-header">
@@ -650,8 +621,8 @@
 
         <div style="display: flex; flex-direction: column; gap: 8px;">
           <div style="display: flex; gap: 8px;">
-            <button class="btn btn-primary" id="btnDownloadPdf" style="flex: 1;" onclick="downloadDirectPdf()">📥 دانلود مستقیم PDF</button>
-            <button class="btn btn-warning" id="btnShareMessenger" style="flex: 1;" onclick="shareDirectToMessenger()">📤 اشتراک در پیام‌رسان</button>
+            <button class="btn btn-primary" id="btnDownloadPdf" style="flex: 1;" onclick="downloadDirectPdf()">📥 صدور و ذخیره PDF</button>
+            <button class="btn btn-warning" id="btnShareMessenger" style="flex: 1;" onclick="shareDirectToMessenger()">📤 ارسال به پیام‌رسان</button>
           </div>
           <button class="btn btn-success btn-block" onclick="generateMKPFile()">📦 ساخت بسته خروجی MKP</button>
         </div>
@@ -666,7 +637,7 @@
       </div>
     </section>
 
-    <!-- ۵. تنظیمات و پشتیبان -->
+    <!-- ۵. تنظیمات -->
     <section id="view-settings" class="view-section">
       <div class="card">
         <div class="card-header">
@@ -723,7 +694,6 @@
     </section>
   </main>
 
-  <!-- نوار دسترسی پایین صفحه -->
   <nav class="bottom-nav">
     <button onclick="navigateTo('view-dashboard')" id="nav-view-dashboard" class="active">
       <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
@@ -747,7 +717,34 @@
     </button>
   </nav>
 
-  <!-- مودال پیشرفته پشتیبان‌گیری (حل مشکل دانلود در گوشی) -->
+  <!-- پنجره پیش‌نمایش و خروجی سند (حل قطعی مسدودی دانلود در اندروید) -->
+  <div id="docResultModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="docResultTitle">📄 سند آماده شد</h3>
+        <button class="modal-close" onclick="closeModal('docResultModal')">&times;</button>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:12px;">
+        <button class="btn btn-warning" onclick="shareDocViaMessenger()">
+          📤 ارسال مشخصات کامل به ایتا / روبیکا / واتساپ
+        </button>
+        <button class="btn btn-primary" onclick="shareDocPdfFile()">
+          💾 ذخیره در گوشی / اشتراک مستقیم فایل PDF
+        </button>
+        <button class="btn btn-secondary" onclick="copyDocTextToClipboard()">
+          📋 کپی متن کامل سفارش در حافظه
+        </button>
+      </div>
+
+      <div class="form-group">
+        <label>متن رسمی پیش‌فاکتور / کاتالوگ:</label>
+        <textarea id="docResultText" class="form-control" rows="6" readonly style="font-size:11.5px; line-height:1.7;"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- مرکز پشتیبان‌گیری -->
   <div id="backupCenterModal" class="modal-overlay">
     <div class="modal-box">
       <div class="modal-header">
@@ -755,21 +752,17 @@
         <button class="modal-close" onclick="closeModal('backupCenterModal')">&times;</button>
       </div>
 
-      <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">
-        برای جلوگیری از مسدود شدن دانلود در گوشی، یکی از روش‌های زیر را انتخاب کنید:
-      </p>
-
-      <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:14px;">
+      <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:12px;">
         <button class="btn btn-primary" onclick="triggerNativeShareBackup()">
           📤 ذخیره در گوشی / ارسال به پیام‌رسان
         </button>
         <button class="btn btn-success" onclick="copyBackupToClipboard()">
-          📋 کپی متن کامل بکاپ در حافظه (Clipboard)
+          📋 کپی کد پشتیبان در حافظه
         </button>
       </div>
 
       <div class="form-group">
-        <label>متن پشتیبان تولید شده (یا چسباندن جهت بازگردانی):</label>
+        <label>متن پشتیبان کامل انبار:</label>
         <textarea id="backupDataArea" class="form-control" rows="5" style="font-size:11px; direction:ltr; text-align:left;"></textarea>
       </div>
 
@@ -779,7 +772,7 @@
     </div>
   </div>
 
-  <!-- بقیه مودال‌ها -->
+  <!-- مودال افزودن کالا -->
   <div id="productModal" class="modal-overlay">
     <div class="modal-box">
       <div class="modal-header">
@@ -822,7 +815,7 @@
         </div>
 
         <div class="form-group" style="background: #f1f5f9; padding: 10px; border-radius: 8px;">
-          <label><b>تاریخ انقضا (تقویم خورشیدی) *</b></label>
+          <label><b>تاریخ انقضا (تقویم خورشیدی جلالی) *</b></label>
           <div class="form-row" style="margin-top: 5px;">
             <div class="form-group">
               <label>سال</label>
@@ -922,60 +915,78 @@
   </div>
 
   <script>
+    // موتور دقیق و بدون خطای تقویم خورشیدی جلالی
     const Jalali = {
-      isLeap: function(jy) {
-        return (((((jy - ((jy > 0) ? 474 : 473)) % 2820) + 474 + 38) * 682) % 2816) < 682;
+      gregorianToJalali: function(gy, gm, gd) {
+        const g_d_m = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+        let jy = (gy <= 1600) ? 0 : 979;
+        gy -= (gy <= 1600) ? 621 : 1600;
+        const gy2 = (gm > 2) ? (gy + 1) : gy;
+        let days = (365 * gy) + Math.floor((gy2 + 3) / 4) - Math.floor((gy2 + 99) / 100) + Math.floor((gy2 + 399) / 400) - 80 + gd + g_d_m[gm - 1];
+        jy += 33 * Math.floor(days / 12053);
+        days %= 12053;
+        jy += 4 * Math.floor(days / 1461);
+        days %= 1461;
+        if (days > 365) {
+          jy += Math.floor((days - 1) / 365);
+          days = (days - 1) % 365;
+        }
+        let jm = (days < 186) ? 1 + Math.floor(days / 31) : 7 + Math.floor((days - 186) / 30);
+        let jd = 1 + ((days < 186) ? (days % 31) : ((days - 186) % 30));
+        return { jy, jm, jd };
       },
+
+      jalaliToGregorian: function(jy, jm, jd) {
+        let gy = (jy <= 979) ? 621 : 1600;
+        jy -= (jy <= 979) ? 0 : 979;
+        let days = (365 * jy) + (Math.floor(jy / 33) * 8) + Math.floor(((jy % 33) + 3) / 4) + 78 + jd + ((jm < 7) ? (jm - 1) * 31 : ((jm - 7) * 30) + 186);
+        gy += 400 * Math.floor(days / 146097);
+        days %= 146097;
+        if (days > 36524) {
+          days--;
+          gy += 100 * Math.floor(days / 36524);
+          days %= 36524;
+          if (days >= 365) days++;
+        }
+        gy += 4 * Math.floor(days / 1461);
+        days %= 1461;
+        if (days > 365) {
+          gy += Math.floor((days - 1) / 365);
+          days = (days - 1) % 365;
+        }
+        const sal_a = [0, 31, ((gy % 4 === 0 && gy % 100 !== 0) || (gy % 400 === 0)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        let gm = 0;
+        while (gm < 13 && days >= sal_a[gm]) {
+          days -= sal_a[gm];
+          gm++;
+        }
+        const gd = days + 1;
+        return new Date(gy, gm - 1, gd);
+      },
+
+      today: function() {
+        const d = new Date();
+        return this.gregorianToJalali(d.getFullYear(), d.getMonth() + 1, d.getDate());
+      },
+
+      diffDaysFromToday: function(jy, jm, jd) {
+        const target = this.jalaliToGregorian(jy, jm, jd);
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const diff = target.getTime() - today.getTime();
+        return Math.round(diff / 86400000);
+      },
+
+      isLeap: function(jy) {
+        return (((((jy - 474) % 2820) + 474 + 38) * 682) % 2816) < 682;
+      },
+
       daysInMonth: function(jy, jm) {
         if (jm <= 6) return 31;
         if (jm <= 11) return 30;
         return this.isLeap(jy) ? 30 : 29;
       },
-      toJDN: function(jy, jm, jd) {
-        var epbase = jy - ((jy >= 0) ? 474 : 473);
-        var epjaar = 474 + (epbase % 2820);
-        return jd + ((jm <= 7) ? (jm - 1) * 31 : ((jm - 1) * 30 + 6)) +
-          Math.floor(((epjaar * 682) - 110) / 2816) +
-          (epjaar - 1) * 365 +
-          Math.floor(epbase / 2820) * 1029983 +
-          (1948320.5 - 1);
-      },
-      fromJDN: function(jdn) {
-        var j = Math.floor(jdn) + 0.5;
-        var depoch = j - this.toJDN(475, 1, 1);
-        var cycle = Math.floor(depoch / 1029983);
-        var cday = depoch % 1029983;
-        var ycycle;
-        if (cday === 1029982) {
-          ycycle = 2820;
-        } else {
-          var a1 = Math.floor(cday / 366);
-          var a2 = cday % 366;
-          ycycle = Math.floor(((2134 * a1) + (2816 * a2) + 2815) / 1028522) + a1 + 1;
-        }
-        var jy = 2820 * cycle + ycycle + 474;
-        if (jy <= 0) jy--;
-        var jday = j - this.toJDN(jy, 1, 1) + 1;
-        var jm = (jday <= 186) ? Math.ceil(jday / 31) : Math.ceil((jday - 6) / 30);
-        var jd = j - this.toJDN(jy, jm, 1) + 1;
-        return { jy: Math.floor(jy), jm: Math.floor(jm), jd: Math.floor(jd) };
-      },
-      fromGregorian: function(date) {
-        var gy = date.getFullYear();
-        var gm = date.getMonth() + 1;
-        var gd = date.getDate();
-        var jdn = (1461 * (gy + 4800 + Math.floor((gm - 14) / 12))) / 4 +
-                  (367 * (gm - 2 - 12 * Math.floor((gm - 14) / 12))) / 12 -
-                  Math.floor((3 * Math.floor((gy + 4900 + Math.floor((gm - 14) / 12)) / 100)) / 4) +
-                  gd - 32075.5;
-        return this.fromJDN(jdn);
-      },
-      diffDaysFromToday: function(jy, jm, jd) {
-        var targetJDN = this.toJDN(jy, jm, jd);
-        var todayJ = this.fromGregorian(new Date());
-        var todayJDN = this.toJDN(todayJ.jy, todayJ.jm, todayJ.jd);
-        return Math.round(targetJDN - todayJDN);
-      },
+
       monthNames: ["فروردین","اردیبهشت","خرداد","تیر","مرداد","شهریور","مهر","آبان","آذر","دی","بهمن","اسفند"]
     };
 
@@ -1013,7 +1024,7 @@
       }
 
       if (!localStorage.getItem(DB_KEYS.PRODUCTS)) {
-        const today = Jalali.fromGregorian(new Date());
+        const todayJ = Jalali.today();
         DB.set(DB_KEYS.PRODUCTS, [
           {
             id: 'p_1',
@@ -1023,7 +1034,7 @@
             company: 'دماوند',
             code: 'DM-15',
             status: 'available',
-            expiry: { jy: today.jy, jm: today.jm + 3 > 12 ? 12 : today.jm + 3, jd: 15 },
+            expiry: { jy: todayJ.jy, jm: todayJ.jm + 3 > 12 ? 12 : todayJ.jm + 3, jd: 15 },
             image: '',
             description: 'بسته ۶ عددی شرینک'
           }
@@ -1052,7 +1063,7 @@
       const categories = DB.get(DB_KEYS.CATEGORIES);
       const settings = DB.getSettings();
 
-      const todayJ = Jalali.fromGregorian(new Date());
+      const todayJ = Jalali.today();
       document.getElementById('dashCompName').innerText = settings.companyName || 'مهر پخش کوهیج';
       document.getElementById('dashLiveDate').innerText = `امروز: ${todayJ.jd} ${Jalali.monthNames[todayJ.jm - 1]} ${todayJ.jy}`;
 
@@ -1096,14 +1107,12 @@
       document.getElementById('dashNearCount').innerText = near;
       document.getElementById('dashSafeCount').innerText = safe;
 
-      // محاسبه درصد نوارهای پیشرفت
       const sum = total || 1;
       document.getElementById('barSafe').style.width = ((safe / sum) * 100) + '%';
       document.getElementById('barNear').style.width = ((near / sum) * 100) + '%';
       document.getElementById('barVeryNear').style.width = ((veryNear / sum) * 100) + '%';
       document.getElementById('barExpired').style.width = ((expired / sum) * 100) + '%';
 
-      // نمایش هشدارهای فوری
       const attCont = document.getElementById('dashAttentionContainer');
       if (attentionItems.length === 0) {
         attCont.innerHTML = '<div style="color:#10b981; font-size:12px; padding:6px 0;">✅ تمام کالاهای موجود دارای تاریخ مصرف معتبر هستند.</div>';
@@ -1124,83 +1133,6 @@
       navigateTo('view-products');
       document.getElementById('prodStatusFilter').value = type;
       renderProductList();
-    }
-
-    // مرکز پشتیبان‌گیری پیشرفته با حل قطعی مسدودی دانلود در گوشی
-    function openBackupCenterModal() {
-      const fullBackup = {
-        app: 'MEHR_PAK_KOUHIJ',
-        backupDate: new Date().toISOString(),
-        products: DB.get(DB_KEYS.PRODUCTS),
-        categories: DB.get(DB_KEYS.CATEGORIES),
-        settings: DB.getSettings()
-      };
-      const jsonText = JSON.stringify(fullBackup, null, 2);
-      document.getElementById('backupDataArea').value = jsonText;
-      document.getElementById('backupCenterModal').classList.add('active');
-    }
-
-    // ۱. اشتراک و ذخیره مستقیم از طریق سیستم عامل گوشی
-    function triggerNativeShareBackup() {
-      const jsonText = document.getElementById('backupDataArea').value;
-      const fileName = `MehrPakhsh_Backup_${Date.now()}.json`;
-
-      try {
-        const file = new File([jsonText], fileName, { type: 'application/json' });
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-          navigator.share({
-            files: [file],
-            title: 'فایل پشتیبان انبار مهر پخش کوهیج',
-            text: 'فایل بکاپ کامل انبار و کالاها'
-          }).catch(() => {});
-          return;
-        }
-      } catch (e) {}
-
-      if (navigator.share) {
-        navigator.share({
-          title: fileName,
-          text: jsonText
-        }).catch(() => {});
-      } else {
-        copyBackupToClipboard();
-      }
-    }
-
-    // ۲. کپی مستقیم متن در حافظه گوشی
-    function copyBackupToClipboard() {
-      const area = document.getElementById('backupDataArea');
-      area.select();
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(area.value).then(() => {
-          alert('کد پشتیبان با موفقیت در حافظه کپی شد! می‌توانید در یادداشت‌ها یا روبیکا/تلگرام ذخیره کنید.');
-        });
-      } else {
-        document.execCommand('copy');
-        alert('کد پشتیبان در حافظه کپی شد.');
-      }
-    }
-
-    // ۳. بازگردانی اطلاعات از متن پیست شده
-    function restoreFromPastedText() {
-      const text = document.getElementById('backupDataArea').value.trim();
-      if (!text) {
-        alert('لطفاً متن پشتیبان را داخل کادر وارد کنید.');
-        return;
-      }
-      try {
-        const d = JSON.parse(text);
-        if (confirm(`فایل پشتیبان حاوی ${(d.products || []).length} قلم کالا یافت شد. جایگزین شود؟`)) {
-          if (d.products) DB.set(DB_KEYS.PRODUCTS, d.products);
-          if (d.categories) DB.set(DB_KEYS.CATEGORIES, d.categories);
-          if (d.settings) DB.setSettings(d.settings);
-          alert('اطلاعات با موفقیت بازخوانی شد.');
-          closeModal('backupCenterModal');
-          renderDashboard();
-        }
-      } catch (e) {
-        alert('قالب متن معتبر نیست. لطفاً تمام متن بکاپ را دقیق پیست کنید.');
-      }
     }
 
     function populateCategoryFilters() {
@@ -1286,7 +1218,7 @@
     }
 
     function initJalaliDateDropdowns(selectedY, selectedM, selectedD) {
-      const todayJ = Jalali.fromGregorian(new Date());
+      const todayJ = Jalali.today();
       const curY = selectedY || todayJ.jy;
       const curM = selectedM || todayJ.jm;
       const curD = selectedD || todayJ.jd;
@@ -1556,16 +1488,12 @@
 
     function renderExportSection() {
       const products = DB.get(DB_KEYS.PRODUCTS);
-      const categories = DB.get(DB_KEYS.CATEGORIES);
       const container = document.getElementById('exportProductsChecklist');
 
       if (products.length === 0) {
         container.innerHTML = '<div style="color:var(--text-muted); padding:10px;">کالایی برای انتخاب موجود نیست.</div>';
         return;
       }
-
-      const catMap = {};
-      categories.forEach(c => catMap[c.id] = c.name);
 
       container.innerHTML = products.map(p => {
         const isAvail = p.status === 'available';
@@ -1608,6 +1536,62 @@
       document.getElementById('invTotalAmount').innerText = Number(total).toLocaleString('fa-IR');
     }
 
+    // ساخت پیام متنی شکیل فاکتور برای پیام‌رسان‌ها
+    function buildInvoiceTextMessage() {
+      const selectedBoxes = Array.from(document.querySelectorAll('.export-prod-cb:checked'));
+      const settings = DB.getSettings();
+      const allProducts = DB.get(DB_KEYS.PRODUCTS);
+      const todayJ = Jalali.today();
+      const dateStr = `${todayJ.jy}/${todayJ.jm}/${todayJ.jd}`;
+
+      let msg = '';
+      if (currentExportMode === 'invoice') {
+        const custName = document.getElementById('invCustomerName').value.trim() || 'مشتری گرامی';
+        const custPhone = document.getElementById('invCustomerPhone').value.trim();
+        msg += `🧾 *پیش‌فاکتور فروش و سفارش کالا*\n`;
+        msg += `🏢 *${settings.companyName || 'مهر پخش کوهیج'}*\n`;
+        msg += `👤 خریدار: ${custName}\n`;
+        if (custPhone) msg += `📞 تماس: ${custPhone}\n`;
+        msg += `📅 تاریخ: ${dateStr}\n`;
+        msg += `------------------------------------\n`;
+
+        let total = 0;
+        let idx = 1;
+        selectedBoxes.forEach(cb => {
+          const p = allProducts.find(x => x.id === cb.value);
+          if (!p) return;
+          const qtyInput = document.querySelector(`.export-prod-qty[data-id="${p.id}"]`);
+          const qty = qtyInput ? parseInt(qtyInput.value) || 1 : 1;
+          const line = p.price * qty;
+          total += line;
+          msg += `${idx++}. *${p.name}* (${p.company})\n`;
+          msg += `   ▫️ تعداد: ${qty} | فی: ${Number(p.price).toLocaleString('fa-IR')} ت\n`;
+          msg += `   ▫️ مبلغ: ${Number(line).toLocaleString('fa-IR')} تومان\n`;
+        });
+
+        msg += `------------------------------------\n`;
+        msg += `💰 *جمع کل سفارش: ${Number(total).toLocaleString('fa-IR')} تومان*\n`;
+        msg += `------------------------------------\n`;
+        if (settings.phone) msg += `📞 سفارشات: ${settings.phone}\n`;
+        if (settings.address) msg += `📍 نشانی: ${settings.address}\n`;
+      } else {
+        msg += `📦 *لیست قیمت و کاتالوگ محصولات*\n`;
+        msg += `🏢 *${settings.companyName || 'مهر پخش کوهیج'}*\n`;
+        msg += `📅 تاریخ: ${dateStr}\n`;
+        msg += `------------------------------------\n`;
+        let idx = 1;
+        selectedBoxes.forEach(cb => {
+          const p = allProducts.find(x => x.id === cb.value);
+          if (!p) return;
+          msg += `${idx++}. *${p.name}* (${p.company})\n`;
+          msg += `   ▫️ قیمت: ${Number(p.price).toLocaleString('fa-IR')} تومان\n`;
+        });
+        msg += `------------------------------------\n`;
+        if (settings.phone) msg += `📞 تلفن سفارشات: ${settings.phone}\n`;
+      }
+      return msg;
+    }
+
     function preparePrintableContent() {
       const selectedBoxes = Array.from(document.querySelectorAll('.export-prod-cb:checked'));
       if (selectedBoxes.length === 0) {
@@ -1628,7 +1612,7 @@
       const allProducts = DB.get(DB_KEYS.PRODUCTS);
       const categories = DB.get(DB_KEYS.CATEGORIES);
       const settings = DB.getSettings();
-      const todayJ = Jalali.fromGregorian(new Date());
+      const todayJ = Jalali.today();
 
       document.getElementById('pdfHeaderComp').innerText = settings.companyName || 'مهر پخش کوهیج';
       document.getElementById('pdfHeaderDate').innerText = `تاریخ صدور: ${todayJ.jy}/${todayJ.jm}/${todayJ.jd}`;
@@ -1741,45 +1725,110 @@
       return true;
     }
 
+    let currentGeneratedPdfBlob = null;
+    let currentGeneratedPdfFileName = '';
+
+    // حل قطعی دانلود PDF در اندروید از طریق اشتراک‌گذاری و باز کردن پنجره اختصاصی سند
     function downloadDirectPdf() {
       if (!preparePrintableContent()) return;
 
       const btn = document.getElementById('btnDownloadPdf');
       const originalText = btn.innerHTML;
-      btn.innerHTML = '⏳ در حال ساخت PDF...';
+      btn.innerHTML = '⏳ در حال ساخت سند...';
       btn.disabled = true;
 
       const element = document.getElementById('pdf-printable-area');
       element.style.display = 'block';
 
-      const fileName = currentExportMode === 'catalog' 
+      currentGeneratedPdfFileName = currentExportMode === 'catalog' 
         ? `Mehr_Pakhsh_Catalog_${Date.now()}.pdf`
         : `Mehr_Pakhsh_Invoice_${Date.now()}.pdf`;
 
       const opt = {
-        margin: [8, 8, 8, 8],
-        filename: fileName,
+        margin: [6, 6, 6, 6],
+        filename: currentGeneratedPdfFileName,
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2, useCORS: true },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
       };
 
+      const msg = buildInvoiceTextMessage();
+      document.getElementById('docResultText').value = msg;
+
       if (window.html2pdf) {
-        html2pdf().set(opt).from(element).save().then(() => {
+        html2pdf().set(opt).from(element).outputPdf('blob').then(function(blob) {
           element.style.display = 'none';
           btn.innerHTML = originalText;
           btn.disabled = false;
-        }).catch(err => {
+          currentGeneratedPdfBlob = blob;
+
+          // تلاش برای ارسال مستقیم فایل PDF به منوی اشتراک اندروید
+          try {
+            const file = new File([blob], currentGeneratedPdfFileName, { type: 'application/pdf' });
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+              navigator.share({
+                files: [file],
+                title: currentExportMode === 'catalog' ? 'کاتالوگ محصولات' : 'پیش‌فاکتور فروش',
+                text: msg
+              }).catch(() => {});
+              return;
+            }
+          } catch (e) {}
+
+          // باز کردن پنجره پیش‌نمایش سند
+          document.getElementById('docResultModal').classList.add('active');
+        }).catch(function(err) {
           element.style.display = 'none';
           btn.innerHTML = originalText;
           btn.disabled = false;
-          alert('خطا در تولید فایل: ' + err.message);
+          document.getElementById('docResultModal').classList.add('active');
         });
       } else {
         element.style.display = 'none';
         btn.innerHTML = originalText;
         btn.disabled = false;
-        alert('کتابخانه PDF آماده نیست، لطفاً چند لحظه بعد امتحان کنید.');
+        document.getElementById('docResultModal').classList.add('active');
+      }
+    }
+
+    function shareDocPdfFile() {
+      if (currentGeneratedPdfBlob) {
+        try {
+          const file = new File([currentGeneratedPdfBlob], currentGeneratedPdfFileName, { type: 'application/pdf' });
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            navigator.share({
+              files: [file],
+              title: currentGeneratedPdfFileName
+            }).catch(() => {});
+            return;
+          }
+        } catch (e) {}
+      }
+      shareDocViaMessenger();
+    }
+
+    function shareDocViaMessenger() {
+      const msg = document.getElementById('docResultText').value;
+      if (navigator.share) {
+        navigator.share({
+          title: 'شرکت مهر پخش کوهیج',
+          text: msg
+        }).catch(() => {});
+      } else {
+        copyDocTextToClipboard();
+      }
+    }
+
+    function copyDocTextToClipboard() {
+      const area = document.getElementById('docResultText');
+      area.select();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(area.value).then(() => {
+          alert('متن فاکتور در حافظه کپی شد! می‌توانید در ایتا، روبیکا یا واتساپ پیست کنید.');
+        });
+      } else {
+        document.execCommand('copy');
+        alert('متن فاکتور کپی شد.');
       }
     }
 
@@ -1789,71 +1838,18 @@
         alert('لطفاً حداقل یک کالا را انتخاب کنید.');
         return;
       }
-
-      const settings = DB.getSettings();
-      const allProducts = DB.get(DB_KEYS.PRODUCTS);
-      const todayJ = Jalali.fromGregorian(new Date());
-      const dateStr = `${todayJ.jy}/${todayJ.jm}/${todayJ.jd}`;
-
-      let msg = '';
-      if (currentExportMode === 'invoice') {
-        const custName = document.getElementById('invCustomerName').value.trim() || 'مشتری گرامی';
-        const custPhone = document.getElementById('invCustomerPhone').value.trim();
-        msg += `🧾 *پیش‌فاکتور فروش و سفارش کالا*\n`;
-        msg += `🏢 *${settings.companyName || 'مهر پخش کوهیج'}*\n`;
-        msg += `👤 خریدار: ${custName}\n`;
-        if (custPhone) msg += `📞 تماس خریدار: ${custPhone}\n`;
-        msg += `📅 تاریخ: ${dateStr}\n`;
-        msg += `------------------------------------\n`;
-
-        let total = 0;
-        let idx = 1;
-        selectedBoxes.forEach(cb => {
-          const p = allProducts.find(x => x.id === cb.value);
-          if (!p) return;
-          const qtyInput = document.querySelector(`.export-prod-qty[data-id="${p.id}"]`);
-          const qty = qtyInput ? parseInt(qtyInput.value) || 1 : 1;
-          const line = p.price * qty;
-          total += line;
-          msg += `${idx++}. *${p.name}* (${p.company})\n`;
-          msg += `   ▫️ تعداد: ${qty} | فی: ${Number(p.price).toLocaleString('fa-IR')} ت\n`;
-          msg += `   ▫️ مبلغ: ${Number(line).toLocaleString('fa-IR')} تومان\n`;
-        });
-
-        msg += `------------------------------------\n`;
-        msg += `💰 *جمع کل سفارش: ${Number(total).toLocaleString('fa-IR')} تومان*\n`;
-        msg += `------------------------------------\n`;
-        if (settings.phone) msg += `📞 سفارشات: ${settings.phone}\n`;
-        if (settings.address) msg += `📍 نشانی: ${settings.address}\n`;
-      } else {
-        msg += `📦 *لیست قیمت و کاتالوگ محصولات*\n`;
-        msg += `🏢 *${settings.companyName || 'مهر پخش کوهیج'}*\n`;
-        msg += `📅 تاریخ: ${dateStr}\n`;
-        msg += `------------------------------------\n`;
-        let idx = 1;
-        selectedBoxes.forEach(cb => {
-          const p = allProducts.find(x => x.id === cb.value);
-          if (!p) return;
-          msg += `${idx++}. *${p.name}* (${p.company})\n`;
-          msg += `   ▫️ قیمت: ${Number(p.price).toLocaleString('fa-IR')} تومان\n`;
-        });
-        msg += `------------------------------------\n`;
-        if (settings.phone) msg += `📞 تلفن سفارشات: ${settings.phone}\n`;
-      }
-
+      const msg = buildInvoiceTextMessage();
       if (navigator.share) {
         navigator.share({
-          title: settings.companyName || 'مهر پخش کوهیج',
+          title: 'مهر پخش کوهیج',
           text: msg
         }).catch(() => {});
+      } else if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(msg).then(() => {
+          alert('متن فاکتور کپی شد! می‌توانید در ایتا یا روبیکا ارسال کنید.');
+        });
       } else {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(msg).then(() => {
-            alert('متن فاکتور در حافظه کپی شد! در پیام‌رسان پیست کنید.');
-          });
-        } else {
-          alert('متن آماده شد:\n\n' + msg);
-        }
+        alert(msg);
       }
     }
 
@@ -1863,6 +1859,78 @@
 
     function importMKPFile(event) {
       importFullBackup(event);
+    }
+
+    function openBackupCenterModal() {
+      const fullBackup = {
+        app: 'MEHR_PAK_KOUHIJ',
+        backupDate: new Date().toISOString(),
+        products: DB.get(DB_KEYS.PRODUCTS),
+        categories: DB.get(DB_KEYS.CATEGORIES),
+        settings: DB.getSettings()
+      };
+      const jsonText = JSON.stringify(fullBackup, null, 2);
+      document.getElementById('backupDataArea').value = jsonText;
+      document.getElementById('backupCenterModal').classList.add('active');
+    }
+
+    function triggerNativeShareBackup() {
+      const jsonText = document.getElementById('backupDataArea').value;
+      const fileName = `MehrPakhsh_Backup_${Date.now()}.json`;
+
+      try {
+        const file = new File([jsonText], fileName, { type: 'application/json' });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          navigator.share({
+            files: [file],
+            title: 'فایل پشتیبان انبار مهر پخش کوهیج'
+          }).catch(() => {});
+          return;
+        }
+      } catch (e) {}
+
+      if (navigator.share) {
+        navigator.share({
+          title: fileName,
+          text: jsonText
+        }).catch(() => {});
+      } else {
+        copyBackupToClipboard();
+      }
+    }
+
+    function copyBackupToClipboard() {
+      const area = document.getElementById('backupDataArea');
+      area.select();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(area.value).then(() => {
+          alert('کد پشتیبان با موفقیت کپی شد! می‌توانید در پیام‌رسان‌ها ذخیره کنید.');
+        });
+      } else {
+        document.execCommand('copy');
+        alert('کد پشتیبان کپی شد.');
+      }
+    }
+
+    function restoreFromPastedText() {
+      const text = document.getElementById('backupDataArea').value.trim();
+      if (!text) {
+        alert('لطفاً متن پشتیبان را داخل کادر وارد کنید.');
+        return;
+      }
+      try {
+        const d = JSON.parse(text);
+        if (confirm(`فایل پشتیبان حاوی ${(d.products || []).length} قلم کالا یافت شد. جایگزین شود؟`)) {
+          if (d.products) DB.set(DB_KEYS.PRODUCTS, d.products);
+          if (d.categories) DB.set(DB_KEYS.CATEGORIES, d.categories);
+          if (d.settings) DB.setSettings(d.settings);
+          alert('اطلاعات با موفقیت بازخوانی شد.');
+          closeModal('backupCenterModal');
+          renderDashboard();
+        }
+      } catch (e) {
+        alert('قالب متن معتبر نیست.');
+      }
     }
 
     function renderSettingsSection() {
@@ -1943,6 +2011,9 @@
     window.setExportMode = setExportMode;
     window.toggleSelectAllExport = toggleSelectAllExport;
     window.downloadDirectPdf = downloadDirectPdf;
+    window.shareDocPdfFile = shareDocPdfFile;
+    window.shareDocViaMessenger = shareDocViaMessenger;
+    window.copyDocTextToClipboard = copyDocTextToClipboard;
     window.shareDirectToMessenger = shareDirectToMessenger;
     window.generateMKPFile = generateMKPFile;
     window.importMKPFile = importMKPFile;
