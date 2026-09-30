@@ -398,18 +398,18 @@
     }
 
     /* ========================================================
-       طراحی لوکس، نرم و باکیفیت سند کاتالوگ (A4 High-Res)
+       طراحی تمام‌صفحه پوستری (یک محصول در هر برگه A4)
        ======================================================== */
     #pdf-printable-area {
       display: none;
       background: #ffffff !important;
       color: #0f172a !important;
-      width: 794px !important;
-      max-width: 794px !important;
-      margin: 0 auto;
-      padding: 28px 24px;
+      width: 700px !important;
+      max-width: 700px !important;
+      margin: 0 auto !important;
+      padding: 0 !important;
       direction: rtl !important;
-      box-sizing: border-box;
+      box-sizing: border-box !important;
     }
 
     #pdf-printable-area, #pdf-printable-area * {
@@ -419,75 +419,103 @@
       -webkit-font-smoothing: antialiased !important;
     }
 
-    .pdf-header-container {
-      border: 1.5px solid #cbd5e1;
-      border-radius: 14px;
-      padding: 16px 20px;
-      margin-bottom: 22px;
-      background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+    /* هر صفحه محصول مجزا و مستقل */
+    .pdf-poster-page {
+      width: 700px;
+      min-height: 980px;
+      box-sizing: border-box;
+      page-break-after: always;
       display: flex;
+      flex-direction: column;
       justify-content: space-between;
-      align-items: center;
+      padding: 24px 20px;
+      margin-bottom: 20px;
+      background: #ffffff;
       position: relative;
     }
-    .pdf-header-container::before {
-      content: '';
-      position: absolute;
-      top: 0; right: 0; left: 0;
-      height: 4.5px;
-      background: linear-gradient(90deg, #1e3a8a 0%, #2563eb 50%, #0d9488 100%);
-      border-top-left-radius: 14px;
-      border-top-right-radius: 14px;
+    .pdf-poster-page:last-child {
+      page-break-after: auto;
     }
 
-    .pdf-category-block {
-      margin-bottom: 24px;
-      page-break-inside: avoid;
-    }
-
-    .pdf-category-title {
-      background: linear-gradient(90deg, #1e3a8a 0%, #1e40af 100%);
-      color: #ffffff !important;
-      padding: 10px 18px;
-      font-size: 15.5px;
-      font-weight: 800;
-      border-radius: 10px;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .pdf-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-    }
-
-    /* کادر فوق‌العاده لطیف، گرد و برجسته محصولات */
-    .pdf-card {
-      border: 1.5px solid #e2e8f0;
+    /* سربرگ لوکس بالای هر صفحه */
+    .pdf-header-wrapper {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      color: #ffffff;
       border-radius: 16px;
-      padding: 14px;
+      padding: 16px 20px;
+      margin-bottom: 16px;
       display: flex;
-      gap: 14px;
-      page-break-inside: avoid;
-      background: #ffffff;
+      justify-content: space-between;
       align-items: center;
-      min-height: 155px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      box-shadow: 0 4px 14px rgba(30, 58, 138, 0.15);
+      border: 2px solid #3b82f6;
     }
 
-    /* ابعاد بسیار بزرگ ۱۳۰ در ۱۳۰ برای عکس کالا */
-    .pdf-card-img {
-      width: 130px;
-      height: 130px;
-      min-width: 130px;
-      object-fit: cover;
-      border-radius: 12px;
+    /* قاب مرکزی تصویر بسیار بزرگ ۳۸۰ پیکسل */
+    .poster-image-box {
+      width: 100%;
+      height: 380px;
       background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      box-shadow: inset 0 0 4px rgba(0,0,0,0.04);
+      border: 2px solid #e2e8f0;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin-bottom: 18px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    }
+    .poster-image {
+      max-width: 94%;
+      max-height: 360px;
+      object-fit: contain;
+      border-radius: 12px;
+    }
+
+    /* باکس اطلاعات کالا در پایین پوستر */
+    .poster-details-box {
+      background: #ffffff;
+      border: 2px solid #cbd5e1;
+      border-radius: 18px;
+      padding: 18px 22px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
+
+    .poster-title {
+      font-size: 24px;
+      font-weight: 900;
+      color: #0f172a;
+      line-height: 1.35;
+      margin-bottom: 10px;
+    }
+
+    .poster-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+      font-size: 13px;
+    }
+
+    .poster-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-weight: 700;
+    }
+
+    .poster-price-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+      color: #ffffff;
+      font-weight: 900;
+      font-size: 20px;
+      padding: 8px 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
     }
 
     .invoice-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px; }
@@ -652,7 +680,7 @@
         </div>
 
         <div class="export-mode-tabs">
-          <button type="button" class="export-tab-btn active" id="tabModeCatalog" onclick="setExportMode('catalog')">🖼 کاتالوگ رسمی کالا</button>
+          <button type="button" class="export-tab-btn active" id="tabModeCatalog" onclick="setExportMode('catalog')">🖼 کاتالوگ پوستر تک‌محصولی</button>
           <button type="button" class="export-tab-btn" id="tabModeInvoice" onclick="setExportMode('invoice')">🧾 پیش‌فاکتور / سفارش</button>
         </div>
 
@@ -670,10 +698,10 @@
         </div>
 
         <div id="catalogOptionsBox" class="form-group">
-          <label><b>گزینه‌های کاتالوگ:</b></label>
+          <label><b>تنظیمات کاتالوگ:</b></label>
           <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 11.5px; margin-top: 4px;">
             <label><input type="checkbox" id="pdfOptHideUnavailable" checked> حذف خودکار ناموجودها</label>
-            <label><input type="checkbox" id="pdfOptShowImage" checked> نمایش عکس کالا</label>
+            <label><input type="checkbox" id="pdfOptShowImage" checked> نمایش عکس بزرگ کالا</label>
             <label><input type="checkbox" id="pdfOptShowPrice" checked> نمایش قیمت مصرف‌کننده</label>
             <label><input type="checkbox" id="pdfOptShowCompany" checked> نمایش نام تولیدکننده</label>
           </div>
@@ -701,7 +729,7 @@
         <div id="exportProductsChecklist" style="max-height: 260px; overflow-y: auto; border: 1px solid var(--border); border-radius: 8px; padding: 6px; margin-bottom: 10px;"></div>
 
         <div id="invoiceTotalPreview" style="display:none; text-align: left; margin-bottom: 12px; font-size: 13.5px; font-weight: bold; color: var(--primary);">
-          جمع کل پیش‌فاکتور: <span id="invTotalAmount">۰</span> تومان
+          جمع کل پیش‌‌فاکتور: <span id="invTotalAmount">۰</span> تومان
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 8px;">
@@ -950,36 +978,7 @@
 
   <!-- سند قابل تبدیل به فایل PDF -->
   <div id="pdf-printable-area">
-    <!-- سربرگ مدرن، رسمی و شکیل کاتالوگ -->
-    <div class="pdf-header-container">
-      <div style="flex: 1.2;">
-        <div style="font-size: 11px; color: #64748b; font-weight: 600; margin-bottom: 2px;">سامانه جامع پخش و توزیع مویرگی</div>
-        <h1 id="pdfHeaderComp" style="color: #1e3a8a; font-size: 24px; font-weight: 900; margin-bottom: 4px;">مهر پخش کوهیج</h1>
-        <div id="pdfDocTypeTitle" style="font-size: 13.5px; font-weight: 700; color: #0d9488;">کاتالوگ رسمی معرفی و پخش محصولات</div>
-        <div id="pdfHeaderNote" style="font-size: 11px; color: #475569; margin-top: 5px; font-weight: 600;"></div>
-      </div>
-
-      <div style="display: flex; align-items: center; gap: 14px; text-align: left;">
-        <div id="pdfHeaderLogoContainer"></div>
-        <div style="border-right: 1.5px solid #e2e8f0; padding-right: 14px; font-size: 11.5px; line-height: 1.7; color: #334155;">
-          <div><b style="color: #1e3a8a;">تاریخ صدور:</b> <span id="pdfHeaderDate" style="font-weight: 700;"></span></div>
-          <div><b style="color: #1e3a8a;">تلفن تماس:</b> <span id="pdfHeaderPhone" style="font-weight: 700;"></span></div>
-          <div style="font-size: 10.5px; color: #64748b;" id="pdfHeaderAddress"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- بدنه محصولات کاتالوگ -->
     <div id="pdfContentContainer"></div>
-
-    <!-- فوتر رسمی کاتالوگ -->
-    <div style="border-top: 1.5px dashed #cbd5e1; padding-top: 14px; margin-top: 30px; display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; color: #475569;">
-      <div id="pdfFooterNote" style="font-weight: 600;"></div>
-      <div style="display: flex; align-items: center; gap: 8px;">
-        <span style="font-weight: 800; color: #1e3a8a;">شرکت مهر پخش کوهیج</span>
-        <span>(مهر و امضای امور فروش)</span>
-      </div>
-    </div>
   </div>
 
   <script>
@@ -1321,6 +1320,7 @@
       }
     }
 
+    /* ذخیره با حداکثر کیفیت تصویر تا ۱۶۰۰ پیکسل بدون تاری */
     function previewAndCompressImage(e) {
       const file = e.target.files[0];
       if (!file) return;
@@ -1330,7 +1330,7 @@
         const img = new Image();
         img.onload = function() {
           const canvas = document.createElement('canvas');
-          const maxDim = 700;
+          const maxDim = 1600; // ابعاد بسیار شارپ برای چاپ
           let w = img.width;
           let h = img.height;
 
@@ -1347,9 +1347,9 @@
           const ctx = canvas.getContext('2d');
           ctx.drawImage(img, 0, 0, w, h);
 
-          const compressedBase64 = canvas.toDataURL('image/jpeg', 0.85);
+          const compressedBase64 = canvas.toDataURL('image/jpeg', 0.95);
           document.getElementById('pmImageBase64').value = compressedBase64;
-          document.getElementById('pmImagePreview').innerHTML = `<img src="${compressedBase64}" style="max-height:80px; border-radius:6px;">`;
+          document.getElementById('pmImagePreview').innerHTML = `<img src="${compressedBase64}" style="max-height:85px; border-radius:6px;">`;
         };
         img.src = evt.target.result;
       };
@@ -1378,7 +1378,7 @@
 
         if (p.image) {
           document.getElementById('pmImageBase64').value = p.image;
-          document.getElementById('pmImagePreview').innerHTML = `<img src="${p.image}" style="max-height:80px; border-radius:6px;">`;
+          document.getElementById('pmImagePreview').innerHTML = `<img src="${p.image}" style="max-height:85px; border-radius:6px;">`;
         }
 
         initJalaliDateDropdowns(p.expiry.jy, p.expiry.jm, p.expiry.jd);
@@ -1603,7 +1603,7 @@
       document.getElementById('invTotalAmount').innerText = Number(total).toLocaleString('fa-IR');
     }
 
-    // طراحی چشم‌نواز و کادر لطیف کاتالوگ با تصویر بزرگ ۱۳۰ پیکسل
+    /* تولید خروجی کاتالوگ پوستر تمام‌صفحه برای هر محصول */
     function preparePrintableContent() {
       const selectedBoxes = Array.from(document.querySelectorAll('.export-prod-cb:checked'));
       if (selectedBoxes.length === 0) {
@@ -1623,89 +1623,155 @@
 
       const allProducts = DB.get(DB_KEYS.PRODUCTS);
       const categories = DB.get(DB_KEYS.CATEGORIES);
+      const catMap = {};
+      categories.forEach(c => catMap[c.id] = c.name);
+
       const settings = DB.getSettings();
       const todayJ = Jalali.today();
-
-      document.getElementById('pdfHeaderComp').innerText = settings.companyName || 'مهر پخش کوهیج';
-      document.getElementById('pdfHeaderDate').innerText = `${todayJ.jy}/${todayJ.jm}/${todayJ.jd}`;
-      document.getElementById('pdfHeaderPhone').innerText = settings.phone || '۰۹۱۲۳۴۵۶۷۸۹';
-      document.getElementById('pdfHeaderAddress').innerText = settings.address || '';
-      document.getElementById('pdfHeaderNote').innerText = document.getElementById('pdfCustomHeaderNote').value.trim();
-      document.getElementById('pdfFooterNote').innerText = document.getElementById('pdfCustomFooterNote').value.trim();
-
-      const logoCont = document.getElementById('pdfHeaderLogoContainer');
-      logoCont.innerHTML = settings.logoBase64 ? `<img src="${settings.logoBase64}" style="max-height:60px; border-radius:10px;">` : '';
+      const dateStr = `${todayJ.jy}/${todayJ.jm}/${todayJ.jd}`;
+      const headerNote = document.getElementById('pdfCustomHeaderNote').value.trim();
+      const footerNote = document.getElementById('pdfCustomFooterNote').value.trim();
 
       const pdfContent = document.getElementById('pdfContentContainer');
       pdfContent.innerHTML = '';
 
       if (currentExportMode === 'catalog') {
-        document.getElementById('pdfDocTypeTitle').innerText = 'کاتالوگ رسمی معرفی و پخش محصولات';
         const showImage = document.getElementById('pdfOptShowImage').checked;
         const showPrice = document.getElementById('pdfOptShowPrice').checked;
         const showCompany = document.getElementById('pdfOptShowCompany').checked;
 
-        categories.forEach(cat => {
-          const catProds = allProducts.filter(p => selectedIds.includes(p.id) && p.categoryId === cat.id);
-          if (catProds.length === 0) return;
+        selectedIds.forEach((id, index) => {
+          const p = allProducts.find(x => x.id === id);
+          if (!p) return;
 
-          let blockHtml = `
-            <div class="pdf-category-block">
-              <div class="pdf-category-title">
-                <span>📁 دسته‌بندی: ${cat.name}</span>
-                <span style="font-size:12px; font-weight:normal; opacity:0.9;">(${catProds.length} قلم کالا)</span>
-              </div>
-              <div class="pdf-grid">
-          `;
+          const catName = catMap[p.categoryId] || 'دسته‌بندی عمومی';
+          const logoTag = settings.logoBase64 ? `<img src="${settings.logoBase64}" style="max-height:50px; border-radius:10px;">` : '';
 
-          catProds.forEach(p => {
-            blockHtml += `
-              <div class="pdf-card">
-                ${(showImage && p.image) ? `<img src="${p.image}" class="pdf-card-img">` : '<div class="pdf-card-img" style="display:flex;align-items:center;justify-content:center;color:#94a3b8;font-size:12px;font-weight:bold;">فاقد تصویر</div>'}
-                <div style="flex:1; min-width:0; display:flex; flex-direction:column; justify-content:space-between; height:130px;">
-                  <div>
-                    <div style="font-weight:900; font-size:16.5px; color:#0f172a; margin-bottom:5px; line-height:1.35;">${p.name}</div>
-                    ${showCompany ? `<div style="color:#64748b; font-size:12.5px; margin-bottom:4px;">برند: <b style="color:#1e293b;">${p.company}</b></div>` : ''}
-                    ${(p.code) ? `<div style="color:#94a3b8; font-size:11px; margin-bottom:4px;">کد انبار: ${p.code}</div>` : ''}
-                    ${p.description ? `<div style="font-size:11px; color:#475569; margin-top:3px; line-height:1.4;">${p.description}</div>` : ''}
+          let pageHtml = `
+            <div class="pdf-poster-page">
+              <!-- سربرگ اختصاصی هر صفحه -->
+              <div class="pdf-header-wrapper">
+                <div style="flex: 1.3;">
+                  <div style="display: inline-block; background: #fbbf24; color: #0f172a; font-size: 11px; font-weight: 900; padding: 2px 10px; border-radius: 6px; margin-bottom: 5px;">
+                    مرکز تخصصی پخش و توزیع مویرگی
                   </div>
-                  ${showPrice ? `
-                    <div style="margin-top:auto;">
-                      <span style="display:inline-block; background:linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border:1.5px solid #3b82f6; color:#1e3a8a; font-weight:900; font-size:14.5px; padding:4px 12px; border-radius:8px;">
-                        ${Number(p.price).toLocaleString('fa-IR')} تومان
-                      </span>
-                    </div>
-                  ` : ''}
+                  <h1 style="font-size: 24px; font-weight: 900; margin-bottom: 3px;">
+                    ${settings.companyName || 'مهر پخش کوهیج'}
+                  </h1>
+                  <div style="font-size: 13px; font-weight: 700; color: #38bdf8;">
+                    کاتالوگ رسمی معرفی کالا (برگه ${index + 1} از ${selectedIds.length})
+                  </div>
+                  ${headerNote ? `<div style="font-size: 11px; color: #cbd5e1; margin-top: 3px;">${headerNote}</div>` : ''}
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  ${logoTag}
+                  <div style="background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 12px; padding: 6px 14px; font-size: 11.5px; line-height: 1.8;">
+                    <div><b style="color: #fbbf24;">📅 تاریخ:</b> <span style="font-weight: 800;">${dateStr}</span></div>
+                    <div><b style="color: #38bdf8;">📞 سفارشات:</b> <span style="font-weight: 800;">${settings.phone || '۰۹۱۲۳۴۵۶۷۸۹'}</span></div>
+                    ${settings.address ? `<div style="font-size: 10px; color: #e2e8f0;">${settings.address}</div>` : ''}
+                  </div>
                 </div>
               </div>
-            `;
-          });
 
-          blockHtml += `</div></div>`;
-          pdfContent.innerHTML += blockHtml;
+              <!-- قاب تصویر بزرگ در مرکز صفحه -->
+              <div class="poster-image-box">
+                ${(showImage && p.image) 
+                  ? `<img src="${p.image}" class="poster-image">` 
+                  : '<div style="color: #94a3b8; font-size: 18px; font-weight: bold;">تصویر برای این محصول بارگذاری نشده است</div>'}
+              </div>
+
+              <!-- مشخصات و پلاک قیمت کالا در پایین صفحه -->
+              <div class="poster-details-box">
+                <div class="poster-meta-row">
+                  <span class="poster-badge" style="background:#e0f2fe; color:#0369a1; font-size:12px;">
+                    📁 دسته‌بندی: ${catName}
+                  </span>
+                  ${(showCompany && p.company) ? `
+                    <span class="poster-badge" style="background:#f1f5f9; color:#1e293b; font-size:12px;">
+                      🏢 تولیدکننده / برند: ${p.company}
+                    </span>
+                  ` : ''}
+                  ${(p.code) ? `
+                    <span class="poster-badge" style="background:#fef3c7; color:#92400e; font-size:12px;">
+                      🏷 کد انبار: ${p.code}
+                    </span>
+                  ` : ''}
+                  <span class="poster-badge" style="background:${p.status === 'available' ? '#dcfce7' : '#fee2e2'}; color:${p.status === 'available' ? '#15803d' : '#b91c1c'}; font-size:12px;">
+                    ${p.status === 'available' ? '✅ وضعیت: موجود در انبار' : '❌ ناموجود'}
+                  </span>
+                </div>
+
+                <div class="poster-title">${p.name}</div>
+
+                ${p.description ? `
+                  <div style="font-size: 13px; color: #475569; margin-bottom: 16px; line-height: 1.6; background: #f8fafc; padding: 10px 14px; border-radius: 10px; border: 1px solid #e2e8f0;">
+                    <b>توضیحات و مشخصات بسته:</b> ${p.description}
+                  </div>
+                ` : ''}
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                  <div>
+                    <div style="font-size: 12px; color: #64748b; font-weight: bold; margin-bottom: 4px;">قیمت مصوب مصرف‌کننده:</div>
+                    ${showPrice ? `
+                      <span class="poster-price-badge">
+                        ${Number(p.price).toLocaleString('fa-IR')} تومان
+                      </span>
+                    ` : '<span style="font-size:14px; font-weight:bold; color:#64748b;">استعلام تلفنی</span>'}
+                  </div>
+                  <div style="text-align: left; font-size: 11px; color: #64748b;">
+                    تاریخ اعتبار استعلام: ۳ روز کاری
+                  </div>
+                </div>
+              </div>
+
+              <!-- پاورقی رسمی صفحه -->
+              <div style="border-top: 1.5px dashed #94a3b8; padding-top: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; color: #475569;">
+                <div>${footerNote || 'تحویل سفارشات در سریع‌ترین زمان ممکن در محل فروشگاه'}</div>
+                <div style="font-weight: 800; color: #1e3a8a;">
+                  شرکت مهر پخش کوهیج (مهر و امضای امور فروش)
+                </div>
+              </div>
+            </div>
+          `;
+
+          pdfContent.innerHTML += pageHtml;
         });
 
       } else {
+        // حالت پیش‌فاکتور (جدول فشرده استاندارد)
         const custName = document.getElementById('invCustomerName').value.trim() || 'مشتری گرامی';
         const custPhone = document.getElementById('invCustomerPhone').value.trim();
-        document.getElementById('pdfDocTypeTitle').innerText = `پیش‌فاکتور فروش و ثبت سفارش (${custName})`;
 
         let tableHtml = `
-          <div style="margin-bottom: 14px; font-size: 13px; background:#f8fafc; padding:10px 14px; border-radius:10px; border:1.5px solid #cbd5e1;">
-            <b>خریدار / نام فروشگاه:</b> ${custName} ${custPhone ? `| <b>شماره تماس:</b> ${custPhone}` : ''}
-          </div>
-          <table class="invoice-table">
-            <thead>
-              <tr>
-                <th style="width:35px;">#</th>
-                <th>شرح و نام کالا</th>
-                <th>برند / تولیدکننده</th>
-                <th style="width:65px;">تعداد</th>
-                <th>قیمت واحد (تومان)</th>
-                <th>مبلغ کل (تومان)</th>
-              </tr>
-            </thead>
-            <tbody>
+          <div style="padding: 20px 14px;">
+            <div class="pdf-header-wrapper">
+              <div>
+                <h1 style="font-size: 24px; font-weight: 900; margin-bottom: 4px;">${settings.companyName || 'مهر پخش کوهیج'}</h1>
+                <div style="font-size: 13.5px; font-weight: 700; color: #38bdf8;">پیش‌فاکتور رسمی فروش و سفارش کالا</div>
+              </div>
+              <div style="text-align: left; font-size: 12px; line-height: 1.8;">
+                <div><b>تاریخ:</b> ${dateStr}</div>
+                <div><b>تماس:</b> ${settings.phone || '۰۹۱۲۳۴۵۶۷۸۹'}</div>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 14px; font-size: 13px; background:#f8fafc; padding:10px 14px; border-radius:10px; border:1.5px solid #cbd5e1;">
+              <b>خریدار / نام فروشگاه:</b> ${custName} ${custPhone ? `| <b>شماره تماس:</b> ${custPhone}` : ''}
+            </div>
+
+            <table class="invoice-table">
+              <thead>
+                <tr>
+                  <th style="width:35px;">#</th>
+                  <th>شرح و نام کالا</th>
+                  <th>برند / تولیدکننده</th>
+                  <th style="width:65px;">تعداد</th>
+                  <th>قیمت واحد (تومان)</th>
+                  <th>مبلغ کل (تومان)</th>
+                </tr>
+              </thead>
+              <tbody>
         `;
 
         let rowIdx = 1;
@@ -1732,14 +1798,22 @@
         });
 
         tableHtml += `
-            </tbody>
-            <tfoot>
-              <tr style="background:#f1f5f9; font-weight:bold;">
-                <td colspan="5" style="text-align:left; padding-left:14px; font-size:14px;">مبلغ کل فاکتور:</td>
-                <td style="color:#1e3a8a; font-size:15px; font-weight:900;">${Number(invoiceSum).toLocaleString('fa-IR')} تومان</td>
-              </tr>
-            </tfoot>
-          </table>
+              </tbody>
+              <tfoot>
+                <tr style="background:#f1f5f9; font-weight:bold;">
+                  <td colspan="5" style="text-align:left; padding-left:14px; font-size:14px;">مبلغ کل فاکتور:</td>
+                  <td style="color:#1e3a8a; font-size:15px; font-weight:900;">${Number(invoiceSum).toLocaleString('fa-IR')} تومان</td>
+                </tr>
+              </tfoot>
+            </table>
+
+            <div style="border-top: 2px dashed #94a3b8; padding-top: 14px; margin-top: 28px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #334155;">
+              <div>${footerNote || 'سفارش ثبت‌شده آماده ارسال به آدرس مشتری می‌باشد.'}</div>
+              <div style="font-weight: 800; color: #1e3a8a;">
+                شرکت مهر پخش کوهیج (مهر و امضای امور فروش)
+              </div>
+            </div>
+          </div>
         `;
 
         pdfContent.innerHTML = tableHtml;
@@ -1748,13 +1822,12 @@
       return true;
     }
 
-    // رندر فوق‌العاده باکیفیت 300DPI بدون افت کیفیت و کشیدگی در موبایل
     function generateAndOpenRealPdf(isShareAction) {
       if (!preparePrintableContent()) return;
 
       const btn = isShareAction ? document.getElementById('btnShareMessenger') : document.getElementById('btnDownloadPdf');
       const originalText = btn.innerHTML;
-      btn.innerHTML = '⏳ در حال ساخت کاتالوگ باکیفیت چاپ...';
+      btn.innerHTML = '⏳ در حال ساخت پوستر باکیفیت...';
       btn.disabled = true;
 
       const element = document.getElementById('pdf-printable-area');
@@ -1765,18 +1838,18 @@
         : `MehrPakhsh_Invoice_${Date.now()}.pdf`;
 
       const opt = {
-        margin: [6, 6, 6, 6],
+        margin: [4, 4, 4, 4],
         filename: fileName,
         image: { type: 'jpeg', quality: 1.0 },
         html2canvas: { 
-          scale: 3, // رزولوشن ۳۰۰ دی‌پی‌آی واقعی
-          width: 794, // قفل روی عرض استاندارد A4 (جلوگیری از مات شدن در موبایل)
-          windowWidth: 794,
+          scale: 2.5,
           useCORS: true,
           letterRendering: false,
-          logging: false
+          scrollY: 0,
+          scrollX: 0
         },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true }
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
+        pagebreak: { mode: ['css', 'legacy'] }
       };
 
       if (!window.html2pdf) {
