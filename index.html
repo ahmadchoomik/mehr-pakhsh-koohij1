@@ -469,13 +469,13 @@
       align-items: center;
     }
     .cover-logo-img {
-      max-height: 120px;
-      max-width: 220px;
+      max-height: 110px;
+      max-width: 200px;
       object-fit: contain;
-      border-radius: 14px;
-      padding: 6px;
+      border-radius: 12px;
+      padding: 4px;
       background: #ffffff;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
       border: 1.5px solid #e2e8f0;
     }
 
@@ -765,7 +765,7 @@
           <div style="font-size: 12.5px; font-weight: 600;" id="checklistTitleLabel">اقلام مورد نظر را انتخاب کنید:</div>
           <div>
             <button class="btn btn-sm btn-secondary" onclick="toggleSelectAllExport(true)">همه</button>
-            <button class="btn btn-sm btn-secondary" onclick="toggleSelectAllExport(false)">هیچ‌کدام</button>
+            <button class="btn btn-sm btn-secondary" onclick="toggleSelectAllExport(false)">هیچ‌‌کدام</button>
           </div>
         </div>
 
@@ -816,6 +816,7 @@
         <div class="form-group">
           <label>لوگوی شرکت</label>
           <input type="file" id="setCompanyLogoFile" accept="image/*" class="form-control" onchange="handleLogoUpload(event)">
+          <div id="setLogoPreview" style="margin-top: 6px; text-align: center;"></div>
         </div>
         <button class="btn btn-primary btn-sm" onclick="saveCompanySettings()">ذخیره اطلاعات شرکت</button>
       </div>
@@ -891,7 +892,7 @@
       </div>
 
       <div style="font-size:11.5px; color:var(--text-muted); line-height:1.6; background:#f8fafc; padding:10px; border-radius:8px; border:1px solid var(--border);">
-        💡 با خیال راحت هر تعداد کالا (۱۰۰ کالا یا بیشتر) را وارد کنید. با دکمه بالا یک فایل کوچک پشتیبان در گوشی ذخیره می‌شود تا هنگام تعویض نسخه برنامه، با یک کلیک همه چیز برگردد.
+        💡 با خیال راحت تا ۱۰۰ کالا یا بیشتر را وارد کنید. با دکمه بالا فایل پشتیبان مستقیماً در گوشی ذخیره یا ارسال می‌شود.
       </div>
     </div>
   </div>
@@ -1241,7 +1242,7 @@
       const modalSelect = document.getElementById('pmCategory');
 
       filterSelect.innerHTML = '<option value="">همه دسته‌ها</option>';
-      modalSelect.innerHTML = '<option value="">-- انتخاب دسته‌بندی --</option>';
+      modalSelect.innerHTML = '<option value="">-- انتخاب دسته‌‌بندی --</option>';
 
       categories.forEach(c => {
         filterSelect.innerHTML += `<option value="${c.id}">${c.name}</option>`;
@@ -1363,7 +1364,7 @@
         const img = new Image();
         img.onload = function() {
           const canvas = document.createElement('canvas');
-          const maxDim = 500;
+          const maxDim = 450;
           let w = img.width;
           let h = img.height;
 
@@ -1380,7 +1381,7 @@
           const ctx = canvas.getContext('2d');
           ctx.drawImage(img, 0, 0, w, h);
 
-          const compressedBase64 = canvas.toDataURL('image/jpeg', 0.6);
+          const compressedBase64 = canvas.toDataURL('image/jpeg', 0.55);
           document.getElementById('pmImageBase64').value = compressedBase64;
           document.getElementById('pmImagePreview').innerHTML = `<img src="${compressedBase64}" style="max-height:85px; border-radius:6px;">`;
         };
@@ -1486,7 +1487,7 @@
         ${p.image ? `<div style="text-align:center; margin-bottom:10px;"><img src="${p.image}" style="max-height:150px; border-radius:8px;"></div>` : ''}
         <div><b>کد کالا:</b> ${p.code || 'ندارد'}</div>
         <div><b>تولیدکننده / برند:</b> ${p.company}</div>
-        <div><b>دسته‌بندی:</b> ${c ? c.name : 'نامشخص'}</div>
+        <div><b>دسته‌‌بندی:</b> ${c ? c.name : 'نامشخص'}</div>
         <div><b>قیمت مصرف‌کننده:</b> ${Number(p.price).toLocaleString('fa-IR')} تومان</div>
         <div><b>وضعیت انبار:</b> ${p.status === 'available' ? 'موجود' : 'ناموجود'}</div>
         <div><b>تاریخ انقضا:</b> ${p.expiry.jy}/${p.expiry.jm}/${p.expiry.jd} (${exp.label})</div>
@@ -1700,7 +1701,7 @@
 
                 <div style="width:100%; margin: 15px 0;">
                   <h1 class="cover-title" style="color:#dc2626;">لیست ترخیص سریع انقضا</h1>
-                  <div class="cover-subtitle">اقلام در آستانه فساد یا منقضی شده جهت تصمیم‌گیری فوری</div>
+                  <div class="cover-subtitle">اقلام در آستانه فساد یا منقضی شده جهت تصمیم‌‌گیری فوری</div>
                   <div class="cover-divider" style="background:linear-gradient(90deg, #dc2626 0%, #1e3a8a 100%);"></div>
                   <div style="font-size:13.5px; color:#475569; max-width:480px; margin:0 auto; line-height:1.6; font-weight:600;">
                     ${headerNote || 'این سند جهت اقدام واحد انبار برای تخفیف فوری، حراج یا مرجوعی کالاها صادر شده است.'}
@@ -1953,9 +1954,9 @@
       const opt = {
         margin: [0, 0, 0, 0],
         filename: fileName,
-        image: { type: 'jpeg', quality: 0.95 },
+        image: { type: 'jpeg', quality: 0.90 },
         html2canvas: { 
-          scale: 2.0,
+          scale: 1.8,
           useCORS: true,
           letterRendering: false,
           scrollY: 0,
@@ -2029,7 +2030,7 @@
           btn.disabled = false;
           alert('خطا در تولید فایل: ' + err.message);
         });
-      }, 300);
+      }, 400);
     }
 
     function generateMKPFile() {
@@ -2055,6 +2056,39 @@
       const jsonText = JSON.stringify(fullBackup, null, 2);
       const blob = new Blob([jsonText], { type: 'application/json' });
       const fileName = `MehrPakhsh_Backup_${Date.now()}.mkp`;
+
+      const Cap = window.Capacitor;
+      if (Cap && Cap.Plugins && Cap.Plugins.Filesystem && Cap.Plugins.Share) {
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onloadend = async function() {
+          try {
+            const base64Data = reader.result.split(',')[1];
+            const writeRes = await Cap.Plugins.Filesystem.writeFile({
+              path: fileName,
+              data: base64Data,
+              directory: 'DOCUMENTS'
+            });
+            await Cap.Plugins.Share.share({
+              title: 'فایل پشتیبان انبار',
+              url: writeRes.uri,
+              dialogTitle: 'ذخیره یا ارسال فایل پشتیبان MKP'
+            });
+            return;
+          } catch(e) {}
+        };
+      }
+
+      try {
+        const file = new File([blob], fileName, { type: 'application/json' });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          navigator.share({
+            files: [file],
+            title: 'فایل پشتیبان انبار مهر پخش'
+          }).catch(() => {});
+          return;
+        }
+      } catch (e) {}
 
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -2105,6 +2139,13 @@
       document.getElementById('setCompanyAddress').value = s.address || '';
       document.getElementById('setNearDays').value = s.nearDays || 30;
       document.getElementById('setVeryNearDays').value = s.veryNearDays || 20;
+
+      const logoPrev = document.getElementById('setLogoPreview');
+      if (s.logoBase64) {
+        logoPrev.innerHTML = `<img src="${s.logoBase64}" style="max-height:70px; border-radius:6px; border:1px solid #cbd5e1; padding:2px;">`;
+      } else {
+        logoPrev.innerHTML = '<span style="font-size:11px; color:#64748b;">هنوز لوگویی انتخاب نشده است</span>';
+      }
     }
 
     function handleLogoUpload(e) {
@@ -2112,10 +2153,31 @@
       if (!file) return;
       const reader = new FileReader();
       reader.onload = function(evt) {
-        const s = DB.getSettings();
-        s.logoBase64 = evt.target.result;
-        DB.setSettings(s);
-        renderSettingsSection();
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          const maxDim = 300;
+          let w = img.width;
+          let h = img.height;
+          if (w > h && w > maxDim) {
+            h = Math.round((h * maxDim) / w);
+            w = maxDim;
+          } else if (h > maxDim) {
+            w = Math.round((w * maxDim) / h);
+            h = maxDim;
+          }
+          canvas.width = w;
+          canvas.height = h;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+          const compressedLogo = canvas.toDataURL('image/jpeg', 0.8);
+
+          const s = DB.getSettings();
+          s.logoBase64 = compressedLogo;
+          DB.setSettings(s);
+          renderSettingsSection();
+        };
+        img.src = evt.target.result;
       };
       reader.readAsDataURL(file);
     }
@@ -2128,7 +2190,7 @@
       DB.setSettings(s);
       renderSettingsSection();
       renderDashboard();
-      alert('مشخصات شرکت ذخیره شد.');
+      alert('مشخصات شرکت و لوگو ذخیره شد.');
     }
 
     function saveExpirySettings() {
