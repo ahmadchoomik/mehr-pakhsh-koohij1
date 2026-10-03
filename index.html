@@ -753,11 +753,11 @@
         <div class="form-row">
           <div class="form-group">
             <label>متن بالای سند</label>
-            <input type="text" id="pdfCustomHeaderNote" class="form-control" placeholder="مثال: لیست ترخیص سریع اقلام رو به انقضا">
+            <input type="text" id="pdfCustomHeaderNote" class="form-control" placeholder="مثال: لیست کاتالوگ رسمی ۱۴۰۵">
           </div>
           <div class="form-group">
             <label>متن پایین سند</label>
-            <input type="text" id="pdfCustomFooterNote" class="form-control" placeholder="مثال: جهت تخفیف فوری یا مرجوعی">
+            <input type="text" id="pdfCustomFooterNote" class="form-control" placeholder="مثال: تحویل سریع در محل فروشگاه">
           </div>
         </div>
 
@@ -780,16 +780,16 @@
             <button class="btn btn-primary" id="btnDownloadPdf" style="flex: 1;" onclick="generateAndOpenRealPdf(false)">📥 باز کردن و ذخیره فایل PDF</button>
             <button class="btn btn-warning" id="btnShareMessenger" style="flex: 1;" onclick="generateAndOpenRealPdf(true)">📤 ارسال فایل PDF به پیام‌رسان</button>
           </div>
-          <button class="btn btn-success btn-block" onclick="generateMKPFile()">📦 ساخت بسته خروجی MKP</button>
+          <button class="btn btn-success btn-block" onclick="generateMKPFile()">📦 ساخت فایل پشتیبان MKP</button>
         </div>
       </div>
 
       <div class="card">
         <div class="card-header">
-          <div class="card-title">بازخوانی بسته MKP</div>
+          <div class="card-title">بازخوانی فایل پشتیبان MKP</div>
         </div>
         <input type="file" id="mkpFileInput" accept=".mkp,.json" style="display: none;" onchange="importMKPFile(event)">
-        <button class="btn btn-secondary btn-block" onclick="document.getElementById('mkpFileInput').click()">📂 انتخاب فایل MKP و بارگذاری</button>
+        <button class="btn btn-secondary btn-block" onclick="document.getElementById('mkpFileInput').click()">📂 انتخاب فایل پشتیبان و بارگذاری</button>
       </div>
     </section>
 
@@ -868,7 +868,7 @@
       اسناد/MKP
     </button>
     <button onclick="navigateTo('view-settings')" id="nav-view-settings">
-      <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62-.94l-2.39-.96c-.22-.08-.47 0-.59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
       تنظیمات
     </button>
   </nav>
@@ -881,23 +881,18 @@
         <button class="modal-close" onclick="closeModal('backupCenterModal')">&times;</button>
       </div>
 
-      <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:12px;">
-        <button class="btn btn-primary" onclick="triggerNativeShareBackup()">
-          📤 ذخیره فایل پشتیبان در گوشی / پیام‌رسان
+      <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:12px;">
+        <button class="btn btn-primary btn-block" onclick="downloadBackupFileDirectly()">
+          📥 دانلود مستقیم فایل پشتیبان (.mkp)
         </button>
-        <button class="btn btn-success" onclick="copyBackupToClipboardSecure()">
-          📋 کپی متن بکاپ در حافظه
+        <button class="btn btn-success btn-block" onclick="triggerNativeShareBackup()">
+          📤 ارسال فایل پشتیبان به پیام‌رسان
         </button>
       </div>
 
-      <div class="form-group">
-        <label>متن پشتیبان کامل انبار:</label>
-        <textarea id="backupDataArea" class="form-control" rows="5" style="font-size:11px; direction:ltr; text-align:left;" onclick="this.select();"></textarea>
+      <div style="font-size:11.5px; color:var(--text-muted); line-height:1.6; background:#f8fafc; padding:10px; border-radius:8px; border:1px solid var(--border);">
+        💡 با خیال راحت هر تعداد کالا (۱۰۰ کالا یا بیشتر) را وارد کنید. با دکمه بالا یک فایل کوچک پشتیبان در گوشی ذخیره می‌شود تا هنگام تعویض نسخه برنامه، با یک کلیک همه چیز برگردد.
       </div>
-
-      <button class="btn btn-secondary btn-block" onclick="restoreFromPastedText()">
-        🔄 بازگردانی اطلاعات از متن بالا
-      </button>
     </div>
   </div>
 
@@ -1368,7 +1363,7 @@
         const img = new Image();
         img.onload = function() {
           const canvas = document.createElement('canvas');
-          const maxDim = 600;
+          const maxDim = 500;
           let w = img.width;
           let h = img.height;
 
@@ -1385,7 +1380,7 @@
           const ctx = canvas.getContext('2d');
           ctx.drawImage(img, 0, 0, w, h);
 
-          const compressedBase64 = canvas.toDataURL('image/jpeg', 0.7);
+          const compressedBase64 = canvas.toDataURL('image/jpeg', 0.6);
           document.getElementById('pmImageBase64').value = compressedBase64;
           document.getElementById('pmImagePreview').innerHTML = `<img src="${compressedBase64}" style="max-height:85px; border-radius:6px;">`;
         };
@@ -1468,7 +1463,7 @@
         renderProductList();
         renderDashboard();
       } catch (err) {
-        alert('حجم اطلاعات و عکس‌ها بیش از حد مجاز انبار است. لطفاً عکس‌های کوچکتری انتخاب کنید.');
+        alert('حجم اطلاعات و عکس‌ها زیاد است. لطفاً عکس‌های فشرده‌تری انتخاب کنید.');
       }
     }
 
@@ -1537,7 +1532,7 @@
         document.getElementById('cmId').value = c.id;
         document.getElementById('cmName').value = c.name;
       } else {
-        document.getElementById('catModalTitle').innerText = 'افزودن دسته‌‌بندی جدید';
+        document.getElementById('catModalTitle').innerText = 'افزودن دسته‌بندی جدید';
         document.getElementById('cmId').value = '';
         document.getElementById('cmName').value = '';
       }
@@ -1564,7 +1559,7 @@
     function deleteCategory(id) {
       const hasProducts = DB.get(DB_KEYS.PRODUCTS).some(p => p.categoryId === id);
       if (hasProducts) {
-        alert('این دسته‌بندی شامل کالا است. ابتدا کالاهای آن را حذف یا جابه‌‌جا کنید.');
+        alert('این دسته‌بندی شامل کالا است. ابتدا کالاهای آن را حذف یا جابه‌جا کنید.');
         return;
       }
       if (!confirm('آیا از حذف این دسته اطمینان دارید؟')) return;
@@ -1705,7 +1700,7 @@
 
                 <div style="width:100%; margin: 15px 0;">
                   <h1 class="cover-title" style="color:#dc2626;">لیست ترخیص سریع انقضا</h1>
-                  <div class="cover-subtitle">اقلام در آستانه فساد یا منقضی شده جهت تصمیم‌‌گیری فوری</div>
+                  <div class="cover-subtitle">اقلام در آستانه فساد یا منقضی شده جهت تصمیم‌گیری فوری</div>
                   <div class="cover-divider" style="background:linear-gradient(90deg, #dc2626 0%, #1e3a8a 100%);"></div>
                   <div style="font-size:13.5px; color:#475569; max-width:480px; margin:0 auto; line-height:1.6; font-weight:600;">
                     ${headerNote || 'این سند جهت اقدام واحد انبار برای تخفیف فوری، حراج یا مرجوعی کالاها صادر شده است.'}
@@ -1842,7 +1837,7 @@
 
                 <div style="display:flex; justify-content:space-between; align-items:center; border-top:1.5px solid #e2e8f0; padding-top:8px; margin-top:8px; font-size:11px; color:#64748b;">
                   <div>${settings.companyName || 'مهر پخش کوهیج'} - واحد انبار</div>
-                  <div style="font-weight:700; color:${currentExportMode === 'expiry' ? '#dc2626' : '#1e3a8a'};">گزارش ترخیص انبار</div>
+                  <div style="font-weight:700; color:${currentExportMode === 'expiry' ? '#dc2626' : '#1e3a8a'};">گزارش کاتالوگ انبار</div>
                 </div>
 
               </div>
@@ -1863,7 +1858,7 @@
                 <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #1e3a8a; padding-bottom:12px; margin-bottom:14px;">
                   <div>
                     <h1 style="font-size:22px; font-weight:900; color:#1e3a8a; margin-bottom:3px;">${settings.companyName || 'مهر پخش کوهیج'}</h1>
-                    <div style="font-size:13px; font-weight:700; color:#0d9488;">پیش‌‌فاکتور رسمی فروش و سفارش کالا</div>
+                    <div style="font-size:13px; font-weight:700; color:#0d9488;">پیش‌فاکتور رسمی فروش و سفارش کالا</div>
                   </div>
                   <div style="text-align:left; font-size:11.5px; line-height:1.8;">
                     <div><b>تاریخ:</b> ${dateStr}</div>
@@ -1958,9 +1953,9 @@
       const opt = {
         margin: [0, 0, 0, 0],
         filename: fileName,
-        image: { type: 'jpeg', quality: 1.0 },
+        image: { type: 'jpeg', quality: 0.95 },
         html2canvas: { 
-          scale: 2.5,
+          scale: 2.0,
           useCORS: true,
           letterRendering: false,
           scrollY: 0,
@@ -1978,61 +1973,63 @@
         return;
       }
 
-      html2pdf().set(opt).from(element).outputPdf('blob').then(async function(blob) {
-        element.style.display = 'none';
-        btn.innerHTML = originalText;
-        btn.disabled = false;
+      setTimeout(() => {
+        html2pdf().set(opt).from(element).outputPdf('blob').then(async function(blob) {
+          element.style.display = 'none';
+          btn.innerHTML = originalText;
+          btn.disabled = false;
 
-        const reader = new FileReader();
-        reader.readAsDataURL(blob);
-        reader.onloadend = async function() {
-          const base64Data = reader.result.split(',')[1];
-          const Cap = window.Capacitor;
+          const reader = new FileReader();
+          reader.readAsDataURL(blob);
+          reader.onloadend = async function() {
+            const base64Data = reader.result.split(',')[1];
+            const Cap = window.Capacitor;
 
-          if (Cap && Cap.Plugins && Cap.Plugins.Filesystem && Cap.Plugins.Share) {
+            if (Cap && Cap.Plugins && Cap.Plugins.Filesystem && Cap.Plugins.Share) {
+              try {
+                const writeResult = await Cap.Plugins.Filesystem.writeFile({
+                  path: fileName,
+                  data: base64Data,
+                  directory: 'CACHE'
+                });
+
+                await Cap.Plugins.Share.share({
+                  title: 'اسناد شرکت مهر پخش کوهیج',
+                  url: writeResult.uri,
+                  dialogTitle: isShareAction ? 'ارسال فایل PDF به پیام‌رسان' : 'باز کردن با برنامه پی‌دی‌اف‌خوان'
+                });
+                return;
+              } catch (err) {
+                console.error('File save error:', err);
+              }
+            }
+
             try {
-              const writeResult = await Cap.Plugins.Filesystem.writeFile({
-                path: fileName,
-                data: base64Data,
-                directory: 'CACHE'
-              });
+              const file = new File([blob], fileName, { type: 'application/pdf' });
+              if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                navigator.share({
+                  files: [file],
+                  title: 'فایل PDF شرکت مهر پخش'
+                }).catch(() => {});
+                return;
+              }
+            } catch(e) {}
 
-              await Cap.Plugins.Share.share({
-                title: 'اسناد شرکت مهر پخش کوهیج',
-                url: writeResult.uri,
-                dialogTitle: isShareAction ? 'ارسال فایل PDF به پیام‌‌رسان' : 'باز کردن با برنامه پی‌دی‌اف‌خوان'
-              });
-              return;
-            } catch (err) {
-              console.error('File save error:', err);
-            }
-          }
-
-          try {
-            const file = new File([blob], fileName, { type: 'application/pdf' });
-            if (navigator.canShare && navigator.canShare({ files: [file] })) {
-              navigator.share({
-                files: [file],
-                title: 'فایل PDF شرکت مهر پخش'
-              }).catch(() => {});
-              return;
-            }
-          } catch(e) {}
-
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = fileName;
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-        };
-      }).catch(function(err) {
-        element.style.display = 'none';
-        btn.innerHTML = originalText;
-        btn.disabled = false;
-        alert('خطا در تولید فایل: ' + err.message);
-      });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+          };
+        }).catch(function(err) {
+          element.style.display = 'none';
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+          alert('خطا در تولید فایل: ' + err.message);
+        });
+      }, 300);
     }
 
     function generateMKPFile() {
@@ -2044,6 +2041,10 @@
     }
 
     function openBackupCenterModal() {
+      document.getElementById('backupCenterModal').classList.add('active');
+    }
+
+    function downloadBackupFileDirectly() {
       const fullBackup = {
         app: 'MEHR_PAK_KOUHIJ',
         backupDate: new Date().toISOString(),
@@ -2052,13 +2053,29 @@
         settings: DB.getSettings()
       };
       const jsonText = JSON.stringify(fullBackup, null, 2);
-      document.getElementById('backupDataArea').value = jsonText;
-      document.getElementById('backupCenterModal').classList.add('active');
+      const blob = new Blob([jsonText], { type: 'application/json' });
+      const fileName = `MehrPakhsh_Backup_${Date.now()}.mkp`;
+
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
     }
 
     function triggerNativeShareBackup() {
-      const jsonText = document.getElementById('backupDataArea').value;
-      const fileName = `MehrPakhsh_Backup_${Date.now()}.json`;
+      const fullBackup = {
+        app: 'MEHR_PAK_KOUHIJ',
+        backupDate: new Date().toISOString(),
+        products: DB.get(DB_KEYS.PRODUCTS),
+        categories: DB.get(DB_KEYS.CATEGORIES),
+        settings: DB.getSettings()
+      };
+      const jsonText = JSON.stringify(fullBackup, null, 2);
+      const fileName = `MehrPakhsh_Backup_${Date.now()}.mkp`;
 
       try {
         const file = new File([jsonText], fileName, { type: 'application/json' });
@@ -2077,44 +2094,7 @@
           text: jsonText
         }).catch(() => {});
       } else {
-        copyBackupToClipboardSecure();
-      }
-    }
-
-    function copyBackupToClipboardSecure() {
-      const area = document.getElementById('backupDataArea');
-      area.focus();
-      area.select();
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(area.value).then(() => {
-          alert('کد پشتیبان با موفقیت در حافظه کلیپ‌بورد کپی شد!');
-        }).catch(() => {
-          alert('کپی خودکار انجام نشد. لطفاً متن داخل کادر را به صورت دستی انتخاب و کپی کنید.');
-        });
-      } else {
-        document.execCommand('copy');
-        alert('کد پشتیبان در حافظه کپی شد.');
-      }
-    }
-
-    function restoreFromPastedText() {
-      const text = document.getElementById('backupDataArea').value.trim();
-      if (!text) {
-        alert('لطفاً متن پشتیبان را داخل کادر وارد کنید.');
-        return;
-      }
-      try {
-        const d = JSON.parse(text);
-        if (confirm(`فایل پشتیبان حاوی ${(d.products || []).length} قلم کالا یافت شد. جایگزین شود؟`)) {
-          if (d.products) DB.set(DB_KEYS.PRODUCTS, d.products);
-          if (d.categories) DB.set(DB_KEYS.CATEGORIES, d.categories);
-          if (d.settings) DB.setSettings(d.settings);
-          alert('اطلاعات با موفقیت بازخوانی شد.');
-          closeModal('backupCenterModal');
-          renderDashboard();
-        }
-      } catch (e) {
-        alert('قالب متن معتبر نیست.');
+        downloadBackupFileDirectly();
       }
     }
 
@@ -2198,12 +2178,11 @@
     window.generateAndOpenRealPdf = generateAndOpenRealPdf;
     window.generateMKPFile = generateMKPFile;
     window.importMKPFile = importMKPFile;
+    window.downloadBackupFileDirectly = downloadBackupFileDirectly;
     window.saveCompanySettings = saveCompanySettings;
     window.saveExpirySettings = saveExpirySettings;
     window.openBackupCenterModal = openBackupCenterModal;
     window.triggerNativeShareBackup = triggerNativeShareBackup;
-    window.copyBackupToClipboardSecure = copyBackupToClipboardSecure;
-    window.restoreFromPastedText = restoreFromPastedText;
     window.importFullBackup = importFullBackup;
     window.renderProductList = renderProductList;
     window.handleSaveProduct = handleSaveProduct;
