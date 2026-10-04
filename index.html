@@ -130,26 +130,8 @@
     #pdf-printable-area { display: none; width: 700px; background: #ffffff; font-family: Tahoma, Arial, sans-serif !important; direction: rtl !important; }
     #pdf-printable-area * { font-family: inherit !important; letter-spacing: 0px !important; }
 
-    .pdf-frame-page { width: 700px; height: 985px; box-sizing: border-box; page-break-after: always; padding: 16px; background: #ffffff; position: relative; }
+    .pdf-frame-page { width: 700px; height: 985px; box-sizing: border-box; page-break-after: always; padding: 0px; background: #ffffff; position: relative; }
     .pdf-frame-page:last-child { page-break-after: auto; }
-    .pdf-inner-border { width: 100%; height: 100%; border: 2px solid #1e3a8a; border-radius: 18px; padding: 18px 20px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; }
-    .cover-inner-border { width: 100%; height: 100%; border: 2.5px solid #1e3a8a; border-radius: 18px; padding: 24px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; align-items: center; text-align: center; background: radial-gradient(circle at 50% 20%, #f8fafc 0%, #ffffff 80%); position: relative; }
-    .cover-inner-border::before { content: ''; position: absolute; top: 6px; bottom: 6px; left: 6px; right: 6px; border: 1px dashed rgba(30, 58, 138, 0.35); border-radius: 13px; pointer-events: none; }
-    .cover-top-badge { display: inline-block; background: linear-gradient(135deg, #1e3a8a 0%, #0284c7 100%); color: #ffffff; font-size: 13px; font-weight: 800; padding: 6px 22px; border-radius: 30px; margin-bottom: 16px; }
-    .cover-logo-wrapper { margin: 10px 0 15px 0; display: flex; justify-content: center; align-items: center; }
-    .cover-logo-img { max-height: 110px; max-width: 200px; object-fit: contain; border-radius: 12px; padding: 4px; background: #ffffff; border: 1.5px solid #e2e8f0; }
-    .cover-title { font-size: 34px; font-weight: 900; color: #1e3a8a; margin-bottom: 6px; }
-    .cover-subtitle { font-size: 15.5px; font-weight: 700; color: #0d9488; margin-bottom: 12px; }
-    .cover-divider { width: 140px; height: 3px; background: linear-gradient(90deg, #fbbf24 0%, #1e3a8a 100%); border-radius: 4px; margin: 0 auto 16px auto; }
-    .cover-meta-card { width: 100%; max-width: 520px; background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 16px; padding: 16px 20px; margin-bottom: 10px; }
-    .product-giant-image-frame { flex: 1; width: 100%; height: 570px; display: flex; align-items: center; justify-content: center; margin: 10px 0; overflow: hidden; background: #ffffff; }
-    .product-giant-image { max-height: 560px; max-width: 98%; object-fit: contain; }
-    .poster-specs-bar { background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 14px; padding: 12px 18px; display: flex; justify-content: space-between; align-items: center; }
-    .poster-name { font-size: 22px; font-weight: 900; color: #0f172a; margin-bottom: 4px; }
-    .poster-price-tag { background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); color: #ffffff; font-weight: 900; font-size: 20px; padding: 7px 18px; border-radius: 10px; white-space: nowrap; }
-    .invoice-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px; }
-    .invoice-table th, .invoice-table td { border: 1.5px solid #cbd5e1; padding: 10px 12px; text-align: center; }
-    .invoice-table th { background: #f1f5f9; color: #1e3a8a; font-weight: 800; font-size: 13.5px; }
   </style>
 </head>
 <body>
@@ -549,76 +531,144 @@
       document.getElementById('invTotalAmount').innerText = Number(total).toLocaleString('fa-IR');
     }
 
-    // متد چاپ PDF (بازگشت به متد اصلی و پایدار)
+    // =================================================================
+    // بخش تولید ظاهر گرافیکی PDF (کاملاً بازطراحی شده و لوکس)
+    // =================================================================
     function preparePrintableContent() {
       const selectedBoxes = Array.from(document.querySelectorAll('.export-prod-cb:checked'));
       if (selectedBoxes.length === 0) { alert('لطفاً حداقل یک کالا را انتخاب کنید.'); return false; }
 
       const allProducts = DB.get(DB_KEYS.PRODUCTS); const catMap = {}; DB.get(DB_KEYS.CATEGORIES).forEach(c => catMap[c.id] = c.name);
       const settings = DB.getSettings(); const dateStr = `${Jalali.today().jy}/${Jalali.today().jm}/${Jalali.today().jd}`;
-      const headNote = document.getElementById('pdfCustomHeaderNote').value.trim(); const footNote = document.getElementById('pdfCustomFooterNote').value.trim();
+      const headerNote = document.getElementById('pdfCustomHeaderNote').value.trim(); const footerNote = document.getElementById('pdfCustomFooterNote').value.trim();
       const pdfContent = document.getElementById('pdf-printable-area'); pdfContent.innerHTML = '';
 
       if (currentExportMode === 'catalog' || currentExportMode === 'expiry') {
-        const sImg = document.getElementById('pdfOptShowImage') ? document.getElementById('pdfOptShowImage').checked : true;
-        const sPrice = document.getElementById('pdfOptShowPrice') ? document.getElementById('pdfOptShowPrice').checked : true;
+        const showImage = document.getElementById('pdfOptShowImage') ? document.getElementById('pdfOptShowImage').checked : true;
+        const showPrice = document.getElementById('pdfOptShowPrice') ? document.getElementById('pdfOptShowPrice').checked : true;
 
+        // ظاهر جدید صفحه اول (کاور)
         const coverHtml = `
-          <div class="pdf-frame-page">
-            <div class="cover-inner-border">
-              <div style="width:100%;">
-                <div class="cover-top-badge" style="${currentExportMode === 'expiry' ? 'background:linear-gradient(135deg, #dc2626 0%, #ea580c 100%);' : ''}">${currentExportMode === 'expiry' ? 'گزارش رسمی کنترل کیفیت' : 'مرکز تخصصی توزیع مویرگی'}</div>
-                ${settings.logoBase64 ? `<div class="cover-logo-wrapper"><img src="${settings.logoBase64}" class="cover-logo-img"></div>` : '<div style="height:35px;"></div>'}
+          <div class="pdf-frame-page" style="padding:25px;">
+            <div style="width:100%; height:100%; background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%); border: 8px solid #1e3a8a; outline: 3px solid #38bdf8; outline-offset: -12px; border-radius: 20px; display:flex; flex-direction:column; justify-content:space-between; align-items:center; text-align:center; padding:30px; box-sizing:border-box;">
+              
+              <div style="width:100%; margin-top:20px;">
+                <div style="display:inline-block; font-size:18px; font-weight:900; color:#fff; padding:12px 35px; border-radius:30px; box-shadow: 0 5px 15px rgba(0,0,0,0.15); ${currentExportMode === 'expiry' ? 'background:linear-gradient(135deg, #dc2626 0%, #ea580c 100%);' : 'background:linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);'}">${currentExportMode === 'expiry' ? 'گزارش رسمی کنترل کیفیت و انبار' : 'کاتالوگ جامع محصولات و نرخ‌نامه'}</div>
+                <div style="margin-top:40px;">
+                  ${settings.logoBase64 ? `<img src="${settings.logoBase64}" style="max-height: 180px; max-width: 300px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); background: white; padding: 10px; border: 2px solid #e2e8f0;">` : '<div style="height:120px;"></div>'}
+                </div>
               </div>
-              <div style="width:100%; margin: 15px 0;">
-                <h1 class="cover-title" style="${currentExportMode === 'expiry' ? 'color:#dc2626;' : ''}">${settings.companyName || 'مهر پخش کوهیج'}</h1>
-                <div class="cover-subtitle">${currentExportMode === 'expiry' ? 'لیست ترخیص سریع انقضا' : 'کاتالوگ رسمی معرفی محصولات'}</div>
-                <div class="cover-divider" style="${currentExportMode === 'expiry' ? 'background:linear-gradient(90deg, #dc2626 0%, #1e3a8a 100%);' : ''}"></div>
-                <div style="font-size:13.5px; font-weight:600; color:#475569;">${headNote}</div>
+
+              <div style="width:100%; background: #ffffff; padding: 35px 20px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.06); border: 1px solid #cbd5e1;">
+                <h1 style="font-size:46px; font-weight:900; margin-bottom:15px; text-shadow: 0 3px 6px rgba(0,0,0,0.08); ${currentExportMode === 'expiry' ? 'color:#dc2626;' : 'color:#1e3a8a;'}">${settings.companyName || 'مهر پخش کوهیج'}</h1>
+                <div style="font-size:20px; font-weight:700; color:#64748b; margin-bottom:20px;">${currentExportMode === 'expiry' ? 'لیست ترخیص سریع و تخفیف‌دار انقضا' : 'مـرکـز تـخـصـصـی پـخـش و تـوزیـع مـویـرگـی کـالا'}</div>
+                <div style="width:250px; height:5px; border-radius:5px; margin: 0 auto 25px auto; ${currentExportMode === 'expiry' ? 'background:linear-gradient(90deg, #dc2626 0%, #1e3a8a 100%);' : 'background:linear-gradient(90deg, #fbbf24 0%, #1e3a8a 100%);'}"></div>
+                <div style="font-size:18px; font-weight:800; color:#0f172a; line-height:1.6;">${headerNote}</div>
               </div>
-              <div class="cover-meta-card" style="font-size:14px; text-align:right;">
-                <div style="margin-bottom:10px;">📅 <b>تاریخ:</b> ${dateStr}</div><div style="margin-bottom:10px;">📞 <b>تلفن:</b> ${settings.phone || '---'}</div><div>📍 <b>نشانی:</b> ${settings.address || '---'}</div>
+
+              <div style="width:85%; background: rgba(255,255,255,0.85); border: 2px dashed #94a3b8; border-radius: 16px; padding: 20px; text-align:right; font-size:16px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:15px;"><span style="color:#64748b;">📅 <b>تاریخ صدور:</b></span> <b>${dateStr}</b></div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:15px;"><span style="color:#64748b;">📞 <b>تلفن تماس:</b></span> <b>${settings.phone || '---'}</b></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:#64748b;">📍 <b>آدرس انبار:</b></span> <b style="text-align:left; max-width:65%;">${settings.address || '---'}</b></div>
               </div>
-              <div style="font-size:11px; font-weight:bold; color:#64748b;">${footNote || 'سند دیجیتال انبار'}</div>
+
+              <div style="background: #1e3a8a; color: white; width: 100%; padding: 16px; border-radius: 14px; font-size: 14px; font-weight: bold; margin-top: 10px;">${footerNote || 'سند دیجیتال انبار - طراحی شده توسط سیستم'}</div>
             </div>
           </div>`;
         pdfContent.innerHTML += coverHtml;
 
+        // ظاهر جدید صفحات کالاها
         selectedBoxes.forEach((cb, idx) => {
           const p = allProducts.find(x => x.id === cb.value); if (!p) return;
           pdfContent.innerHTML += `
-            <div class="pdf-frame-page">
-              <div class="pdf-inner-border">
-                <div style="display:flex; justify-content:space-between; border-bottom:1px solid #e2e8f0; padding-bottom:8px; font-weight:bold;"><span>${catMap[p.categoryId] || 'عمومی'} - ${p.company}</span><span>صفحه ${idx + 1} از ${selectedBoxes.length}</span></div>
-                <div class="product-giant-image-frame">${sImg && p.image ? `<img src="${p.image}" class="product-giant-image">` : 'بدون تصویر'}</div>
-                <div class="poster-specs-bar">
-                  <div style="flex:1;">
-                    <div class="poster-name">${p.name}</div><div style="font-size:13px; color:#64748b;">انقضا: ${p.expiry.jy}/${p.expiry.jm}/${p.expiry.jd} | ${p.status === 'available' ? 'موجود' : 'ناموجود'}</div>
+            <div class="pdf-frame-page" style="padding:25px;">
+              <div style="width: 100%; height: 100%; border: 4px solid #1e3a8a; box-shadow: inset 0 0 0 4px #e2e8f0; border-radius: 24px; padding: 25px; background: #ffffff; display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box;">
+                
+                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:3px solid #f1f5f9; padding-bottom:15px;">
+                  <div style="display:flex; align-items:center; gap:12px;">
+                    <span style="background: ${currentExportMode === 'expiry' ? '#dc2626' : '#1e3a8a'}; color: white; padding: 6px 18px; border-radius: 12px; font-size: 15px; font-weight: 900; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">${catMap[p.categoryId] || 'عمومی'}</span>
+                    <span style="font-size: 15px; font-weight: 800; color: #475569;">برند: <span style="color:#0f172a;">${p.company}</span></span>
                   </div>
-                  ${sPrice ? `<div class="poster-price-tag" style="${currentExportMode === 'expiry' ? 'background:#dc2626;' : ''}">${Number(p.price).toLocaleString('fa-IR')} تومان</div>` : ''}
+                  <div style="background: #f8fafc; border: 1px solid #cbd5e1; color: #64748b; padding: 6px 16px; border-radius: 10px; font-size: 14px; font-weight: bold;">صفحه ${idx + 1} از ${selectedBoxes.length}</div>
                 </div>
-                ${p.description ? `<div style="font-size:12px; margin-top:10px; background:#f8fafc; padding:8px; border-radius:8px;">${p.description}</div>` : ''}
+
+                <!-- قاب بزرگ‌تر برای عکس کالا -->
+                <div style="flex:1; display:flex; align-items:center; justify-content:center; margin: 15px 0; height: 630px; max-height: 630px; overflow:hidden;">
+                  ${showImage && p.image ? `<img src="${p.image}" style="max-height: 620px; max-width: 98%; object-fit: contain; border-radius: 16px; padding: 10px; box-shadow: 0 8px 25px rgba(0,0,0,0.06); background: white; border: 1px solid #f1f5f9;">` : '<div style="font-size: 26px; color:#cbd5e1; font-weight: 900;">تصویری برای این کالا ثبت نشده است</div>'}
+                </div>
+
+                <div>
+                  <div style="background: #ffffff; border: 2px solid #e2e8f0; border-radius: 18px; padding: 20px 24px; box-shadow: 0 8px 30px rgba(0,0,0,0.04); display: flex; justify-content: space-between; align-items: center;">
+                    <div style="flex:1;">
+                      <div style="font-size: 28px; font-weight: 900; color: #0f172a; margin-bottom: 12px;">${p.name}</div>
+                      <div style="display:flex; gap: 15px; font-size: 14px; font-weight: bold;">
+                        <span style="background: #f8fafc; padding: 6px 12px; border-radius: 8px; border: 1px solid #cbd5e1; color: #475569;">انقضا: <span style="color:#0f172a;">${p.expiry.jy}/${p.expiry.jm}/${p.expiry.jd}</span></span>
+                        <span style="background: ${p.status === 'available' ? '#dcfce7' : '#fee2e2'}; color: ${p.status === 'available' ? '#16a34a' : '#dc2626'}; padding: 6px 12px; border-radius: 8px;">${p.status === 'available' ? '✅ موجود در انبار' : '❌ ناموجود'}</span>
+                      </div>
+                    </div>
+                    ${showPrice ? `
+                    <div style="text-align: left; padding-right: 20px; border-right: 2px dashed #e2e8f0;">
+                      <div style="font-size: 13px; color: #64748b; font-weight: bold; margin-bottom: 8px;">قیمت مصرف‌کننده:</div>
+                      <div style="font-size: 26px; font-weight: 900; color: white; padding: 12px 28px; border-radius: 14px; box-shadow: 0 8px 20px rgba(37,99,235,0.25); white-space: nowrap; ${currentExportMode === 'expiry' ? 'background:linear-gradient(135deg, #dc2626 0\%, #ea580c 100\%);' : 'background:linear-gradient(135deg, #1e3a8a 0\%, #2563eb 100\%);'}">${Number(p.price).toLocaleString('fa-IR')} <span style="font-size: 14px;">تومان</span></div>
+                    </div>` : ''}
+                  </div>
+                  ${p.description ? `<div style="font-size:15px; margin-top:15px; background:#f8fafc; padding:12px 18px; border-radius:12px; border: 1px dashed #cbd5e1; color:#475569; font-weight: 600;">📝 <b>توضیحات:</b> ${p.description}</div>` : ''}
+                </div>
               </div>
             </div>`;
         });
       } else {
+        // ظاهر فاکتور
         const custName = document.getElementById('invCustomerName').value || 'مشتری گرامی';
         let tableRows = ''; let total = 0; let rowIdx = 1;
         selectedBoxes.forEach(cb => {
           const p = allProducts.find(x => x.id === cb.value); if (!p) return;
           const q = document.querySelector(`.export-prod-qty[data-id="${p.id}"]`); const qty = q ? parseInt(q.value) || 1 : 1; total += p.price * qty;
-          tableRows += `<tr><td>${rowIdx++}</td><td style="font-weight:bold;text-align:right;">${p.name}</td><td>${p.company}</td><td>${qty}</td><td>${Number(p.price).toLocaleString('fa-IR')}</td><td>${Number(p.price * qty).toLocaleString('fa-IR')}</td></tr>`;
+          tableRows += `<tr><td style="padding:12px;">${rowIdx++}</td><td style="font-weight:bold;text-align:right;">${p.name}</td><td>${p.company}</td><td>${qty}</td><td>${Number(p.price).toLocaleString('fa-IR')}</td><td style="font-weight:900; color:#1e3a8a;">${Number(p.price * qty).toLocaleString('fa-IR')}</td></tr>`;
         });
         pdfContent.innerHTML += `
-          <div class="pdf-frame-page" style="height:auto; min-height:985px;">
-            <div class="pdf-inner-border">
+          <div class="pdf-frame-page" style="padding:25px;">
+            <div style="width:100%; height:100%; border: 4px solid #1e3a8a; border-radius: 24px; padding: 30px; background: #ffffff; box-sizing:border-box;">
               <div>
-                <h1 style="font-size:24px; color:#1e3a8a; text-align:center;">${settings.companyName || 'مهر پخش کوهیج'}</h1>
-                <div style="text-align:center; font-weight:bold; color:#0d9488; margin-bottom:20px;">پیش‌فاکتور رسمی کالا</div>
-                <div style="background:#f8fafc; padding:10px; border-radius:10px; margin-bottom:15px;"><b>خریدار:</b> ${custName} | <b>تاریخ:</b> ${dateStr}</div>
-                <table class="invoice-table"><thead><tr><th style="width:30px;">#</th><th>نام کالا</th><th>تولیدکننده</th><th>تعداد</th><th>قیمت واحد</th><th>مبلغ کل</th></tr></thead><tbody>${tableRows}</tbody><tfoot><tr><td colspan="5" style="text-align:left; font-weight:bold; font-size:15px;">جمع کل:</td><td style="font-weight:bold; font-size:16px; color:#1e3a8a;">${Number(total).toLocaleString('fa-IR')}</td></tr></tfoot></table>
+                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:3px solid #1e3a8a; padding-bottom:20px; margin-bottom:25px;">
+                  <div>
+                    <h1 style="font-size:32px; font-weight:900; color:#1e3a8a; margin-bottom:8px;">${settings.companyName || 'مهر پخش کوهیج'}</h1>
+                    <div style="font-size:18px; font-weight:800; color:#0d9488;">پیش‌فاکتور رسمی فروش و سفارش کالا</div>
+                  </div>
+                  <div style="text-align:left; font-size:14px; line-height:2;">
+                    <div><b>تاریخ صدور:</b> ${dateStr}</div>
+                    <div><b>شماره تماس:</b> <span style="direction:ltr; display:inline-block;">${settings.phone || '---'}</span></div>
+                  </div>
+                </div>
+                
+                <div style="background:#f8fafc; padding:15px 20px; border-radius:12px; margin-bottom:25px; border:1px solid #cbd5e1; display:flex; justify-content:space-between; align-items:center; font-size:16px;">
+                  <div><b style="color:#475569;">خریدار / فروشگاه:</b> <span style="font-weight:900; color:#0f172a;">${custName}</span></div>
+                </div>
+
+                <table style="width: 100%; border-collapse: collapse; font-size: 15px; text-align: center;">
+                  <thead>
+                    <tr style="background: #f1f5f9; border-bottom: 2px solid #cbd5e1;">
+                      <th style="padding:12px; border:1px solid #e2e8f0; color:#1e3a8a; width:40px;">#</th>
+                      <th style="padding:12px; border:1px solid #e2e8f0; color:#1e3a8a;">نام کالا</th>
+                      <th style="padding:12px; border:1px solid #e2e8f0; color:#1e3a8a;">برند</th>
+                      <th style="padding:12px; border:1px solid #e2e8f0; color:#1e3a8a; width:70px;">تعداد</th>
+                      <th style="padding:12px; border:1px solid #e2e8f0; color:#1e3a8a;">قیمت واحد (تومان)</th>
+                      <th style="padding:12px; border:1px solid #e2e8f0; color:#1e3a8a;">مبلغ کل (تومان)</th>
+                    </tr>
+                  </thead>
+                  <tbody>${tableRows}</tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="5" style="text-align:left; padding: 15px; font-weight:900; font-size:18px; border:1px solid #e2e8f0; background: #f8fafc;">جمع کل فاکتور:</td>
+                      <td style="font-weight:900; font-size:20px; color:#1e3a8a; border:1px solid #e2e8f0; background: #eff6ff;">${Number(total).toLocaleString('fa-IR')}</td>
+                    </tr>
+                  </tfoot>
+                </table>
               </div>
-              <div style="text-align:center; font-size:12px; margin-top:20px;">${footNote || 'مهر و امضای امور فروش'}</div>
+              <div style="margin-top:40px; padding-top:20px; border-top:2px dashed #cbd5e1; display:flex; justify-content:space-between; align-items:center;">
+                <div style="font-size:14px; font-weight:600; color:#64748b;">${footerNote || 'تحویل در سریع‌ترین زمان ممکن در محل فروشگاه'}</div>
+                <div style="font-size:16px; font-weight:800; color:#1e3a8a;">مهر و امضای امور فروش / انبار</div>
+              </div>
             </div>
           </div>`;
       }
@@ -634,9 +684,7 @@
       btn.disabled = true;
 
       const element = document.getElementById('pdf-printable-area');
-      element.style.display = 'block';
-      element.style.position = 'absolute';
-      element.style.top = '-9999px';
+      element.style.display = 'block'; element.style.position = 'absolute'; element.style.top = '-9999px';
 
       const fileName = currentExportMode === 'catalog' ? `MehrPakhsh_Catalog_${Date.now()}.pdf` : (currentExportMode === 'expiry' ? `MehrPakhsh_ExpiryList_${Date.now()}.pdf` : `MehrPakhsh_Invoice_${Date.now()}.pdf`);
 
@@ -648,11 +696,7 @@
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
       };
 
-      if (!window.html2pdf) {
-        alert('کتابخانه PDF بارگذاری نشده است.');
-        element.style.display = 'none'; btn.innerHTML = originalText; btn.disabled = false;
-        return;
-      }
+      if (!window.html2pdf) { alert('کتابخانه PDF بارگذاری نشده است.'); element.style.display = 'none'; btn.innerHTML = originalText; btn.disabled = false; return; }
 
       setTimeout(() => {
         const pages = Array.from(document.querySelectorAll('.pdf-frame-page'));
@@ -661,30 +705,19 @@
 
         worker.outputPdf('blob').then(async function(blob) {
           element.style.display = 'none'; element.style.position = ''; btn.innerHTML = originalText; btn.disabled = false;
-
           const reader = new FileReader(); reader.readAsDataURL(blob);
           reader.onloadend = async function() {
-            const base64Data = reader.result.split(',')[1];
-            const Cap = window.Capacitor;
+            const base64Data = reader.result.split(',')[1]; const Cap = window.Capacitor;
             if (Cap && Cap.Plugins && Cap.Plugins.Filesystem && Cap.Plugins.Share) {
               try {
                 const writeResult = await Cap.Plugins.Filesystem.writeFile({ path: fileName, data: base64Data, directory: 'CACHE' });
-                await Cap.Plugins.Share.share({ title: 'سند انبار', url: writeResult.uri, dialogTitle: 'ذخیره/ارسال PDF' });
-                return;
+                await Cap.Plugins.Share.share({ title: 'سند انبار', url: writeResult.uri, dialogTitle: 'ذخیره/ارسال PDF' }); return;
               } catch (err) { console.error('Share Error:', err); }
             }
-            try {
-              const file = new File([blob], fileName, { type: 'application/pdf' });
-              if (navigator.canShare && navigator.canShare({ files: [file] })) { navigator.share({ files: [file] }).catch(() => {}); return; }
-            } catch(e) {}
-
-            const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = fileName;
-            document.body.appendChild(a); a.click(); document.body.removeChild(a);
+            try { const file = new File([blob], fileName, { type: 'application/pdf' }); if (navigator.canShare && navigator.canShare({ files: [file] })) { navigator.share({ files: [file] }).catch(() => {}); return; } } catch(e) {}
+            const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = fileName; document.body.appendChild(a); a.click(); document.body.removeChild(a);
           };
-        }).catch(function(err) {
-          element.style.display = 'none'; element.style.position = ''; btn.innerHTML = originalText; btn.disabled = false;
-          alert('خطا در تولید فایل: ' + err.message);
-        });
+        }).catch(function(err) { element.style.display = 'none'; element.style.position = ''; btn.innerHTML = originalText; btn.disabled = false; alert('خطا در تولید فایل: ' + err.message); });
       }, 500);
     }
 
