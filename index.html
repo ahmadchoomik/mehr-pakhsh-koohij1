@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>مهر پخش کوهیج</title>
-  <script src="html2pdf.bundle.min.js"></script>
 
   <style>
     :root {
@@ -104,174 +103,44 @@
       margin-bottom: 78px;
     }
 
-    .view-section {
-      display: none;
-    }
-    .view-section.active {
-      display: block;
-      animation: slideUp 0.18s ease-out;
-    }
+    .view-section { display: none; }
+    .view-section.active { display: block; animation: slideUp 0.18s ease-out; }
 
     @keyframes slideUp {
       from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .hero-banner {
-      background: var(--dark-card);
-      color: white;
-      border-radius: var(--radius);
-      padding: 18px 16px;
-      margin-bottom: 14px;
-      box-shadow: 0 8px 20px -4px rgba(15, 23, 42, 0.25);
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      position: relative;
-      z-index: 1;
-    }
-    .hero-title {
-      font-size: 18px;
-      font-weight: 800;
-      color: #f8fafc;
-    }
-    .hero-date {
-      font-size: 12px;
-      color: #38bdf8;
-      font-weight: 700;
-      margin-top: 4px;
-    }
-    .hero-badge {
-      background: rgba(16, 185, 129, 0.2);
-      border: 1px solid rgba(16, 185, 129, 0.4);
-      color: #34d399;
-      padding: 4px 8px;
-      border-radius: 20px;
-      font-size: 10.5px;
-      font-weight: 600;
-    }
+    .hero-banner { background: var(--dark-card); color: white; border-radius: var(--radius); padding: 18px 16px; margin-bottom: 14px; box-shadow: 0 8px 20px -4px rgba(15, 23, 42, 0.25); position: relative; overflow: hidden; }
+    .hero-header { display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 1; }
+    .hero-title { font-size: 18px; font-weight: 800; color: #f8fafc; }
+    .hero-date { font-size: 12px; color: #38bdf8; font-weight: 700; margin-top: 4px; }
+    .hero-badge { background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(16, 185, 129, 0.4); color: #34d399; padding: 4px 8px; border-radius: 20px; font-size: 10.5px; font-weight: 600; }
 
-    .stat-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-    .stat-card {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      padding: 14px;
-      border: 1px solid var(--border);
-      box-shadow: 0 2px 5px rgba(0,0,0,0.03);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .stat-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 6px;
-    }
-    .stat-card-title {
-      font-size: 11.5px;
-      color: var(--text-muted);
-      font-weight: 600;
-    }
-    .stat-card-icon {
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-    }
-    .stat-card-number {
-      font-size: 22px;
-      font-weight: 800;
-    }
+    .stat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 14px; }
+    .stat-card { background: var(--card-bg); border-radius: var(--radius); padding: 14px; border: 1px solid var(--border); box-shadow: 0 2px 5px rgba(0,0,0,0.03); display: flex; flex-direction: column; justify-content: space-between; }
+    .stat-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .stat-card-title { font-size: 11.5px; color: var(--text-muted); font-weight: 600; }
+    .stat-card-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; }
+    .stat-card-number { font-size: 22px; font-weight: 800; }
 
-    .health-bar-container {
-      height: 8px;
-      background: #e2e8f0;
-      border-radius: 10px;
-      display: flex;
-      overflow: hidden;
-      margin: 10px 0;
-    }
+    .health-bar-container { height: 8px; background: #e2e8f0; border-radius: 10px; display: flex; overflow: hidden; margin: 10px 0; }
     .health-seg { height: 100%; transition: width 0.3s ease; }
     .seg-safe { background: #10b981; }
     .seg-near { background: #f59e0b; }
     .seg-very-near { background: #f97316; }
     .seg-expired { background: #ef4444; }
 
-    .expiry-chips-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-      margin-top: 8px;
-    }
-    .expiry-chip {
-      background: #f8fafc;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 8px 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 11.5px;
-      cursor: pointer;
-    }
-    .chip-count {
-      font-weight: 800;
-      font-size: 13px;
-    }
+    .expiry-chips-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 8px; }
+    .expiry-chip { background: #f8fafc; border: 1px solid var(--border); border-radius: 10px; padding: 8px 10px; display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; cursor: pointer; }
+    .chip-count { font-weight: 800; font-size: 13px; }
 
-    .card {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      padding: 15px;
-      border: 1px solid var(--border);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-      margin-bottom: 12px;
-    }
-    .card-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border);
-    }
-    .card-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--primary);
-    }
+    .card { background: var(--card-bg); border-radius: var(--radius); padding: 15px; border: 1px solid var(--border); box-shadow: 0 2px 6px rgba(0,0,0,0.03); margin-bottom: 12px; }
+    .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+    .card-title { font-size: 14px; font-weight: 700; color: var(--primary); }
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      padding: 11px 14px;
-      border-radius: 10px;
-      font-size: 12.5px;
-      font-weight: 600;
-      cursor: pointer;
-      border: none;
-      user-select: none;
-      transition: transform 0.1s ease, opacity 0.1s ease;
-    }
-    .btn:active, nav.bottom-nav button:active {
-      transform: scale(0.96);
-      opacity: 0.85;
-    }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 11px 14px; border-radius: 10px; font-size: 12.5px; font-weight: 600; cursor: pointer; border: none; user-select: none; transition: transform 0.1s ease, opacity 0.1s ease; }
+    .btn:active, nav.bottom-nav button:active { transform: scale(0.96); opacity: 0.85; }
     .btn-primary { background: var(--primary-gradient); color: white; box-shadow: 0 3px 8px rgba(37,99,235,0.25); }
     .btn-secondary { background: #f1f5f9; color: #334155; border: 1px solid var(--border); }
     .btn-danger { background: var(--danger-gradient); color: white; }
@@ -282,26 +151,12 @@
 
     .form-group { margin-bottom: 11px; }
     .form-group label { display: block; font-size: 11.5px; font-weight: 600; margin-bottom: 4px; color: #475569; }
-    .form-control {
-      width: 100%;
-      padding: 9px 12px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      font-size: 12.5px;
-      background: #f8fafc;
-      outline: none;
-    }
+    .form-control { width: 100%; padding: 9px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 12.5px; background: #f8fafc; outline: none; }
     .form-control:focus { border-color: #3b82f6; background: #fff; }
     .form-row { display: flex; gap: 8px; }
     .form-row .form-group { flex: 1; }
 
-    .badge {
-      display: inline-block;
-      padding: 3px 7px;
-      border-radius: 10px;
-      font-size: 10.5px;
-      font-weight: 600;
-    }
+    .badge { display: inline-block; padding: 3px 7px; border-radius: 10px; font-size: 10.5px; font-weight: 600; }
     .badge-safe { background: #dcfce7; color: #15803d; }
     .badge-near { background: #fef9c3; color: #854d0e; }
     .badge-very-near { background: #ffedd5; color: #c2410c; }
@@ -309,313 +164,109 @@
     .badge-available { background: #e0f2fe; color: #0369a1; }
     .badge-unavailable { background: #f1f5f9; color: #64748b; }
 
-    .attention-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 8px 10px;
-      border-radius: 8px;
-      margin-bottom: 6px;
-      background: #fff;
-      border: 1px solid #fee2e2;
-    }
+    .attention-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; border-radius: 8px; margin-bottom: 6px; background: #fff; border: 1px solid #fee2e2; }
 
-    nav.bottom-nav {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(8px);
-      display: flex;
-      border-top: 1px solid var(--border);
-      z-index: 50;
-      box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
-    }
-    nav.bottom-nav button {
-      flex: 1;
-      border: none;
-      background: transparent;
-      padding: 9px 2px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3px;
-      font-size: 10.5px;
-      color: var(--text-muted);
-      cursor: pointer;
-      user-select: none;
-    }
-    nav.bottom-nav button.active {
-      color: #2563eb;
-      font-weight: bold;
-    }
-    nav.bottom-nav button svg {
-      width: 20px;
-      height: 20px;
-      fill: currentColor;
-    }
+    nav.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); display: flex; border-top: 1px solid var(--border); z-index: 50; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
+    nav.bottom-nav button { flex: 1; border: none; background: transparent; padding: 9px 2px; display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 10.5px; color: var(--text-muted); cursor: pointer; user-select: none; }
+    nav.bottom-nav button.active { color: #2563eb; font-weight: bold; }
+    nav.bottom-nav button svg { width: 20px; height: 20px; fill: currentColor; }
 
-    .modal-overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(15, 23, 42, 0.6);
-      backdrop-filter: blur(2px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
-      padding: 14px;
-    }
+    .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(2px); display: none; align-items: center; justify-content: center; z-index: 100; padding: 14px; }
     .modal-overlay.active { display: flex; }
-    .modal-box {
-      background: white;
-      width: 100%;
-      max-width: 500px;
-      max-height: 90vh;
-      overflow-y: auto;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      padding: 18px;
-    }
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border);
-    }
+    .modal-box { background: white; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); padding: 18px; }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
     .modal-header h3 { font-size: 15px; color: var(--primary); }
     .modal-close { background: none; border: none; font-size: 22px; cursor: pointer; color: var(--text-muted); }
 
-    .product-item {
-      display: flex;
-      align-items: center;
-      padding: 9px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      margin-bottom: 8px;
-      background: white;
-      gap: 10px;
-    }
-    .product-thumb {
-      width: 52px;
-      height: 52px;
-      border-radius: 8px;
-      background: #f1f5f9;
-      object-fit: cover;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-muted);
-      font-size: 9.5px;
-    }
+    .product-item { display: flex; align-items: center; padding: 9px; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 8px; background: white; gap: 10px; }
+    .product-thumb { width: 52px; height: 52px; border-radius: 8px; background: #f1f5f9; object-fit: cover; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 9.5px; }
     .product-info { flex: 1; min-width: 0; }
     .product-info h4 { font-size: 13px; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .product-sub { font-size: 10.5px; color: var(--text-muted); margin-bottom: 3px; }
     .product-actions { display: flex; flex-direction: column; gap: 4px; }
 
     .export-mode-tabs { display: flex; gap: 6px; margin-bottom: 12px; }
-    .export-tab-btn {
-      flex: 1;
-      padding: 9px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: #fff;
-      font-weight: 700;
-      font-size: 12px;
-      cursor: pointer;
-      text-align: center;
-      color: var(--text-muted);
-    }
-    .export-tab-btn.active {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
+    .export-tab-btn { flex: 1; padding: 9px; border-radius: 8px; border: 1px solid var(--border); background: #fff; font-weight: 700; font-size: 12px; cursor: pointer; text-align: center; color: var(--text-muted); }
+    .export-tab-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+    /* تنظیمات اختصاصی و بومی برای چاپ PDF (مهم‌ترین بخش برای رفع مشکل) */
+    #pdf-printable-area { display: none; background: white; }
+
+    @media print {
+      body { background: #ffffff; margin: 0; padding: 0; }
+      main, nav, .modal-overlay, #splash-screen { display: none !important; }
+      
+      #pdf-printable-area {
+        display: block !important;
+        position: static;
+        width: 100%;
+        background: #ffffff;
+      }
+
+      .pdf-frame-page {
+        width: 100%;
+        height: 297mm; /* ارتفاع دقیق برگه A4 */
+        max-height: 297mm;
+        box-sizing: border-box;
+        page-break-after: always;
+        padding: 10mm; /* حاشیه امن چاپ */
+        margin: 0 auto;
+        background: #ffffff;
+      }
+      
+      .pdf-frame-page:last-child {
+        page-break-after: auto;
+      }
+
+      .pdf-inner-border {
+        width: 100%;
+        height: 100%;
+        border: 2px solid #1e3a8a;
+        border-radius: 18px;
+        padding: 18px 20px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .cover-inner-border {
+        width: 100%;
+        height: 100%;
+        border: 2.5px solid #1e3a8a;
+        border-radius: 18px;
+        padding: 24px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        text-align: center;
+        background: radial-gradient(circle at 50% 20%, #f8fafc 0%, #ffffff 80%);
+        position: relative;
+      }
+      
+      /* تنظیمات پرینت برای برگه A4 بدون حاشیه اضافه سیستم */
+      @page {
+        size: A4 portrait;
+        margin: 0mm;
+      }
     }
 
-    #pdf-printable-area {
-      display: none;
-      background: #ffffff !important;
-      color: #0f172a !important;
-      width: 700px !important;
-      max-width: 700px !important;
-      margin: 0 auto !important;
-      padding: 0 !important;
-      direction: rtl !important;
-      box-sizing: border-box !important;
-    }
-
-    #pdf-printable-area, #pdf-printable-area * {
-      letter-spacing: 0px !important;
-      word-spacing: 0px !important;
-      text-rendering: geometricPrecision !important;
-      -webkit-font-smoothing: antialiased !important;
-    }
-
-    .pdf-frame-page {
-      width: 700px;
-      height: 985px;
-      max-height: 985px;
-      box-sizing: border-box;
-      page-break-after: always;
-      padding: 16px;
-      background: #ffffff;
-      position: relative;
-    }
-    .pdf-frame-page:last-child {
-      page-break-after: auto;
-    }
-
-    .pdf-inner-border {
-      width: 100%;
-      height: 100%;
-      border: 2px solid #1e3a8a;
-      border-radius: 18px;
-      padding: 18px 20px;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: relative;
-      background: #ffffff;
-    }
-
-    .cover-inner-border {
-      width: 100%;
-      height: 100%;
-      border: 2.5px solid #1e3a8a;
-      border-radius: 18px;
-      padding: 24px;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      text-align: center;
-      background: radial-gradient(circle at 50% 20%, #f8fafc 0%, #ffffff 80%);
-      position: relative;
-    }
-    .cover-inner-border::before {
-      content: '';
-      position: absolute;
-      top: 6px; bottom: 6px; left: 6px; right: 6px;
-      border: 1px dashed rgba(30, 58, 138, 0.35);
-      border-radius: 13px;
-      pointer-events: none;
-    }
-
-    .cover-top-badge {
-      display: inline-block;
-      background: linear-gradient(135deg, #1e3a8a 0%, #0284c7 100%);
-      color: #ffffff;
-      font-size: 13px;
-      font-weight: 800;
-      padding: 6px 22px;
-      border-radius: 30px;
-      letter-spacing: 0.5px;
-      box-shadow: 0 4px 10px rgba(30,58,138,0.2);
-      margin-bottom: 16px;
-    }
-
-    .cover-logo-wrapper {
-      margin: 10px 0 15px 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .cover-logo-img {
-      max-height: 110px;
-      max-width: 200px;
-      object-fit: contain;
-      border-radius: 12px;
-      padding: 4px;
-      background: #ffffff;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      border: 1.5px solid #e2e8f0;
-    }
-
-    .cover-title {
-      font-size: 34px;
-      font-weight: 900;
-      color: #1e3a8a;
-      margin-bottom: 6px;
-      letter-spacing: -0.5px;
-    }
-    .cover-subtitle {
-      font-size: 15.5px;
-      font-weight: 700;
-      color: #0d9488;
-      margin-bottom: 12px;
-    }
-
-    .cover-divider {
-      width: 140px;
-      height: 3px;
-      background: linear-gradient(90deg, #fbbf24 0%, #1e3a8a 100%);
-      border-radius: 4px;
-      margin: 0 auto 16px auto;
-    }
-
-    .cover-meta-card {
-      width: 100%;
-      max-width: 520px;
-      background: #ffffff;
-      border: 1.5px solid #cbd5e1;
-      border-radius: 16px;
-      padding: 16px 20px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.04);
-      margin-bottom: 10px;
-    }
-
-    .product-giant-image-frame {
-      flex: 1;
-      width: 100%;
-      height: 570px;
-      max-height: 570px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 10px 0 12px 0;
-      overflow: hidden;
-      background: #ffffff;
-    }
-    .product-giant-image {
-      max-height: 560px;
-      max-width: 98%;
-      object-fit: contain;
-    }
-
-    .poster-specs-bar {
-      background: #f8fafc;
-      border: 1.5px solid #cbd5e1;
-      border-radius: 14px;
-      padding: 12px 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-    }
-
-    .poster-name {
-      font-size: 22px;
-      font-weight: 900;
-      color: #0f172a;
-      margin-bottom: 4px;
-      line-height: 1.3;
-    }
-
-    .poster-price-tag {
-      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
-      color: #ffffff;
-      font-weight: 900;
-      font-size: 20px;
-      padding: 7px 18px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
-      white-space: nowrap;
-    }
-
+    /* استایل‌های داخلی صفحات کاتالوگ */
+    .cover-inner-border::before { content: ''; position: absolute; top: 6px; bottom: 6px; left: 6px; right: 6px; border: 1px dashed rgba(30, 58, 138, 0.35); border-radius: 13px; pointer-events: none; }
+    .cover-top-badge { display: inline-block; background: linear-gradient(135deg, #1e3a8a 0%, #0284c7 100%); color: #ffffff; font-size: 13px; font-weight: 800; padding: 6px 22px; border-radius: 30px; margin-bottom: 16px; }
+    .cover-logo-wrapper { margin: 10px 0 15px 0; display: flex; justify-content: center; align-items: center; }
+    .cover-logo-img { max-height: 110px; max-width: 200px; object-fit: contain; border-radius: 12px; padding: 4px; background: #ffffff; border: 1.5px solid #e2e8f0; }
+    .cover-title { font-size: 34px; font-weight: 900; color: #1e3a8a; margin-bottom: 6px; }
+    .cover-subtitle { font-size: 15.5px; font-weight: 700; color: #0d9488; margin-bottom: 12px; }
+    .cover-divider { width: 140px; height: 3px; background: linear-gradient(90deg, #fbbf24 0%, #1e3a8a 100%); border-radius: 4px; margin: 0 auto 16px auto; }
+    .cover-meta-card { width: 100%; max-width: 520px; background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 16px; padding: 16px 20px; margin-bottom: 10px; }
+    .product-giant-image-frame { flex: 1; width: 100%; height: 570px; max-height: 570px; display: flex; align-items: center; justify-content: center; margin: 10px 0 12px 0; overflow: hidden; background: #ffffff; }
+    .product-giant-image { max-height: 560px; max-width: 98%; object-fit: contain; }
+    .poster-specs-bar { background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 14px; padding: 12px 18px; display: flex; justify-content: space-between; align-items: center; }
+    .poster-name { font-size: 22px; font-weight: 900; color: #0f172a; margin-bottom: 4px; line-height: 1.3; }
+    .poster-price-tag { background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); color: #ffffff; font-weight: 900; font-size: 20px; padding: 7px 18px; border-radius: 10px; white-space: nowrap; }
     .invoice-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px; }
     .invoice-table th, .invoice-table td { border: 1.5px solid #cbd5e1; padding: 10px 12px; text-align: center; }
     .invoice-table th { background: #f1f5f9; color: #1e3a8a; font-weight: 800; font-size: 13.5px; }
@@ -656,7 +307,6 @@
           </div>
           <div class="stat-card-number" id="dashTotalProducts" style="color:#0284c7;">۰</div>
         </div>
-
         <div class="stat-card">
           <div class="stat-card-header">
             <span class="stat-card-title">کالاهای موجود</span>
@@ -664,7 +314,6 @@
           </div>
           <div class="stat-card-number" id="dashAvailableProducts" style="color:#16a34a;">۰</div>
         </div>
-
         <div class="stat-card">
           <div class="stat-card-header">
             <span class="stat-card-title">کالاهای ناموجود</span>
@@ -672,7 +321,6 @@
           </div>
           <div class="stat-card-number" id="dashUnavailableProducts" style="color:#dc2626;">۰</div>
         </div>
-
         <div class="stat-card">
           <div class="stat-card-header">
             <span class="stat-card-title">دسته‌بندی‌ها</span>
@@ -686,14 +334,12 @@
         <div class="card-header">
           <div class="card-title">پایش انقضای انبار (خورشیدی)</div>
         </div>
-        
         <div class="health-bar-container">
           <div id="barSafe" class="health-seg seg-safe" style="width: 25%"></div>
           <div id="barNear" class="health-seg seg-near" style="width: 25%"></div>
           <div id="barVeryNear" class="health-seg seg-very-near" style="width: 25%"></div>
           <div id="barExpired" class="health-seg seg-expired" style="width: 25%"></div>
         </div>
-
         <div class="expiry-chips-grid">
           <div class="expiry-chip" onclick="filterProductsByExpiry('safe')">
             <span>🟢 وضعیت ایمن</span>
@@ -757,12 +403,9 @@
               <option value="available">موجود</option>
               <option value="unavailable">ناموجود</option>
               <option value="expired">منقضی شده</option>
-              <option value="very_near">خیلی نزدیک</option>
-              <option value="near">نزدیک به انقضا</option>
             </select>
           </div>
         </div>
-
         <div id="productsListContainer"></div>
       </div>
     </section>
@@ -786,8 +429,8 @@
         </div>
 
         <div class="export-mode-tabs">
-          <button type="button" class="export-tab-btn active" id="tabModeCatalog" onclick="setExportMode('catalog')">🖼 کاتالوگ پوستر ژورنالی</button>
-          <button type="button" class="export-tab-btn" id="tabModeInvoice" onclick="setExportMode('invoice')">🧾 پیش‌فاکتور / سفارش</button>
+          <button type="button" class="export-tab-btn active" id="tabModeCatalog" onclick="setExportMode('catalog')">🖼 کاتالوگ پوستر</button>
+          <button type="button" class="export-tab-btn" id="tabModeInvoice" onclick="setExportMode('invoice')">🧾 پیش‌فاکتور</button>
           <button type="button" class="export-tab-btn" id="tabModeExpiry" onclick="setExportMode('expiry')">🚨 ترخیص انقضا</button>
         </div>
 
@@ -809,8 +452,8 @@
           <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 11.5px; margin-top: 4px;">
             <label><input type="checkbox" id="pdfOptHideUnavailable" checked> حذف خودکار ناموجودها</label>
             <label><input type="checkbox" id="pdfOptShowImage" checked> نمایش عکس بزرگ کالا</label>
-            <label><input type="checkbox" id="pdfOptShowPrice" checked> نمایش قیمت مصرف‌کننده</label>
-            <label><input type="checkbox" id="pdfOptShowCompany" checked> نمایش نام تولیدکننده</label>
+            <label><input type="checkbox" id="pdfOptShowPrice" checked> نمایش قیمت</label>
+            <label><input type="checkbox" id="pdfOptShowCompany" checked> نمایش برند تولیدکننده</label>
           </div>
         </div>
 
@@ -821,7 +464,7 @@
           </div>
           <div class="form-group">
             <label>متن پایین سند</label>
-            <input type="text" id="pdfCustomFooterNote" class="form-control" placeholder="مثال: تحویل سریع در محل فروشگاه">
+            <input type="text" id="pdfCustomFooterNote" class="form-control" placeholder="مثال: تحویل سریع در محل">
           </div>
         </div>
 
@@ -840,10 +483,7 @@
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 8px;">
-          <div style="display: flex; gap: 8px;">
-            <button class="btn btn-primary" id="btnDownloadPdf" style="flex: 1;" onclick="generateAndOpenRealPdf(false)">📥 باز کردن و ذخیره فایل PDF</button>
-            <button class="btn btn-warning" id="btnShareMessenger" style="flex: 1;" onclick="generateAndOpenRealPdf(true)">📤 ارسال فایل PDF به پیام‌رسان</button>
-          </div>
+          <button class="btn btn-primary btn-block" onclick="generateNativePdf()">🖨️ تولید و ذخیره PDF (کیفیت اصلی و بدون به‌هم‌ریختگی)</button>
           <button class="btn btn-success btn-block" onclick="generateMKPFile()">📦 ساخت فایل پشتیبان JSON</button>
         </div>
       </div>
@@ -901,62 +541,27 @@
         </div>
         <button class="btn btn-primary btn-sm" onclick="saveExpirySettings()">ذخیره بازه‌ها</button>
       </div>
-
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">پشتیبان‌گیری هوشمند (Backup & Restore)</div>
-        </div>
-        <div style="display: flex; gap: 8px;">
-          <button class="btn btn-success" style="flex: 1;" onclick="openBackupCenterModal()">💾 مرکز پشتیبان‌گیری</button>
-          <button class="btn btn-secondary" style="flex: 1;" onclick="document.getElementById('backupFileInput').click()">📥 بازگردانی با فایل</button>
-          <input type="file" id="backupFileInput" accept=".json,.mkp" style="display: none;" onchange="importFullBackup(event)">
-        </div>
-      </div>
     </section>
   </main>
 
   <nav class="bottom-nav">
-    <button onclick="navigateTo('view-dashboard')" id="nav-view-dashboard" class="active">
-      <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
-      داشبورد
-    </button>
-    <button onclick="navigateTo('view-products')" id="nav-view-products">
-      <svg viewBox="0 0 24 24"><path d="M20 2H4c-1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-9 14l-4-4 1.4-1.4 2.6 2.6 6.6-6.6 1.4 1.4-8 8z"/></svg>
-      کالاها
-    </button>
-    <button onclick="navigateTo('view-categories')" id="nav-view-categories">
-      <svg viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
-      دسته‌ها
-    </button>
-    <button onclick="navigateTo('view-export')" id="nav-view-export">
-      <svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
-      اسناد/بکاپ
-    </button>
-    <button onclick="navigateTo('view-settings')" id="nav-view-settings">
-      <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
-      تنظیمات
-    </button>
+    <button onclick="navigateTo('view-dashboard')" id="nav-view-dashboard" class="active"><svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>داشبورد</button>
+    <button onclick="navigateTo('view-products')" id="nav-view-products"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-9 14l-4-4 1.4-1.4 2.6 2.6 6.6-6.6 1.4 1.4-8 8z"/></svg>کالاها</button>
+    <button onclick="navigateTo('view-categories')" id="nav-view-categories"><svg viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>دسته‌ها</button>
+    <button onclick="navigateTo('view-export')" id="nav-view-export"><svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>اسناد/بکاپ</button>
+    <button onclick="navigateTo('view-settings')" id="nav-view-settings"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>تنظیمات</button>
   </nav>
 
   <!-- مرکز پشتیبان‌گیری -->
   <div id="backupCenterModal" class="modal-overlay">
     <div class="modal-box">
       <div class="modal-header">
-        <h3>💾 مرکز پشتیبان‌‌گیری انبار</h3>
+        <h3>💾 مرکز پشتیبان‌گیری انبار</h3>
         <button class="modal-close" onclick="closeModal('backupCenterModal')">&times;</button>
       </div>
-
       <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:12px;">
-        <button class="btn btn-primary btn-block" onclick="downloadBackupFileDirectly()">
-          📥 دانلود مستقیم فایل پشتیبان (.json)
-        </button>
-        <button class="btn btn-success btn-block" onclick="triggerNativeShareBackup()">
-          📤 ارسال فایل پشتیبان به پیام‌‌رسان
-        </button>
-      </div>
-
-      <div style="font-size:11.5px; color:var(--text-muted); line-height:1.6; background:#f8fafc; padding:10px; border-radius:8px; border:1px solid var(--border);">
-        💡 با خیال راحت کالاها را مدیریت کنید. فایل پشتیبان با فرمت استاندارد `.json` در گوشی ذخیره می‌شود تا در انتخاب و بازگردانی هیچ‌گونه محدودیتی نداشته باشید.
+        <button class="btn btn-primary btn-block" onclick="downloadBackupFileDirectly()">📥 دانلود مستقیم فایل پشتیبان (.json)</button>
+        <button class="btn btn-success btn-block" onclick="triggerNativeShareBackup()">📤 ارسال فایل پشتیبان به پیام‌رسان</button>
       </div>
     </div>
   </div>
@@ -964,89 +569,35 @@
   <!-- مودال افزودن کالا -->
   <div id="productModal" class="modal-overlay">
     <div class="modal-box">
-      <div class="modal-header">
-        <h3 id="productModalTitle">افزودن کالا</h3>
-        <button class="modal-close" onclick="closeModal('productModal')">&times;</button>
-      </div>
+      <div class="modal-header"><h3 id="productModalTitle">افزودن کالا</h3><button class="modal-close" onclick="closeModal('productModal')">&times;</button></div>
       <form onsubmit="handleSaveProduct(event)">
         <input type="hidden" id="pmId">
-        <div class="form-group">
-          <label>نام کالا *</label>
-          <input type="text" id="pmName" class="form-control" required placeholder="مثال: نوشابه ۱.۵ لیتر">
+        <div class="form-group"><label>نام کالا *</label><input type="text" id="pmName" class="form-control" required></div>
+        <div class="form-row">
+          <div class="form-group"><label>دسته‌بندی *</label><select id="pmCategory" class="form-control" required></select></div>
+          <div class="form-group"><label>قیمت (تومان) *</label><input type="number" id="pmPrice" class="form-control" required></div>
         </div>
         <div class="form-row">
-          <div class="form-group">
-            <label>دسته‌بندی *</label>
-            <select id="pmCategory" class="form-control" required></select>
-          </div>
-          <div class="form-group">
-            <label>قیمت مصرف‌کننده (تومان) *</label>
-            <input type="number" id="pmPrice" class="form-control" required placeholder="۳۵۰۰۰">
-          </div>
+          <div class="form-group"><label>برند *</label><input type="text" id="pmCompany" class="form-control" required></div>
+          <div class="form-group"><label>کد کالا</label><input type="text" id="pmCode" class="form-control"></div>
         </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>شرکت / برند *</label>
-            <input type="text" id="pmCompany" class="form-control" required placeholder="تولیدکننده">
-          </div>
-          <div class="form-group">
-            <label>کد کالا</label>
-            <input type="text" id="pmCode" class="form-control" placeholder="K-102">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>وضعیت موجودی</label>
-          <select id="pmStatus" class="form-control">
-            <option value="available">موجود در انبار</option>
-            <option value="unavailable">ناموجود</option>
-          </select>
-        </div>
-
+        <div class="form-group"><label>وضعیت</label><select id="pmStatus" class="form-control"><option value="available">موجود</option><option value="unavailable">ناموجود</option></select></div>
         <div class="form-group" style="background: #f1f5f9; padding: 10px; border-radius: 8px;">
-          <label><b>تاریخ انقضا (تقویم خورشیدی) *</b></label>
+          <label><b>تاریخ انقضا *</b></label>
           <div class="form-row" style="margin-top: 5px;">
-            <div class="form-group">
-              <label>سال</label>
-              <select id="pmJalaliYear" class="form-control" onchange="updateJalaliDaysSelector()"></select>
-            </div>
-            <div class="form-group">
-              <label>ماه</label>
-              <select id="pmJalaliMonth" class="form-control" onchange="updateJalaliDaysSelector()">
-                <option value="1">فروردین (۳۱)</option>
-                <option value="2">اردیبهشت (۳۱)</option>
-                <option value="3">خرداد (۳۱)</option>
-                <option value="4">تیر (۳۱)</option>
-                <option value="5">مرداد (۳۱)</option>
-                <option value="6">شهریور (۳۱)</option>
-                <option value="7">مهر (۳۰)</option>
-                <option value="8">آبان (۳۰)</option>
-                <option value="9">آذر (۳۰)</option>
-                <option value="10">دی (۳۰)</option>
-                <option value="11">بهمن (۳۰)</option>
-                <option value="12">اسفند (۲۹ یا ۳۰)</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>روز</label>
-              <select id="pmJalaliDay" class="form-control"></select>
-            </div>
+            <div class="form-group"><label>سال</label><select id="pmJalaliYear" class="form-control" onchange="updateJalaliDaysSelector()"></select></div>
+            <div class="form-group"><label>ماه</label><select id="pmJalaliMonth" class="form-control" onchange="updateJalaliDaysSelector()"><option value="1">۱</option><option value="2">۲</option><option value="3">۳</option><option value="4">۴</option><option value="5">۵</option><option value="6">۶</option><option value="7">۷</option><option value="8">۸</option><option value="9">۹</option><option value="10">۱۰</option><option value="11">۱۱</option><option value="12">۱۲</option></select></div>
+            <div class="form-group"><label>روز</label><select id="pmJalaliDay" class="form-control"></select></div>
           </div>
-          <div id="pmLeapYearNotice" style="font-size: 11px; color: var(--secondary); margin-top: 3px;"></div>
+          <div id="pmLeapYearNotice" style="font-size: 11px; margin-top: 3px;"></div>
         </div>
-
         <div class="form-group">
           <label>عکس کالا</label>
           <input type="file" id="pmImageFile" accept="image/*" class="form-control" onchange="previewAndCompressImage(event)">
           <input type="hidden" id="pmImageBase64">
           <div id="pmImagePreview" style="margin-top: 6px; text-align: center;"></div>
         </div>
-
-        <div class="form-group">
-          <label>توضیحات تکمیلی</label>
-          <textarea id="pmDescription" class="form-control" rows="2" placeholder="توضیحات بسته..."></textarea>
-        </div>
-
+        <div class="form-group"><label>توضیحات</label><textarea id="pmDescription" class="form-control" rows="2"></textarea></div>
         <button type="submit" class="btn btn-primary btn-block">ثبت کالا</button>
       </form>
     </div>
@@ -1054,128 +605,65 @@
 
   <div id="productDetailModal" class="modal-overlay">
     <div class="modal-box">
-      <div class="modal-header">
-        <h3 id="pdmTitle">اطلاعات کالا</h3>
-        <button class="modal-close" onclick="closeModal('productDetailModal')">&times;</button>
-      </div>
+      <div class="modal-header"><h3 id="pdmTitle">اطلاعات کالا</h3><button class="modal-close" onclick="closeModal('productDetailModal')">&times;</button></div>
       <div id="pdmBody" style="font-size: 13px; line-height: 1.8;"></div>
     </div>
   </div>
 
   <div id="categoryModal" class="modal-overlay">
     <div class="modal-box">
-      <div class="modal-header">
-        <h3 id="catModalTitle">افزودن دسته‌بندی</h3>
-        <button class="modal-close" onclick="closeModal('categoryModal')">&times;</button>
-      </div>
+      <div class="modal-header"><h3 id="catModalTitle">افزودن دسته‌بندی</h3><button class="modal-close" onclick="closeModal('categoryModal')">&times;</button></div>
       <form onsubmit="handleSaveCategory(event)">
         <input type="hidden" id="cmId">
-        <div class="form-group">
-          <label>نام دسته‌بندی *</label>
-          <input type="text" id="cmName" class="form-control" required placeholder="مثال: شوینده، لبنیات">
-        </div>
+        <div class="form-group"><label>نام دسته‌بندی *</label><input type="text" id="cmName" class="form-control" required></div>
         <button type="submit" class="btn btn-primary btn-block">ذخیره دسته‌بندی</button>
       </form>
     </div>
   </div>
 
-  <!-- سند قابل تبدیل به فایل PDF -->
-  <div id="pdf-printable-area">
-    <div id="pdfContentContainer"></div>
-  </div>
+  <!-- سند خروجی چاپ -->
+  <div id="pdf-printable-area"></div>
 
   <script>
-    // مخفی کردن صفحه خوش‌‌آمدگویی پس از ۳ ثانیه
     window.addEventListener('load', function() {
       setTimeout(() => {
         const splash = document.getElementById('splash-screen');
-        if (splash) {
-          splash.style.opacity = '0';
-          setTimeout(() => splash.remove(), 500);
-        }
+        if (splash) { splash.style.opacity = '0'; setTimeout(() => splash.remove(), 500); }
       }, 3000);
     });
 
     const Jalali = {
       gregorianToJalali: function(gy, gm, gd) {
         const g_d_m = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
-        let jy = (gy <= 1600) ? 0 : 979;
-        gy -= (gy <= 1600) ? 621 : 1600;
+        let jy = (gy <= 1600) ? 0 : 979; gy -= (gy <= 1600) ? 621 : 1600;
         const gy2 = (gm > 2) ? (gy + 1) : gy;
         let days = (365 * gy) + Math.floor((gy2 + 3) / 4) - Math.floor((gy2 + 99) / 100) + Math.floor((gy2 + 399) / 400) - 80 + gd + g_d_m[gm - 1];
-        jy += 33 * Math.floor(days / 12053);
-        days %= 12053;
-        jy += 4 * Math.floor(days / 1461);
-        days %= 1461;
-        if (days > 365) {
-          jy += Math.floor((days - 1) / 365);
-          days = (days - 1) % 365;
-        }
+        jy += 33 * Math.floor(days / 12053); days %= 12053;
+        jy += 4 * Math.floor(days / 1461); days %= 1461;
+        if (days > 365) { jy += Math.floor((days - 1) / 365); days = (days - 1) % 365; }
         let jm = (days < 186) ? 1 + Math.floor(days / 31) : 7 + Math.floor((days - 186) / 30);
         let jd = 1 + ((days < 186) ? (days % 31) : ((days - 186) % 30));
         return { jy, jm, jd };
       },
-
       jalaliToGregorian: function(jy, jm, jd) {
-        let gy = (jy <= 979) ? 621 : 1600;
-        jy -= (jy <= 979) ? 0 : 979;
+        let gy = (jy <= 979) ? 621 : 1600; jy -= (jy <= 979) ? 0 : 979;
         let days = (365 * jy) + (Math.floor(jy / 33) * 8) + Math.floor(((jy % 33) + 3) / 4) + 78 + jd + ((jm < 7) ? (jm - 1) * 31 : ((jm - 7) * 30) + 186);
-        gy += 400 * Math.floor(days / 146097);
-        days %= 146097;
-        if (days > 36524) {
-          days--;
-          gy += 100 * Math.floor(days / 36524);
-          days %= 36524;
-          if (days >= 365) days++;
-        }
-        gy += 4 * Math.floor(days / 1461);
-        days %= 1461;
-        if (days > 365) {
-          gy += Math.floor((days - 1) / 365);
-          days = (days - 1) % 365;
-        }
+        gy += 400 * Math.floor(days / 146097); days %= 146097;
+        if (days > 36524) { days--; gy += 100 * Math.floor(days / 36524); days %= 36524; if (days >= 365) days++; }
+        gy += 4 * Math.floor(days / 1461); days %= 1461;
+        if (days > 365) { gy += Math.floor((days - 1) / 365); days = (days - 1) % 365; }
         const sal_a = [0, 31, ((gy % 4 === 0 && gy % 100 !== 0) || (gy % 400 === 0)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-        let gm = 0;
-        while (gm < 13 && days >= sal_a[gm]) {
-          days -= sal_a[gm];
-          gm++;
-        }
-        const gd = days + 1;
-        return new Date(gy, gm - 1, gd);
+        let gm = 0; while (gm < 13 && days >= sal_a[gm]) { days -= sal_a[gm]; gm++; }
+        const gd = days + 1; return new Date(gy, gm - 1, gd);
       },
-
-      today: function() {
-        const d = new Date();
-        return this.gregorianToJalali(d.getFullYear(), d.getMonth() + 1, d.getDate());
-      },
-
-      diffDaysFromToday: function(jy, jm, jd) {
-        const target = this.jalaliToGregorian(jy, jm, jd);
-        const now = new Date();
-        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        const diff = target.getTime() - today.getTime();
-        return Math.round(diff / 86400000);
-      },
-
-      isLeap: function(jy) {
-        return (((((jy - 474) % 2820) + 474 + 38) * 682) % 2816) < 682;
-      },
-
-      daysInMonth: function(jy, jm) {
-        if (jm <= 6) return 31;
-        if (jm <= 11) return 30;
-        return this.isLeap(jy) ? 30 : 29;
-      },
-
+      today: function() { const d = new Date(); return this.gregorianToJalali(d.getFullYear(), d.getMonth() + 1, d.getDate()); },
+      diffDaysFromToday: function(jy, jm, jd) { const target = this.jalaliToGregorian(jy, jm, jd); const today = new Date(); today.setHours(0,0,0,0); return Math.round((target.getTime() - today.getTime()) / 86400000); },
+      isLeap: function(jy) { return (((((jy - 474) % 2820) + 474 + 38) * 682) % 2816) < 682; },
+      daysInMonth: function(jy, jm) { if (jm <= 6) return 31; if (jm <= 11) return 30; return this.isLeap(jy) ? 30 : 29; },
       monthNames: ["فروردین","اردیبهشت","خرداد","تیر","مرداد","شهریور","مهر","آبان","آذر","دی","بهمن","اسفند"]
     };
 
-    const DB_KEYS = {
-      PRODUCTS: 'mkp_products_db',
-      CATEGORIES: 'mkp_categories_db',
-      SETTINGS: 'mkp_settings_db'
-    };
-
+    const DB_KEYS = { PRODUCTS: 'mkp_products_db', CATEGORIES: 'mkp_categories_db', SETTINGS: 'mkp_settings_db' };
     const DB = {
       get: (k) => JSON.parse(localStorage.getItem(k) || '[]'),
       set: (k, v) => localStorage.setItem(k, JSON.stringify(v)),
@@ -1185,52 +673,18 @@
 
     function initDatabase() {
       if (!localStorage.getItem(DB_KEYS.CATEGORIES)) {
-        DB.set(DB_KEYS.CATEGORIES, [
-          { id: 'cat_1', name: 'نوشیدنی‌ها' },
-          { id: 'cat_2', name: 'تنقلات و چیپس' },
-          { id: 'cat_3', name: 'شوینده و بهداشتی' }
-        ]);
+        DB.set(DB_KEYS.CATEGORIES, [{ id: 'cat_1', name: 'نوشیدنی‌ها' }, { id: 'cat_2', name: 'تنقلات' }, { id: 'cat_3', name: 'شوینده' }]);
       }
-
       if (!localStorage.getItem(DB_KEYS.SETTINGS)) {
-        DB.setSettings({
-          companyName: 'مهر پخش کوهیج',
-          phone: '۰۹۱۲۳۴۵۶۷۸۹',
-          address: 'استان هرمزگان، شهر کوهیج، مرکز پخش',
-          logoBase64: '',
-          nearDays: 30,
-          veryNearDays: 20
-        });
-      }
-
-      if (!localStorage.getItem(DB_KEYS.PRODUCTS)) {
-        const todayJ = Jalali.today();
-        DB.set(DB_KEYS.PRODUCTS, [
-          {
-            id: 'p_1',
-            name: 'آب معدنی بزرگ ۱.۵ لیتری',
-            categoryId: 'cat_1',
-            price: 12000,
-            company: 'دماوند',
-            code: 'DM-15',
-            status: 'available',
-            expiry: { jy: todayJ.jy, jm: todayJ.jm + 3 > 12 ? 12 : todayJ.jm + 3, jd: 15 },
-            image: '',
-            description: 'بسته ۶ عددی شرینک'
-          }
-        ]);
+        DB.setSettings({ companyName: 'مهر پخش کوهیج', phone: '۰۹۱۲۳۴۵۶۷۸۹', address: 'استان هرمزگان، شهر کوهیج، مرکز پخش', logoBase64: '', nearDays: 30, veryNearDays: 20 });
       }
     }
 
     function navigateTo(viewId) {
       document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
-      const target = document.getElementById(viewId);
-      if (target) target.classList.add('active');
-
+      document.getElementById(viewId).classList.add('active');
       document.querySelectorAll('.bottom-nav button').forEach(b => b.classList.remove('active'));
-      const activeNav = document.getElementById('nav-' + viewId);
-      if (activeNav) activeNav.classList.add('active');
-
+      document.getElementById('nav-' + viewId).classList.add('active');
       if (viewId === 'view-dashboard') renderDashboard();
       if (viewId === 'view-products') { populateCategoryFilters(); renderProductList(); }
       if (viewId === 'view-categories') renderCategoryList();
@@ -1239,45 +693,28 @@
     }
 
     function renderDashboard() {
-      const products = DB.get(DB_KEYS.PRODUCTS);
-      const categories = DB.get(DB_KEYS.CATEGORIES);
-      const settings = DB.getSettings();
-
+      const products = DB.get(DB_KEYS.PRODUCTS); const categories = DB.get(DB_KEYS.CATEGORIES); const settings = DB.getSettings();
       const todayJ = Jalali.today();
       document.getElementById('dashCompName').innerText = settings.companyName || 'مهر پخش کوهیج';
       document.getElementById('dashLiveDate').innerText = `امروز: ${todayJ.jd} ${Jalali.monthNames[todayJ.jm - 1]} ${todayJ.jy}`;
 
       const total = products.length;
       const available = products.filter(p => p.status === 'available').length;
-      const unavailable = total - available;
-
-      let expired = 0, veryNear = 0, near = 0, safe = 0;
-      let attentionItems = [];
+      let expired = 0, veryNear = 0, near = 0, safe = 0; let attentionItems = [];
 
       products.forEach(p => {
         const diff = Jalali.diffDaysFromToday(p.expiry.jy, p.expiry.jm, p.expiry.jd);
-        if (diff < 0) {
-          expired++;
-          attentionItems.push({ product: p, reason: 'منقضی شده', class: 'badge-expired' });
-        } else if (diff <= (settings.veryNearDays || 20)) {
-          veryNear++;
-          attentionItems.push({ product: p, reason: `${diff} روز مانده به انقضا`, class: 'badge-very-near' });
-        } else if (diff <= (settings.nearDays || 30)) {
-          near++;
-          attentionItems.push({ product: p, reason: `نزدیک انقضا (${diff} روز)`, class: 'badge-near' });
-        } else {
-          safe++;
-        }
+        if (diff < 0) { expired++; attentionItems.push({ product: p, reason: 'منقضی شده', class: 'badge-expired' }); }
+        else if (diff <= (settings.veryNearDays || 20)) { veryNear++; attentionItems.push({ product: p, reason: `${diff} روز`, class: 'badge-very-near' }); }
+        else if (diff <= (settings.nearDays || 30)) { near++; attentionItems.push({ product: p, reason: `${diff} روز`, class: 'badge-near' }); }
+        else { safe++; }
       });
 
-      const nearExpiryTotal = expired + veryNear + near;
-      document.getElementById('dashNearExpiryCount').innerText = nearExpiryTotal + ' قلم';
-
+      document.getElementById('dashNearExpiryCount').innerText = (expired + veryNear + near) + ' قلم';
       document.getElementById('dashTotalProducts').innerText = total;
       document.getElementById('dashAvailableProducts').innerText = available;
-      document.getElementById('dashUnavailableProducts').innerText = unavailable;
+      document.getElementById('dashUnavailableProducts').innerText = total - available;
       document.getElementById('dashTotalCategories').innerText = categories.length;
-
       document.getElementById('dashExpiredCount').innerText = expired;
       document.getElementById('dashVeryNearCount').innerText = veryNear;
       document.getElementById('dashNearCount').innerText = near;
@@ -1290,1078 +727,348 @@
       document.getElementById('barExpired').style.width = ((expired / sum) * 100) + '%';
 
       const attCont = document.getElementById('dashAttentionContainer');
-      if (attentionItems.length === 0) {
-        attCont.innerHTML = '<div style="color:#10b981; font-size:12px; padding:6px 0;">✅ تمام کالاهای موجود دارای تاریخ مصرف معتبر هستند.</div>';
-      } else {
-        attCont.innerHTML = attentionItems.slice(0, 4).map(item => `
-          <div class="attention-item">
-            <div>
-              <b style="font-size:12.5px;">${item.product.name}</b>
-              <div style="font-size:10px; color:#64748b;">${item.product.company}</div>
-            </div>
-            <span class="badge ${item.class}">${item.reason}</span>
-          </div>
-        `).join('');
-      }
+      attCont.innerHTML = attentionItems.length === 0 ? '<div style="color:#10b981; font-size:12px; padding:6px 0;">✅ تمام کالاهای موجود دارای تاریخ مصرف معتبر هستند.</div>' : attentionItems.slice(0, 4).map(item => `<div class="attention-item"><div><b style="font-size:12.5px;">${item.product.name}</b><div style="font-size:10px; color:#64748b;">${item.product.company}</div></div><span class="badge ${item.class}">${item.reason}</span></div>`).join('');
     }
 
-    function filterProductsByExpiry(type) {
-      navigateTo('view-products');
-      document.getElementById('prodStatusFilter').value = type;
-      renderProductList();
-    }
+    function filterProductsByExpiry(type) { navigateTo('view-products'); document.getElementById('prodStatusFilter').value = type; renderProductList(); }
 
     function populateCategoryFilters() {
-      const categories = DB.get(DB_KEYS.CATEGORIES);
-      const filterSelect = document.getElementById('prodCategoryFilter');
-      const modalSelect = document.getElementById('pmCategory');
-
-      filterSelect.innerHTML = '<option value="">همه دسته‌ها</option>';
-      modalSelect.innerHTML = '<option value="">-- انتخاب دسته‌‌بندی --</option>';
-
-      categories.forEach(c => {
-        filterSelect.innerHTML += `<option value="${c.id}">${c.name}</option>`;
-        modalSelect.innerHTML += `<option value="${c.id}">${c.name}</option>`;
-      });
+      const cats = DB.get(DB_KEYS.CATEGORIES);
+      document.getElementById('prodCategoryFilter').innerHTML = '<option value="">همه دسته‌ها</option>' + cats.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+      document.getElementById('pmCategory').innerHTML = '<option value="">-- انتخاب دسته‌بندی --</option>' + cats.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
     }
 
     function getExpiryStatus(p) {
-      const settings = DB.getSettings();
       const diff = Jalali.diffDaysFromToday(p.expiry.jy, p.expiry.jm, p.expiry.jd);
-      if (diff < 0) return { label: 'منقضی شده', class: 'badge-expired', code: 'expired', diff };
-      if (diff <= (settings.veryNearDays || 20)) return { label: `خیلی نزدیک (${diff} روز)`, class: 'badge-very-near', code: 'very_near', diff };
-      if (diff <= (settings.nearDays || 30)) return { label: `نزدیک (${diff} روز)`, class: 'badge-near', code: 'near', diff };
-      return { label: `ایمن (${diff} روز)`, class: 'badge-safe', code: 'safe', diff };
+      const s = DB.getSettings();
+      if (diff < 0) return { label: 'منقضی شده', class: 'badge-expired', code: 'expired' };
+      if (diff <= (s.veryNearDays || 20)) return { label: `خیلی نزدیک`, class: 'badge-very-near', code: 'very_near' };
+      if (diff <= (s.nearDays || 30)) return { label: `نزدیک`, class: 'badge-near', code: 'near' };
+      return { label: `ایمن`, class: 'badge-safe', code: 'safe' };
     }
 
     function renderProductList() {
       const search = document.getElementById('prodSearchInput').value.trim().toLowerCase();
-      const catFilter = document.getElementById('prodCategoryFilter').value;
-      const statusFilter = document.getElementById('prodStatusFilter').value;
+      const catF = document.getElementById('prodCategoryFilter').value;
+      const statF = document.getElementById('prodStatusFilter').value;
+      const cats = DB.get(DB_KEYS.CATEGORIES); const catMap = {}; cats.forEach(c => catMap[c.id] = c.name);
 
-      let products = DB.get(DB_KEYS.PRODUCTS);
-      const categories = DB.get(DB_KEYS.CATEGORIES);
-      const catMap = {};
-      categories.forEach(c => catMap[c.id] = c.name);
-
-      const container = document.getElementById('productsListContainer');
-
-      products = products.filter(p => {
-        const matchesSearch = !search || p.name.toLowerCase().includes(search) || 
-                              p.company.toLowerCase().includes(search) || 
-                              (p.code && p.code.toLowerCase().includes(search));
-        const matchesCat = !catFilter || p.categoryId === catFilter;
-        let matchesStatus = true;
-        if (statusFilter === 'available') matchesStatus = p.status === 'available';
-        else if (statusFilter === 'unavailable') matchesStatus = p.status === 'unavailable';
-        else if (statusFilter) {
-          const exp = getExpiryStatus(p);
-          matchesStatus = exp.code === statusFilter;
-        }
-        return matchesSearch && matchesCat && matchesStatus;
+      let prods = DB.get(DB_KEYS.PRODUCTS).filter(p => {
+        const matchesS = !search || p.name.toLowerCase().includes(search) || p.company.toLowerCase().includes(search);
+        const matchesC = !catF || p.categoryId === catF;
+        let matchesSt = true;
+        if (statF === 'available') matchesSt = p.status === 'available';
+        else if (statF === 'unavailable') matchesSt = p.status === 'unavailable';
+        else if (statF) matchesSt = getExpiryStatus(p).code === statF;
+        return matchesS && matchesC && matchesSt;
       });
 
-      if (products.length === 0) {
-        container.innerHTML = '<div style="text-align:center; padding: 25px; color: var(--text-muted);">کالایی یافت نشد.</div>';
-        return;
-      }
-
-      container.innerHTML = products.map(p => {
+      const container = document.getElementById('productsListContainer');
+      container.innerHTML = prods.length === 0 ? '<div style="text-align:center; padding: 25px; color: var(--text-muted);">کالایی یافت نشد.</div>' : prods.map(p => {
         const exp = getExpiryStatus(p);
         const imgTag = p.image ? `<img src="${p.image}" class="product-thumb">` : `<div class="product-thumb">بی‌عکس</div>`;
-        const availBadge = p.status === 'available' ? `<span class="badge badge-available">موجود</span>` : `<span class="badge badge-unavailable">ناموجود</span>`;
-
-        return `
-          <div class="product-item">
-            ${imgTag}
-            <div class="product-info">
-              <h4>${p.name}</h4>
-              <div class="product-sub">برند: ${p.company} | دسته‌بندی: ${catMap[p.categoryId] || 'نامشخص'}</div>
-              <div style="display:flex; align-items:center; gap: 6px; flex-wrap: wrap;">
-                <span style="font-weight: bold; color: var(--primary); font-size: 12.5px;">${Number(p.price).toLocaleString('fa-IR')} تومان</span>
-                ${availBadge}
-                <span class="badge ${exp.class}">${exp.label}</span>
-              </div>
-            </div>
-            <div class="product-actions">
-              <button class="btn btn-sm btn-secondary" onclick="viewProductDetail('${p.id}')">مشاهده</button>
-              <button class="btn btn-sm btn-primary" onclick="openProductModal('${p.id}')">ویرایش</button>
-              <button class="btn btn-sm btn-danger" onclick="deleteProduct('${p.id}')">حذف</button>
-            </div>
-          </div>
-        `;
+        return `<div class="product-item">${imgTag}<div class="product-info"><h4>${p.name}</h4><div class="product-sub">برند: ${p.company}</div><div style="display:flex; align-items:center; gap: 6px;"><span style="font-weight: bold; color: var(--primary); font-size: 12.5px;">${Number(p.price).toLocaleString('fa-IR')} تومان</span><span class="badge ${exp.class}">${exp.label}</span></div></div><div class="product-actions"><button class="btn btn-sm btn-secondary" onclick="viewProductDetail('${p.id}')">مشاهده</button><button class="btn btn-sm btn-primary" onclick="openProductModal('${p.id}')">ویرایش</button><button class="btn btn-sm btn-danger" onclick="deleteProduct('${p.id}')">حذف</button></div></div>`;
       }).join('');
     }
 
-    function initJalaliDateDropdowns(selectedY, selectedM, selectedD) {
-      const todayJ = Jalali.today();
-      const curY = selectedY || todayJ.jy;
-      const curM = selectedM || todayJ.jm;
-      const curD = selectedD || todayJ.jd;
-
-      const ySelect = document.getElementById('pmJalaliYear');
-      ySelect.innerHTML = '';
-      for (let y = todayJ.jy - 1; y <= todayJ.jy + 8; y++) {
-        const isLeap = Jalali.isLeap(y);
-        ySelect.innerHTML += `<option value="${y}" ${y === curY ? 'selected' : ''}>${y} ${isLeap ? '(کبیسه)' : ''}</option>`;
-      }
-
+    function initJalaliDateDropdowns(y, m, d) {
+      const todayJ = Jalali.today(); const curY = y || todayJ.jy; const curM = m || todayJ.jm; const curD = d || todayJ.jd;
+      let ySelect = ''; for (let i = todayJ.jy - 1; i <= todayJ.jy + 8; i++) ySelect += `<option value="${i}" ${i === curY ? 'selected' : ''}>${i}</option>`;
+      document.getElementById('pmJalaliYear').innerHTML = ySelect;
       document.getElementById('pmJalaliMonth').value = curM;
       updateJalaliDaysSelector(curD);
     }
 
-    function updateJalaliDaysSelector(preferredDay) {
+    function updateJalaliDaysSelector(prefD) {
       const y = parseInt(document.getElementById('pmJalaliYear').value);
       const m = parseInt(document.getElementById('pmJalaliMonth').value);
-      const dSelect = document.getElementById('pmJalaliDay');
-      const maxDays = Jalali.daysInMonth(y, m);
-
-      const notice = document.getElementById('pmLeapYearNotice');
-      if (m === 12) {
-        notice.innerText = Jalali.isLeap(y) ? '✓ سال انتخابی کبیسه است (اسفند ۳۰ روزه).' : 'سال انتخابی عادی است (اسفند ۲۹ روزه).';
-      } else {
-        notice.innerText = '';
-      }
-
-      const currentSelectedDay = preferredDay || parseInt(dSelect.value) || 1;
-      dSelect.innerHTML = '';
-      for (let d = 1; d <= maxDays; d++) {
-        dSelect.innerHTML += `<option value="${d}" ${d === Math.min(currentSelectedDay, maxDays) ? 'selected' : ''}>${d}</option>`;
-      }
+      const maxD = Jalali.daysInMonth(y, m);
+      const curD = prefD || parseInt(document.getElementById('pmJalaliDay').value) || 1;
+      let dSelect = ''; for (let d = 1; d <= maxD; d++) dSelect += `<option value="${d}" ${d === Math.min(curD, maxD) ? 'selected' : ''}>${d}</option>`;
+      document.getElementById('pmJalaliDay').innerHTML = dSelect;
+      document.getElementById('pmLeapYearNotice').innerText = (m === 12 && Jalali.isLeap(y)) ? 'سال کبیسه است (اسفند ۳۰ روزه)' : '';
     }
 
     function previewAndCompressImage(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-
+      const file = e.target.files[0]; if (!file) return;
       const reader = new FileReader();
       reader.onload = function(evt) {
-        const img = new Image();
-        img.onload = function() {
-          const canvas = document.createElement('canvas');
-          const maxDim = 450;
-          let w = img.width;
-          let h = img.height;
-
-          if (w > h && w > maxDim) {
-            h = Math.round((h * maxDim) / w);
-            w = maxDim;
-          } else if (h > maxDim) {
-            w = Math.round((w * maxDim) / h);
-            h = maxDim;
-          }
-
-          canvas.width = w;
-          canvas.height = h;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0, w, h);
-
-          const compressedBase64 = canvas.toDataURL('image/jpeg', 0.55);
-          document.getElementById('pmImageBase64').value = compressedBase64;
-          document.getElementById('pmImagePreview').innerHTML = `<img src="${compressedBase64}" style="max-height:85px; border-radius:6px;">`;
-        };
-        img.src = evt.target.result;
-      };
-      reader.readAsDataURL(file);
+        const img = new Image(); img.onload = function() {
+          const canvas = document.createElement('canvas'); const maxDim = 450;
+          let w = img.width, h = img.height;
+          if (w > h && w > maxDim) { h = Math.round((h * maxDim) / w); w = maxDim; }
+          else if (h > maxDim) { w = Math.round((w * maxDim) / h); h = maxDim; }
+          canvas.width = w; canvas.height = h;
+          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+          const b64 = canvas.toDataURL('image/jpeg', 0.55);
+          document.getElementById('pmImageBase64').value = b64;
+          document.getElementById('pmImagePreview').innerHTML = `<img src="${b64}" style="max-height:85px; border-radius:6px;">`;
+        }; img.src = evt.target.result;
+      }; reader.readAsDataURL(file);
     }
 
-    function openProductModal(productId = null) {
-      populateCategoryFilters();
-      const modal = document.getElementById('productModal');
-      document.getElementById('pmImagePreview').innerHTML = '';
-      document.getElementById('pmImageBase64').value = '';
-
-      if (productId) {
-        const p = DB.get(DB_KEYS.PRODUCTS).find(x => x.id === productId);
-        if (!p) return;
-
-        document.getElementById('productModalTitle').innerText = 'ویرایش مشخصات کالا';
-        document.getElementById('pmId').value = p.id;
-        document.getElementById('pmName').value = p.name;
-        document.getElementById('pmCategory').value = p.categoryId;
-        document.getElementById('pmPrice').value = p.price;
-        document.getElementById('pmCompany').value = p.company;
-        document.getElementById('pmCode').value = p.code || '';
-        document.getElementById('pmStatus').value = p.status;
-        document.getElementById('pmDescription').value = p.description || '';
-
-        if (p.image) {
-          document.getElementById('pmImageBase64').value = p.image;
-          document.getElementById('pmImagePreview').innerHTML = `<img src="${p.image}" style="max-height:85px; border-radius:6px;">`;
-        }
-
+    function openProductModal(id = null) {
+      populateCategoryFilters(); document.getElementById('pmImagePreview').innerHTML = ''; document.getElementById('pmImageBase64').value = '';
+      if (id) {
+        const p = DB.get(DB_KEYS.PRODUCTS).find(x => x.id === id);
+        document.getElementById('productModalTitle').innerText = 'ویرایش کالا';
+        document.getElementById('pmId').value = p.id; document.getElementById('pmName').value = p.name;
+        document.getElementById('pmCategory').value = p.categoryId; document.getElementById('pmPrice').value = p.price;
+        document.getElementById('pmCompany').value = p.company; document.getElementById('pmCode').value = p.code || '';
+        document.getElementById('pmStatus').value = p.status; document.getElementById('pmDescription').value = p.description || '';
+        if (p.image) { document.getElementById('pmImageBase64').value = p.image; document.getElementById('pmImagePreview').innerHTML = `<img src="${p.image}" style="max-height:85px;">`; }
         initJalaliDateDropdowns(p.expiry.jy, p.expiry.jm, p.expiry.jd);
       } else {
-        document.getElementById('productModalTitle').innerText = 'افزودن کالای جدید';
-        document.getElementById('pmId').value = '';
-        document.getElementById('pmName').value = '';
-        document.getElementById('pmPrice').value = '';
-        document.getElementById('pmCompany').value = '';
-        document.getElementById('pmCode').value = '';
-        document.getElementById('pmStatus').value = 'available';
-        document.getElementById('pmDescription').value = '';
+        document.getElementById('productModalTitle').innerText = 'افزودن کالا';
+        document.getElementById('pmId').value = ''; document.getElementById('pmName').value = '';
+        document.getElementById('pmPrice').value = ''; document.getElementById('pmCompany').value = '';
+        document.getElementById('pmStatus').value = 'available'; document.getElementById('pmDescription').value = '';
         initJalaliDateDropdowns();
       }
-
-      modal.classList.add('active');
+      document.getElementById('productModal').classList.add('active');
     }
 
     function handleSaveProduct(e) {
       e.preventDefault();
-      const id = document.getElementById('pmId').value || 'p_' + Date.now();
-      const name = document.getElementById('pmName').value.trim();
-      const categoryId = document.getElementById('pmCategory').value;
-      const price = parseFloat(document.getElementById('pmPrice').value);
-      const company = document.getElementById('pmCompany').value.trim();
-      const code = document.getElementById('pmCode').value.trim();
-      const status = document.getElementById('pmStatus').value;
-      const description = document.getElementById('pmDescription').value.trim();
-      const image = document.getElementById('pmImageBase64').value;
-
-      const jy = parseInt(document.getElementById('pmJalaliYear').value);
-      const jm = parseInt(document.getElementById('pmJalaliMonth').value);
-      const jd = parseInt(document.getElementById('pmJalaliDay').value);
-
-      const products = DB.get(DB_KEYS.PRODUCTS);
-      const index = products.findIndex(p => p.id === id);
-
-      const productObj = {
-        id, name, categoryId, price, company, code, status, description, image,
-        expiry: { jy, jm, jd }
+      const p = {
+        id: document.getElementById('pmId').value || 'p_' + Date.now(),
+        name: document.getElementById('pmName').value.trim(), categoryId: document.getElementById('pmCategory').value,
+        price: parseFloat(document.getElementById('pmPrice').value), company: document.getElementById('pmCompany').value.trim(),
+        code: document.getElementById('pmCode').value.trim(), status: document.getElementById('pmStatus').value,
+        description: document.getElementById('pmDescription').value.trim(), image: document.getElementById('pmImageBase64').value,
+        expiry: { jy: parseInt(document.getElementById('pmJalaliYear').value), jm: parseInt(document.getElementById('pmJalaliMonth').value), jd: parseInt(document.getElementById('pmJalaliDay').value) }
       };
-
-      if (index >= 0) products[index] = productObj;
-      else products.unshift(productObj);
-
-      try {
-        DB.set(DB_KEYS.PRODUCTS, products);
-        closeModal('productModal');
-        renderProductList();
-        renderDashboard();
-      } catch (err) {
-        alert('حجم اطلاعات و عکس‌ها زیاد است. لطفاً عکس‌های فشرده‌تری انتخاب کنید.');
-      }
+      let prods = DB.get(DB_KEYS.PRODUCTS); const idx = prods.findIndex(x => x.id === p.id);
+      if (idx >= 0) prods[idx] = p; else prods.unshift(p);
+      try { DB.set(DB_KEYS.PRODUCTS, prods); closeModal('productModal'); renderProductList(); renderDashboard(); } catch (err) { alert('حجم اطلاعات زیاد است. لطفا عکس را فشرده کنید.'); }
     }
 
-    function deleteProduct(id) {
-      if (!confirm('آیا از حذف این کالا مطمئن هستید؟')) return;
-      let products = DB.get(DB_KEYS.PRODUCTS).filter(p => p.id !== id);
-      DB.set(DB_KEYS.PRODUCTS, products);
-      renderProductList();
-      renderDashboard();
-    }
+    function deleteProduct(id) { if (confirm('حذف کالا؟')) { DB.set(DB_KEYS.PRODUCTS, DB.get(DB_KEYS.PRODUCTS).filter(p => p.id !== id)); renderProductList(); renderDashboard(); } }
 
     function viewProductDetail(id) {
-      const p = DB.get(DB_KEYS.PRODUCTS).find(x => x.id === id);
-      if (!p) return;
-      const c = DB.get(DB_KEYS.CATEGORIES).find(x => x.id === p.categoryId);
-      const exp = getExpiryStatus(p);
-
+      const p = DB.get(DB_KEYS.PRODUCTS).find(x => x.id === id); const c = DB.get(DB_KEYS.CATEGORIES).find(x => x.id === p.categoryId);
       document.getElementById('pdmTitle').innerText = p.name;
       document.getElementById('pdmBody').innerHTML = `
         ${p.image ? `<div style="text-align:center; margin-bottom:10px;"><img src="${p.image}" style="max-height:150px; border-radius:8px;"></div>` : ''}
-        <div><b>کد کالا:</b> ${p.code || 'ندارد'}</div>
-        <div><b>تولیدکننده / برند:</b> ${p.company}</div>
-        <div><b>دسته‌بندی:</b> ${c ? c.name : 'نامشخص'}</div>
-        <div><b>قیمت مصرف‌کننده:</b> ${Number(p.price).toLocaleString('fa-IR')} تومان</div>
-        <div><b>وضعیت انبار:</b> ${p.status === 'available' ? 'موجود' : 'ناموجود'}</div>
-        <div><b>تاریخ انقضا:</b> ${p.expiry.jy}/${p.expiry.jm}/${p.expiry.jd} (${exp.label})</div>
+        <div><b>برند:</b> ${p.company}</div><div><b>دسته‌بندی:</b> ${c ? c.name : ''}</div>
+        <div><b>قیمت:</b> ${Number(p.price).toLocaleString('fa-IR')} تومان</div>
+        <div><b>انقضا:</b> ${p.expiry.jy}/${p.expiry.jm}/${p.expiry.jd}</div>
         ${p.description ? `<div><b>توضیحات:</b> ${p.description}</div>` : ''}
       `;
       document.getElementById('productDetailModal').classList.add('active');
     }
 
     function renderCategoryList() {
-      const categories = DB.get(DB_KEYS.CATEGORIES);
-      const products = DB.get(DB_KEYS.PRODUCTS);
-      const container = document.getElementById('categoryListContainer');
-
-      if (categories.length === 0) {
-        container.innerHTML = '<div style="text-align:center; padding: 20px; color:var(--text-muted);">دسته‌ای موجود نیست.</div>';
-        return;
-      }
-
-      container.innerHTML = categories.map(c => {
-        const count = products.filter(p => p.categoryId === c.id).length;
-        return `
-          <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 12px; border:1px solid var(--border); border-radius:8px; margin-bottom:8px; background:white;">
-            <div>
-              <b style="font-size:13.5px;">${c.name}</b>
-              <div style="font-size:10.5px; color:var(--text-muted); margin-top:2px;">${count} قلم کالا</div>
-            </div>
-            <div style="display:flex; gap:6px;">
-              <button class="btn btn-sm btn-secondary" onclick="viewCategoryProducts('${c.id}')">مشاهده اقلام</button>
-              <button class="btn btn-sm btn-primary" onclick="openCategoryModal('${c.id}')">ویرایش</button>
-              <button class="btn btn-sm btn-danger" onclick="deleteCategory('${c.id}')">حذف</button>
-            </div>
-          </div>
-        `;
+      const cats = DB.get(DB_KEYS.CATEGORIES); const prods = DB.get(DB_KEYS.PRODUCTS);
+      document.getElementById('categoryListContainer').innerHTML = cats.length === 0 ? 'خالی' : cats.map(c => {
+        const count = prods.filter(p => p.categoryId === c.id).length;
+        return `<div style="display:flex; justify-content:space-between; align-items:center; padding:10px; border:1px solid var(--border); border-radius:8px; margin-bottom:8px; background:white;"><div><b>${c.name}</b><div style="font-size:10.5px;">${count} کالا</div></div><div style="display:flex; gap:6px;"><button class="btn btn-sm btn-primary" onclick="openCategoryModal('${c.id}')">ویرایش</button><button class="btn btn-sm btn-danger" onclick="deleteCategory('${c.id}')">حذف</button></div></div>`;
       }).join('');
     }
 
-    function openCategoryModal(catId = null) {
-      const modal = document.getElementById('categoryModal');
-      if (catId) {
-        const c = DB.get(DB_KEYS.CATEGORIES).find(x => x.id === catId);
-        if (!c) return;
-        document.getElementById('catModalTitle').innerText = 'ویرایش دسته‌بندی';
-        document.getElementById('cmId').value = c.id;
-        document.getElementById('cmName').value = c.name;
+    function openCategoryModal(id = null) {
+      if (id) {
+        const c = DB.get(DB_KEYS.CATEGORIES).find(x => x.id === id);
+        document.getElementById('catModalTitle').innerText = 'ویرایش'; document.getElementById('cmId').value = c.id; document.getElementById('cmName').value = c.name;
       } else {
-        document.getElementById('catModalTitle').innerText = 'افزودن دسته‌بندی جدید';
-        document.getElementById('cmId').value = '';
-        document.getElementById('cmName').value = '';
+        document.getElementById('catModalTitle').innerText = 'جدید'; document.getElementById('cmId').value = ''; document.getElementById('cmName').value = '';
       }
-      modal.classList.add('active');
+      document.getElementById('categoryModal').classList.add('active');
     }
 
     function handleSaveCategory(e) {
       e.preventDefault();
-      const id = document.getElementById('cmId').value || 'cat_' + Date.now();
-      const name = document.getElementById('cmName').value.trim();
-      let cats = DB.get(DB_KEYS.CATEGORIES);
-      const index = cats.findIndex(c => c.id === id);
-
-      if (index >= 0) cats[index].name = name;
-      else cats.push({ id, name });
-
-      DB.set(DB_KEYS.CATEGORIES, cats);
-      closeModal('categoryModal');
-      renderCategoryList();
-      populateCategoryFilters();
-      renderDashboard();
+      const id = document.getElementById('cmId').value || 'cat_' + Date.now(); const name = document.getElementById('cmName').value.trim();
+      let cats = DB.get(DB_KEYS.CATEGORIES); const idx = cats.findIndex(c => c.id === id);
+      if (idx >= 0) cats[idx].name = name; else cats.push({ id, name });
+      DB.set(DB_KEYS.CATEGORIES, cats); closeModal('categoryModal'); renderCategoryList(); populateCategoryFilters(); renderDashboard();
     }
 
     function deleteCategory(id) {
-      const hasProducts = DB.get(DB_KEYS.PRODUCTS).some(p => p.categoryId === id);
-      if (hasProducts) {
-        alert('این دسته‌بندی شامل کالا است. ابتدا کالاهای آن را حذف یا جابه‌جا کنید.');
-        return;
-      }
-      if (!confirm('آیا از حذف این دسته اطمینان دارید؟')) return;
-      let cats = DB.get(DB_KEYS.CATEGORIES).filter(c => c.id !== id);
-      DB.set(DB_KEYS.CATEGORIES, cats);
-      renderCategoryList();
-      populateCategoryFilters();
-      renderDashboard();
-    }
-
-    function viewCategoryProducts(catId) {
-      navigateTo('view-products');
-      document.getElementById('prodCategoryFilter').value = catId;
-      renderProductList();
+      if (DB.get(DB_KEYS.PRODUCTS).some(p => p.categoryId === id)) return alert('دسته شامل کالا است.');
+      if (confirm('حذف دسته؟')) { DB.set(DB_KEYS.CATEGORIES, DB.get(DB_KEYS.CATEGORIES).filter(c => c.id !== id)); renderCategoryList(); populateCategoryFilters(); renderDashboard(); }
     }
 
     let currentExportMode = 'catalog';
-
     function setExportMode(mode) {
       currentExportMode = mode;
-      document.getElementById('tabModeCatalog').classList.toggle('active', mode === 'catalog');
-      document.getElementById('tabModeInvoice').classList.toggle('active', mode === 'invoice');
-      const tabExpiry = document.getElementById('tabModeExpiry');
-      if(tabExpiry) tabExpiry.classList.toggle('active', mode === 'expiry');
-      
-      document.getElementById('invoiceCustomerBox').style.display = (mode === 'invoice') ? 'block' : 'none';
-      document.getElementById('catalogOptionsBox').style.display = (mode === 'catalog') ? 'block' : 'none';
-      document.getElementById('invoiceTotalPreview').style.display = (mode === 'invoice') ? 'block' : 'none';
-
+      document.querySelectorAll('.export-tab-btn').forEach(b => b.classList.remove('active'));
+      if (document.getElementById(mode === 'catalog' ? 'tabModeCatalog' : (mode === 'invoice' ? 'tabModeInvoice' : 'tabModeExpiry')))
+          document.getElementById(mode === 'catalog' ? 'tabModeCatalog' : (mode === 'invoice' ? 'tabModeInvoice' : 'tabModeExpiry')).classList.add('active');
+      document.getElementById('invoiceCustomerBox').style.display = mode === 'invoice' ? 'block' : 'none';
+      document.getElementById('catalogOptionsBox').style.display = mode === 'catalog' ? 'block' : 'none';
+      document.getElementById('invoiceTotalPreview').style.display = mode === 'invoice' ? 'block' : 'none';
       renderExportSection();
     }
 
     function renderExportSection() {
-      const products = DB.get(DB_KEYS.PRODUCTS);
-      const container = document.getElementById('exportProductsChecklist');
-      const titleLabel = document.getElementById('checklistTitleLabel');
-
-      if (currentExportMode === 'expiry') {
-        titleLabel.innerText = '🚨 اقلام در آستانه انقضا یا منقضی شده (جهت ترخیص):';
-      } else if (currentExportMode === 'invoice') {
-        titleLabel.innerText = 'اقلام مورد نظر برای پیش‌فاکتور:';
-      } else {
-        titleLabel.innerText = 'اقلام مورد نظر برای کاتالوگ:';
-      }
-
-      let targetProducts = products;
-      if (currentExportMode === 'expiry') {
-        targetProducts = products.filter(p => {
-          const exp = getExpiryStatus(p);
-          return exp.code === 'expired' || exp.code === 'very_near' || exp.code === 'near';
-        });
-      }
-
-      if (targetProducts.length === 0) {
-        container.innerHTML = '<div style="color:var(--text-muted); padding:10px;">کالایی برای این بخش یافت نشد.</div>';
-        return;
-      }
-
-      container.innerHTML = targetProducts.map(p => {
-        const isAvail = p.status === 'available';
-        const exp = getExpiryStatus(p);
-        return `
-          <div style="display:flex; align-items:center; gap:8px; padding:6px 0; border-bottom:1px solid #f1f5f9; font-size:12px;">
-            <input type="checkbox" class="export-prod-cb" value="${p.id}" ${isAvail ? 'checked' : ''} data-available="${isAvail}" onchange="calculateInvoiceTotal()">
-            <span style="flex:1;">
-              <b>${p.name}</b> (${p.company})
-              <div style="font-size:10.5px; color:var(--text-muted);">انقضا: ${p.expiry.jy}/${p.expiry.jm}/${p.expiry.jd} | <span class="badge ${exp.class}">${exp.label}</span></div>
-            </span>
-            ${currentExportMode === 'invoice' ? `
-              <div style="display:flex; align-items:center; gap:4px;">
-                <label style="font-size:10.5px;">تعداد:</label>
-                <input type="number" class="export-prod-qty form-control" style="width:60px; padding:3px 5px; text-align:center;" value="1" min="1" data-id="${p.id}" oninput="calculateInvoiceTotal()">
-              </div>
-            ` : ''}
-          </div>
-        `;
+      const prods = DB.get(DB_KEYS.PRODUCTS);
+      let target = currentExportMode === 'expiry' ? prods.filter(p => ['expired','very_near','near'].includes(getExpiryStatus(p).code)) : prods;
+      document.getElementById('exportProductsChecklist').innerHTML = target.length === 0 ? '<div style="padding:10px;">کالایی یافت نشد.</div>' : target.map(p => {
+        const exp = getExpiryStatus(p); const isA = p.status === 'available';
+        return `<div style="display:flex; align-items:center; gap:8px; padding:6px 0; border-bottom:1px solid #f1f5f9; font-size:12px;"><input type="checkbox" class="export-prod-cb" value="${p.id}" ${isA ? 'checked' : ''} onchange="calculateInvoiceTotal()"><span style="flex:1;"><b>${p.name}</b><div style="font-size:10.5px; color:var(--text-muted);">انقضا: ${p.expiry.jy}/${p.expiry.jm}/${p.expiry.jd}</div></span>${currentExportMode === 'invoice' ? `<input type="number" class="export-prod-qty form-control" style="width:50px; padding:3px; text-align:center;" value="1" min="1" data-id="${p.id}" oninput="calculateInvoiceTotal()">` : ''}</div>`;
       }).join('');
-
       if (currentExportMode === 'invoice') calculateInvoiceTotal();
     }
 
-    function toggleSelectAllExport(check) {
-      document.querySelectorAll('.export-prod-cb').forEach(cb => cb.checked = check);
-      if (currentExportMode === 'invoice') calculateInvoiceTotal();
-    }
+    function toggleSelectAllExport(check) { document.querySelectorAll('.export-prod-cb').forEach(cb => cb.checked = check); calculateInvoiceTotal(); }
 
     function calculateInvoiceTotal() {
-      const products = DB.get(DB_KEYS.PRODUCTS);
-      let total = 0;
+      let total = 0; const prods = DB.get(DB_KEYS.PRODUCTS);
       document.querySelectorAll('.export-prod-cb:checked').forEach(cb => {
-        const p = products.find(x => x.id === cb.value);
-        if (p) {
-          const qtyInput = document.querySelector(`.export-prod-qty[data-id="${p.id}"]`);
-          const qty = qtyInput ? parseInt(qtyInput.value) || 1 : 1;
-          total += (p.price * qty);
-        }
+        const p = prods.find(x => x.id === cb.value);
+        if (p) { const q = document.querySelector(`.export-prod-qty[data-id="${p.id}"]`); total += p.price * (q ? parseInt(q.value) || 1 : 1); }
       });
       document.getElementById('invTotalAmount').innerText = Number(total).toLocaleString('fa-IR');
     }
 
-    function preparePrintableContent() {
+    // متد جدید، پایدار و کاملا بومی برای ساخت PDF از طریق سیستم چاپ گوشی
+    function generateNativePdf() {
       const selectedBoxes = Array.from(document.querySelectorAll('.export-prod-cb:checked'));
-      if (selectedBoxes.length === 0) {
-        alert('لطفاً حداقل یک کالا را انتخاب کنید.');
-        return false;
-      }
+      if (selectedBoxes.length === 0) return alert('حداقل یک کالا انتخاب کنید.');
 
-      let selectedIds = selectedBoxes.map(cb => cb.value);
-      const allProducts = DB.get(DB_KEYS.PRODUCTS);
-      const categories = DB.get(DB_KEYS.CATEGORIES);
-      const catMap = {};
-      categories.forEach(c => catMap[c.id] = c.name);
-
-      const settings = DB.getSettings();
-      const todayJ = Jalali.today();
-      const dateStr = `${todayJ.jy}/${todayJ.jm}/${todayJ.jd}`;
-      const headerNote = document.getElementById('pdfCustomHeaderNote').value.trim();
-      const footerNote = document.getElementById('pdfCustomFooterNote').value.trim();
-
-      const pdfContent = document.getElementById('pdfContentContainer');
-      pdfContent.innerHTML = '';
+      const allProducts = DB.get(DB_KEYS.PRODUCTS); const catMap = {}; DB.get(DB_KEYS.CATEGORIES).forEach(c => catMap[c.id] = c.name);
+      const settings = DB.getSettings(); const dateStr = `${Jalali.today().jy}/${Jalali.today().jm}/${Jalali.today().jd}`;
+      const headNote = document.getElementById('pdfCustomHeaderNote').value.trim();
+      const footNote = document.getElementById('pdfCustomFooterNote').value.trim();
+      const container = document.getElementById('pdf-printable-area');
+      container.innerHTML = '';
 
       if (currentExportMode === 'catalog' || currentExportMode === 'expiry') {
-        const showImage = currentExportMode === 'catalog' ? document.getElementById('pdfOptShowImage').checked : true;
-        const showPrice = currentExportMode === 'catalog' ? document.getElementById('pdfOptShowPrice').checked : true;
-        const showCompany = currentExportMode === 'catalog' ? document.getElementById('pdfOptShowCompany').checked : true;
+        const sImg = document.getElementById('pdfOptShowImage') ? document.getElementById('pdfOptShowImage').checked : true;
+        const sPrice = document.getElementById('pdfOptShowPrice') ? document.getElementById('pdfOptShowPrice').checked : true;
 
-        if (currentExportMode === 'expiry') {
-          const coverExpiryHtml = `
-            <div class="pdf-frame-page">
-              <div class="cover-inner-border">
-                <div style="width:100%;">
-                  <div class="cover-top-badge" style="background:linear-gradient(135deg, #dc2626 0%, #ea580c 100%);">
-                    گزارش رسمی کنترل کیفیت و انبارداری
-                  </div>
-                  <div style="height:25px;"></div>
+        const coverHtml = `
+          <div class="pdf-frame-page">
+            <div class="cover-inner-border">
+              <div style="width:100%;">
+                <div class="cover-top-badge" style="${currentExportMode === 'expiry' ? 'background:linear-gradient(135deg, #dc2626 0%, #ea580c 100%);' : ''}">
+                  ${currentExportMode === 'expiry' ? 'گزارش رسمی کنترل کیفیت' : 'مرکز تخصصی توزیع مویرگی'}
                 </div>
-
-                <div style="width:100%; margin: 15px 0;">
-                  <h1 class="cover-title" style="color:#dc2626;">لیست ترخیص سریع انقضا</h1>
-                  <div class="cover-subtitle">اقلام در آستانه فساد یا منقضی شده جهت تصمیم‌گیری فوری</div>
-                  <div class="cover-divider" style="background:linear-gradient(90deg, #dc2626 0%, #1e3a8a 100%);"></div>
-                  <div style="font-size:13.5px; color:#475569; max-width:480px; margin:0 auto; line-height:1.6; font-weight:600;">
-                    ${headerNote || 'این سند جهت اقدام واحد انبار برای تخفیف فوری، حراج یا مرجوعی کالاها صادر شده است.'}
-                  </div>
-                </div>
-
-                <div class="cover-meta-card">
-                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; font-size:13px;">
-                    <span style="color:#64748b; font-weight:700;">📅 تاریخ گزارش:</span>
-                    <b style="color:#1e3a8a; font-size:14.5px;">${dateStr}</b>
-                  </div>
-                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; font-size:13px;">
-                    <span style="color:#64748b; font-weight:700;">📦 تعداد اقلام مشمول:</span>
-                    <b style="color:#dc2626; font-size:15px;">${selectedIds.length} قلم کالا</b>
-                  </div>
-                  <div style="text-align:right; font-size:12px; color:#475569; border-top:1.5px dashed #cbd5e1; padding-top:9px; margin-top:8px;">
-                    📍 <b>انباردار / مسئول کنترل:</b> واحد انبار ${settings.companyName || 'مهر پخش کوهیج'}
-                  </div>
-                </div>
-
-                <div style="width:100%; display:flex; justify-content:space-between; align-items:center; border-top:1.5px solid #e2e8f0; padding-top:12px; font-size:11.5px; color:#64748b;">
-                  <div>${footerNote || 'پیشگیری از ضرر و زیان مالی در انبار'}</div>
-                  <div style="font-weight:800; color:#dc2626;">سند داخلی انبارداری</div>
-                </div>
+                ${settings.logoBase64 ? `<div class="cover-logo-wrapper"><img src="${settings.logoBase64}" class="cover-logo-img"></div>` : '<div style="height:35px;"></div>'}
               </div>
-            </div>
-          `;
-          pdfContent.innerHTML += coverExpiryHtml;
-        } else {
-          const coverHtml = `
-            <div class="pdf-frame-page">
-              <div class="cover-inner-border">
-                <div style="width:100%;">
-                  <div class="cover-top-badge">
-                    مرکز تخصصی پخش و توزیع مویرگی کالا
-                  </div>
-                  ${settings.logoBase64 ? `
-                    <div class="cover-logo-wrapper">
-                      <img src="${settings.logoBase64}" class="cover-logo-img">
-                    </div>
-                  ` : '<div style="height:35px;"></div>'}
-                </div>
-
-                <div style="width:100%; margin: 15px 0;">
-                  <h1 class="cover-title">${settings.companyName || 'مهر پخش کوهیج'}</h1>
-                  <div class="cover-subtitle">کاتالوگ رسمی معرفی محصولات و نرخ‌نامه استعلامی</div>
-                  <div class="cover-divider"></div>
-                  ${headerNote ? `<div style="font-size:13.5px; color:#475569; max-width:480px; margin:0 auto; line-height:1.6; font-weight:600;">${headerNote}</div>` : ''}
-                </div>
-
-                <div class="cover-meta-card">
-                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; font-size:13px;">
-                    <span style="color:#64748b; font-weight:700;">📅 تاریخ صدور و انتشار:</span>
-                    <b style="color:#1e3a8a; font-size:14.5px;">${dateStr}</b>
-                  </div>
-                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; font-size:13px;">
-                    <span style="color:#64748b; font-weight:700;">📞 تلفن واحد سفارشات:</span>
-                    <b style="color:#0f172a; font-size:15px; letter-spacing:0.5px;">${settings.phone || '۰۹۱۲۳۴۵۶۷۸۹'}</b>
-                  </div>
-                  ${settings.address ? `
-                    <div style="text-align:right; font-size:12px; color:#475569; border-top:1.5px dashed #cbd5e1; padding-top:9px; margin-top:8px; line-height:1.6;">
-                      📍 <b>نشانی دفتر و انبار مرکزی:</b> ${settings.address}
-                    </div>
-                  ` : ''}
-                </div>
-
-                <div style="width:100%; display:flex; justify-content:space-between; align-items:center; border-top:1.5px solid #e2e8f0; padding-top:12px; font-size:11.5px; color:#64748b;">
-                  <div>${footerNote || 'ارسال سریع به کلیه فروشگاه‌ها و مراکز پخش معتبر'}</div>
-                  <div style="font-weight:800; color:#1e3a8a;">نسخه دیجیتال رسمی شرکت</div>
-                </div>
+              <div style="width:100%; margin: 15px 0;">
+                <h1 class="cover-title" style="${currentExportMode === 'expiry' ? 'color:#dc2626;' : ''}">${settings.companyName || 'مهر پخش کوهیج'}</h1>
+                <div class="cover-subtitle">${currentExportMode === 'expiry' ? 'لیست ترخیص سریع انقضا' : 'کاتالوگ رسمی معرفی محصولات'}</div>
+                <div class="cover-divider" style="${currentExportMode === 'expiry' ? 'background:linear-gradient(90deg, #dc2626 0%, #1e3a8a 100%);' : ''}"></div>
+                <div style="font-size:13.5px; font-weight:600; color:#475569;">${headNote}</div>
               </div>
-            </div>
-          `;
-          pdfContent.innerHTML += coverHtml;
-        }
-
-        selectedIds.forEach((id, index) => {
-          const p = allProducts.find(x => x.id === id);
-          if (!p) return;
-
-          const catName = catMap[p.categoryId] || 'عمومی';
-          const exp = getExpiryStatus(p);
-
-          let pageHtml = `
-            <div class="pdf-frame-page">
-              <div class="pdf-inner-border">
-                
-                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1.5px solid #e2e8f0; padding-bottom:8px;">
-                  <div style="display:flex; align-items:center; gap:8px;">
-                    <span style="background:${currentExportMode === 'expiry' ? '#dc2626' : '#1e3a8a'}; color:#fff; font-size:11px; font-weight:800; padding:2px 10px; border-radius:6px;">
-                      ${catName}
-                    </span>
-                    ${(showCompany && p.company) ? `<span style="font-size:12px; color:#475569; font-weight:600;">برند: <b style="color:#0f172a;">${p.company}</b></span>` : ''}
-                  </div>
-                  <div style="font-size:11.5px; color:#64748b; font-weight:700;">
-                    ${currentExportMode === 'expiry' ? `⚠️ وضعیت: ${exp.label}` : `صفحه ${index + 1} از ${selectedIds.length}`}
-                  </div>
-                </div>
-
-                <div class="product-giant-image-frame">
-                  ${(showImage && p.image) 
-                    ? `<img src="${p.image}" class="product-giant-image">` 
-                    : '<div style="color:#94a3b8; font-size:16px; font-weight:bold;">تصویر این محصول بارگذاری نشده است</div>'}
-                </div>
-
-                <div>
-                  <div class="poster-specs-bar">
-                    <div style="flex:1; padding-left:14px;">
-                      <div class="poster-name">${p.name}</div>
-                      <div style="display:flex; gap:12px; font-size:12px; color:#64748b;">
-                        <span>انقضا: <b>${p.expiry.jy}/${p.expiry.jm}/${p.expiry.jd}</b></span>
-                        <span style="color:${p.status === 'available' ? '#15803d' : '#dc2626'}; font-weight:bold;">
-                          ${p.status === 'available' ? '● موجود' : '● ناموجود'}
-                        </span>
-                      </div>
-                    </div>
-
-                    ${showPrice ? `
-                      <div>
-                        <div style="font-size:11px; color:#64748b; font-weight:bold; text-align:left; margin-bottom:3px;">قیمت مصرف‌کننده:</div>
-                        <div class="poster-price-tag" style="${currentExportMode === 'expiry' ? 'background:linear-gradient(135deg, #dc2626 0%, #ea580c 100%);' : ''}">
-                          ${Number(p.price).toLocaleString('fa-IR')} تومان
-                        </div>
-                      </div>
-                    ` : ''}
-                  </div>
-
-                  ${p.description ? `
-                    <div style="font-size:11.5px; color:#475569; margin-top:8px; background:#ffffff; padding:6px 12px; border-radius:8px; line-height:1.5; border:1px dashed #cbd5e1;">
-                      <b>مشخصات:</b> ${p.description}
-                    </div>
-                  ` : ''}
-                </div>
-
-                <div style="display:flex; justify-content:space-between; align-items:center; border-top:1.5px solid #e2e8f0; padding-top:8px; margin-top:8px; font-size:11px; color:#64748b;">
-                  <div>${settings.companyName || 'مهر پخش کوهیج'} - واحد انبار</div>
-                  <div style="font-weight:700; color:${currentExportMode === 'expiry' ? '#dc2626' : '#1e3a8a'};">گزارش کاتالوگ انبار</div>
-                </div>
-
+              <div class="cover-meta-card" style="font-size:14px; text-align:right;">
+                <div style="margin-bottom:10px;">📅 <b>تاریخ:</b> ${dateStr}</div>
+                <div style="margin-bottom:10px;">📞 <b>تلفن:</b> ${settings.phone || '---'}</div>
+                <div>📍 <b>نشانی:</b> ${settings.address || '---'}</div>
               </div>
-            </div>
-          `;
-
-          pdfContent.innerHTML += pageHtml;
-        });
-
-      } else {
-        const custName = document.getElementById('invCustomerName').value.trim() || 'مشتری گرامی';
-        const custPhone = document.getElementById('invCustomerPhone').value.trim();
-
-        let tableHtml = `
-          <div class="pdf-frame-page" style="height:auto; min-height:985px;">
-            <div class="pdf-inner-border">
-              <div>
-                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #1e3a8a; padding-bottom:12px; margin-bottom:14px;">
-                  <div>
-                    <h1 style="font-size:22px; font-weight:900; color:#1e3a8a; margin-bottom:3px;">${settings.companyName || 'مهر پخش کوهیج'}</h1>
-                    <div style="font-size:13px; font-weight:700; color:#0d9488;">پیش‌فاکتور رسمی فروش و سفارش کالا</div>
-                  </div>
-                  <div style="text-align:left; font-size:11.5px; line-height:1.8;">
-                    <div><b>تاریخ:</b> ${dateStr}</div>
-                    <div><b>تماس:</b> ${settings.phone || '۰۹۱۲۳۴۵۶۷۸۹'}</div>
-                  </div>
-                </div>
-
-                <div style="margin-bottom:14px; font-size:12.5px; background:#f8fafc; padding:10px 14px; border-radius:10px; border:1px solid #cbd5e1;">
-                  <b>خریدار / فروشگاه:</b> ${custName} ${custPhone ? `| <b>تماس:</b> ${custPhone}` : ''}
-                </div>
-
-                <table class="invoice-table">
-                  <thead>
-                    <tr>
-                      <th style="width:35px;">#</th>
-                      <th>شرح و نام کالا</th>
-                      <th>تولیدکننده</th>
-                      <th style="width:65px;">تعداد</th>
-                      <th>قیمت واحد (تومان)</th>
-                      <th>مبلغ کل (تومان)</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-        `;
-
-        let rowIdx = 1;
-        let invoiceSum = 0;
-
-        selectedIds.forEach(id => {
-          const p = allProducts.find(x => x.id === id);
-          if (!p) return;
-          const qtyInput = document.querySelector(`.export-prod-qty[data-id="${p.id}"]`);
-          const qty = qtyInput ? parseInt(qtyInput.value) || 1 : 1;
-          const lineTotal = p.price * qty;
-          invoiceSum += lineTotal;
-
-          tableHtml += `
-            <tr>
-              <td>${rowIdx++}</td>
-              <td style="text-align:right; font-weight:bold; font-size:13px;">${p.name}</td>
-              <td>${p.company}</td>
-              <td style="font-weight:bold; font-size:13px;">${qty}</td>
-              <td>${Number(p.price).toLocaleString('fa-IR')}</td>
-              <td style="font-weight:900; color:#1e3a8a;">${Number(lineTotal).toLocaleString('fa-IR')}</td>
-            </tr>
-          `;
-        });
-
-        tableHtml += `
-                  </tbody>
-                  <tfoot>
-                    <tr style="background:#f1f5f9; font-weight:bold;">
-                      <td colspan="5" style="text-align:left; padding-left:14px; font-size:14px;">مبلغ کل فاکتور:</td>
-                      <td style="color:#1e3a8a; font-size:15px; font-weight:900;">${Number(invoiceSum).toLocaleString('fa-IR')} تومان</td>
-                    </tr>
-                  </tfoot>
-                </table>
-              </div>
-
-              <div style="border-top:1.5px dashed #94a3b8; padding-top:12px; margin-top:20px; display:flex; justify-content:space-between; align-items:center; font-size:11.5px; color:#475569;">
-                <div>${footerNote || 'تحویل سفارشات در سریع‌ترین زمان ممکن در محل فروشگاه'}</div>
-                <div style="font-weight:800; color:#1e3a8a;">
-                  شرکت مهر پخش کوهیج (مهر و امضای امور فروش)
-                </div>
-              </div>
-
+              <div style="font-size:11px; font-weight:bold; color:#64748b;">${footNote || 'سند دیجیتال انبار'}</div>
             </div>
           </div>
         `;
+        container.innerHTML += coverHtml;
 
-        pdfContent.innerHTML += tableHtml;
-      }
-
-      return true;
-    }
-
-    function generateAndOpenRealPdf(isShareAction) {
-      if (!preparePrintableContent()) return;
-
-      const btn = isShareAction ? document.getElementById('btnShareMessenger') : document.getElementById('btnDownloadPdf');
-      const originalText = btn.innerHTML;
-      btn.innerHTML = '⏳ در حال ساخت صفحات (ممکن است زمان‌بر باشد)...';
-      btn.disabled = true;
-
-      const element = document.getElementById('pdf-printable-area');
-      // جلوگیری از پرش صفحه: عنصر را در پس‌زمینه رندر می‌کنیم
-      element.style.display = 'block';
-      element.style.position = 'absolute';
-      element.style.top = '-9999px';
-      element.style.left = '-9999px';
-
-      const fileName = currentExportMode === 'catalog' 
-        ? `MehrPakhsh_Catalog_${Date.now()}.pdf`
-        : (currentExportMode === 'expiry' ? `MehrPakhsh_ExpiryList_${Date.now()}.pdf` : `MehrPakhsh_Invoice_${Date.now()}.pdf`);
-
-      // تنظیمات بهینه‌شده برای جلوگیری از پر شدن حافظه موبایل (RAM)
-      const opt = {
-        margin: 0,
-        filename: fileName,
-        image: { type: 'jpeg', quality: 0.85 },
-        html2canvas: { 
-          scale: 1.5, // مقیاس تنظیم‌شده برای تعادل بین کیفیت و حافظه موبایل
-          useCORS: true,
-          logging: false,
-          scrollY: 0,
-          scrollX: 0
-        },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true }
-      };
-
-      if (!window.html2pdf) {
-        alert('کتابخانه PDF در حال آماده‌سازی است.');
-        element.style.display = 'none';
-        btn.innerHTML = originalText;
-        btn.disabled = false;
-        return;
-      }
-
-      setTimeout(() => {
-        // گرفتن تمام صفحات تولید شده
-        const pages = Array.from(document.querySelectorAll('.pdf-frame-page'));
-        
-        if(pages.length === 0) {
-          element.style.display = 'none';
-          btn.innerHTML = originalText;
-          btn.disabled = false;
-          return;
-        }
-
-        // پردازش "صفحه به صفحه" به جای رندر یک‌جای کل سند
-        let worker = html2pdf().set(opt).from(pages[0]).toPdf();
-
-        for (let i = 1; i < pages.length; i++) {
-          worker = worker.get('pdf').then(pdf => {
-            pdf.addPage();
-          }).from(pages[i]).toContainer().toCanvas().toPdf();
-        }
-
-        worker.outputPdf('blob').then(async function(blob) {
-          // برگرداندن استایل‌ها به حالت مخفی
-          element.style.display = 'none';
-          element.style.position = '';
-          element.style.top = '';
-          element.style.left = '';
-          
-          btn.innerHTML = originalText;
-          btn.disabled = false;
-
-          const reader = new FileReader();
-          reader.readAsDataURL(blob);
-          reader.onloadend = async function() {
-            const base64Data = reader.result.split(',')[1];
-            const Cap = window.Capacitor;
-
-            if (Cap && Cap.Plugins && Cap.Plugins.Filesystem && Cap.Plugins.Share) {
-              try {
-                const writeResult = await Cap.Plugins.Filesystem.writeFile({
-                  path: fileName,
-                  data: base64Data,
-                  directory: 'CACHE'
-                });
-
-                await Cap.Plugins.Share.share({
-                  title: 'اسناد شرکت مهر پخش کوهیج',
-                  url: writeResult.uri,
-                  dialogTitle: isShareAction ? 'ارسال فایل PDF به پیام‌رسان' : 'باز کردن با برنامه پی‌دی‌اف‌خوان'
-                });
-                return;
-              } catch (err) {
-                console.error('File save error:', err);
-              }
-            }
-
-            try {
-              const file = new File([blob], fileName, { type: 'application/pdf' });
-              if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                navigator.share({
-                  files: [file],
-                  title: 'فایل PDF شرکت مهر پخش'
-                }).catch(() => {});
-                return;
-              }
-            } catch(e) {}
-
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = fileName;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-          };
-        }).catch(function(err) {
-          element.style.display = 'none';
-          element.style.position = '';
-          element.style.top = '';
-          element.style.left = '';
-          btn.innerHTML = originalText;
-          btn.disabled = false;
-          alert('خطا در تولید فایل: ' + err.message);
+        selectedBoxes.forEach((cb, idx) => {
+          const p = allProducts.find(x => x.id === cb.value); if (!p) return;
+          container.innerHTML += `
+            <div class="pdf-frame-page">
+              <div class="pdf-inner-border">
+                <div style="display:flex; justify-content:space-between; border-bottom:1px solid #e2e8f0; padding-bottom:8px; font-weight:bold;">
+                  <span>${catMap[p.categoryId] || 'عمومی'} - ${p.company}</span>
+                  <span>صفحه ${idx + 1} از ${selectedBoxes.length}</span>
+                </div>
+                <div class="product-giant-image-frame">
+                  ${sImg && p.image ? `<img src="${p.image}" class="product-giant-image">` : 'بدون تصویر'}
+                </div>
+                <div class="poster-specs-bar">
+                  <div style="flex:1;">
+                    <div class="poster-name">${p.name}</div>
+                    <div style="font-size:13px; color:#64748b;">انقضا: ${p.expiry.jy}/${p.expiry.jm}/${p.expiry.jd} | ${p.status === 'available' ? 'موجود' : 'ناموجود'}</div>
+                  </div>
+                  ${sPrice ? `<div class="poster-price-tag" style="${currentExportMode === 'expiry' ? 'background:#dc2626;' : ''}">${Number(p.price).toLocaleString('fa-IR')} تومان</div>` : ''}
+                </div>
+                ${p.description ? `<div style="font-size:12px; margin-top:10px; background:#f8fafc; padding:8px; border-radius:8px;">${p.description}</div>` : ''}
+              </div>
+            </div>`;
         });
-      }, 400);
-    }
+      } else {
+        const custName = document.getElementById('invCustomerName').value || 'مشتری گرامی';
+        let tableRows = ''; let total = 0; let rowIdx = 1;
+        selectedBoxes.forEach(cb => {
+          const p = allProducts.find(x => x.id === cb.value); if (!p) return;
+          const q = document.querySelector(`.export-prod-qty[data-id="${p.id}"]`); const qty = q ? parseInt(q.value) || 1 : 1;
+          total += p.price * qty;
+          tableRows += `<tr><td>${rowIdx++}</td><td style="font-weight:bold;text-align:right;">${p.name}</td><td>${p.company}</td><td>${qty}</td><td>${Number(p.price).toLocaleString('fa-IR')}</td><td>${Number(p.price * qty).toLocaleString('fa-IR')}</td></tr>`;
+        });
+        container.innerHTML += `
+          <div class="pdf-frame-page" style="height:auto; min-height:296mm;">
+            <div class="pdf-inner-border">
+              <div>
+                <h1 style="font-size:24px; color:#1e3a8a; text-align:center;">${settings.companyName || 'مهر پخش کوهیج'}</h1>
+                <div style="text-align:center; font-weight:bold; color:#0d9488; margin-bottom:20px;">پیش‌فاکتور رسمی کالا</div>
+                <div style="background:#f8fafc; padding:10px; border-radius:10px; margin-bottom:15px;"><b>خریدار:</b> ${custName} | <b>تاریخ:</b> ${dateStr}</div>
+                <table class="invoice-table">
+                  <thead><tr><th style="width:30px;">#</th><th>نام کالا</th><th>تولیدکننده</th><th>تعداد</th><th>قیمت واحد</th><th>مبلغ کل</th></tr></thead>
+                  <tbody>${tableRows}</tbody>
+                  <tfoot><tr><td colspan="5" style="text-align:left; font-weight:bold; font-size:15px;">جمع کل:</td><td style="font-weight:bold; font-size:16px; color:#1e3a8a;">${Number(total).toLocaleString('fa-IR')}</td></tr></tfoot>
+                </table>
+              </div>
+              <div style="text-align:center; font-size:12px; margin-top:20px;">${footNote || 'مهر و امضای امور فروش'}</div>
+            </div>
+          </div>`;
+      }
 
-    function generateMKPFile() {
-      openBackupCenterModal();
-    }
-
-    function importMKPFile(event) {
-      importFullBackup(event);
-    }
-
-    function openBackupCenterModal() {
-      document.getElementById('backupCenterModal').classList.add('active');
+      // فراخوانی سیستم چاپ بومی گوشی
+      setTimeout(() => {
+        window.print();
+      }, 500);
     }
 
     function downloadBackupFileDirectly() {
-      const fullBackup = {
-        app: 'MEHR_PAK_KOUHIJ',
-        backupDate: new Date().toISOString(),
-        products: DB.get(DB_KEYS.PRODUCTS),
-        categories: DB.get(DB_KEYS.CATEGORIES),
-        settings: DB.getSettings()
-      };
-      const jsonText = JSON.stringify(fullBackup, null, 2);
-      const blob = new Blob([jsonText], { type: 'application/json' });
-      const fileName = `MehrPakhsh_Backup_${Date.now()}.json`;
-
-      const Cap = window.Capacitor;
-      if (Cap && Cap.Plugins && Cap.Plugins.Filesystem && Cap.Plugins.Share) {
-        const reader = new FileReader();
-        reader.readAsDataURL(blob);
-        reader.onloadend = async function() {
-          try {
-            const base64Data = reader.result.split(',')[1];
-            const writeRes = await Cap.Plugins.Filesystem.writeFile({
-              path: fileName,
-              data: base64Data,
-              directory: 'DOCUMENTS'
-            });
-            await Cap.Plugins.Share.share({
-              title: 'فایل پشتیبان انبار',
-              url: writeRes.uri,
-              dialogTitle: 'ذخیره یا ارسال فایل پشتیبان JSON'
-            });
-            return;
-          } catch(e) {}
-        };
-      }
-
-      try {
-        const file = new File([blob], fileName, { type: 'application/json' });
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-          navigator.share({
-            files: [file],
-            title: 'فایل پشتیبان انبار مهر پخش'
-          }).catch(() => {});
-          return;
-        }
-      } catch (e) {}
-
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = fileName;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+      const fullBackup = { app: 'MEHR_PAK_KOUHIJ', backupDate: new Date().toISOString(), products: DB.get(DB_KEYS.PRODUCTS), categories: DB.get(DB_KEYS.CATEGORIES), settings: DB.getSettings() };
+      const blob = new Blob([JSON.stringify(fullBackup, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = `MehrPakhsh_Backup_${Date.now()}.json`;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
     }
 
     function triggerNativeShareBackup() {
-      const fullBackup = {
-        app: 'MEHR_PAK_KOUHIJ',
-        backupDate: new Date().toISOString(),
-        products: DB.get(DB_KEYS.PRODUCTS),
-        categories: DB.get(DB_KEYS.CATEGORIES),
-        settings: DB.getSettings()
-      };
-      const jsonText = JSON.stringify(fullBackup, null, 2);
-      const fileName = `MehrPakhsh_Backup_${Date.now()}.json`;
+      const fullBackup = { app: 'MEHR_PAK_KOUHIJ', backupDate: new Date().toISOString(), products: DB.get(DB_KEYS.PRODUCTS), categories: DB.get(DB_KEYS.CATEGORIES), settings: DB.getSettings() };
+      const file = new File([JSON.stringify(fullBackup, null, 2)], `MehrPakhsh_Backup_${Date.now()}.json`, { type: 'application/json' });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) { navigator.share({ files: [file], title: 'فایل پشتیبان انبار' }).catch(()=>{}); } 
+      else { downloadBackupFileDirectly(); }
+    }
 
-      try {
-        const file = new File([jsonText], fileName, { type: 'application/json' });
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-          navigator.share({
-            files: [file],
-            title: 'فایل پشتیبان انبار مهر پخش کوهیج'
-          }).catch(() => {});
-          return;
-        }
-      } catch (e) {}
-
-      if (navigator.share) {
-        navigator.share({
-          title: fileName,
-          text: jsonText
-        }).catch(() => {});
-      } else {
-        downloadBackupFileDirectly();
-      }
+    function importFullBackup(e) {
+      const reader = new FileReader(); reader.onload = function(evt) {
+        try {
+          const d = JSON.parse(evt.target.result);
+          if (confirm('جایگزینی تمام اطلاعات؟')) { if (d.products) DB.set(DB_KEYS.PRODUCTS, d.products); if (d.categories) DB.set(DB_KEYS.CATEGORIES, d.categories); if (d.settings) DB.setSettings(d.settings); location.reload(); }
+        } catch (err) { alert('فایل نامعتبر است.'); }
+      }; reader.readAsText(e.target.files[0]);
     }
 
     function renderSettingsSection() {
       const s = DB.getSettings();
-      document.getElementById('setCompanyName').value = s.companyName || 'مهر پخش کوهیج';
-      document.getElementById('setCompanyPhone').value = s.phone || '';
-      document.getElementById('setCompanyAddress').value = s.address || '';
-      document.getElementById('setNearDays').value = s.nearDays || 30;
-      document.getElementById('setVeryNearDays').value = s.veryNearDays || 20;
-
-      const logoPrev = document.getElementById('setLogoPreview');
-      if (s.logoBase64) {
-        logoPrev.innerHTML = `<img src="${s.logoBase64}" style="max-height:70px; border-radius:6px; border:1px solid #cbd5e1; padding:2px;">`;
-      } else {
-        logoPrev.innerHTML = '<span style="font-size:11px; color:#64748b;">هنوز لوگویی انتخاب نشده است</span>';
-      }
+      document.getElementById('setCompanyName').value = s.companyName || 'مهر پخش کوهیج'; document.getElementById('setCompanyPhone').value = s.phone || '';
+      document.getElementById('setCompanyAddress').value = s.address || ''; document.getElementById('setNearDays').value = s.nearDays || 30; document.getElementById('setVeryNearDays').value = s.veryNearDays || 20;
+      document.getElementById('setLogoPreview').innerHTML = s.logoBase64 ? `<img src="${s.logoBase64}" style="max-height:70px; border-radius:6px; padding:2px;">` : 'لوگو انتخاب نشده';
     }
 
     function handleLogoUpload(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(evt) {
-        const img = new Image();
-        img.onload = function() {
-          const canvas = document.createElement('canvas');
-          const maxDim = 300;
-          let w = img.width;
-          let h = img.height;
-          if (w > h && w > maxDim) {
-            h = Math.round((h * maxDim) / w);
-            w = maxDim;
-          } else if (h > maxDim) {
-            w = Math.round((w * maxDim) / h);
-            h = maxDim;
-          }
-          canvas.width = w;
-          canvas.height = h;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0, w, h);
-          const compressedLogo = canvas.toDataURL('image/jpeg', 0.8);
-
-          const s = DB.getSettings();
-          s.logoBase64 = compressedLogo;
-          DB.setSettings(s);
-          renderSettingsSection();
-        };
-        img.src = evt.target.result;
-      };
-      reader.readAsDataURL(file);
+      const reader = new FileReader(); reader.onload = function(evt) {
+        const img = new Image(); img.onload = function() {
+          const canvas = document.createElement('canvas'); const ctx = canvas.getContext('2d');
+          canvas.width = img.width > 300 ? 300 : img.width; canvas.height = img.width > 300 ? Math.round((img.height * 300) / img.width) : img.height;
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          const s = DB.getSettings(); s.logoBase64 = canvas.toDataURL('image/jpeg', 0.8); DB.setSettings(s); renderSettingsSection();
+        }; img.src = evt.target.result;
+      }; reader.readAsDataURL(e.target.files[0]);
     }
 
-    function saveCompanySettings() {
-      const s = DB.getSettings();
-      s.companyName = document.getElementById('setCompanyName').value.trim() || 'مهر پخش کوهیج';
-      s.phone = document.getElementById('setCompanyPhone').value.trim();
-      s.address = document.getElementById('setCompanyAddress').value.trim();
-      DB.setSettings(s);
-      renderSettingsSection();
-      renderDashboard();
-      alert('مشخصات شرکت و لوگو ذخیره شد.');
-    }
+    function saveCompanySettings() { const s = DB.getSettings(); s.companyName = document.getElementById('setCompanyName').value.trim(); s.phone = document.getElementById('setCompanyPhone').value.trim(); s.address = document.getElementById('setCompanyAddress').value.trim(); DB.setSettings(s); renderDashboard(); alert('ذخیره شد.'); }
+    function saveExpirySettings() { const s = DB.getSettings(); s.nearDays = parseInt(document.getElementById('setNearDays').value) || 30; s.veryNearDays = parseInt(document.getElementById('setVeryNearDays').value) || 20; DB.setSettings(s); renderDashboard(); alert('ذخیره شد.'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+    function generateMKPFile() { document.getElementById('backupCenterModal').classList.add('active'); }
 
-    function saveExpirySettings() {
-      const s = DB.getSettings();
-      s.nearDays = parseInt(document.getElementById('setNearDays').value) || 30;
-      s.veryNearDays = parseInt(document.getElementById('setVeryNearDays').value) || 20;
-      DB.setSettings(s);
-      renderDashboard();
-      alert('تنظیمات انقضا به‌روزرسانی شد.');
-    }
+    window.navigateTo = navigateTo; window.openProductModal = openProductModal; window.closeModal = closeModal; window.viewProductDetail = viewProductDetail; window.deleteProduct = deleteProduct; window.openCategoryModal = openCategoryModal; window.deleteCategory = deleteCategory; window.viewCategoryProducts = viewCategoryProducts; window.setExportMode = setExportMode; window.toggleSelectAllExport = toggleSelectAllExport; window.generateNativePdf = generateNativePdf; window.generateMKPFile = generateMKPFile; window.downloadBackupFileDirectly = downloadBackupFileDirectly; window.saveCompanySettings = saveCompanySettings; window.saveExpirySettings = saveExpirySettings; window.triggerNativeShareBackup = triggerNativeShareBackup; window.importFullBackup = importFullBackup; window.renderProductList = renderProductList; window.handleSaveProduct = handleSaveProduct; window.handleSaveCategory = handleSaveCategory; window.handleLogoUpload = handleLogoUpload; window.previewAndCompressImage = previewAndCompressImage; window.updateJalaliDaysSelector = updateJalaliDaysSelector; window.filterProductsByExpiry = filterProductsByExpiry;
 
-    function importFullBackup(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(evt) {
-        try {
-          const d = JSON.parse(evt.target.result);
-          if (confirm('تمام اطلاعات با فایل پشتیبان جایگزین شود؟')) {
-            if (d.products) DB.set(DB_KEYS.PRODUCTS, d.products);
-            if (d.categories) DB.set(DB_KEYS.CATEGORIES, d.categories);
-            if (d.settings) DB.setSettings(d.settings);
-            alert('بازگردانی با موفقیت انجام شد.');
-            location.reload();
-          }
-        } catch (err) {
-          alert('فایل پشتیبان نامعتبر است.');
-        }
-      };
-      reader.readAsText(file);
-    }
-
-    function closeModal(id) {
-      document.getElementById(id).classList.remove('active');
-    }
-
-    window.navigateTo = navigateTo;
-    window.openProductModal = openProductModal;
-    window.closeModal = closeModal;
-    window.viewProductDetail = viewProductDetail;
-    window.deleteProduct = deleteProduct;
-    window.openCategoryModal = openCategoryModal;
-    window.deleteCategory = deleteCategory;
-    window.viewCategoryProducts = viewCategoryProducts;
-    window.setExportMode = setExportMode;
-    window.toggleSelectAllExport = toggleSelectAllExport;
-    window.generateAndOpenRealPdf = generateAndOpenRealPdf;
-    window.generateMKPFile = generateMKPFile;
-    window.importMKPFile = importMKPFile;
-    window.downloadBackupFileDirectly = downloadBackupFileDirectly;
-    window.saveCompanySettings = saveCompanySettings;
-    window.saveExpirySettings = saveExpirySettings;
-    window.openBackupCenterModal = openBackupCenterModal;
-    window.triggerNativeShareBackup = triggerNativeShareBackup;
-    window.importFullBackup = importFullBackup;
-    window.renderProductList = renderProductList;
-    window.handleSaveProduct = handleSaveProduct;
-    window.handleSaveCategory = handleSaveCategory;
-    window.handleLogoUpload = handleLogoUpload;
-    window.previewAndCompressImage = previewAndCompressImage;
-    window.updateJalaliDaysSelector = updateJalaliDaysSelector;
-    window.filterProductsByExpiry = filterProductsByExpiry;
-
-    initDatabase();
-    renderDashboard();
+    initDatabase(); renderDashboard();
   </script>
 </body>
 </html>
