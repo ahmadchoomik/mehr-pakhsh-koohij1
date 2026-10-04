@@ -126,7 +126,7 @@
     .export-tab-btn { flex: 1; padding: 9px; border-radius: 8px; border: 1px solid var(--border); background: #fff; font-weight: 700; font-size: 12px; cursor: pointer; text-align: center; color: var(--text-muted); }
     .export-tab-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
 
-    /* استایل اختصاصی خروجی PDF (مخفی در اپ، فقط برای رندر) */
+    /* استایل اختصاصی خروجی PDF */
     #pdf-printable-area { display: none; width: 794px; background: #ffffff; font-family: Tahoma, Arial, sans-serif !important; direction: rtl !important; }
     #pdf-printable-area * { font-family: inherit !important; letter-spacing: 0px !important; }
     .pdf-frame-page { width: 794px; height: 1122px; box-sizing: border-box; page-break-after: always; position: relative; overflow: hidden; }
@@ -135,7 +135,6 @@
 </head>
 <body>
 
-  <!-- صفحه خوش‌آمدگویی -->
   <div id="splash-screen">
     <div class="splash-logo-box">📦</div>
     <div class="splash-title">مهر پخش کوهیج</div>
@@ -144,14 +143,10 @@
   </div>
 
   <main>
-    <!-- ۱. داشبورد -->
     <section id="view-dashboard" class="view-section active">
       <div class="hero-banner">
         <div class="hero-header">
-          <div>
-            <div class="hero-title" id="dashCompName">مهر پخش کوهیج</div>
-            <div class="hero-date" id="dashLiveDate">در حال محاسبه تاریخ...</div>
-          </div>
+          <div><div class="hero-title" id="dashCompName">مهر پخش کوهیج</div><div class="hero-date" id="dashLiveDate">در حال محاسبه تاریخ...</div></div>
           <div class="hero-badge">سامانه انبار فعال</div>
         </div>
         <div class="financial-card" style="margin-top: 10px; padding-top: 8px;">
@@ -191,31 +186,18 @@
       </div>
     </section>
 
-    <!-- ۲. کالاها -->
     <section id="view-products" class="view-section">
       <div class="card">
         <div class="card-header"><div class="card-title">فهرست کالاها</div><button class="btn btn-primary btn-sm" onclick="openProductModal()">+ افزودن کالای جدید</button></div>
         <div class="form-row" style="margin-bottom: 10px;">
-          <div class="form-group" style="flex: 2;">
-            <input type="text" id="prodSearchInput" class="form-control" placeholder="جستجوی نام، برند..." oninput="renderProductList()">
-          </div>
-          <div class="form-group" style="flex: 1.2;">
-            <select id="prodCategoryFilter" class="form-control" onchange="renderProductList()"><option value="">همه دسته‌ها</option></select>
-          </div>
-          <div class="form-group" style="flex: 1;">
-            <select id="prodStatusFilter" class="form-control" onchange="renderProductList()">
-              <option value="">همه وضعیت‌ها</option>
-              <option value="available">موجود</option>
-              <option value="unavailable">ناموجود</option>
-              <option value="expired">منقضی شده</option>
-            </select>
-          </div>
+          <div class="form-group" style="flex: 2;"><input type="text" id="prodSearchInput" class="form-control" placeholder="جستجوی نام، برند..." oninput="renderProductList()"></div>
+          <div class="form-group" style="flex: 1.2;"><select id="prodCategoryFilter" class="form-control" onchange="renderProductList()"><option value="">همه دسته‌ها</option></select></div>
+          <div class="form-group" style="flex: 1;"><select id="prodStatusFilter" class="form-control" onchange="renderProductList()"><option value="">همه وضعیت‌ها</option><option value="available">موجود</option><option value="unavailable">ناموجود</option><option value="expired">منقضی شده</option></select></div>
         </div>
         <div id="productsListContainer"></div>
       </div>
     </section>
 
-    <!-- ۳. دسته‌بندی‌ها -->
     <section id="view-categories" class="view-section">
       <div class="card">
         <div class="card-header"><div class="card-title">دسته‌‌بندی‌های کالا</div><button class="btn btn-primary btn-sm" onclick="openCategoryModal()">+ دسته‌بندی جدید</button></div>
@@ -223,7 +205,6 @@
       </div>
     </section>
 
-    <!-- ۴. صدور اسناد -->
     <section id="view-export" class="view-section">
       <div class="card">
         <div class="card-header"><div class="card-title">صدور اسناد، کاتالوگ و خروجی</div></div>
@@ -273,7 +254,6 @@
       </div>
     </section>
 
-    <!-- ۵. تنظیمات -->
     <section id="view-settings" class="view-section">
       <div class="card">
         <div class="card-header"><div class="card-title">مشخصات شرکت و لوگو</div></div>
@@ -366,7 +346,6 @@
   <div id="pdf-printable-area"></div>
 
   <script>
-    // بستن Splash Screen
     window.addEventListener('load', function() {
       setTimeout(() => {
         const splash = document.getElementById('splash-screen');
@@ -377,7 +356,6 @@
       }, 3000);
     });
 
-    // تقویم جلالی با ساختار کامل و ایمن
     const Jalali = {
       gregorianToJalali: function(gy, gm, gd) {
         const g_d_m = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334]; 
@@ -385,53 +363,34 @@
         gy -= (gy <= 1600) ? 621 : 1600; 
         const gy2 = (gm > 2) ? (gy + 1) : gy;
         let days = (365 * gy) + Math.floor((gy2 + 3) / 4) - Math.floor((gy2 + 99) / 100) + Math.floor((gy2 + 399) / 400) - 80 + gd + g_d_m[gm - 1];
-        jy += 33 * Math.floor(days / 12053); 
-        days %= 12053; 
-        jy += 4 * Math.floor(days / 1461); 
-        days %= 1461; 
+        jy += 33 * Math.floor(days / 12053); days %= 12053; jy += 4 * Math.floor(days / 1461); days %= 1461; 
         if (days > 365) { jy += Math.floor((days - 1) / 365); days = (days - 1) % 365; }
         let jm = (days < 186) ? 1 + Math.floor(days / 31) : 7 + Math.floor((days - 186) / 30); 
         let jd = 1 + ((days < 186) ? (days % 31) : ((days - 186) % 30)); 
         return { jy, jm, jd };
       },
       jalaliToGregorian: function(jy, jm, jd) {
-        let gy = (jy <= 979) ? 621 : 1600; 
-        jy -= (jy <= 979) ? 0 : 979; 
+        let gy = (jy <= 979) ? 621 : 1600; jy -= (jy <= 979) ? 0 : 979; 
         let days = (365 * jy) + (Math.floor(jy / 33) * 8) + Math.floor(((jy % 33) + 3) / 4) + 78 + jd + ((jm < 7) ? (jm - 1) * 31 : ((jm - 7) * 30) + 186);
-        gy += 400 * Math.floor(days / 146097); 
-        days %= 146097; 
+        gy += 400 * Math.floor(days / 146097); days %= 146097; 
         if (days > 36524) { days--; gy += 100 * Math.floor(days / 36524); days %= 36524; if (days >= 365) days++; }
-        gy += 4 * Math.floor(days / 1461); 
-        days %= 1461; 
+        gy += 4 * Math.floor(days / 1461); days %= 1461; 
         if (days > 365) { gy += Math.floor((days - 1) / 365); days = (days - 1) % 365; }
         const sal_a = [0, 31, ((gy % 4 === 0 && gy % 100 !== 0) || (gy % 400 === 0)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-        let gm = 0; 
-        while (gm < 13 && days >= sal_a[gm]) { days -= sal_a[gm]; gm++; } 
+        let gm = 0; while (gm < 13 && days >= sal_a[gm]) { days -= sal_a[gm]; gm++; } 
         return new Date(gy, gm - 1, days + 1);
       },
       today: function() { 
-        const d = new Date(); 
-        return this.gregorianToJalali(d.getFullYear(), d.getMonth() + 1, d.getDate()); 
+        const d = new Date(); return this.gregorianToJalali(d.getFullYear(), d.getMonth() + 1, d.getDate()); 
       },
       diffDaysFromToday: function(jy, jm, jd) { 
-        const target = this.jalaliToGregorian(jy, jm, jd); 
-        const today = new Date(); 
-        today.setHours(0,0,0,0); 
-        return Math.round((target.getTime() - today.getTime()) / 86400000); 
+        const target = this.jalaliToGregorian(jy, jm, jd); const today = new Date(); today.setHours(0,0,0,0); return Math.round((target.getTime() - today.getTime()) / 86400000); 
       },
-      isLeap: function(jy) { 
-        return (((((jy - 474) % 2820) + 474 + 38) * 682) % 2816) < 682; 
-      },
-      daysInMonth: function(jy, jm) { 
-        if (jm <= 6) return 31; 
-        if (jm <= 11) return 30; 
-        return this.isLeap(jy) ? 30 : 29; 
-      },
-      // اینجا آرایه نام ماه‌ها به صورت کامل و دقیق قرار دارد
+      isLeap: function(jy) { return (((((jy - 474) % 2820) + 474 + 38) * 682) % 2816) < 682; },
+      daysInMonth: function(jy, jm) { if (jm <= 6) return 31; if (jm <= 11) return 30; return this.isLeap(jy) ? 30 : 29; },
       monthNames: ["فروردین","اردیبهشت","خرداد","تیر","مرداد","شهریور","مهر","آبان","آذر","دی","بهمن","اسفند"]
     };
 
-    // پایگاه داده لوکال
     const DB_KEYS = { PRODUCTS: 'mkp_products_db', CATEGORIES: 'mkp_categories_db', SETTINGS: 'mkp_settings_db' };
     const DB = { 
       get: (k) => JSON.parse(localStorage.getItem(k) || '[]'), 
@@ -462,53 +421,34 @@
       if (viewId === 'view-settings') renderSettingsSection();
     }
 
-    // رندر ایمن داشبورد
     function renderDashboard() {
       try {
-        const products = DB.get(DB_KEYS.PRODUCTS); 
-        const categories = DB.get(DB_KEYS.CATEGORIES); 
-        const settings = DB.getSettings(); 
-        const todayJ = Jalali.today();
-        
+        const products = DB.get(DB_KEYS.PRODUCTS); const categories = DB.get(DB_KEYS.CATEGORIES); const settings = DB.getSettings(); const todayJ = Jalali.today();
         document.getElementById('dashCompName').innerText = settings.companyName || 'مهر پخش کوهیج'; 
         document.getElementById('dashLiveDate').innerText = `امروز: ${todayJ.jd} ${Jalali.monthNames[todayJ.jm - 1]} ${todayJ.jy}`;
         
-        const total = products.length; 
-        const available = products.filter(p => p.status === 'available').length;
-        
-        let expired = 0, veryNear = 0, near = 0, safe = 0; 
-        let attentionItems = [];
+        const total = products.length; const available = products.filter(p => p.status === 'available').length;
+        let expired = 0, veryNear = 0, near = 0, safe = 0; let attentionItems = [];
         
         products.forEach(p => {
-          if (!p.expiry) p.expiry = { jy: todayJ.jy, jm: todayJ.jm, jd: todayJ.jd }; // ایمن‌سازی اطلاعات ناقص
+          if (!p.expiry) p.expiry = { jy: todayJ.jy, jm: todayJ.jm, jd: todayJ.jd };
           const diff = Jalali.diffDaysFromToday(p.expiry.jy, p.expiry.jm, p.expiry.jd);
           
-          if (diff < 0) { 
-            expired++; attentionItems.push({ product: p, reason: 'منقضی شده', class: 'badge-expired' }); 
-          } else if (diff <= (settings.veryNearDays || 20)) { 
-            veryNear++; attentionItems.push({ product: p, reason: `${diff} روز`, class: 'badge-very-near' }); 
-          } else if (diff <= (settings.nearDays || 30)) { 
-            near++; attentionItems.push({ product: p, reason: `${diff} روز`, class: 'badge-near' }); 
-          } else { 
-            safe++; 
-          }
+          if (diff < 0) { expired++; attentionItems.push({ product: p, reason: 'منقضی شده', class: 'badge-expired' }); } 
+          else if (diff <= (settings.veryNearDays || 20)) { veryNear++; attentionItems.push({ product: p, reason: `${diff} روز`, class: 'badge-very-near' }); } 
+          else if (diff <= (settings.nearDays || 30)) { near++; attentionItems.push({ product: p, reason: `${diff} روز`, class: 'badge-near' }); } 
+          else { safe++; }
         });
         
         document.getElementById('dashNearExpiryCount').innerText = (expired + veryNear + near) + ' قلم'; 
-        document.getElementById('dashTotalProducts').innerText = total; 
-        document.getElementById('dashAvailableProducts').innerText = available; 
-        document.getElementById('dashUnavailableProducts').innerText = total - available; 
-        document.getElementById('dashTotalCategories').innerText = categories.length; 
-        document.getElementById('dashExpiredCount').innerText = expired; 
-        document.getElementById('dashVeryNearCount').innerText = veryNear; 
-        document.getElementById('dashNearCount').innerText = near; 
-        document.getElementById('dashSafeCount').innerText = safe;
+        document.getElementById('dashTotalProducts').innerText = total; document.getElementById('dashAvailableProducts').innerText = available; 
+        document.getElementById('dashUnavailableProducts').innerText = total - available; document.getElementById('dashTotalCategories').innerText = categories.length; 
+        document.getElementById('dashExpiredCount').innerText = expired; document.getElementById('dashVeryNearCount').innerText = veryNear; 
+        document.getElementById('dashNearCount').innerText = near; document.getElementById('dashSafeCount').innerText = safe;
         
         const sum = total || 1; 
-        document.getElementById('barSafe').style.width = ((safe / sum) * 100) + '%'; 
-        document.getElementById('barNear').style.width = ((near / sum) * 100) + '%'; 
-        document.getElementById('barVeryNear').style.width = ((veryNear / sum) * 100) + '%'; 
-        document.getElementById('barExpired').style.width = ((expired / sum) * 100) + '%';
+        document.getElementById('barSafe').style.width = ((safe / sum) * 100) + '%'; document.getElementById('barNear').style.width = ((near / sum) * 100) + '%'; 
+        document.getElementById('barVeryNear').style.width = ((veryNear / sum) * 100) + '%'; document.getElementById('barExpired').style.width = ((expired / sum) * 100) + '%';
         
         const attCont = document.getElementById('dashAttentionContainer');
         if (attentionItems.length === 0) {
@@ -516,16 +456,10 @@
         } else {
           attCont.innerHTML = attentionItems.slice(0, 4).map(item => `<div class="attention-item"><div><b style="font-size:12.5px;">${item.product.name}</b><div style="font-size:10px; color:#64748b;">${item.product.company}</div></div><span class="badge ${item.class}">${item.reason}</span></div>`).join('');
         }
-      } catch(e) {
-        console.error("Dashboard Error: ", e);
-      }
+      } catch(e) { console.error("Dashboard Error: ", e); }
     }
 
-    function filterProductsByExpiry(type) { 
-      navigateTo('view-products'); 
-      document.getElementById('prodStatusFilter').value = type; 
-      renderProductList(); 
-    }
+    function filterProductsByExpiry(type) { navigateTo('view-products'); document.getElementById('prodStatusFilter').value = type; renderProductList(); }
 
     function populateCategoryFilters() {
       const cats = DB.get(DB_KEYS.CATEGORIES);
@@ -535,8 +469,7 @@
 
     function getExpiryStatus(p) {
       if (!p.expiry) p.expiry = Jalali.today();
-      const diff = Jalali.diffDaysFromToday(p.expiry.jy, p.expiry.jm, p.expiry.jd); 
-      const s = DB.getSettings();
+      const diff = Jalali.diffDaysFromToday(p.expiry.jy, p.expiry.jm, p.expiry.jd); const s = DB.getSettings();
       if (diff < 0) return { label: 'منقضی شده', class: 'badge-expired', code: 'expired' }; 
       if (diff <= (s.veryNearDays || 20)) return { label: `خیلی نزدیک`, class: 'badge-very-near', code: 'very_near' }; 
       if (diff <= (s.nearDays || 30)) return { label: `نزدیک`, class: 'badge-near', code: 'near' }; 
@@ -545,107 +478,56 @@
 
     function renderProductList() {
       const search = document.getElementById('prodSearchInput').value.trim().toLowerCase(); 
-      const catF = document.getElementById('prodCategoryFilter').value; 
-      const statF = document.getElementById('prodStatusFilter').value;
-      const cats = DB.get(DB_KEYS.CATEGORIES); 
-      const catMap = {}; 
-      cats.forEach(c => catMap[c.id] = c.name);
+      const catF = document.getElementById('prodCategoryFilter').value; const statF = document.getElementById('prodStatusFilter').value;
+      const cats = DB.get(DB_KEYS.CATEGORIES); const catMap = {}; cats.forEach(c => catMap[c.id] = c.name);
       
       let prods = DB.get(DB_KEYS.PRODUCTS).filter(p => {
         const matchesS = !search || p.name.toLowerCase().includes(search) || p.company.toLowerCase().includes(search); 
-        const matchesC = !catF || p.categoryId === catF; 
-        let matchesSt = true;
-        if (statF === 'available') matchesSt = p.status === 'available'; 
-        else if (statF === 'unavailable') matchesSt = p.status === 'unavailable'; 
-        else if (statF) matchesSt = getExpiryStatus(p).code === statF; 
+        const matchesC = !catF || p.categoryId === catF; let matchesSt = true;
+        if (statF === 'available') matchesSt = p.status === 'available'; else if (statF === 'unavailable') matchesSt = p.status === 'unavailable'; else if (statF) matchesSt = getExpiryStatus(p).code === statF; 
         return matchesS && matchesC && matchesSt;
       });
       
       document.getElementById('productsListContainer').innerHTML = prods.length === 0 ? '<div style="text-align:center; padding: 25px; color: var(--text-muted);">کالایی یافت نشد.</div>' : prods.map(p => {
-        const exp = getExpiryStatus(p); 
-        const imgTag = p.image ? `<img src="${p.image}" class="product-thumb">` : `<div class="product-thumb">بی‌عکس</div>`;
+        const exp = getExpiryStatus(p); const imgTag = p.image ? `<img src="${p.image}" class="product-thumb">` : `<div class="product-thumb">بی‌عکس</div>`;
         return `<div class="product-item">${imgTag}<div class="product-info"><h4>${p.name}</h4><div class="product-sub">برند: ${p.company}</div><div style="display:flex; align-items:center; gap: 6px;"><span style="font-weight: bold; color: var(--primary); font-size: 12.5px;">${Number(p.price).toLocaleString('fa-IR')} تومان</span><span class="badge ${exp.class}">${exp.label}</span></div></div><div class="product-actions"><button class="btn btn-sm btn-secondary" onclick="viewProductDetail('${p.id}')">مشاهده</button><button class="btn btn-sm btn-primary" onclick="openProductModal('${p.id}')">ویرایش</button><button class="btn btn-sm btn-danger" onclick="deleteProduct('${p.id}')">حذف</button></div></div>`;
       }).join('');
     }
 
     function initJalaliDateDropdowns(y, m, d) {
-      const todayJ = Jalali.today(); 
-      const curY = y || todayJ.jy; 
-      const curM = m || todayJ.jm; 
-      const curD = d || todayJ.jd;
-      
-      let ySelect = ''; 
-      for (let i = todayJ.jy - 1; i <= todayJ.jy + 8; i++) ySelect += `<option value="${i}" ${i === curY ? 'selected' : ''}>${i}</option>`;
-      document.getElementById('pmJalaliYear').innerHTML = ySelect; 
-      document.getElementById('pmJalaliMonth').value = curM; 
-      updateJalaliDaysSelector(curD);
+      const todayJ = Jalali.today(); const curY = y || todayJ.jy; const curM = m || todayJ.jm; const curD = d || todayJ.jd;
+      let ySelect = ''; for (let i = todayJ.jy - 1; i <= todayJ.jy + 8; i++) ySelect += `<option value="${i}" ${i === curY ? 'selected' : ''}>${i}</option>`;
+      document.getElementById('pmJalaliYear').innerHTML = ySelect; document.getElementById('pmJalaliMonth').value = curM; updateJalaliDaysSelector(curD);
     }
 
     function updateJalaliDaysSelector(prefD) {
-      const y = parseInt(document.getElementById('pmJalaliYear').value); 
-      const m = parseInt(document.getElementById('pmJalaliMonth').value); 
-      const maxD = Jalali.daysInMonth(y, m); 
-      const curD = prefD || parseInt(document.getElementById('pmJalaliDay').value) || 1;
-      
-      let dSelect = ''; 
-      for (let d = 1; d <= maxD; d++) dSelect += `<option value="${d}" ${d === Math.min(curD, maxD) ? 'selected' : ''}>${d}</option>`;
-      document.getElementById('pmJalaliDay').innerHTML = dSelect; 
-      document.getElementById('pmLeapYearNotice').innerText = (m === 12 && Jalali.isLeap(y)) ? 'سال کبیسه است (اسفند ۳۰ روزه)' : '';
+      const y = parseInt(document.getElementById('pmJalaliYear').value); const m = parseInt(document.getElementById('pmJalaliMonth').value); 
+      const maxD = Jalali.daysInMonth(y, m); const curD = prefD || parseInt(document.getElementById('pmJalaliDay').value) || 1;
+      let dSelect = ''; for (let d = 1; d <= maxD; d++) dSelect += `<option value="${d}" ${d === Math.min(curD, maxD) ? 'selected' : ''}>${d}</option>`;
+      document.getElementById('pmJalaliDay').innerHTML = dSelect; document.getElementById('pmLeapYearNotice').innerText = (m === 12 && Jalali.isLeap(y)) ? 'سال کبیسه است (اسفند ۳۰ روزه)' : '';
     }
 
     function previewAndCompressImage(e) {
-      const file = e.target.files[0]; 
-      if (!file) return; 
-      const reader = new FileReader();
+      const file = e.target.files[0]; if (!file) return; const reader = new FileReader();
       reader.onload = function(evt) {
-        const img = new Image(); 
-        img.onload = function() {
-          const canvas = document.createElement('canvas'); 
-          const maxDim = 450; 
-          let w = img.width, h = img.height;
-          if (w > h && w > maxDim) { h = Math.round((h * maxDim) / w); w = maxDim; } 
-          else if (h > maxDim) { w = Math.round((w * maxDim) / h); h = maxDim; }
-          canvas.width = w; 
-          canvas.height = h; 
-          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-          const b64 = canvas.toDataURL('image/jpeg', 0.55); 
-          document.getElementById('pmImageBase64').value = b64; 
-          document.getElementById('pmImagePreview').innerHTML = `<img src="${b64}" style="max-height:85px; border-radius:6px;">`;
-        }; 
-        img.src = evt.target.result;
-      }; 
-      reader.readAsDataURL(file);
+        const img = new Image(); img.onload = function() {
+          const canvas = document.createElement('canvas'); const maxDim = 450; let w = img.width, h = img.height;
+          if (w > h && w > maxDim) { h = Math.round((h * maxDim) / w); w = maxDim; } else if (h > maxDim) { w = Math.round((w * maxDim) / h); h = maxDim; }
+          canvas.width = w; canvas.height = h; canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+          const b64 = canvas.toDataURL('image/jpeg', 0.55); document.getElementById('pmImageBase64').value = b64; document.getElementById('pmImagePreview').innerHTML = `<img src="${b64}" style="max-height:85px; border-radius:6px;">`;
+        }; img.src = evt.target.result;
+      }; reader.readAsDataURL(file);
     }
 
     function openProductModal(id = null) {
-      populateCategoryFilters(); 
-      document.getElementById('pmImagePreview').innerHTML = ''; 
-      document.getElementById('pmImageBase64').value = '';
+      populateCategoryFilters(); document.getElementById('pmImagePreview').innerHTML = ''; document.getElementById('pmImageBase64').value = '';
       if (id) {
         const p = DB.get(DB_KEYS.PRODUCTS).find(x => x.id === id); 
-        document.getElementById('productModalTitle').innerText = 'ویرایش کالا'; 
-        document.getElementById('pmId').value = p.id; 
-        document.getElementById('pmName').value = p.name; 
-        document.getElementById('pmCategory').value = p.categoryId; 
-        document.getElementById('pmPrice').value = p.price; 
-        document.getElementById('pmCompany').value = p.company; 
-        document.getElementById('pmCode').value = p.code || ''; 
-        document.getElementById('pmStatus').value = p.status; 
-        document.getElementById('pmDescription').value = p.description || '';
-        if (p.image) { 
-            document.getElementById('pmImageBase64').value = p.image; 
-            document.getElementById('pmImagePreview').innerHTML = `<img src="${p.image}" style="max-height:85px;">`; 
-        }
+        document.getElementById('productModalTitle').innerText = 'ویرایش کالا'; document.getElementById('pmId').value = p.id; document.getElementById('pmName').value = p.name; document.getElementById('pmCategory').value = p.categoryId; document.getElementById('pmPrice').value = p.price; document.getElementById('pmCompany').value = p.company; document.getElementById('pmCode').value = p.code || ''; document.getElementById('pmStatus').value = p.status; document.getElementById('pmDescription').value = p.description || '';
+        if (p.image) { document.getElementById('pmImageBase64').value = p.image; document.getElementById('pmImagePreview').innerHTML = `<img src="${p.image}" style="max-height:85px;">`; }
         initJalaliDateDropdowns(p.expiry.jy, p.expiry.jm, p.expiry.jd);
       } else {
-        document.getElementById('productModalTitle').innerText = 'افزودن کالا'; 
-        document.getElementById('pmId').value = ''; 
-        document.getElementById('pmName').value = ''; 
-        document.getElementById('pmPrice').value = ''; 
-        document.getElementById('pmCompany').value = ''; 
-        document.getElementById('pmStatus').value = 'available'; 
-        document.getElementById('pmDescription').value = ''; 
-        initJalaliDateDropdowns();
+        document.getElementById('productModalTitle').innerText = 'افزودن کالا'; document.getElementById('pmId').value = ''; document.getElementById('pmName').value = ''; document.getElementById('pmPrice').value = ''; document.getElementById('pmCompany').value = ''; document.getElementById('pmStatus').value = 'available'; document.getElementById('pmDescription').value = ''; initJalaliDateDropdowns();
       }
       document.getElementById('productModal').classList.add('active');
     }
@@ -653,51 +535,23 @@
     function handleSaveProduct(e) {
       e.preventDefault();
       const p = { 
-          id: document.getElementById('pmId').value || 'p_' + Date.now(), 
-          name: document.getElementById('pmName').value.trim(), 
-          categoryId: document.getElementById('pmCategory').value, 
-          price: parseFloat(document.getElementById('pmPrice').value), 
-          company: document.getElementById('pmCompany').value.trim(), 
-          code: document.getElementById('pmCode').value.trim(), 
-          status: document.getElementById('pmStatus').value, 
-          description: document.getElementById('pmDescription').value.trim(), 
-          image: document.getElementById('pmImageBase64').value, 
-          expiry: { 
-              jy: parseInt(document.getElementById('pmJalaliYear').value), 
-              jm: parseInt(document.getElementById('pmJalaliMonth').value), 
-              jd: parseInt(document.getElementById('pmJalaliDay').value) 
-          } 
+          id: document.getElementById('pmId').value || 'p_' + Date.now(), name: document.getElementById('pmName').value.trim(), categoryId: document.getElementById('pmCategory').value, price: parseFloat(document.getElementById('pmPrice').value), company: document.getElementById('pmCompany').value.trim(), code: document.getElementById('pmCode').value.trim(), status: document.getElementById('pmStatus').value, description: document.getElementById('pmDescription').value.trim(), image: document.getElementById('pmImageBase64').value, expiry: { jy: parseInt(document.getElementById('pmJalaliYear').value), jm: parseInt(document.getElementById('pmJalaliMonth').value), jd: parseInt(document.getElementById('pmJalaliDay').value) } 
       };
-      let prods = DB.get(DB_KEYS.PRODUCTS); 
-      const idx = prods.findIndex(x => x.id === p.id); 
-      if (idx >= 0) prods[idx] = p; else prods.unshift(p);
-      try { 
-          DB.set(DB_KEYS.PRODUCTS, prods); 
-          closeModal('productModal'); 
-          renderProductList(); 
-          renderDashboard(); 
-      } catch (err) { alert('حجم اطلاعات زیاد است. لطفا عکس را فشرده کنید.'); }
+      let prods = DB.get(DB_KEYS.PRODUCTS); const idx = prods.findIndex(x => x.id === p.id); if (idx >= 0) prods[idx] = p; else prods.unshift(p);
+      try { DB.set(DB_KEYS.PRODUCTS, prods); closeModal('productModal'); renderProductList(); renderDashboard(); } catch (err) { alert('حجم اطلاعات زیاد است. لطفا عکس را فشرده کنید.'); }
     }
 
-    function deleteProduct(id) { 
-        if (confirm('آیا از حذف کالا مطمئن هستید؟')) { 
-            DB.set(DB_KEYS.PRODUCTS, DB.get(DB_KEYS.PRODUCTS).filter(p => p.id !== id)); 
-            renderProductList(); 
-            renderDashboard(); 
-        } 
-    }
+    function deleteProduct(id) { if (confirm('آیا از حذف کالا مطمئن هستید؟')) { DB.set(DB_KEYS.PRODUCTS, DB.get(DB_KEYS.PRODUCTS).filter(p => p.id !== id)); renderProductList(); renderDashboard(); } }
 
     function viewProductDetail(id) {
-      const p = DB.get(DB_KEYS.PRODUCTS).find(x => x.id === id); 
-      const c = DB.get(DB_KEYS.CATEGORIES).find(x => x.id === p.categoryId);
+      const p = DB.get(DB_KEYS.PRODUCTS).find(x => x.id === id); const c = DB.get(DB_KEYS.CATEGORIES).find(x => x.id === p.categoryId);
       document.getElementById('pdmTitle').innerText = p.name;
       document.getElementById('pdmBody').innerHTML = `${p.image ? `<div style="text-align:center; margin-bottom:10px;"><img src="${p.image}" style="max-height:150px; border-radius:8px;"></div>` : ''}<div><b>برند:</b> ${p.company}</div><div><b>دسته‌‌بندی:</b> ${c ? c.name : ''}</div><div><b>قیمت:</b> ${Number(p.price).toLocaleString('fa-IR')} تومان</div><div><b>انقضا:</b> ${p.expiry.jy}/${p.expiry.jm}/${p.expiry.jd}</div>${p.description ? `<div><b>توضیحات:</b> ${p.description}</div>` : ''}`;
       document.getElementById('productDetailModal').classList.add('active');
     }
 
     function renderCategoryList() {
-      const cats = DB.get(DB_KEYS.CATEGORIES); 
-      const prods = DB.get(DB_KEYS.PRODUCTS);
+      const cats = DB.get(DB_KEYS.CATEGORIES); const prods = DB.get(DB_KEYS.PRODUCTS);
       document.getElementById('categoryListContainer').innerHTML = cats.length === 0 ? 'خالی' : cats.map(c => {
         const count = prods.filter(p => p.categoryId === c.id).length;
         return `<div style="display:flex; justify-content:space-between; align-items:center; padding:10px; border:1px solid var(--border); border-radius:8px; margin-bottom:8px; background:white;"><div><b>${c.name}</b><div style="font-size:10.5px;">${count} کالا</div></div><div style="display:flex; gap:6px;"><button class="btn btn-sm btn-primary" onclick="openCategoryModal('${c.id}')">ویرایش</button><button class="btn btn-sm btn-danger" onclick="deleteCategory('${c.id}')">حذف</button></div></div>`;
@@ -705,95 +559,48 @@
     }
 
     function openCategoryModal(id = null) {
-      if (id) { 
-          const c = DB.get(DB_KEYS.CATEGORIES).find(x => x.id === id); 
-          document.getElementById('catModalTitle').innerText = 'ویرایش'; 
-          document.getElementById('cmId').value = c.id; 
-          document.getElementById('cmName').value = c.name; 
-      } else { 
-          document.getElementById('catModalTitle').innerText = 'جدید'; 
-          document.getElementById('cmId').value = ''; 
-          document.getElementById('cmName').value = ''; 
-      }
+      if (id) { const c = DB.get(DB_KEYS.CATEGORIES).find(x => x.id === id); document.getElementById('catModalTitle').innerText = 'ویرایش'; document.getElementById('cmId').value = c.id; document.getElementById('cmName').value = c.name; } 
+      else { document.getElementById('catModalTitle').innerText = 'جدید'; document.getElementById('cmId').value = ''; document.getElementById('cmName').value = ''; }
       document.getElementById('categoryModal').classList.add('active');
     }
 
     function handleSaveCategory(e) {
-      e.preventDefault(); 
-      const id = document.getElementById('cmId').value || 'cat_' + Date.now(); 
-      const name = document.getElementById('cmName').value.trim();
-      let cats = DB.get(DB_KEYS.CATEGORIES); 
-      const idx = cats.findIndex(c => c.id === id); 
-      if (idx >= 0) cats[idx].name = name; else cats.push({ id, name });
-      DB.set(DB_KEYS.CATEGORIES, cats); 
-      closeModal('categoryModal'); 
-      renderCategoryList(); 
-      populateCategoryFilters(); 
-      renderDashboard();
+      e.preventDefault(); const id = document.getElementById('cmId').value || 'cat_' + Date.now(); const name = document.getElementById('cmName').value.trim();
+      let cats = DB.get(DB_KEYS.CATEGORIES); const idx = cats.findIndex(c => c.id === id); if (idx >= 0) cats[idx].name = name; else cats.push({ id, name });
+      DB.set(DB_KEYS.CATEGORIES, cats); closeModal('categoryModal'); renderCategoryList(); populateCategoryFilters(); renderDashboard();
     }
 
-    function deleteCategory(id) { 
-        if (DB.get(DB_KEYS.PRODUCTS).some(p => p.categoryId === id)) return alert('این دسته شامل کالا است. ابتدا کالاها را حذف کنید.'); 
-        if (confirm('حذف دسته؟')) { 
-            DB.set(DB_KEYS.CATEGORIES, DB.get(DB_KEYS.CATEGORIES).filter(c => c.id !== id)); 
-            renderCategoryList(); 
-            populateCategoryFilters(); 
-            renderDashboard(); 
-        } 
-    }
+    function deleteCategory(id) { if (DB.get(DB_KEYS.PRODUCTS).some(p => p.categoryId === id)) return alert('این دسته شامل کالا است. ابتدا کالاها را حذف کنید.'); if (confirm('حذف دسته؟')) { DB.set(DB_KEYS.CATEGORIES, DB.get(DB_KEYS.CATEGORIES).filter(c => c.id !== id)); renderCategoryList(); populateCategoryFilters(); renderDashboard(); } }
 
-    function viewCategoryProducts(catId) { 
-        navigateTo('view-products'); 
-        document.getElementById('prodCategoryFilter').value = catId; 
-        renderProductList(); 
-    }
+    function viewCategoryProducts(catId) { navigateTo('view-products'); document.getElementById('prodCategoryFilter').value = catId; renderProductList(); }
 
     let currentExportMode = 'catalog';
     function setExportMode(mode) {
-      currentExportMode = mode; 
-      document.querySelectorAll('.export-tab-btn').forEach(b => b.classList.remove('active'));
-      
+      currentExportMode = mode; document.querySelectorAll('.export-tab-btn').forEach(b => b.classList.remove('active'));
       const tabId = mode === 'catalog' ? 'tabModeCatalog' : (mode === 'invoice' ? 'tabModeInvoice' : 'tabModeExpiry');
       if (document.getElementById(tabId)) document.getElementById(tabId).classList.add('active');
-      
-      document.getElementById('invoiceCustomerBox').style.display = mode === 'invoice' ? 'block' : 'none'; 
-      document.getElementById('catalogOptionsBox').style.display = mode === 'catalog' ? 'block' : 'none'; 
-      document.getElementById('invoiceTotalPreview').style.display = mode === 'invoice' ? 'block' : 'none'; 
-      renderExportSection();
+      document.getElementById('invoiceCustomerBox').style.display = mode === 'invoice' ? 'block' : 'none'; document.getElementById('catalogOptionsBox').style.display = mode === 'catalog' ? 'block' : 'none'; document.getElementById('invoiceTotalPreview').style.display = mode === 'invoice' ? 'block' : 'none'; renderExportSection();
     }
 
     function renderExportSection() {
-      const prods = DB.get(DB_KEYS.PRODUCTS); 
-      let target = currentExportMode === 'expiry' ? prods.filter(p => ['expired','very_near','near'].includes(getExpiryStatus(p).code)) : prods;
-      
+      const prods = DB.get(DB_KEYS.PRODUCTS); let target = currentExportMode === 'expiry' ? prods.filter(p => ['expired','very_near','near'].includes(getExpiryStatus(p).code)) : prods;
       document.getElementById('exportProductsChecklist').innerHTML = target.length === 0 ? '<div style="padding:10px;">کالایی یافت نشد.</div>' : target.map(p => {
         const isA = p.status === 'available';
         return `<div style="display:flex; align-items:center; gap:8px; padding:6px 0; border-bottom:1px solid #f1f5f9; font-size:12px;"><input type="checkbox" class="export-prod-cb" value="${p.id}" ${isA ? 'checked' : ''} onchange="calculateInvoiceTotal()"><span style="flex:1;"><b>${p.name}</b><div style="font-size:10.5px; color:var(--text-muted);">انقضا: ${p.expiry.jy}/${p.expiry.jm}/${p.expiry.jd}</div></span>${currentExportMode === 'invoice' ? `<input type="number" class="export-prod-qty form-control" style="width:50px; padding:3px; text-align:center;" value="1" min="1" data-id="${p.id}" oninput="calculateInvoiceTotal()">` : ''}</div>`;
       }).join('');
-      
       if (currentExportMode === 'invoice') calculateInvoiceTotal();
     }
 
-    function toggleSelectAllExport(check) { 
-        document.querySelectorAll('.export-prod-cb').forEach(cb => cb.checked = check); 
-        calculateInvoiceTotal(); 
-    }
+    function toggleSelectAllExport(check) { document.querySelectorAll('.export-prod-cb').forEach(cb => cb.checked = check); calculateInvoiceTotal(); }
 
     function calculateInvoiceTotal() {
-      let total = 0; 
-      const prods = DB.get(DB_KEYS.PRODUCTS);
-      document.querySelectorAll('.export-prod-cb:checked').forEach(cb => { 
-          const p = prods.find(x => x.id === cb.value); 
-          if (p) { 
-              const q = document.querySelector(`.export-prod-qty[data-id="${p.id}"]`); 
-              total += p.price * (q ? parseInt(q.value) || 1 : 1); 
-          } 
-      });
+      let total = 0; const prods = DB.get(DB_KEYS.PRODUCTS);
+      document.querySelectorAll('.export-prod-cb:checked').forEach(cb => { const p = prods.find(x => x.id === cb.value); if (p) { const q = document.querySelector(`.export-prod-qty[data-id="${p.id}"]`); total += p.price * (q ? parseInt(q.value) || 1 : 1); } });
       document.getElementById('invTotalAmount').innerText = Number(total).toLocaleString('fa-IR');
     }
 
     // =======================================================================================
-    // بخش تولید ظاهر گرافیکی PDF ژورنالی (بدون دستکاری سایر کدهای اصلی)
+    // بخش تولید ظاهر گرافیکی PDF ژورنالی (اصلاح فضای عکس‌ها)
     // =======================================================================================
     function preparePrintableContent() {
       const selectedBoxes = Array.from(document.querySelectorAll('.export-prod-cb:checked'));
@@ -853,9 +660,9 @@
                   <div style="background: rgba(255,255,255,0.25); padding: 6px 18px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.4);">صفحه ${idx + 1}</div>
                 </div>
 
-                <!-- این همون بخش عکسه که 100٪ فضا رو پر میکنه -->
-                <div style="flex: 1; padding: 10px; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle, #f8fafc 0%, #ffffff 80%); overflow: hidden;">
-                  ${showImage && p.image ? `<img src="${p.image}" style="width: 100%; height: 100%; max-height: 760px; object-fit: contain; filter: drop-shadow(0 15px 30px rgba(0,0,0,0.15));">` : '<div style="font-size: 32px; color:#cbd5e1; font-weight: 900;">تصویری ثبت نشده است</div>'}
+                <!-- این بخش اصلاح شد: عکس 82٪ عرض رو میگیره تا حاشیه سفید شیکی دورش بیافته -->
+                <div style="flex: 1; padding: 30px; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle, #f8fafc 0%, #ffffff 80%); overflow: hidden;">
+                  ${showImage && p.image ? `<img src="${p.image}" style="max-width: 82%; max-height: 640px; object-fit: contain; filter: drop-shadow(0 15px 35px rgba(0,0,0,0.15)); border-radius: 8px;">` : '<div style="font-size: 32px; color:#cbd5e1; font-weight: 900;">تصویری ثبت نشده است</div>'}
                 </div>
 
                 <div style="background: #f8fafc; border-top: 3px solid #e2e8f0; padding: 30px;">
