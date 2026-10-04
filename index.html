@@ -161,32 +161,15 @@
       </div>
 
       <div class="stat-grid">
-        <div class="stat-card">
-          <div class="stat-card-header"><span class="stat-card-title">کل اقلام</span><div class="stat-card-icon" style="background:#e0f2fe; color:#0284c7;">📦</div></div>
-          <div class="stat-card-number" id="dashTotalProducts">۰</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-card-header"><span class="stat-card-title">موجود</span><div class="stat-card-icon" style="background:#dcfce7; color:#16a34a;">✅</div></div>
-          <div class="stat-card-number" id="dashAvailableProducts">۰</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-card-header"><span class="stat-card-title">ناموجود</span><div class="stat-card-icon" style="background:#fee2e2; color:#dc2626;">❌</div></div>
-          <div class="stat-card-number" id="dashUnavailableProducts">۰</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-card-header"><span class="stat-card-title">دسته‌ها</span><div class="stat-card-icon" style="background:#f3e8ff; color:#9333ea;">📂</div></div>
-          <div class="stat-card-number" id="dashTotalCategories">۰</div>
-        </div>
+        <div class="stat-card"><div class="stat-card-header"><span class="stat-card-title">کل اقلام</span><div class="stat-card-icon" style="background:#e0f2fe; color:#0284c7;">📦</div></div><div class="stat-card-number" id="dashTotalProducts">۰</div></div>
+        <div class="stat-card"><div class="stat-card-header"><span class="stat-card-title">موجود</span><div class="stat-card-icon" style="background:#dcfce7; color:#16a34a;">✅</div></div><div class="stat-card-number" id="dashAvailableProducts">۰</div></div>
+        <div class="stat-card"><div class="stat-card-header"><span class="stat-card-title">ناموجود</span><div class="stat-card-icon" style="background:#fee2e2; color:#dc2626;">❌</div></div><div class="stat-card-number" id="dashUnavailableProducts">۰</div></div>
+        <div class="stat-card"><div class="stat-card-header"><span class="stat-card-title">دسته‌ها</span><div class="stat-card-icon" style="background:#f3e8ff; color:#9333ea;">📂</div></div><div class="stat-card-number" id="dashTotalCategories">۰</div></div>
       </div>
 
       <div class="card">
         <div class="card-header"><div class="card-title">پایش انقضای انبار (خورشیدی)</div></div>
-        <div class="health-bar-container">
-          <div id="barSafe" class="health-seg seg-safe" style="width: 25%"></div>
-          <div id="barNear" class="health-seg seg-near" style="width: 25%"></div>
-          <div id="barVeryNear" class="health-seg seg-very-near" style="width: 25%"></div>
-          <div id="barExpired" class="health-seg seg-expired" style="width: 25%"></div>
-        </div>
+        <div class="health-bar-container"><div id="barSafe" class="health-seg seg-safe" style="width: 25%"></div><div id="barNear" class="health-seg seg-near" style="width: 25%"></div><div id="barVeryNear" class="health-seg seg-very-near" style="width: 25%"></div><div id="barExpired" class="health-seg seg-expired" style="width: 25%"></div></div>
         <div class="expiry-chips-grid">
           <div class="expiry-chip" onclick="filterProductsByExpiry('safe')"><span>🟢 ایمن</span><span class="chip-count" id="dashSafeCount" style="color:#16a34a;">۰</span></div>
           <div class="expiry-chip" onclick="filterProductsByExpiry('near')"><span>🟡 نزدیک</span><span class="chip-count" id="dashNearCount" style="color:#d97706;">۰</span></div>
@@ -195,10 +178,7 @@
         </div>
       </div>
 
-      <div class="card">
-        <div class="card-header"><div class="card-title">⚠️ کالاهای نیازمند توجه</div></div>
-        <div id="dashAttentionContainer"></div>
-      </div>
+      <div class="card"><div class="card-header"><div class="card-title">⚠️ کالاهای نیازمند توجه</div></div><div id="dashAttentionContainer"></div></div>
 
       <div class="card">
         <div class="card-header"><div class="card-title">⚡ اقدامات سریع</div></div>
@@ -873,8 +853,9 @@
                   <div style="background: rgba(255,255,255,0.25); padding: 6px 18px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.4);">صفحه ${idx + 1}</div>
                 </div>
 
-                <div style="flex: 1; padding: 25px; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle, #f8fafc 0%, #ffffff 80%);">
-                  ${showImage && p.image ? `<img src="${p.image}" style="max-height: 720px; max-width: 95%; object-fit: contain; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.12));">` : '<div style="font-size: 32px; color:#cbd5e1; font-weight: 900;">تصویری ثبت نشده است</div>'}
+                <!-- این همون بخش عکسه که 100٪ فضا رو پر میکنه -->
+                <div style="flex: 1; padding: 10px; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle, #f8fafc 0%, #ffffff 80%); overflow: hidden;">
+                  ${showImage && p.image ? `<img src="${p.image}" style="width: 100%; height: 100%; max-height: 760px; object-fit: contain; filter: drop-shadow(0 15px 30px rgba(0,0,0,0.15));">` : '<div style="font-size: 32px; color:#cbd5e1; font-weight: 900;">تصویری ثبت نشده است</div>'}
                 </div>
 
                 <div style="background: #f8fafc; border-top: 3px solid #e2e8f0; padding: 30px;">
@@ -970,7 +951,6 @@
 
       const fileName = currentExportMode === 'catalog' ? `MehrPakhsh_Catalog_${Date.now()}.pdf` : (currentExportMode === 'expiry' ? `MehrPakhsh_ExpiryList_${Date.now()}.pdf` : `MehrPakhsh_Invoice_${Date.now()}.pdf`);
 
-      // تنظیم متعادل کیفیت برای عدم کرش کردن موبایل
       const opt = {
         margin: 0,
         filename: fileName,
@@ -1030,7 +1010,6 @@
       if (navigator.canShare && navigator.canShare({ files: [file] })) { navigator.share({ files: [file], title: 'فایل پشتیبان انبار' }).catch(()=>{}); } else { downloadBackupFileDirectly(); }
     }
 
-    // متد بازخوانی کاملا ایمن و تست شده
     function importFullBackup(e) {
       const file = e.target.files[0]; 
       if (!file) return; 
@@ -1050,7 +1029,7 @@
         }
       }; 
       reader.readAsText(file); 
-      e.target.value = ''; // ریست کردن ورودی فایل
+      e.target.value = ''; 
     }
 
     function importMKPFile(event) { 
@@ -1083,7 +1062,6 @@
     function closeModal(id) { document.getElementById(id).classList.remove('active'); }
     function generateMKPFile() { document.getElementById('backupCenterModal').classList.add('active'); }
 
-    // اختصاص توابع به پنجره برای فراخوانی در HTML
     window.navigateTo = navigateTo; 
     window.openProductModal = openProductModal; 
     window.closeModal = closeModal; 
@@ -1110,7 +1088,6 @@
     window.updateJalaliDaysSelector = updateJalaliDaysSelector; 
     window.filterProductsByExpiry = filterProductsByExpiry;
 
-    // راه‌اندازی اولیه
     initDatabase(); 
     renderDashboard();
   </script>
