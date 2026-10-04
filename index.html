@@ -126,7 +126,7 @@
     .export-tab-btn { flex: 1; padding: 9px; border-radius: 8px; border: 1px solid var(--border); background: #fff; font-weight: 700; font-size: 12px; cursor: pointer; text-align: center; color: var(--text-muted); }
     .export-tab-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
 
-    /* استایل اختصاصی خروجی PDF (مخفی در اپ، فقط برای رندر) */
+    /* استایل اختصاصی خروجی PDF */
     #pdf-printable-area { display: none; width: 794px; background: #ffffff; font-family: Tahoma, Arial, sans-serif !important; direction: rtl !important; }
     #pdf-printable-area * { font-family: inherit !important; letter-spacing: 0px !important; }
     .pdf-frame-page { width: 794px; height: 1122px; box-sizing: border-box; page-break-after: always; position: relative; overflow: hidden; }
@@ -215,7 +215,7 @@
         <div class="card-header"><div class="card-title">صدور اسناد، کاتالوگ و خروجی</div></div>
         <div class="export-mode-tabs">
           <button type="button" class="export-tab-btn active" id="tabModeCatalog" onclick="setExportMode('catalog')">🖼 کاتالوگ پوستر</button>
-          <button type="button" class="export-tab-btn" id="tabModeInvoice" onclick="setExportMode('invoice')">🧾 پیش‌‌فاکتور</button>
+          <button type="button" class="export-tab-btn" id="tabModeInvoice" onclick="setExportMode('invoice')">🧾 پیش‌فاکتور</button>
           <button type="button" class="export-tab-btn" id="tabModeExpiry" onclick="setExportMode('expiry')">🚨 ترخیص انقضا</button>
         </div>
         <div id="invoiceCustomerBox" style="display:none; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 10px; margin-bottom: 10px;">
@@ -371,8 +371,7 @@
       today: function() { const d = new Date(); return this.gregorianToJalali(d.getFullYear(), d.getMonth() + 1, d.getDate()); },
       diffDaysFromToday: function(jy, jm, jd) { const target = this.jalaliToGregorian(jy, jm, jd); const today = new Date(); today.setHours(0,0,0,0); return Math.round((target.getTime() - today.getTime()) / 86400000); },
       isLeap: function(jy) { return (((((jy - 474) % 2820) + 474 + 38) * 682) % 2816) < 682; },
-      daysInMonth: function(jy, jm) { if (jm <= 6) return 31; if (jm <= 11) return 30; return this.isLeap(jy) ? 30 : 29; },
-      monthNames: ["فروردین","اردیبهشت","خرداد","تیر","مرداد","شهریور","مهر","آبان","آذر","دی","بهمن","اسفند"]
+      daysInMonth: function(jy, jm) { if (jm <= 6) return 31; if (jm <= 11) return 30; return this.isLeap(jy) ? 30 : 29; }
     };
 
     const DB_KEYS = { PRODUCTS: 'mkp_products_db', CATEGORIES: 'mkp_categories_db', SETTINGS: 'mkp_settings_db' };
@@ -639,7 +638,7 @@
                 <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:3px solid #1e3a8a; padding-bottom:25px; margin-bottom:30px;">
                   <div>
                     <h1 style="font-size:36px; font-weight:900; color:#1e3a8a; margin-bottom:10px;">${settings.companyName || 'مهر پخش کوهیج'}</h1>
-                    <div style="font-size:20px; font-weight:800; color:#0d9488;">پیش‌فاکتور رسمی فروش و سفارش کالا</div>
+                    <div style="font-size:20px; font-weight:800; color:#0d9488;">پیش‌‌فاکتور رسمی فروش و سفارش کالا</div>
                   </div>
                   <div style="text-align:left; font-size:16px; line-height:2.2;">
                     <div><b>تاریخ صدور:</b> ${dateStr}</div>
@@ -681,13 +680,12 @@
       return true;
     }
 
-    // متد خروجی PDF با تنظیمات کیفیت بسیار بالا
     function generateAndOpenRealPdf(isShareAction) {
       if (!preparePrintableContent()) return;
 
       const btn = isShareAction ? document.getElementById('btnShareMessenger') : document.getElementById('btnDownloadPdf');
       const originalText = btn.innerHTML;
-      btn.innerHTML = '⏳ ساخت ژورنال با کیفیت بالا...';
+      btn.innerHTML = '⏳ در حال ساخت صفحات...';
       btn.disabled = true;
 
       const element = document.getElementById('pdf-printable-area');
@@ -695,12 +693,12 @@
 
       const fileName = currentExportMode === 'catalog' ? `MehrPakhsh_Catalog_${Date.now()}.pdf` : (currentExportMode === 'expiry' ? `MehrPakhsh_ExpiryList_${Date.now()}.pdf` : `MehrPakhsh_Invoice_${Date.now()}.pdf`);
 
-      // تنظیمات ارتقایافته برای رزولوشن بالاتر و وضوح کریستالی کلمات و عکس‌ها
+      // متعادل‌سازی تنظیمات برای جلوگیری از کرش شدن رم گوشی
       const opt = {
         margin: 0,
         filename: fileName,
-        image: { type: 'jpeg', quality: 1.0 }, // نهایت کیفیت عکس
-        html2canvas: { scale: 2.5, useCORS: true, letterRendering: false }, // مقیاس 2.5 برای وضوح بالاتر
+        image: { type: 'jpeg', quality: 0.90 }, 
+        html2canvas: { scale: 1.6, useCORS: true, letterRendering: false }, 
         jsPDF: { unit: 'px', format: [794, 1122], orientation: 'portrait', compress: true }
       };
 
