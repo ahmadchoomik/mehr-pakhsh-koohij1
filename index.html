@@ -140,7 +140,7 @@
     <div class="splash-logo-box">📦</div>
     <div class="splash-title">مهر پخش کوهیج</div>
     <div class="splash-subtitle">سامانه جامع مدیریت انبار و پایش انقضا</div>
-    <div class="splash-creator">توسعه‌دهنده: احمد چومیک</div>
+    <div class="splash-creator">توسعه‌‌دهنده: احمد چومیک</div>
   </div>
 
   <main>
@@ -193,9 +193,23 @@
       <div class="card">
         <div class="card-header"><div class="card-title">فهرست کالاها</div><button class="btn btn-primary btn-sm" onclick="openProductModal()">+ افزودن کالای جدید</button></div>
         <div class="form-row" style="margin-bottom: 10px;">
-          <div class="form-group" style="flex: 2;"><input type="text" id="prodSearchInput" class="form-control" placeholder="جستجوی نام، برند..." oninput="renderProductList()"></div>
-          <div class="form-group" style="flex: 1.2;"><select id="prodCategoryFilter" class="form-control" onchange="renderProductList()"><option value="">همه دسته‌ها</option></select></div>
-          <div class="form-group" style="flex: 1;"><select id="prodStatusFilter" class="form-control" onchange="renderProductList()"><option value="">همه وضعیت‌ها</option><option value="available">موجود</option><option value="unavailable">ناموجود</option><option value="expired">منقضی شده</option></select></div>
+          <div class="form-group" style="flex: 2;">
+            <input type="text" id="prodSearchInput" class="form-control" placeholder="جستجوی نام، برند..." oninput="renderProductList()">
+          </div>
+          <div class="form-group" style="flex: 1.2;">
+            <select id="prodCategoryFilter" class="form-control" onchange="renderProductList()"><option value="">همه دسته‌ها</option></select>
+          </div>
+          <div class="form-group" style="flex: 1;">
+            <!-- فیلترهای حذف شده برگردانده شدند -->
+            <select id="prodStatusFilter" class="form-control" onchange="renderProductList()">
+              <option value="">همه وضعیت‌ها</option>
+              <option value="available">موجود</option>
+              <option value="unavailable">ناموجود</option>
+              <option value="expired">منقضی شده</option>
+              <option value="near">نزدیک به انقضا</option>
+              <option value="very_near">خیلی نزدیک</option>
+            </select>
+          </div>
         </div>
         <div id="productsListContainer"></div>
       </div>
@@ -319,7 +333,7 @@
           <label><b>تاریخ انقضا *</b></label>
           <div class="form-row" style="margin-top: 5px;">
             <div class="form-group"><label>سال</label><select id="pmJalaliYear" class="form-control" onchange="updateJalaliDaysSelector()"></select></div>
-            <div class="form-group"><label>ماه</label><select id="pmJalaliMonth" class="form-control" onchange="updateJalaliDaysSelector()"><option value="1">۱</option><option value="2">۲</option><option value="3">۳</option><option value="4">۴</option><option value="5">۵</option><option value="6">۶</option><option value="7">۷</option><option value="8">۸</option><option value="9">۹</option><option value="10">۱۰</option><option value="11">۱1</option><option value="12">۱۲</option></select></div>
+            <div class="form-group"><label>ماه</label><select id="pmJalaliMonth" class="form-control" onchange="updateJalaliDaysSelector()"><option value="1">۱</option><option value="2">۲</option><option value="3">۳</option><option value="4">۴</option><option value="5">۵</option><option value="6">۶</option><option value="7">۷</option><option value="8">۸</option><option value="9">۹</option><option value="10">۱۰</option><option value="11">۱۱</option><option value="12">۱۲</option></select></div>
             <div class="form-group"><label>روز</label><select id="pmJalaliDay" class="form-control"></select></div>
           </div>
           <div id="pmLeapYearNotice" style="font-size: 11px; margin-top: 3px;"></div>
@@ -338,7 +352,6 @@
     </div>
   </div>
 
-  <!-- فرم ویرایش/افزودن دسته‌بندی با فیلد اولویت -->
   <div id="categoryModal" class="modal-overlay">
     <div class="modal-box">
       <div class="modal-header"><h3 id="catModalTitle">افزودن دسته‌بندی</h3><button class="modal-close" onclick="closeModal('categoryModal')">&times;</button></div>
@@ -459,7 +472,6 @@
     function filterProductsByExpiry(type) { navigateTo('view-products'); document.getElementById('prodStatusFilter').value = type; renderProductList(); }
 
     function populateCategoryFilters() {
-      // مرتب‌سازی دسته‌ها برای نمایش در فیلترها
       const cats = DB.get(DB_KEYS.CATEGORIES).sort((a,b) => (a.order || 99) - (b.order || 99));
       document.getElementById('prodCategoryFilter').innerHTML = '<option value="">همه دسته‌ها</option>' + cats.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
       document.getElementById('pmCategory').innerHTML = '<option value="">-- انتخاب دسته‌بندی --</option>' + cats.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
@@ -482,7 +494,9 @@
       let prods = DB.get(DB_KEYS.PRODUCTS).filter(p => {
         const matchesS = !search || p.name.toLowerCase().includes(search) || p.company.toLowerCase().includes(search); 
         const matchesC = !catF || p.categoryId === catF; let matchesSt = true;
-        if (statF === 'available') matchesSt = p.status === 'available'; else if (statF === 'unavailable') matchesSt = p.status === 'unavailable'; else if (statF) matchesSt = getExpiryStatus(p).code === statF; 
+        if (statF === 'available') matchesSt = p.status === 'available'; 
+        else if (statF === 'unavailable') matchesSt = p.status === 'unavailable'; 
+        else if (statF) matchesSt = getExpiryStatus(p).code === statF; 
         return matchesS && matchesC && matchesSt;
       });
       
@@ -509,10 +523,15 @@
       const file = e.target.files[0]; if (!file) return; const reader = new FileReader();
       reader.onload = function(evt) {
         const img = new Image(); img.onload = function() {
-          const canvas = document.createElement('canvas'); const maxDim = 450; let w = img.width, h = img.height;
+          const canvas = document.createElement('canvas'); 
+          // افزایش رزولوشن برای حفظ کیفیت عکس در خروجی (ارتقا از 450 به 800)
+          const maxDim = 800; 
+          let w = img.width, h = img.height;
           if (w > h && w > maxDim) { h = Math.round((h * maxDim) / w); w = maxDim; } else if (h > maxDim) { w = Math.round((w * maxDim) / h); h = maxDim; }
           canvas.width = w; canvas.height = h; canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-          const b64 = canvas.toDataURL('image/jpeg', 0.55); document.getElementById('pmImageBase64').value = b64; document.getElementById('pmImagePreview').innerHTML = `<img src="${b64}" style="max-height:85px; border-radius:6px;">`;
+          // افزایش پارامتر کیفیت فشرده‌سازی از 0.55 به 0.90 برای جلوگیری از تاری عکس
+          const b64 = canvas.toDataURL('image/jpeg', 0.90); 
+          document.getElementById('pmImageBase64').value = b64; document.getElementById('pmImagePreview').innerHTML = `<img src="${b64}" style="max-height:85px; border-radius:6px;">`;
         }; img.src = evt.target.result;
       }; reader.readAsDataURL(file);
     }
@@ -548,9 +567,7 @@
       document.getElementById('productDetailModal').classList.add('active');
     }
 
-    // رندر دسته‌ها و نمایش شماره اولویت
     function renderCategoryList() {
-      // مرتب‌سازی دسته‌ها برای نمایش
       const cats = DB.get(DB_KEYS.CATEGORIES).sort((a,b) => (a.order || 99) - (b.order || 99)); 
       const prods = DB.get(DB_KEYS.PRODUCTS);
       document.getElementById('categoryListContainer').innerHTML = cats.length === 0 ? 'خالی' : cats.map(c => {
@@ -562,50 +579,21 @@
     function openCategoryModal(id = null) {
       if (id) { 
           const c = DB.get(DB_KEYS.CATEGORIES).find(x => x.id === id); 
-          document.getElementById('catModalTitle').innerText = 'ویرایش دسته‌بندی'; 
-          document.getElementById('cmId').value = c.id; 
-          document.getElementById('cmName').value = c.name; 
-          document.getElementById('cmOrder').value = c.order || 1;
+          document.getElementById('catModalTitle').innerText = 'ویرایش دسته‌بندی'; document.getElementById('cmId').value = c.id; document.getElementById('cmName').value = c.name; document.getElementById('cmOrder').value = c.order || 1;
       } else { 
-          document.getElementById('catModalTitle').innerText = 'دسته‌بندی جدید'; 
-          document.getElementById('cmId').value = ''; 
-          document.getElementById('cmName').value = ''; 
-          document.getElementById('cmOrder').value = 1;
+          document.getElementById('catModalTitle').innerText = 'دسته‌بندی جدید'; document.getElementById('cmId').value = ''; document.getElementById('cmName').value = ''; document.getElementById('cmOrder').value = 1;
       }
       document.getElementById('categoryModal').classList.add('active');
     }
 
     function handleSaveCategory(e) {
-      e.preventDefault(); 
-      const id = document.getElementById('cmId').value || 'cat_' + Date.now(); 
-      const name = document.getElementById('cmName').value.trim();
-      const order = parseInt(document.getElementById('cmOrder').value) || 1;
-
-      let cats = DB.get(DB_KEYS.CATEGORIES); 
-      const idx = cats.findIndex(c => c.id === id); 
-      if (idx >= 0) {
-        cats[idx].name = name; 
-        cats[idx].order = order;
-      } else { 
-        cats.push({ id, name, order }); 
-      }
-      // بلافاصله بعد از ذخیره، دسته‌ها را بر اساس اولویت مرتب می‌کنیم
+      e.preventDefault(); const id = document.getElementById('cmId').value || 'cat_' + Date.now(); const name = document.getElementById('cmName').value.trim(); const order = parseInt(document.getElementById('cmOrder').value) || 1;
+      let cats = DB.get(DB_KEYS.CATEGORIES); const idx = cats.findIndex(c => c.id === id); if (idx >= 0) { cats[idx].name = name; cats[idx].order = order; } else { cats.push({ id, name, order }); }
       cats.sort((a, b) => (a.order || 99) - (b.order || 99));
-
-      DB.set(DB_KEYS.CATEGORIES, cats); 
-      closeModal('categoryModal'); 
-      renderCategoryList(); 
-      populateCategoryFilters(); 
-      renderDashboard();
+      DB.set(DB_KEYS.CATEGORIES, cats); closeModal('categoryModal'); renderCategoryList(); populateCategoryFilters(); renderDashboard();
     }
 
-    function deleteCategory(id) { 
-        if (DB.get(DB_KEYS.PRODUCTS).some(p => p.categoryId === id)) return alert('این دسته شامل کالا است. ابتدا کالاها را حذف کنید.'); 
-        if (confirm('حذف دسته؟')) { 
-            DB.set(DB_KEYS.CATEGORIES, DB.get(DB_KEYS.CATEGORIES).filter(c => c.id !== id)); 
-            renderCategoryList(); populateCategoryFilters(); renderDashboard(); 
-        } 
-    }
+    function deleteCategory(id) { if (DB.get(DB_KEYS.PRODUCTS).some(p => p.categoryId === id)) return alert('این دسته شامل کالا است. ابتدا کالاها را حذف کنید.'); if (confirm('حذف دسته؟')) { DB.set(DB_KEYS.CATEGORIES, DB.get(DB_KEYS.CATEGORIES).filter(c => c.id !== id)); renderCategoryList(); populateCategoryFilters(); renderDashboard(); } }
 
     function viewCategoryProducts(catId) { navigateTo('view-products'); document.getElementById('prodCategoryFilter').value = catId; renderProductList(); }
 
@@ -634,34 +622,19 @@
       document.getElementById('invTotalAmount').innerText = Number(total).toLocaleString('fa-IR');
     }
 
-    // =======================================================================================
-    // بخش تولید ظاهر گرافیکی PDF (اعمال ترتیبِ چاپ بر اساس اولویتِ دسته‌بندی‌ها)
-    // =======================================================================================
     function preparePrintableContent() {
       const selectedBoxes = Array.from(document.querySelectorAll('.export-prod-cb:checked'));
       if (selectedBoxes.length === 0) { alert('لطفاً حداقل یک کالا را انتخاب کنید.'); return false; }
 
-      const allProducts = DB.get(DB_KEYS.PRODUCTS); 
-      // استخراج دسته‌بندی‌ها به ترتیبِ اولویتی که کاربر تنظیم کرده است
-      const sortedCats = DB.get(DB_KEYS.CATEGORIES).sort((a,b) => (a.order || 99) - (b.order || 99));
-      const catMap = {}; sortedCats.forEach(c => catMap[c.id] = c.name);
-      
-      const settings = DB.getSettings(); 
-      const dateStr = `${Jalali.today().jy}/${Jalali.today().jm}/${Jalali.today().jd}`;
-      const headerNote = document.getElementById('pdfCustomHeaderNote').value.trim(); 
-      const footerNote = document.getElementById('pdfCustomFooterNote').value.trim();
-      const pdfContent = document.getElementById('pdf-printable-area'); 
-      pdfContent.innerHTML = '';
+      const allProducts = DB.get(DB_KEYS.PRODUCTS); const sortedCats = DB.get(DB_KEYS.CATEGORIES).sort((a,b) => (a.order || 99) - (b.order || 99)); const catMap = {}; sortedCats.forEach(c => catMap[c.id] = c.name);
+      const settings = DB.getSettings(); const dateStr = `${Jalali.today().jy}/${Jalali.today().jm}/${Jalali.today().jd}`;
+      const headerNote = document.getElementById('pdfCustomHeaderNote').value.trim(); const footerNote = document.getElementById('pdfCustomFooterNote').value.trim();
+      const pdfContent = document.getElementById('pdf-printable-area'); pdfContent.innerHTML = '';
 
-      // گروه‌بندی کالاها
       const groupedProducts = {};
       selectedBoxes.forEach(cb => {
         const p = allProducts.find(x => x.id === cb.value);
-        if (p) {
-          const cId = p.categoryId || 'unknown';
-          if (!groupedProducts[cId]) groupedProducts[cId] = [];
-          groupedProducts[cId].push(p);
-        }
+        if (p) { const cId = p.categoryId || 'unknown'; if (!groupedProducts[cId]) groupedProducts[cId] = []; groupedProducts[cId].push(p); }
       });
 
       if (currentExportMode === 'catalog' || currentExportMode === 'expiry') {
@@ -702,7 +675,6 @@
         let currentPageIdx = 1;
         const totalSelected = selectedBoxes.length;
 
-        // تابع رندر یک صفحه محصول
         const renderProductPage = (p) => {
           pdfContent.innerHTML += `
             <div class="pdf-frame-page" style="padding: 20px; background: #ffffff;">
@@ -745,33 +717,21 @@
           currentPageIdx++;
         };
 
-        // چاپ کالاها دقیقاً بر اساس ترتیب اولویتِ دسته‌بندی‌ها
         sortedCats.forEach(cat => {
-          if (groupedProducts[cat.id] && groupedProducts[cat.id].length > 0) {
-            groupedProducts[cat.id].forEach(p => renderProductPage(p));
-            delete groupedProducts[cat.id]; // حذف از لیست تا کالاهای بدون دسته مشخص شوند
-          }
+          if (groupedProducts[cat.id] && groupedProducts[cat.id].length > 0) { groupedProducts[cat.id].forEach(p => renderProductPage(p)); delete groupedProducts[cat.id]; }
         });
 
-        // چاپ کالاهایی که دسته‌بندی‌شان نامشخص است یا حذف شده
-        for (const catId in groupedProducts) {
-          groupedProducts[catId].forEach(p => renderProductPage(p));
-        }
+        for (const catId in groupedProducts) { groupedProducts[catId].forEach(p => renderProductPage(p)); }
 
       } else {
         const custName = document.getElementById('invCustomerName').value || 'مشتری گرامی';
-        let tableRows = ''; 
-        let total = 0; 
-        let rowIdx = 1;
+        let tableRows = ''; let total = 0; let rowIdx = 1;
 
-        // تولید ردیف‌های جدول بر اساس ترتیب اولویت دسته‌بندی‌ها
         const renderTableRows = (catId, catName) => {
           if (groupedProducts[catId] && groupedProducts[catId].length > 0) {
             tableRows += `<tr style="background: #e2e8f0; border-top: 2px solid #94a3b8;"><td colspan="6" style="font-weight:900; color:#1e3a8a; text-align:center; padding:12px; font-size:18px;">--- دسته: ${catName} ---</td></tr>`;
             groupedProducts[catId].forEach(p => {
-              const q = document.querySelector(`.export-prod-qty[data-id="${p.id}"]`); 
-              const qty = q ? parseInt(q.value) || 1 : 1; 
-              total += p.price * qty;
+              const q = document.querySelector(`.export-prod-qty[data-id="${p.id}"]`); const qty = q ? parseInt(q.value) || 1 : 1; total += p.price * qty;
               tableRows += `<tr><td style="padding:14px;">${rowIdx++}</td><td style="font-weight:bold;text-align:right;">${p.name}</td><td>${p.company}</td><td style="font-weight:900;">${qty}</td><td>${Number(p.price).toLocaleString('fa-IR')}</td><td style="font-weight:900; color:#1e3a8a;">${Number(p.price * qty).toLocaleString('fa-IR')}</td></tr>`;
             });
             delete groupedProducts[catId];
