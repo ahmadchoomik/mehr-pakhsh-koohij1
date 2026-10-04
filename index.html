@@ -951,7 +951,7 @@
           📥 دانلود مستقیم فایل پشتیبان (.json)
         </button>
         <button class="btn btn-success btn-block" onclick="triggerNativeShareBackup()">
-          📤 ارسال فایل پشتیبان به پیام‌رسان
+          📤 ارسال فایل پشتیبان به پیام‌‌رسان
         </button>
       </div>
 
@@ -1085,7 +1085,7 @@
   </div>
 
   <script>
-    // مخفی کردن صفحه خوش‌آمدگویی پس از ۳ ثانیه
+    // مخفی کردن صفحه خوش‌‌آمدگویی پس از ۳ ثانیه
     window.addEventListener('load', function() {
       setTimeout(() => {
         const splash = document.getElementById('splash-screen');
@@ -2016,29 +2016,33 @@
 
       const btn = isShareAction ? document.getElementById('btnShareMessenger') : document.getElementById('btnDownloadPdf');
       const originalText = btn.innerHTML;
-      btn.innerHTML = '⏳ در حال ساخت سند باکیفیت...';
+      btn.innerHTML = '⏳ در حال ساخت صفحات (ممکن است زمان‌بر باشد)...';
       btn.disabled = true;
 
       const element = document.getElementById('pdf-printable-area');
+      // جلوگیری از پرش صفحه: عنصر را در پس‌زمینه رندر می‌کنیم
       element.style.display = 'block';
+      element.style.position = 'absolute';
+      element.style.top = '-9999px';
+      element.style.left = '-9999px';
 
       const fileName = currentExportMode === 'catalog' 
         ? `MehrPakhsh_Catalog_${Date.now()}.pdf`
         : (currentExportMode === 'expiry' ? `MehrPakhsh_ExpiryList_${Date.now()}.pdf` : `MehrPakhsh_Invoice_${Date.now()}.pdf`);
 
+      // تنظیمات بهینه‌شده برای جلوگیری از پر شدن حافظه موبایل (RAM)
       const opt = {
-        margin: [0, 0, 0, 0],
+        margin: 0,
         filename: fileName,
-        image: { type: 'jpeg', quality: 0.90 },
+        image: { type: 'jpeg', quality: 0.85 },
         html2canvas: { 
-          scale: 1.8,
+          scale: 1.5, // مقیاس تنظیم‌شده برای تعادل بین کیفیت و حافظه موبایل
           useCORS: true,
-          letterRendering: false,
+          logging: false,
           scrollY: 0,
           scrollX: 0
         },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
-        pagebreak: { mode: ['css', 'legacy'] }
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true }
       };
 
       if (!window.html2pdf) {
@@ -2050,8 +2054,32 @@
       }
 
       setTimeout(() => {
-        html2pdf().set(opt).from(element).outputPdf('blob').then(async function(blob) {
+        // گرفتن تمام صفحات تولید شده
+        const pages = Array.from(document.querySelectorAll('.pdf-frame-page'));
+        
+        if(pages.length === 0) {
           element.style.display = 'none';
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+          return;
+        }
+
+        // پردازش "صفحه به صفحه" به جای رندر یک‌جای کل سند
+        let worker = html2pdf().set(opt).from(pages[0]).toPdf();
+
+        for (let i = 1; i < pages.length; i++) {
+          worker = worker.get('pdf').then(pdf => {
+            pdf.addPage();
+          }).from(pages[i]).toContainer().toCanvas().toPdf();
+        }
+
+        worker.outputPdf('blob').then(async function(blob) {
+          // برگرداندن استایل‌ها به حالت مخفی
+          element.style.display = 'none';
+          element.style.position = '';
+          element.style.top = '';
+          element.style.left = '';
+          
           btn.innerHTML = originalText;
           btn.disabled = false;
 
@@ -2101,6 +2129,9 @@
           };
         }).catch(function(err) {
           element.style.display = 'none';
+          element.style.position = '';
+          element.style.top = '';
+          element.style.left = '';
           btn.innerHTML = originalText;
           btn.disabled = false;
           alert('خطا در تولید فایل: ' + err.message);
