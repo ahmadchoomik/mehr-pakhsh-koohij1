@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>مهر پخش کوهیج</title>
+  <script src="html2pdf.bundle.min.js"></script>
 
   <style>
     :root {
@@ -94,22 +95,12 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    main {
-      flex: 1;
-      padding: 12px;
-      max-width: 900px;
-      margin: 0 auto;
-      width: 100%;
-      margin-bottom: 78px;
-    }
+    main { flex: 1; padding: 12px; max-width: 900px; margin: 0 auto; width: 100%; margin-bottom: 78px; }
 
     .view-section { display: none; }
     .view-section.active { display: block; animation: slideUp 0.18s ease-out; }
 
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
     .hero-banner { background: var(--dark-card); color: white; border-radius: var(--radius); padding: 18px 16px; margin-bottom: 14px; box-shadow: 0 8px 20px -4px rgba(15, 23, 42, 0.25); position: relative; overflow: hidden; }
     .hero-header { display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 1; }
@@ -189,87 +180,80 @@
     .export-tab-btn { flex: 1; padding: 9px; border-radius: 8px; border: 1px solid var(--border); background: #fff; font-weight: 700; font-size: 12px; cursor: pointer; text-align: center; color: var(--text-muted); }
     .export-tab-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
 
-    /* تنظیمات اختصاصی و بومی برای چاپ PDF */
-    #pdf-printable-area { display: none; background: white; }
+    /* =========================================
+       تنظیمات اختصاصی PDF (دقیق و با کیفیت بالا)
+       ========================================= */
+    #pdf-printable-area {
+      display: none;
+      width: 794px; /* عرض دقیق A4 استاندارد وب */
+      background: #ffffff;
+      /* استفاده اجباری از فونت‌های استاندارد برای جلوگیری از بهم ریختگی حروف فارسی */
+      font-family: Tahoma, Arial, sans-serif !important; 
+    }
 
-    @media print {
-      body { background: #ffffff; margin: 0; padding: 0; }
-      main, nav, .modal-overlay, #splash-screen { display: none !important; }
-      
-      #pdf-printable-area {
-        display: block !important;
-        position: static;
-        width: 100%;
-        background: #ffffff;
-      }
+    #pdf-printable-area * {
+      font-family: inherit !important;
+      letter-spacing: normal !important;
+    }
 
-      .pdf-frame-page {
-        width: 100%;
-        height: 297mm;
-        max-height: 297mm;
-        box-sizing: border-box;
-        page-break-after: always;
-        padding: 10mm;
-        margin: 0 auto;
-        background: #ffffff;
-      }
-      
-      .pdf-frame-page:last-child {
-        page-break-after: auto;
-      }
+    .pdf-frame-page {
+      width: 794px;
+      height: 1122px; /* ارتفاع دقیق A4 استاندارد وب */
+      box-sizing: border-box;
+      padding: 25px;
+      background: #ffffff;
+      position: relative;
+    }
 
-      .pdf-inner-border {
-        width: 100%;
-        height: 100%;
-        border: 2px solid #1e3a8a;
-        border-radius: 18px;
-        padding: 18px 20px;
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-      }
+    .pdf-inner-border {
+      width: 100%;
+      height: 100%;
+      border: 2px solid #1e3a8a;
+      border-radius: 18px;
+      padding: 18px 20px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
 
-      .cover-inner-border {
-        width: 100%;
-        height: 100%;
-        border: 2.5px solid #1e3a8a;
-        border-radius: 18px;
-        padding: 24px;
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        text-align: center;
-        background: radial-gradient(circle at 50% 20%, #f8fafc 0%, #ffffff 80%);
-        position: relative;
-      }
-      
-      @page { size: A4 portrait; margin: 0mm; }
+    .cover-inner-border {
+      width: 100%;
+      height: 100%;
+      border: 2.5px solid #1e3a8a;
+      border-radius: 18px;
+      padding: 24px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      background: radial-gradient(circle at 50% 20%, #f8fafc 0%, #ffffff 80%);
+      position: relative;
     }
 
     .cover-inner-border::before { content: ''; position: absolute; top: 6px; bottom: 6px; left: 6px; right: 6px; border: 1px dashed rgba(30, 58, 138, 0.35); border-radius: 13px; pointer-events: none; }
-    .cover-top-badge { display: inline-block; background: linear-gradient(135deg, #1e3a8a 0%, #0284c7 100%); color: #ffffff; font-size: 13px; font-weight: 800; padding: 6px 22px; border-radius: 30px; margin-bottom: 16px; }
-    .cover-logo-wrapper { margin: 10px 0 15px 0; display: flex; justify-content: center; align-items: center; }
-    .cover-logo-img { max-height: 110px; max-width: 200px; object-fit: contain; border-radius: 12px; padding: 4px; background: #ffffff; border: 1.5px solid #e2e8f0; }
-    .cover-title { font-size: 34px; font-weight: 900; color: #1e3a8a; margin-bottom: 6px; }
-    .cover-subtitle { font-size: 15.5px; font-weight: 700; color: #0d9488; margin-bottom: 12px; }
-    .cover-divider { width: 140px; height: 3px; background: linear-gradient(90deg, #fbbf24 0%, #1e3a8a 100%); border-radius: 4px; margin: 0 auto 16px auto; }
-    .cover-meta-card { width: 100%; max-width: 520px; background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 16px; padding: 16px 20px; margin-bottom: 10px; }
-    .product-giant-image-frame { flex: 1; width: 100%; height: 570px; max-height: 570px; display: flex; align-items: center; justify-content: center; margin: 10px 0 12px 0; overflow: hidden; background: #ffffff; }
-    .product-giant-image { max-height: 560px; max-width: 98%; object-fit: contain; }
-    .poster-specs-bar { background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 14px; padding: 12px 18px; display: flex; justify-content: space-between; align-items: center; }
-    .poster-name { font-size: 22px; font-weight: 900; color: #0f172a; margin-bottom: 4px; line-height: 1.3; }
-    .poster-price-tag { background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); color: #ffffff; font-weight: 900; font-size: 20px; padding: 7px 18px; border-radius: 10px; white-space: nowrap; }
-    .invoice-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px; }
-    .invoice-table th, .invoice-table td { border: 1.5px solid #cbd5e1; padding: 10px 12px; text-align: center; }
-    .invoice-table th { background: #f1f5f9; color: #1e3a8a; font-weight: 800; font-size: 13.5px; }
+    .cover-top-badge { display: inline-block; background: linear-gradient(135deg, #1e3a8a 0%, #0284c7 100%); color: #ffffff; font-size: 15px; font-weight: 800; padding: 8px 24px; border-radius: 30px; margin-bottom: 20px; }
+    .cover-logo-wrapper { margin: 20px 0; display: flex; justify-content: center; align-items: center; }
+    .cover-logo-img { max-height: 140px; max-width: 250px; object-fit: contain; border-radius: 12px; padding: 6px; background: #ffffff; border: 1.5px solid #e2e8f0; }
+    .cover-title { font-size: 42px; font-weight: 900; color: #1e3a8a; margin-bottom: 10px; }
+    .cover-subtitle { font-size: 18px; font-weight: 700; color: #0d9488; margin-bottom: 20px; }
+    .cover-divider { width: 180px; height: 4px; background: linear-gradient(90deg, #fbbf24 0%, #1e3a8a 100%); border-radius: 4px; margin: 0 auto 20px auto; }
+    .cover-meta-card { width: 100%; max-width: 600px; background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 16px; padding: 20px; margin-bottom: 10px; font-size: 16px; }
+    .product-giant-image-frame { flex: 1; width: 100%; height: 600px; max-height: 600px; display: flex; align-items: center; justify-content: center; margin: 15px 0; overflow: hidden; background: #ffffff; }
+    .product-giant-image { max-height: 580px; max-width: 98%; object-fit: contain; }
+    .poster-specs-bar { background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 14px; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+    .poster-name { font-size: 26px; font-weight: 900; color: #0f172a; margin-bottom: 6px; }
+    .poster-price-tag { background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); color: #ffffff; font-weight: 900; font-size: 24px; padding: 10px 22px; border-radius: 10px; white-space: nowrap; }
+    .invoice-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 15px; }
+    .invoice-table th, .invoice-table td { border: 1.5px solid #cbd5e1; padding: 12px 15px; text-align: center; }
+    .invoice-table th { background: #f1f5f9; color: #1e3a8a; font-weight: 800; font-size: 16px; }
   </style>
 </head>
 <body>
 
-  <!-- صفحه خوش‌آمدگویی -->
+  <!-- صفحه خوش‌آمدگویی (Splash Screen) -->
   <div id="splash-screen">
     <div class="splash-logo-box">📦</div>
     <div class="splash-title">مهر پخش کوهیج</div>
@@ -282,10 +266,7 @@
     <section id="view-dashboard" class="view-section active">
       <div class="hero-banner">
         <div class="hero-header">
-          <div>
-            <div class="hero-title" id="dashCompName">مهر پخش کوهیج</div>
-            <div class="hero-date" id="dashLiveDate">در حال محاسبه تاریخ...</div>
-          </div>
+          <div><div class="hero-title" id="dashCompName">مهر پخش کوهیج</div><div class="hero-date" id="dashLiveDate">در حال محاسبه تاریخ...</div></div>
           <div class="hero-badge">سامانه انبار فعال</div>
         </div>
         <div class="financial-card" style="margin-top: 10px; padding-top: 8px;">
@@ -295,29 +276,15 @@
       </div>
 
       <div class="stat-grid">
-        <div class="stat-card">
-          <div class="stat-card-header"><span class="stat-card-title">کل اقلام کالا</span><div class="stat-card-icon" style="background:#e0f2fe; color:#0284c7;">📦</div></div>
-          <div class="stat-card-number" id="dashTotalProducts" style="color:#0284c7;">۰</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-card-header"><span class="stat-card-title">کالاهای موجود</span><div class="stat-card-icon" style="background:#dcfce7; color:#16a34a;">✅</div></div>
-          <div class="stat-card-number" id="dashAvailableProducts" style="color:#16a34a;">۰</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-card-header"><span class="stat-card-title">کالاهای ناموجود</span><div class="stat-card-icon" style="background:#fee2e2; color:#dc2626;">❌</div></div>
-          <div class="stat-card-number" id="dashUnavailableProducts" style="color:#dc2626;">۰</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-card-header"><span class="stat-card-title">دسته‌‌بندی‌ها</span><div class="stat-card-icon" style="background:#f3e8ff; color:#9333ea;">📂</div></div>
-          <div class="stat-card-number" id="dashTotalCategories" style="color:#9333ea;">۰</div>
-        </div>
+        <div class="stat-card"><div class="stat-card-header"><span class="stat-card-title">کل اقلام کالا</span><div class="stat-card-icon" style="background:#e0f2fe; color:#0284c7;">📦</div></div><div class="stat-card-number" id="dashTotalProducts" style="color:#0284c7;">۰</div></div>
+        <div class="stat-card"><div class="stat-card-header"><span class="stat-card-title">کالاهای موجود</span><div class="stat-card-icon" style="background:#dcfce7; color:#16a34a;">✅</div></div><div class="stat-card-number" id="dashAvailableProducts" style="color:#16a34a;">۰</div></div>
+        <div class="stat-card"><div class="stat-card-header"><span class="stat-card-title">کالاهای ناموجود</span><div class="stat-card-icon" style="background:#fee2e2; color:#dc2626;">❌</div></div><div class="stat-card-number" id="dashUnavailableProducts" style="color:#dc2626;">۰</div></div>
+        <div class="stat-card"><div class="stat-card-header"><span class="stat-card-title">دسته‌بندی‌ها</span><div class="stat-card-icon" style="background:#f3e8ff; color:#9333ea;">📂</div></div><div class="stat-card-number" id="dashTotalCategories" style="color:#9333ea;">۰</div></div>
       </div>
 
       <div class="card">
         <div class="card-header"><div class="card-title">پایش انقضای انبار (خورشیدی)</div></div>
-        <div class="health-bar-container">
-          <div id="barSafe" class="health-seg seg-safe" style="width: 25%"></div><div id="barNear" class="health-seg seg-near" style="width: 25%"></div><div id="barVeryNear" class="health-seg seg-very-near" style="width: 25%"></div><div id="barExpired" class="health-seg seg-expired" style="width: 25%"></div>
-        </div>
+        <div class="health-bar-container"><div id="barSafe" class="health-seg seg-safe" style="width: 25%"></div><div id="barNear" class="health-seg seg-near" style="width: 25%"></div><div id="barVeryNear" class="health-seg seg-very-near" style="width: 25%"></div><div id="barExpired" class="health-seg seg-expired" style="width: 25%"></div></div>
         <div class="expiry-chips-grid">
           <div class="expiry-chip" onclick="filterProductsByExpiry('safe')"><span>🟢 وضعیت ایمن</span><span class="chip-count" id="dashSafeCount" style="color:#16a34a;">۰</span></div>
           <div class="expiry-chip" onclick="filterProductsByExpiry('near')"><span>🟡 نزدیک به انقضا</span><span class="chip-count" id="dashNearCount" style="color:#d97706;">۰</span></div>
@@ -326,10 +293,7 @@
         </div>
       </div>
 
-      <div class="card">
-        <div class="card-header"><div class="card-title">⚠️ کالاهای نیازمند توجه</div></div>
-        <div id="dashAttentionContainer"></div>
-      </div>
+      <div class="card"><div class="card-header"><div class="card-title">⚠️ کالاهای نیازمند توجه</div></div><div id="dashAttentionContainer"></div></div>
 
       <div class="card">
         <div class="card-header"><div class="card-title">⚡ اقدامات سریع</div></div>
@@ -355,7 +319,7 @@
       </div>
     </section>
 
-    <!-- ۳. دسته‌‌بندی‌ها -->
+    <!-- ۳. دسته‌بندی‌ها -->
     <section id="view-categories" class="view-section">
       <div class="card">
         <div class="card-header"><div class="card-title">دسته‌بندی‌های کالا</div><button class="btn btn-primary btn-sm" onclick="openCategoryModal()">+ دسته‌بندی جدید</button></div>
@@ -397,10 +361,16 @@
         </div>
         <div id="exportProductsChecklist" style="max-height: 260px; overflow-y: auto; border: 1px solid var(--border); border-radius: 8px; padding: 6px; margin-bottom: 10px;"></div>
         <div id="invoiceTotalPreview" style="display:none; text-align: left; margin-bottom: 12px; font-size: 13.5px; font-weight: bold; color: var(--primary);">جمع کل پیش‌فاکتور: <span id="invTotalAmount">۰</span> تومان</div>
+        
+        <!-- دکمه‌های جدید ساخت PDF که در هر گوشی کار می‌کنند -->
         <div style="display: flex; flex-direction: column; gap: 8px;">
-          <button class="btn btn-primary btn-block" onclick="generateNativePdf()">🖨️ تولید و ذخیره PDF (کیفیت اصلی و بدون به‌هم‌ریختگی)</button>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-primary" id="btnDownloadPdf" style="flex: 1;" onclick="generateAndOpenRealPdf(false)">📥 ذخیره فایل PDF</button>
+            <button class="btn btn-warning" id="btnShareMessenger" style="flex: 1;" onclick="generateAndOpenRealPdf(true)">📤 ارسال PDF به پیام‌رسان</button>
+          </div>
           <button class="btn btn-success btn-block" onclick="generateMKPFile()">📦 ساخت فایل پشتیبان JSON</button>
         </div>
+
       </div>
       <div class="card">
         <div class="card-header"><div class="card-title">بازخوانی فایل پشتیبان انبار</div></div>
@@ -506,31 +476,22 @@
 
     const Jalali = {
       gregorianToJalali: function(gy, gm, gd) {
-        const g_d_m = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
-        let jy = (gy <= 1600) ? 0 : 979; gy -= (gy <= 1600) ? 621 : 1600;
-        const gy2 = (gm > 2) ? (gy + 1) : gy;
+        const g_d_m = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334]; let jy = (gy <= 1600) ? 0 : 979; gy -= (gy <= 1600) ? 621 : 1600; const gy2 = (gm > 2) ? (gy + 1) : gy;
         let days = (365 * gy) + Math.floor((gy2 + 3) / 4) - Math.floor((gy2 + 99) / 100) + Math.floor((gy2 + 399) / 400) - 80 + gd + g_d_m[gm - 1];
-        jy += 33 * Math.floor(days / 12053); days %= 12053; jy += 4 * Math.floor(days / 1461); days %= 1461;
-        if (days > 365) { jy += Math.floor((days - 1) / 365); days = (days - 1) % 365; }
-        let jm = (days < 186) ? 1 + Math.floor(days / 31) : 7 + Math.floor((days - 186) / 30); let jd = 1 + ((days < 186) ? (days % 31) : ((days - 186) % 30));
-        return { jy, jm, jd };
+        jy += 33 * Math.floor(days / 12053); days %= 12053; jy += 4 * Math.floor(days / 1461); days %= 1461; if (days > 365) { jy += Math.floor((days - 1) / 365); days = (days - 1) % 365; }
+        let jm = (days < 186) ? 1 + Math.floor(days / 31) : 7 + Math.floor((days - 186) / 30); let jd = 1 + ((days < 186) ? (days % 31) : ((days - 186) % 30)); return { jy, jm, jd };
       },
       jalaliToGregorian: function(jy, jm, jd) {
-        let gy = (jy <= 979) ? 621 : 1600; jy -= (jy <= 979) ? 0 : 979;
-        let days = (365 * jy) + (Math.floor(jy / 33) * 8) + Math.floor(((jy % 33) + 3) / 4) + 78 + jd + ((jm < 7) ? (jm - 1) * 31 : ((jm - 7) * 30) + 186);
-        gy += 400 * Math.floor(days / 146097); days %= 146097;
-        if (days > 36524) { days--; gy += 100 * Math.floor(days / 36524); days %= 36524; if (days >= 365) days++; }
-        gy += 4 * Math.floor(days / 1461); days %= 1461;
-        if (days > 365) { gy += Math.floor((days - 1) / 365); days = (days - 1) % 365; }
+        let gy = (jy <= 979) ? 621 : 1600; jy -= (jy <= 979) ? 0 : 979; let days = (365 * jy) + (Math.floor(jy / 33) * 8) + Math.floor(((jy % 33) + 3) / 4) + 78 + jd + ((jm < 7) ? (jm - 1) * 31 : ((jm - 7) * 30) + 186);
+        gy += 400 * Math.floor(days / 146097); days %= 146097; if (days > 36524) { days--; gy += 100 * Math.floor(days / 36524); days %= 36524; if (days >= 365) days++; }
+        gy += 4 * Math.floor(days / 1461); days %= 1461; if (days > 365) { gy += Math.floor((days - 1) / 365); days = (days - 1) % 365; }
         const sal_a = [0, 31, ((gy % 4 === 0 && gy % 100 !== 0) || (gy % 400 === 0)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-        let gm = 0; while (gm < 13 && days >= sal_a[gm]) { days -= sal_a[gm]; gm++; }
-        return new Date(gy, gm - 1, days + 1);
+        let gm = 0; while (gm < 13 && days >= sal_a[gm]) { days -= sal_a[gm]; gm++; } return new Date(gy, gm - 1, days + 1);
       },
       today: function() { const d = new Date(); return this.gregorianToJalali(d.getFullYear(), d.getMonth() + 1, d.getDate()); },
       diffDaysFromToday: function(jy, jm, jd) { const target = this.jalaliToGregorian(jy, jm, jd); const today = new Date(); today.setHours(0,0,0,0); return Math.round((target.getTime() - today.getTime()) / 86400000); },
       isLeap: function(jy) { return (((((jy - 474) % 2820) + 474 + 38) * 682) % 2816) < 682; },
-      daysInMonth: function(jy, jm) { if (jm <= 6) return 31; if (jm <= 11) return 30; return this.isLeap(jy) ? 30 : 29; },
-      monthNames: ["فروردین","اردیبهشت","خرداد","تیر","مرداد","شهریور","مهر","آبان","آذر","دی","بهمن","اسفند"]
+      daysInMonth: function(jy, jm) { if (jm <= 6) return 31; if (jm <= 11) return 30; return this.isLeap(jy) ? 30 : 29; }
     };
 
     const DB_KEYS = { PRODUCTS: 'mkp_products_db', CATEGORIES: 'mkp_categories_db', SETTINGS: 'mkp_settings_db' };
@@ -579,11 +540,10 @@
       const cats = DB.get(DB_KEYS.CATEGORIES); const catMap = {}; cats.forEach(c => catMap[c.id] = c.name);
       let prods = DB.get(DB_KEYS.PRODUCTS).filter(p => {
         const matchesS = !search || p.name.toLowerCase().includes(search) || p.company.toLowerCase().includes(search); const matchesC = !catF || p.categoryId === catF; let matchesSt = true;
-        if (statF === 'available') matchesSt = p.status === 'available'; else if (statF === 'unavailable') matchesSt = p.status === 'unavailable'; else if (statF) matchesSt = getExpiryStatus(p).code === statF;
-        return matchesS && matchesC && matchesSt;
+        if (statF === 'available') matchesSt = p.status === 'available'; else if (statF === 'unavailable') matchesSt = p.status === 'unavailable'; else if (statF) matchesSt = getExpiryStatus(p).code === statF; return matchesS && matchesC && matchesSt;
       });
       document.getElementById('productsListContainer').innerHTML = prods.length === 0 ? '<div style="text-align:center; padding: 25px; color: var(--text-muted);">کالایی یافت نشد.</div>' : prods.map(p => {
-        const exp = getExpiryStatus(p); const imgTag = p.image ? `<img src="${p.image}" class="product-thumb">` : `<div class="product-thumb">بی‌عکس</div>`;
+        const exp = getExpiryStatus(p); const imgTag = p.image ? `<img src="${p.image}" class="product-thumb">` : `<div class="product-thumb">بی‌‌عکس</div>`;
         return `<div class="product-item">${imgTag}<div class="product-info"><h4>${p.name}</h4><div class="product-sub">برند: ${p.company}</div><div style="display:flex; align-items:center; gap: 6px;"><span style="font-weight: bold; color: var(--primary); font-size: 12.5px;">${Number(p.price).toLocaleString('fa-IR')} تومان</span><span class="badge ${exp.class}">${exp.label}</span></div></div><div class="product-actions"><button class="btn btn-sm btn-secondary" onclick="viewProductDetail('${p.id}')">مشاهده</button><button class="btn btn-sm btn-primary" onclick="openProductModal('${p.id}')">ویرایش</button><button class="btn btn-sm btn-danger" onclick="deleteProduct('${p.id}')">حذف</button></div></div>`;
       }).join('');
     }
@@ -626,9 +586,7 @@
 
     function handleSaveProduct(e) {
       e.preventDefault();
-      const p = {
-        id: document.getElementById('pmId').value || 'p_' + Date.now(), name: document.getElementById('pmName').value.trim(), categoryId: document.getElementById('pmCategory').value, price: parseFloat(document.getElementById('pmPrice').value), company: document.getElementById('pmCompany').value.trim(), code: document.getElementById('pmCode').value.trim(), status: document.getElementById('pmStatus').value, description: document.getElementById('pmDescription').value.trim(), image: document.getElementById('pmImageBase64').value, expiry: { jy: parseInt(document.getElementById('pmJalaliYear').value), jm: parseInt(document.getElementById('pmJalaliMonth').value), jd: parseInt(document.getElementById('pmJalaliDay').value) }
-      };
+      const p = { id: document.getElementById('pmId').value || 'p_' + Date.now(), name: document.getElementById('pmName').value.trim(), categoryId: document.getElementById('pmCategory').value, price: parseFloat(document.getElementById('pmPrice').value), company: document.getElementById('pmCompany').value.trim(), code: document.getElementById('pmCode').value.trim(), status: document.getElementById('pmStatus').value, description: document.getElementById('pmDescription').value.trim(), image: document.getElementById('pmImageBase64').value, expiry: { jy: parseInt(document.getElementById('pmJalaliYear').value), jm: parseInt(document.getElementById('pmJalaliMonth').value), jd: parseInt(document.getElementById('pmJalaliDay').value) } };
       let prods = DB.get(DB_KEYS.PRODUCTS); const idx = prods.findIndex(x => x.id === p.id); if (idx >= 0) prods[idx] = p; else prods.unshift(p);
       try { DB.set(DB_KEYS.PRODUCTS, prods); closeModal('productModal'); renderProductList(); renderDashboard(); } catch (err) { alert('حجم اطلاعات زیاد است. لطفا عکس را فشرده کنید.'); }
     }
@@ -689,17 +647,22 @@
       document.getElementById('invTotalAmount').innerText = Number(total).toLocaleString('fa-IR');
     }
 
-    function generateNativePdf() {
+    // ==========================================
+    // متد اصلاح شده PDF با ترکیب بهترین تنظیمات
+    // حل مشکل بهم‌ریختگی فارسی و حل مشکل مقیاس
+    // ==========================================
+    function preparePrintableContent() {
       const selectedBoxes = Array.from(document.querySelectorAll('.export-prod-cb:checked'));
-      if (selectedBoxes.length === 0) return alert('حداقل یک کالا انتخاب کنید.');
+      if (selectedBoxes.length === 0) { alert('لطفاً حداقل یک کالا را انتخاب کنید.'); return false; }
+
       const allProducts = DB.get(DB_KEYS.PRODUCTS); const catMap = {}; DB.get(DB_KEYS.CATEGORIES).forEach(c => catMap[c.id] = c.name);
       const settings = DB.getSettings(); const dateStr = `${Jalali.today().jy}/${Jalali.today().jm}/${Jalali.today().jd}`;
-      const headNote = document.getElementById('pdfCustomHeaderNote').value.trim(); const footNote = document.getElementById('pdfCustomFooterNote').value.trim();
-      const container = document.getElementById('pdf-printable-area'); container.innerHTML = '';
+      const headerNote = document.getElementById('pdfCustomHeaderNote').value.trim(); const footerNote = document.getElementById('pdfCustomFooterNote').value.trim();
+      const pdfContent = document.getElementById('pdf-printable-area'); pdfContent.innerHTML = '';
 
       if (currentExportMode === 'catalog' || currentExportMode === 'expiry') {
-        const sImg = document.getElementById('pdfOptShowImage') ? document.getElementById('pdfOptShowImage').checked : true;
-        const sPrice = document.getElementById('pdfOptShowPrice') ? document.getElementById('pdfOptShowPrice').checked : true;
+        const showImage = document.getElementById('pdfOptShowImage') ? document.getElementById('pdfOptShowImage').checked : true;
+        const showPrice = document.getElementById('pdfOptShowPrice') ? document.getElementById('pdfOptShowPrice').checked : true;
 
         const coverHtml = `
           <div class="pdf-frame-page">
@@ -712,30 +675,30 @@
                 <h1 class="cover-title" style="${currentExportMode === 'expiry' ? 'color:#dc2626;' : ''}">${settings.companyName || 'مهر پخش کوهیج'}</h1>
                 <div class="cover-subtitle">${currentExportMode === 'expiry' ? 'لیست ترخیص سریع انقضا' : 'کاتالوگ رسمی معرفی محصولات'}</div>
                 <div class="cover-divider" style="${currentExportMode === 'expiry' ? 'background:linear-gradient(90deg, #dc2626 0%, #1e3a8a 100%);' : ''}"></div>
-                <div style="font-size:13.5px; font-weight:600; color:#475569;">${headNote}</div>
+                <div style="font-size:16px; font-weight:600; color:#475569;">${headerNote}</div>
               </div>
-              <div class="cover-meta-card" style="font-size:14px; text-align:right;">
-                <div style="margin-bottom:10px;">📅 <b>تاریخ:</b> ${dateStr}</div><div style="margin-bottom:10px;">📞 <b>تلفن:</b> ${settings.phone || '---'}</div><div>📍 <b>نشانی:</b> ${settings.address || '---'}</div>
+              <div class="cover-meta-card" style="text-align:right;">
+                <div style="margin-bottom:12px;">📅 <b>تاریخ:</b> ${dateStr}</div><div style="margin-bottom:12px;">📞 <b>تلفن:</b> ${settings.phone || '---'}</div><div>📍 <b>نشانی:</b> ${settings.address || '---'}</div>
               </div>
-              <div style="font-size:11px; font-weight:bold; color:#64748b;">${footNote || 'سند دیجیتال انبار'}</div>
+              <div style="font-size:13px; font-weight:bold; color:#64748b;">${footerNote || 'سند دیجیتال انبار'}</div>
             </div>
           </div>`;
-        container.innerHTML += coverHtml;
+        pdfContent.innerHTML += coverHtml;
 
         selectedBoxes.forEach((cb, idx) => {
           const p = allProducts.find(x => x.id === cb.value); if (!p) return;
-          container.innerHTML += `
+          pdfContent.innerHTML += `
             <div class="pdf-frame-page">
               <div class="pdf-inner-border">
-                <div style="display:flex; justify-content:space-between; border-bottom:1px solid #e2e8f0; padding-bottom:8px; font-weight:bold;"><span>${catMap[p.categoryId] || 'عمومی'} - ${p.company}</span><span>صفحه ${idx + 1} از ${selectedBoxes.length}</span></div>
-                <div class="product-giant-image-frame">${sImg && p.image ? `<img src="${p.image}" class="product-giant-image">` : 'بدون تصویر'}</div>
+                <div style="display:flex; justify-content:space-between; border-bottom:2px solid #e2e8f0; padding-bottom:12px; font-weight:bold; font-size:16px;"><span>${catMap[p.categoryId] || 'عمومی'} - ${p.company}</span><span>صفحه ${idx + 1} از ${selectedBoxes.length}</span></div>
+                <div class="product-giant-image-frame">${showImage && p.image ? `<img src="${p.image}" class="product-giant-image">` : 'بدون تصویر'}</div>
                 <div class="poster-specs-bar">
                   <div style="flex:1;">
-                    <div class="poster-name">${p.name}</div><div style="font-size:13px; color:#64748b;">انقضا: ${p.expiry.jy}/${p.expiry.jm}/${p.expiry.jd} | ${p.status === 'available' ? 'موجود' : 'ناموجود'}</div>
+                    <div class="poster-name">${p.name}</div><div style="font-size:16px; color:#64748b;">انقضا: ${p.expiry.jy}/${p.expiry.jm}/${p.expiry.jd} | ${p.status === 'available' ? 'موجود' : 'ناموجود'}</div>
                   </div>
-                  ${sPrice ? `<div class="poster-price-tag" style="${currentExportMode === 'expiry' ? 'background:#dc2626;' : ''}">${Number(p.price).toLocaleString('fa-IR')} تومان</div>` : ''}
+                  ${showPrice ? `<div class="poster-price-tag" style="${currentExportMode === 'expiry' ? 'background:#dc2626;' : ''}">${Number(p.price).toLocaleString('fa-IR')} تومان</div>` : ''}
                 </div>
-                ${p.description ? `<div style="font-size:12px; margin-top:10px; background:#f8fafc; padding:8px; border-radius:8px;">${p.description}</div>` : ''}
+                ${p.description ? `<div style="font-size:15px; margin-top:12px; background:#f8fafc; padding:12px; border-radius:8px;">${p.description}</div>` : ''}
               </div>
             </div>`;
         });
@@ -747,21 +710,102 @@
           const q = document.querySelector(`.export-prod-qty[data-id="${p.id}"]`); const qty = q ? parseInt(q.value) || 1 : 1; total += p.price * qty;
           tableRows += `<tr><td>${rowIdx++}</td><td style="font-weight:bold;text-align:right;">${p.name}</td><td>${p.company}</td><td>${qty}</td><td>${Number(p.price).toLocaleString('fa-IR')}</td><td>${Number(p.price * qty).toLocaleString('fa-IR')}</td></tr>`;
         });
-        container.innerHTML += `
-          <div class="pdf-frame-page" style="height:auto; min-height:296mm;">
+        pdfContent.innerHTML += `
+          <div class="pdf-frame-page">
             <div class="pdf-inner-border">
               <div>
-                <h1 style="font-size:24px; color:#1e3a8a; text-align:center;">${settings.companyName || 'مهر پخش کوهیج'}</h1>
-                <div style="text-align:center; font-weight:bold; color:#0d9488; margin-bottom:20px;">پیش‌فاکتور رسمی کالا</div>
-                <div style="background:#f8fafc; padding:10px; border-radius:10px; margin-bottom:15px;"><b>خریدار:</b> ${custName} | <b>تاریخ:</b> ${dateStr}</div>
-                <table class="invoice-table"><thead><tr><th style="width:30px;">#</th><th>نام کالا</th><th>تولیدکننده</th><th>تعداد</th><th>قیمت واحد</th><th>مبلغ کل</th></tr></thead><tbody>${tableRows}</tbody><tfoot><tr><td colspan="5" style="text-align:left; font-weight:bold; font-size:15px;">جمع کل:</td><td style="font-weight:bold; font-size:16px; color:#1e3a8a;">${Number(total).toLocaleString('fa-IR')}</td></tr></tfoot></table>
+                <h1 style="font-size:28px; color:#1e3a8a; text-align:center;">${settings.companyName || 'مهر پخش کوهیج'}</h1>
+                <div style="text-align:center; font-weight:bold; color:#0d9488; margin-bottom:25px; font-size:18px;">پیش‌فاکتور رسمی کالا</div>
+                <div style="background:#f8fafc; padding:15px; border-radius:10px; margin-bottom:20px; font-size:16px;"><b>خریدار:</b> ${custName} | <b>تاریخ:</b> ${dateStr}</div>
+                <table class="invoice-table"><thead><tr><th style="width:40px;">#</th><th>نام کالا</th><th>تولیدکننده</th><th>تعداد</th><th>قیمت واحد</th><th>مبلغ کل</th></tr></thead><tbody>${tableRows}</tbody><tfoot><tr><td colspan="5" style="text-align:left; font-weight:bold; font-size:18px;">جمع کل:</td><td style="font-weight:bold; font-size:18px; color:#1e3a8a;">${Number(total).toLocaleString('fa-IR')}</td></tr></tfoot></table>
               </div>
-              <div style="text-align:center; font-size:12px; margin-top:20px;">${footNote || 'مهر و امضای امور فروش'}</div>
+              <div style="text-align:center; font-size:14px; margin-top:30px;">${footerNote || 'مهر و امضای امور فروش'}</div>
             </div>
           </div>`;
       }
-      setTimeout(() => { window.print(); }, 500);
+      return true;
     }
+
+    function generateAndOpenRealPdf(isShareAction) {
+      if (!preparePrintableContent()) return;
+
+      const btn = isShareAction ? document.getElementById('btnShareMessenger') : document.getElementById('btnDownloadPdf');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '⏳ در حال ساخت کاتالوگ...';
+      btn.disabled = true;
+
+      const element = document.getElementById('pdf-printable-area');
+      element.style.display = 'block';
+      element.style.position = 'absolute';
+      element.style.top = '-9999px';
+      element.style.left = '0';
+
+      const fileName = currentExportMode === 'catalog' ? `MehrPakhsh_Catalog_${Date.now()}.pdf` : (currentExportMode === 'expiry' ? `MehrPakhsh_ExpiryList_${Date.now()}.pdf` : `MehrPakhsh_Invoice_${Date.now()}.pdf`);
+
+      // غیرفعال کردن letterRendering راز اصلی برای جلوگیری از بهم ریختگی حروف فارسی است!
+      const opt = {
+        margin: 0,
+        filename: fileName,
+        image: { type: 'jpeg', quality: 0.95 },
+        html2canvas: { 
+          scale: 2, 
+          useCORS: true, 
+          logging: false,
+          letterRendering: false 
+        },
+        jsPDF: { unit: 'px', format: [794, 1122], orientation: 'portrait' } 
+      };
+
+      if (!window.html2pdf) {
+        alert('کتابخانه PDF بارگذاری نشده است.');
+        element.style.display = 'none'; btn.innerHTML = originalText; btn.disabled = false;
+        return;
+      }
+
+      setTimeout(() => {
+        const pages = Array.from(document.querySelectorAll('.pdf-frame-page'));
+        let worker = html2pdf().set(opt).from(pages[0]).toPdf();
+
+        for (let i = 1; i < pages.length; i++) {
+          worker = worker.get('pdf').then(pdf => pdf.addPage()).from(pages[i]).toContainer().toCanvas().toPdf();
+        }
+
+        worker.outputPdf('blob').then(async function(blob) {
+          element.style.display = 'none'; element.style.position = ''; element.style.top = ''; element.style.left = '';
+          btn.innerHTML = originalText; btn.disabled = false;
+
+          const reader = new FileReader();
+          reader.readAsDataURL(blob);
+          reader.onloadend = async function() {
+            const base64Data = reader.result.split(',')[1];
+            const Cap = window.Capacitor;
+
+            if (Cap && Cap.Plugins && Cap.Plugins.Filesystem && Cap.Plugins.Share) {
+              try {
+                const writeResult = await Cap.Plugins.Filesystem.writeFile({ path: fileName, data: base64Data, directory: 'CACHE' });
+                await Cap.Plugins.Share.share({ title: 'اسناد انبار', url: writeResult.uri, dialogTitle: 'ذخیره/ارسال PDF' });
+                return;
+              } catch (err) { console.error('Share Error:', err); }
+            }
+
+            try {
+              const file = new File([blob], fileName, { type: 'application/pdf' });
+              if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                navigator.share({ files: [file], title: 'فایل PDF انبار' }).catch(() => {});
+                return;
+              }
+            } catch(e) {}
+
+            const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = fileName;
+            document.body.appendChild(a); a.click(); document.body.removeChild(a);
+          };
+        }).catch(function(err) {
+          element.style.display = 'none'; btn.innerHTML = originalText; btn.disabled = false;
+          alert('خطا در تولید فایل: ' + err.message);
+        });
+      }, 500);
+    }
+    // ==========================================
 
     function downloadBackupFileDirectly() {
       const fullBackup = { app: 'MEHR_PAK_KOUHIJ', backupDate: new Date().toISOString(), products: DB.get(DB_KEYS.PRODUCTS), categories: DB.get(DB_KEYS.CATEGORIES), settings: DB.getSettings() };
@@ -775,31 +819,20 @@
       if (navigator.canShare && navigator.canShare({ files: [file] })) { navigator.share({ files: [file], title: 'فایل پشتیبان انبار' }).catch(()=>{}); } else { downloadBackupFileDirectly(); }
     }
 
-    // --- این دو تابع در نسخه قبلی جا افتاده بودند ---
     function importFullBackup(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader(); 
+      const file = e.target.files[0]; if (!file) return; const reader = new FileReader(); 
       reader.onload = function(evt) {
         try {
           const d = JSON.parse(evt.target.result);
           if (confirm('تمام اطلاعات فعلی پاک شده و اطلاعات فایل جایگزین می‌شود. مطمئن هستید؟')) { 
-            if (d.products) DB.set(DB_KEYS.PRODUCTS, d.products); 
-            if (d.categories) DB.set(DB_KEYS.CATEGORIES, d.categories); 
-            if (d.settings) DB.setSettings(d.settings); 
-            alert('بازگردانی با موفقیت انجام شد.');
-            location.reload(); 
+            if (d.products) DB.set(DB_KEYS.PRODUCTS, d.products); if (d.categories) DB.set(DB_KEYS.CATEGORIES, d.categories); if (d.settings) DB.setSettings(d.settings); 
+            alert('بازگردانی با موفقیت انجام شد.'); location.reload(); 
           }
         } catch (err) { alert('فایل پشتیبان نامعتبر است.'); }
-      }; 
-      reader.readAsText(file);
-      e.target.value = ''; // باعث می‌شود فایل تکراری را هم دوباره بشناسد
+      }; reader.readAsText(file); e.target.value = '';
     }
 
-    function importMKPFile(event) {
-      importFullBackup(event);
-    }
-    // ------------------------------------------------
+    function importMKPFile(event) { importFullBackup(event); }
 
     function renderSettingsSection() {
       const s = DB.getSettings(); document.getElementById('setCompanyName').value = s.companyName || 'مهر پخش کوهیج'; document.getElementById('setCompanyPhone').value = s.phone || ''; document.getElementById('setCompanyAddress').value = s.address || ''; document.getElementById('setNearDays').value = s.nearDays || 30; document.getElementById('setVeryNearDays').value = s.veryNearDays || 20; document.getElementById('setLogoPreview').innerHTML = s.logoBase64 ? `<img src="${s.logoBase64}" style="max-height:70px; border-radius:6px; padding:2px;">` : 'لوگو انتخاب نشده';
@@ -819,7 +852,7 @@
     function closeModal(id) { document.getElementById(id).classList.remove('active'); }
     function generateMKPFile() { document.getElementById('backupCenterModal').classList.add('active'); }
 
-    window.navigateTo = navigateTo; window.openProductModal = openProductModal; window.closeModal = closeModal; window.viewProductDetail = viewProductDetail; window.deleteProduct = deleteProduct; window.openCategoryModal = openCategoryModal; window.deleteCategory = deleteCategory; window.viewCategoryProducts = viewCategoryProducts; window.setExportMode = setExportMode; window.toggleSelectAllExport = toggleSelectAllExport; window.generateNativePdf = generateNativePdf; window.generateMKPFile = generateMKPFile; window.downloadBackupFileDirectly = downloadBackupFileDirectly; window.saveCompanySettings = saveCompanySettings; window.saveExpirySettings = saveExpirySettings; window.triggerNativeShareBackup = triggerNativeShareBackup; window.importFullBackup = importFullBackup; window.importMKPFile = importMKPFile; window.renderProductList = renderProductList; window.handleSaveProduct = handleSaveProduct; window.handleSaveCategory = handleSaveCategory; window.handleLogoUpload = handleLogoUpload; window.previewAndCompressImage = previewAndCompressImage; window.updateJalaliDaysSelector = updateJalaliDaysSelector; window.filterProductsByExpiry = filterProductsByExpiry;
+    window.navigateTo = navigateTo; window.openProductModal = openProductModal; window.closeModal = closeModal; window.viewProductDetail = viewProductDetail; window.deleteProduct = deleteProduct; window.openCategoryModal = openCategoryModal; window.deleteCategory = deleteCategory; window.viewCategoryProducts = viewCategoryProducts; window.setExportMode = setExportMode; window.toggleSelectAllExport = toggleSelectAllExport; window.generateAndOpenRealPdf = generateAndOpenRealPdf; window.generateMKPFile = generateMKPFile; window.downloadBackupFileDirectly = downloadBackupFileDirectly; window.saveCompanySettings = saveCompanySettings; window.saveExpirySettings = saveExpirySettings; window.triggerNativeShareBackup = triggerNativeShareBackup; window.importFullBackup = importFullBackup; window.importMKPFile = importMKPFile; window.renderProductList = renderProductList; window.handleSaveProduct = handleSaveProduct; window.handleSaveCategory = handleSaveCategory; window.handleLogoUpload = handleLogoUpload; window.previewAndCompressImage = previewAndCompressImage; window.updateJalaliDaysSelector = updateJalaliDaysSelector; window.filterProductsByExpiry = filterProductsByExpiry;
 
     initDatabase(); renderDashboard();
   </script>
