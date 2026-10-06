@@ -142,7 +142,6 @@
   </div>
 
   <main>
-    <!-- ۱. داشبورد -->
     <section id="view-dashboard" class="view-section active">
       <div class="hero-banner">
         <div class="hero-header">
@@ -186,7 +185,6 @@
       </div>
     </section>
 
-    <!-- ۲. کالاها -->
     <section id="view-products" class="view-section">
       <div class="card">
         <div class="card-header"><div class="card-title">فهرست کالاها</div><button class="btn btn-primary btn-sm" onclick="openProductModal()">+ افزودن کالای جدید</button></div>
@@ -198,7 +196,6 @@
             <select id="prodCategoryFilter" class="form-control" onchange="renderProductList()"><option value="">همه دسته‌ها</option></select>
           </div>
           <div class="form-group" style="flex: 1;">
-            <!-- رفع باگ: فیلترها به صورت کامل اضافه شدند -->
             <select id="prodStatusFilter" class="form-control" onchange="renderProductList()">
               <option value="">همه وضعیت‌ها</option>
               <option value="available">موجود</option>
@@ -214,7 +211,6 @@
       </div>
     </section>
 
-    <!-- ۳. دسته‌بندی‌ها -->
     <section id="view-categories" class="view-section">
       <div class="card">
         <div class="card-header"><div class="card-title">دسته‌‌بندی‌های کالا</div><button class="btn btn-primary btn-sm" onclick="openCategoryModal()">+ دسته‌بندی جدید</button></div>
@@ -222,7 +218,6 @@
       </div>
     </section>
 
-    <!-- ۴. صدور اسناد -->
     <section id="view-export" class="view-section">
       <div class="card">
         <div class="card-header"><div class="card-title">صدور اسناد، کاتالوگ و خروجی</div></div>
@@ -237,10 +232,8 @@
             <div class="form-group"><label>شماره تماس خریدار</label><input type="text" id="invCustomerPhone" class="form-control" placeholder="۰۹۱۲..."></div>
           </div>
         </div>
-        
-        <!-- رفع باگ: تنظیمات برای کاتالوگ و ترخیص انقضا یکپارچه شد و گزینه نمایش انقضا اضافه گردید -->
         <div id="catalogOptionsBox" class="form-group">
-          <label><b>تنظیمات خروجی PDF:</b></label>
+          <label><b>تنظیمات خروجی:</b></label>
           <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 11.5px; margin-top: 4px;">
             <label><input type="checkbox" id="pdfOptHideUnavailable" checked> حذف خودکار ناموجودها</label>
             <label><input type="checkbox" id="pdfOptShowImage" checked> نمایش عکس کالا</label>
@@ -249,7 +242,6 @@
             <label><input type="checkbox" id="pdfOptShowExpiry" checked> نمایش تاریخ انقضا</label>
           </div>
         </div>
-        
         <div class="form-row">
           <div class="form-group"><label>متن بالای سند</label><input type="text" id="pdfCustomHeaderNote" class="form-control" placeholder="مثال: لیست کاتالوگ"></div>
           <div class="form-group"><label>متن پایین سند</label><input type="text" id="pdfCustomFooterNote" class="form-control" placeholder="مثال: تحویل سریع"></div>
@@ -311,9 +303,12 @@
     <div class="modal-box">
       <div class="modal-header"><h3>💾 مرکز پشتیبان‌گیری انبار</h3><button class="modal-close" onclick="closeModal('backupCenterModal')">&times;</button></div>
       <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:12px;">
-        <!-- دکمه‌ها به حالت اولیه و سالم برگشتند -->
+        <!-- دکمه‌ها کاملاً خالص‌سازی شدند -->
         <button class="btn btn-primary btn-block" onclick="downloadBackupFileDirectly()">📥 دانلود مستقیم فایل (.json)</button>
         <button class="btn btn-success btn-block" onclick="triggerNativeShareBackup()">📤 ارسال فایل به پیام‌رسان</button>
+        <div style="margin: 10px 0; border-top: 1px dashed var(--border);"></div>
+        <p style="font-size: 11px; color: var(--text-muted); text-align: center;">اگر دانلود با خطا مواجه شد، با دکمه زیر اطلاعات را دستی کپی کنید:</p>
+        <button class="btn btn-secondary btn-block" style="border: 2px solid #94a3b8;" onclick="copyBackupToClipboard()">📋 کپی کل اطلاعات به صورت متن</button>
       </div>
     </div>
   </div>
@@ -361,7 +356,7 @@
       <div class="modal-header"><h3 id="catModalTitle">افزودن دسته‌بندی</h3><button class="modal-close" onclick="closeModal('categoryModal')">&times;</button></div>
       <form onsubmit="handleSaveCategory(event)">
         <input type="hidden" id="cmId">
-        <div class="form-group"><label>نام دسته‌بندی *</label><input type="text" id="cmName" class="form-control" required></div>
+        <div class="form-group"><label>نام دسته‌‌بندی *</label><input type="text" id="cmName" class="form-control" required></div>
         <div class="form-group">
           <label>اولویت نمایش در PDF (۱ = اولین دسته) *</label>
           <input type="number" id="cmOrder" class="form-control" placeholder="مثلاً 1" required>
@@ -795,90 +790,74 @@
       return true;
     }
 
-    function generateAndOpenRealPdf(isShareAction) {
-      if (!preparePrintableContent()) return;
-
-      const btn = isShareAction ? document.getElementById('btnShareMessenger') : document.getElementById('btnDownloadPdf');
-      const originalText = btn.innerHTML;
-      btn.innerHTML = '⏳ در حال ساخت صفحات...';
-      btn.disabled = true;
-
-      const element = document.getElementById('pdf-printable-area');
-      element.style.display = 'block'; element.style.position = 'absolute'; element.style.top = '-9999px';
-
-      const fileName = currentExportMode === 'catalog' ? `MehrPakhsh_Catalog_${Date.now()}.pdf` : (currentExportMode === 'expiry' ? `MehrPakhsh_ExpiryList_${Date.now()}.pdf` : `MehrPakhsh_Invoice_${Date.now()}.pdf`);
-
-      const opt = {
-        margin: 0,
-        filename: fileName,
-        image: { type: 'jpeg', quality: 0.90 },
-        html2canvas: { scale: 1.6, useCORS: true, letterRendering: false },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-      };
-
-      if (!window.html2pdf) { 
-        alert('کتابخانه PDF بارگذاری نشده است.'); 
-        element.style.display = 'none'; btn.innerHTML = originalText; btn.disabled = false; return; 
-      }
-
-      setTimeout(() => {
-        const pages = Array.from(document.querySelectorAll('.pdf-frame-page'));
-        let worker = html2pdf().set(opt).from(pages[0]).toPdf();
-        for (let i = 1; i < pages.length; i++) { 
-          worker = worker.get('pdf').then(pdf => pdf.addPage()).from(pages[i]).toContainer().toCanvas().toPdf(); 
-        }
-
-        worker.outputPdf('blob').then(async function(blob) {
-          element.style.display = 'none'; element.style.position = ''; btn.innerHTML = originalText; btn.disabled = false;
-          
-          try { 
-            const file = new File([blob], fileName, { type: 'application/pdf' }); 
-            if (isShareAction && navigator.canShare && navigator.canShare({ files: [file] })) { 
-              navigator.share({ files: [file] }).catch(() => {}); 
-              return; 
-            } 
-          } catch(e) {}
-          
-          const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = fileName; document.body.appendChild(a); a.click(); document.body.removeChild(a);
-        }).catch(function(err) { 
-          element.style.display = 'none'; element.style.position = ''; btn.innerHTML = originalText; btn.disabled = false; alert('خطا در تولید فایل: ' + err.message); 
-        });
-      }, 500);
-    }
-
-    // متد خالص و ساده برای دانلود JSON روی گیت‌هاب / مرورگر
+    // متد خالص دانلود فایل برای اجرا روی مرورگر
     function downloadBackupFileDirectly() {
       try {
         const fullBackup = { app: 'MEHR_PAK_KOUHIJ', backupDate: new Date().toISOString(), products: DB.get(DB_KEYS.PRODUCTS), categories: DB.get(DB_KEYS.CATEGORIES), settings: DB.getSettings() };
         const blob = new Blob([JSON.stringify(fullBackup, null, 2)], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
+        const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.style.display = 'none';
         a.href = url;
         a.download = `MehrPakhsh_Backup_${Date.now()}.json`;
+        // بدون استفاده از target="_blank"
         document.body.appendChild(a);
         a.click();
-        setTimeout(() => {
-          document.body.removeChild(a);
-          window.URL.revokeObjectURL(url);
-        }, 100);
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
       } catch (err) {
-        alert('خطا در دانلود فایل: ' + err.message);
+        alert('خطا در دانلود: ' + err.message);
       }
     }
 
+    // متد ارسال خالص
     function triggerNativeShareBackup() {
       try {
         const fullBackup = { app: 'MEHR_PAK_KOUHIJ', backupDate: new Date().toISOString(), products: DB.get(DB_KEYS.PRODUCTS), categories: DB.get(DB_KEYS.CATEGORIES), settings: DB.getSettings() };
-        const file = new File([JSON.stringify(fullBackup, null, 2)], `MehrPakhsh_Backup_${Date.now()}.json`, { type: 'application/json' });
+        const jsonStr = JSON.stringify(fullBackup, null, 2);
+        const file = new File([jsonStr], `MehrPakhsh_Backup_${Date.now()}.json`, { type: 'application/json' });
+        
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
             navigator.share({ files: [file], title: 'فایل پشتیبان انبار' }).catch(()=>{});
         } else {
-            downloadBackupFileDirectly();
+            if(navigator.share) {
+                navigator.share({ title: 'پشتیبان انبار مهر پخش', text: jsonStr }).catch(()=>{ downloadBackupFileDirectly(); });
+            } else {
+                downloadBackupFileDirectly();
+            }
         }
       } catch (err) {
         downloadBackupFileDirectly();
       }
+    }
+
+    function copyBackupToClipboard() {
+      const fullBackup = { app: 'MEHR_PAK_KOUHIJ', backupDate: new Date().toISOString(), products: DB.get(DB_KEYS.PRODUCTS), categories: DB.get(DB_KEYS.CATEGORIES), settings: DB.getSettings() };
+      const jsonStr = JSON.stringify(fullBackup, null, 2);
+      
+      if(navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(jsonStr).then(() => {
+              alert('✅ تمام اطلاعات انبار شما با موفقیت کپی شد! \n\nحالا یک یادداشت جدید در گوشی باز کنید یا وارد بخش پیام‌های ذخیره‌شده تلگرام شوید، انگشت خود را روی صفحه نگه دارید و گزینه Paste (جایگذاری) را بزنید و آن را ذخیره کنید.');
+          }).catch(err => { fallbackCopyText(jsonStr); });
+      } else {
+          fallbackCopyText(jsonStr);
+      }
+    }
+
+    function fallbackCopyText(text) {
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.style.position = "fixed";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try {
+          document.execCommand('copy');
+          alert('✅ تمام اطلاعات انبار شما با موفقیت کپی شد! \n\nحالا یک یادداشت جدید در گوشی باز کنید یا وارد بخش پیام‌های ذخیره‌شده تلگرام شوید، انگشت خود را روی صفحه نگه دارید و گزینه Paste (جایگذاری) را بزنید و آن را ذخیره کنید.');
+      } catch (err) {
+          alert('متاسفانه امکان کپی خودکار در این گوشی پشتیبانی نمی‌شود.');
+      }
+      document.body.removeChild(textArea);
     }
 
     function importFullBackup(e) {
@@ -896,7 +875,7 @@
             location.reload(); 
           }
         } catch (err) { 
-            alert('فایل پشتیبان نامعتبر است.'); 
+            alert('فایل پشتیبان نامعتبر است. لطفاً فایل صحیح را انتخاب کنید.'); 
         }
       }; 
       reader.readAsText(file, 'UTF-8'); 
@@ -958,6 +937,7 @@
     window.previewAndCompressImage = previewAndCompressImage; 
     window.updateJalaliDaysSelector = updateJalaliDaysSelector; 
     window.filterProductsByExpiry = filterProductsByExpiry;
+    window.copyBackupToClipboard = copyBackupToClipboard;
 
     initDatabase(); 
     renderDashboard();
