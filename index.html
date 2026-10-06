@@ -142,6 +142,7 @@
   </div>
 
   <main>
+    <!-- ۱. داشبورد -->
     <section id="view-dashboard" class="view-section active">
       <div class="hero-banner">
         <div class="hero-header">
@@ -185,6 +186,7 @@
       </div>
     </section>
 
+    <!-- ۲. کالاها -->
     <section id="view-products" class="view-section">
       <div class="card">
         <div class="card-header"><div class="card-title">فهرست کالاها</div><button class="btn btn-primary btn-sm" onclick="openProductModal()">+ افزودن کالای جدید</button></div>
@@ -196,13 +198,15 @@
             <select id="prodCategoryFilter" class="form-control" onchange="renderProductList()"><option value="">همه دسته‌ها</option></select>
           </div>
           <div class="form-group" style="flex: 1;">
+            <!-- رفع باگ: فیلترها به صورت کامل اضافه شدند -->
             <select id="prodStatusFilter" class="form-control" onchange="renderProductList()">
               <option value="">همه وضعیت‌ها</option>
               <option value="available">موجود</option>
               <option value="unavailable">ناموجود</option>
-              <option value="expired">منقضی شده</option>
+              <option value="safe">ایمن</option>
               <option value="near">نزدیک به انقضا</option>
               <option value="very_near">خیلی نزدیک</option>
+              <option value="expired">منقضی شده</option>
             </select>
           </div>
         </div>
@@ -210,6 +214,7 @@
       </div>
     </section>
 
+    <!-- ۳. دسته‌بندی‌ها -->
     <section id="view-categories" class="view-section">
       <div class="card">
         <div class="card-header"><div class="card-title">دسته‌‌بندی‌های کالا</div><button class="btn btn-primary btn-sm" onclick="openCategoryModal()">+ دسته‌بندی جدید</button></div>
@@ -217,6 +222,7 @@
       </div>
     </section>
 
+    <!-- ۴. صدور اسناد -->
     <section id="view-export" class="view-section">
       <div class="card">
         <div class="card-header"><div class="card-title">صدور اسناد، کاتالوگ و خروجی</div></div>
@@ -231,8 +237,10 @@
             <div class="form-group"><label>شماره تماس خریدار</label><input type="text" id="invCustomerPhone" class="form-control" placeholder="۰۹۱۲..."></div>
           </div>
         </div>
+        
+        <!-- رفع باگ: تنظیمات برای کاتالوگ و ترخیص انقضا یکپارچه شد و گزینه نمایش انقضا اضافه گردید -->
         <div id="catalogOptionsBox" class="form-group">
-          <label><b>تنظیمات خروجی:</b></label>
+          <label><b>تنظیمات خروجی PDF:</b></label>
           <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 11.5px; margin-top: 4px;">
             <label><input type="checkbox" id="pdfOptHideUnavailable" checked> حذف خودکار ناموجودها</label>
             <label><input type="checkbox" id="pdfOptShowImage" checked> نمایش عکس کالا</label>
@@ -241,6 +249,7 @@
             <label><input type="checkbox" id="pdfOptShowExpiry" checked> نمایش تاریخ انقضا</label>
           </div>
         </div>
+        
         <div class="form-row">
           <div class="form-group"><label>متن بالای سند</label><input type="text" id="pdfCustomHeaderNote" class="form-control" placeholder="مثال: لیست کاتالوگ"></div>
           <div class="form-group"><label>متن پایین سند</label><input type="text" id="pdfCustomFooterNote" class="form-control" placeholder="مثال: تحویل سریع"></div>
@@ -257,16 +266,17 @@
             <button class="btn btn-primary" id="btnDownloadPdf" style="flex: 1;" onclick="generateAndOpenRealPdf(false)">📥 دانلود مستقیم PDF</button>
             <button class="btn btn-warning" id="btnShareMessenger" style="flex: 1;" onclick="generateAndOpenRealPdf(true)">📤 ارسال PDF</button>
           </div>
-          <button class="btn btn-success btn-block" onclick="generateMKPFile()">📦 ساخت فایل پشتیبان JSON</button>
+          <button class="btn btn-success btn-block" onclick="openBackupCenterModal()">📦 ساخت فایل پشتیبان JSON</button>
         </div>
       </div>
       <div class="card">
         <div class="card-header"><div class="card-title">بازخوانی فایل پشتیبان انبار</div></div>
-        <input type="file" id="mkpFileInput" accept=".json,.mkp" style="display: none;" onchange="importMKPFile(event)">
+        <input type="file" id="mkpFileInput" accept=".json,application/json,.txt" style="display: none;" onchange="importMKPFile(event)">
         <button class="btn btn-secondary btn-block" onclick="document.getElementById('mkpFileInput').click()">📂 انتخاب فایل پشتیبان و بارگذاری</button>
       </div>
     </section>
 
+    <!-- ۵. تنظیمات -->
     <section id="view-settings" class="view-section">
       <div class="card">
         <div class="card-header"><div class="card-title">مشخصات شرکت و لوگو</div></div>
@@ -293,7 +303,7 @@
     <button onclick="navigateTo('view-dashboard')" id="nav-view-dashboard" class="active"><svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>داشبورد</button>
     <button onclick="navigateTo('view-products')" id="nav-view-products"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-9 14l-4-4 1.4-1.4 2.6 2.6 6.6-6.6 1.4 1.4-8 8z"/></svg>کالاها</button>
     <button onclick="navigateTo('view-categories')" id="nav-view-categories"><svg viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>دسته‌ها</button>
-    <button onclick="navigateTo('view-export')" id="nav-view-export"><svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>اسناد/بکاپ</button>
+    <button onclick="navigateTo('view-export')" id="nav-view-export"><svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>اسناد/بکاپ</button>
     <button onclick="navigateTo('view-settings')" id="nav-view-settings"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>تنظیمات</button>
   </nav>
 
@@ -301,8 +311,9 @@
     <div class="modal-box">
       <div class="modal-header"><h3>💾 مرکز پشتیبان‌گیری انبار</h3><button class="modal-close" onclick="closeModal('backupCenterModal')">&times;</button></div>
       <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:12px;">
-        <button class="btn btn-primary btn-block" onclick="downloadBackupFileDirectly()">📥 دانلود مستقیم فایل پشتیبان (.json)</button>
-        <button class="btn btn-success btn-block" onclick="triggerNativeShareBackup()">📤 ارسال فایل پشتیبان به پیام‌رسان</button>
+        <!-- دکمه‌ها به حالت اولیه و سالم برگشتند -->
+        <button class="btn btn-primary btn-block" onclick="downloadBackupFileDirectly()">📥 دانلود مستقیم فایل (.json)</button>
+        <button class="btn btn-success btn-block" onclick="triggerNativeShareBackup()">📤 ارسال فایل به پیام‌رسان</button>
       </div>
     </div>
   </div>
@@ -691,7 +702,7 @@
                     <div style="flex: 1; padding-left: 20px;">
                       <div style="font-size: 34px; font-weight: 900; color: #0f172a; margin-bottom: 15px; line-height: 1.3;">${p.name}</div>
                       <div style="display: flex; gap: 15px; font-size: 18px; font-weight: 800;">
-                        ${showExpiry ? `<span style="background: #ffffff; padding: 8px 16px; border-radius: 10px; border: 1px solid #cbd5e1; color: #475569; box-shadow: 0 2px 6px rgba(0,0,0,0.02);">انقضا: <span style="color: #1e3a8a;">${p.expiry.jy}/${p.expiry.jm}/${p.expiry.jd}</span></span>` : ''}
+                        ${showExpiry && p.expiry ? `<span style="background: #ffffff; padding: 8px 16px; border-radius: 10px; border: 1px solid #cbd5e1; color: #475569; box-shadow: 0 2px 6px rgba(0,0,0,0.02);">انقضا: <span style="color: #1e3a8a;">${p.expiry.jy}/${p.expiry.jm}/${p.expiry.jd}</span></span>` : ''}
                         <span style="background: ${p.status === 'available' ? '#dcfce7' : '#fee2e2'}; color: ${p.status === 'available' ? '#16a34a' : '#dc2626'}; padding: 8px 16px; border-radius: 10px; border: 1px solid ${p.status === 'available' ? '#bbf7d0' : '#fecaca'};">${p.status === 'available' ? '✅ موجود' : '❌ ناموجود'}</span>
                       </div>
                       ${p.description ? `<div style="margin-top: 18px; font-size: 18px; color: #475569; font-weight: 700; line-height: 1.6;">${p.description}</div>` : ''}
@@ -820,48 +831,54 @@
         worker.outputPdf('blob').then(async function(blob) {
           element.style.display = 'none'; element.style.position = ''; btn.innerHTML = originalText; btn.disabled = false;
           
-          const reader = new FileReader(); reader.readAsDataURL(blob);
-          reader.onloadend = async function() {
-            const base64Data = reader.result.split(',')[1]; const Cap = window.Capacitor;
-            if (Cap && Cap.Plugins && Cap.Plugins.Filesystem && Cap.Plugins.Share) {
-              try {
-                const writeResult = await Cap.Plugins.Filesystem.writeFile({ path: fileName, data: base64Data, directory: 'CACHE' });
-                await Cap.Plugins.Share.share({ title: 'سند انبار', url: writeResult.uri, dialogTitle: 'ذخیره/ارسال PDF' }); return;
-              } catch (err) { console.error('Share Error:', err); }
-            }
-            try { 
-              const file = new File([blob], fileName, { type: 'application/pdf' }); 
-              if (navigator.canShare && navigator.canShare({ files: [file] })) { 
-                navigator.share({ files: [file] }).catch(() => {}); return; 
-              } 
-            } catch(e) {}
-            
-            const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = fileName; document.body.appendChild(a); a.click(); document.body.removeChild(a);
-          };
+          try { 
+            const file = new File([blob], fileName, { type: 'application/pdf' }); 
+            if (isShareAction && navigator.canShare && navigator.canShare({ files: [file] })) { 
+              navigator.share({ files: [file] }).catch(() => {}); 
+              return; 
+            } 
+          } catch(e) {}
+          
+          const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = fileName; document.body.appendChild(a); a.click(); document.body.removeChild(a);
         }).catch(function(err) { 
           element.style.display = 'none'; element.style.position = ''; btn.innerHTML = originalText; btn.disabled = false; alert('خطا در تولید فایل: ' + err.message); 
         });
       }, 500);
     }
 
-    // متد اصلاح شده برای دانلود مستقیم فایل از طریق مرورگر/گوشی
+    // متد خالص و ساده برای دانلود JSON روی گیت‌هاب / مرورگر
     function downloadBackupFileDirectly() {
-      const fullBackup = { app: 'MEHR_PAK_KOUHIJ', backupDate: new Date().toISOString(), products: DB.get(DB_KEYS.PRODUCTS), categories: DB.get(DB_KEYS.CATEGORIES), settings: DB.getSettings() };
-      const blob = new Blob([JSON.stringify(fullBackup, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob); 
-      const a = document.createElement('a'); 
-      a.href = url; 
-      a.download = `MehrPakhsh_Backup_${Date.now()}.json`; 
-      document.body.appendChild(a); 
-      a.click(); 
-      document.body.removeChild(a); 
-      URL.revokeObjectURL(url);
+      try {
+        const fullBackup = { app: 'MEHR_PAK_KOUHIJ', backupDate: new Date().toISOString(), products: DB.get(DB_KEYS.PRODUCTS), categories: DB.get(DB_KEYS.CATEGORIES), settings: DB.getSettings() };
+        const blob = new Blob([JSON.stringify(fullBackup, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = `MehrPakhsh_Backup_${Date.now()}.json`;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => {
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
+        }, 100);
+      } catch (err) {
+        alert('خطا در دانلود فایل: ' + err.message);
+      }
     }
 
     function triggerNativeShareBackup() {
-      const fullBackup = { app: 'MEHR_PAK_KOUHIJ', backupDate: new Date().toISOString(), products: DB.get(DB_KEYS.PRODUCTS), categories: DB.get(DB_KEYS.CATEGORIES), settings: DB.getSettings() };
-      const file = new File([JSON.stringify(fullBackup, null, 2)], `MehrPakhsh_Backup_${Date.now()}.json`, { type: 'application/json' });
-      if (navigator.canShare && navigator.canShare({ files: [file] })) { navigator.share({ files: [file], title: 'فایل پشتیبان انبار' }).catch(()=>{}); } else { downloadBackupFileDirectly(); }
+      try {
+        const fullBackup = { app: 'MEHR_PAK_KOUHIJ', backupDate: new Date().toISOString(), products: DB.get(DB_KEYS.PRODUCTS), categories: DB.get(DB_KEYS.CATEGORIES), settings: DB.getSettings() };
+        const file = new File([JSON.stringify(fullBackup, null, 2)], `MehrPakhsh_Backup_${Date.now()}.json`, { type: 'application/json' });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            navigator.share({ files: [file], title: 'فایل پشتیبان انبار' }).catch(()=>{});
+        } else {
+            downloadBackupFileDirectly();
+        }
+      } catch (err) {
+        downloadBackupFileDirectly();
+      }
     }
 
     function importFullBackup(e) {
@@ -882,7 +899,7 @@
             alert('فایل پشتیبان نامعتبر است.'); 
         }
       }; 
-      reader.readAsText(file); 
+      reader.readAsText(file, 'UTF-8'); 
       e.target.value = ''; 
     }
 
