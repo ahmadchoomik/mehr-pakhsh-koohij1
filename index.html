@@ -846,6 +846,28 @@
     }
 
     let lastDelivery = null;
+    function isNativeApp() { return !!(window.Capacitor && typeof Capacitor.isNativePlatform === 'function' && Capacitor.isNativePlatform()); }
+    function blobToBase64(blob) {
+      return new Promise(function (res, rej) {
+        const r = new FileReader();
+        r.onload = function () { res(String(r.result).split(',')[1]); };
+        r.onerror = function () { rej(new Error('خواندن فایل ناموفق بود')); };
+        r.readAsDataURL(blob);
+      });
+    }
+    async function nativeShareFile() {
+      try {
+        const P = window.Capacitor.Plugins;
+        if (!P.Filesystem || !P.Share) throw new Error('افزونه ارسال فایل در برنامه نصب نشده است');
+        const data = await blobToBase64(lastDelivery.blob);
+        await P.Filesystem.writeFile({ path: lastDelivery.fileName, data: data, directory: 'CACHE' });
+        const uri = await P.Filesystem.getUri({ path: lastDelivery.fileName, directory: 'CACHE' });
+        await P.Share.share({ title: lastDelivery.fileName, dialogTitle: 'ارسال یا ذخیره فایل', url: uri.uri });
+      } catch (e) {
+        const msg = String(e && e.message ? e.message : e);
+        if (!/cancel/i.test(msg)) alert('خطا در ارسال فایل: ' + msg);
+      }
+    }
     function deliverFile(blob, fileName, mime) {
       if (lastDelivery && lastDelivery.url) { try { URL.revokeObjectURL(lastDelivery.url); } catch (e) {} }
       const url = URL.createObjectURL(blob);
@@ -853,9 +875,11 @@
       document.getElementById('fileReadyName').innerText = fileName;
       const a = document.getElementById('fileReadyLink'); a.href = url; a.download = fileName;
       document.getElementById('fileReadyModal').classList.add('active');
+      if (isNativeApp()) { a.style.display = 'none'; nativeShareFile(); }
     }
     function shareReadyFile() {
       if (!lastDelivery) return;
+      if (isNativeApp()) { nativeShareFile(); return; }
       const types = lastDelivery.mime === 'application/pdf' ? ['application/pdf'] : [lastDelivery.mime, 'text/plain'];
       for (let i = 0; i < types.length; i++) {
         const f = new File([lastDelivery.blob], lastDelivery.fileName, { type: types[i] });
@@ -866,7 +890,11 @@
       }
       alert('این دستگاه ارسال مستقیم فایل را پشتیبانی نمی‌کند. از «ذخیره فایل» یا «باز کردن» استفاده کنید.');
     }
-    function openReadyFile() { if (lastDelivery) window.open(lastDelivery.url, '_blank'); }
+    function openReadyFile() {
+      if (!lastDelivery) return;
+      if (isNativeApp()) { nativeShareFile(); return; }
+      window.open(lastDelivery.url, '_blank');
+    }
 
     function generateAndOpenRealPdf(isShareAction) {
       if (!preparePrintableContent()) return;
