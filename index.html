@@ -126,7 +126,6 @@
     .export-tab-btn { flex: 1; padding: 9px; border-radius: 8px; border: 1px solid var(--border); background: #fff; font-weight: 700; font-size: 12px; cursor: pointer; text-align: center; color: var(--text-muted); }
     .export-tab-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
 
-    /* استایل اختصاصی خروجی PDF */
     #pdf-printable-area { display: none; width: 794px; background: #ffffff; font-family: Tahoma, Arial, sans-serif !important; direction: rtl !important; }
     #pdf-printable-area * { font-family: inherit !important; letter-spacing: 0px !important; }
     .pdf-frame-page { width: 794px; height: 1122px; box-sizing: border-box; page-break-after: always; position: relative; overflow: hidden; }
@@ -135,16 +134,14 @@
 </head>
 <body>
 
-  <!-- صفحه خوش‌آمدگویی -->
   <div id="splash-screen">
     <div class="splash-logo-box">📦</div>
     <div class="splash-title">مهر پخش کوهیج</div>
     <div class="splash-subtitle">سامانه جامع مدیریت انبار و پایش انقضا</div>
-    <div class="splash-creator">توسعه‌‌دهنده: احمد چومیک</div>
+    <div class="splash-creator">توسعه‌دهنده: احمد چومیک</div>
   </div>
 
   <main>
-    <!-- ۱. داشبورد -->
     <section id="view-dashboard" class="view-section active">
       <div class="hero-banner">
         <div class="hero-header">
@@ -188,7 +185,6 @@
       </div>
     </section>
 
-    <!-- ۲. کالاها -->
     <section id="view-products" class="view-section">
       <div class="card">
         <div class="card-header"><div class="card-title">فهرست کالاها</div><button class="btn btn-primary btn-sm" onclick="openProductModal()">+ افزودن کالای جدید</button></div>
@@ -200,7 +196,6 @@
             <select id="prodCategoryFilter" class="form-control" onchange="renderProductList()"><option value="">همه دسته‌ها</option></select>
           </div>
           <div class="form-group" style="flex: 1;">
-            <!-- فیلترهای حذف شده برگردانده شدند -->
             <select id="prodStatusFilter" class="form-control" onchange="renderProductList()">
               <option value="">همه وضعیت‌ها</option>
               <option value="available">موجود</option>
@@ -215,7 +210,6 @@
       </div>
     </section>
 
-    <!-- ۳. دسته‌بندی‌ها -->
     <section id="view-categories" class="view-section">
       <div class="card">
         <div class="card-header"><div class="card-title">دسته‌‌بندی‌های کالا</div><button class="btn btn-primary btn-sm" onclick="openCategoryModal()">+ دسته‌بندی جدید</button></div>
@@ -223,7 +217,6 @@
       </div>
     </section>
 
-    <!-- ۴. صدور اسناد -->
     <section id="view-export" class="view-section">
       <div class="card">
         <div class="card-header"><div class="card-title">صدور اسناد، کاتالوگ و خروجی</div></div>
@@ -239,12 +232,13 @@
           </div>
         </div>
         <div id="catalogOptionsBox" class="form-group">
-          <label><b>تنظیمات کاتالوگ:</b></label>
+          <label><b>تنظیمات خروجی:</b></label>
           <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 11.5px; margin-top: 4px;">
             <label><input type="checkbox" id="pdfOptHideUnavailable" checked> حذف خودکار ناموجودها</label>
             <label><input type="checkbox" id="pdfOptShowImage" checked> نمایش عکس کالا</label>
             <label><input type="checkbox" id="pdfOptShowPrice" checked> نمایش قیمت</label>
-            <label><input type="checkbox" id="pdfOptShowCompany" checked> نمایش تولیدکننده</label>
+            <label><input type="checkbox" id="pdfOptShowCompany" checked> نمایش برند تولیدکننده</label>
+            <label><input type="checkbox" id="pdfOptShowExpiry" checked> نمایش تاریخ انقضا</label>
           </div>
         </div>
         <div class="form-row">
@@ -273,7 +267,6 @@
       </div>
     </section>
 
-    <!-- ۵. تنظیمات -->
     <section id="view-settings" class="view-section">
       <div class="card">
         <div class="card-header"><div class="card-title">مشخصات شرکت و لوگو</div></div>
@@ -370,7 +363,6 @@
   <div id="pdf-printable-area"></div>
 
   <script>
-    // بستن Splash Screen
     window.addEventListener('load', function() {
       setTimeout(() => {
         const splash = document.getElementById('splash-screen');
@@ -523,13 +515,9 @@
       const file = e.target.files[0]; if (!file) return; const reader = new FileReader();
       reader.onload = function(evt) {
         const img = new Image(); img.onload = function() {
-          const canvas = document.createElement('canvas'); 
-          // افزایش رزولوشن برای حفظ کیفیت عکس در خروجی (ارتقا از 450 به 800)
-          const maxDim = 800; 
-          let w = img.width, h = img.height;
+          const canvas = document.createElement('canvas'); const maxDim = 800; let w = img.width, h = img.height;
           if (w > h && w > maxDim) { h = Math.round((h * maxDim) / w); w = maxDim; } else if (h > maxDim) { w = Math.round((w * maxDim) / h); h = maxDim; }
           canvas.width = w; canvas.height = h; canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-          // افزایش پارامتر کیفیت فشرده‌سازی از 0.55 به 0.90 برای جلوگیری از تاری عکس
           const b64 = canvas.toDataURL('image/jpeg', 0.90); 
           document.getElementById('pmImageBase64').value = b64; document.getElementById('pmImagePreview').innerHTML = `<img src="${b64}" style="max-height:85px; border-radius:6px;">`;
         }; img.src = evt.target.result;
@@ -602,7 +590,12 @@
       currentExportMode = mode; document.querySelectorAll('.export-tab-btn').forEach(b => b.classList.remove('active'));
       const tabId = mode === 'catalog' ? 'tabModeCatalog' : (mode === 'invoice' ? 'tabModeInvoice' : 'tabModeExpiry');
       if (document.getElementById(tabId)) document.getElementById(tabId).classList.add('active');
-      document.getElementById('invoiceCustomerBox').style.display = mode === 'invoice' ? 'block' : 'none'; document.getElementById('catalogOptionsBox').style.display = mode === 'catalog' ? 'block' : 'none'; document.getElementById('invoiceTotalPreview').style.display = mode === 'invoice' ? 'block' : 'none'; renderExportSection();
+      
+      document.getElementById('invoiceCustomerBox').style.display = mode === 'invoice' ? 'block' : 'none'; 
+      // اعمال نمایش باکس تنظیمات کاتالوگ برای هر دو حالت کاتالوگ و ترخیص انقضا
+      document.getElementById('catalogOptionsBox').style.display = (mode === 'catalog' || mode === 'expiry') ? 'block' : 'none'; 
+      document.getElementById('invoiceTotalPreview').style.display = mode === 'invoice' ? 'block' : 'none'; 
+      renderExportSection();
     }
 
     function renderExportSection() {
@@ -640,6 +633,8 @@
       if (currentExportMode === 'catalog' || currentExportMode === 'expiry') {
         const showImage = document.getElementById('pdfOptShowImage') ? document.getElementById('pdfOptShowImage').checked : true;
         const showPrice = document.getElementById('pdfOptShowPrice') ? document.getElementById('pdfOptShowPrice').checked : true;
+        const showCompany = document.getElementById('pdfOptShowCompany') ? document.getElementById('pdfOptShowCompany').checked : true;
+        const showExpiry = document.getElementById('pdfOptShowExpiry') ? document.getElementById('pdfOptShowExpiry').checked : true;
 
         const coverHtml = `
           <div class="pdf-frame-page" style="padding:0; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);">
@@ -683,7 +678,7 @@
                 <div style="${currentExportMode === 'expiry' ? 'background: linear-gradient(90deg, #991b1b 0%, #dc2626 100%);' : 'background: linear-gradient(90deg, #1e3a8a 0%, #3b82f6 100%);'} color: white; padding: 18px 30px; display: flex; justify-content: space-between; align-items: center; font-size: 18px; font-weight: bold;">
                   <div style="display:flex; align-items:center; gap: 18px;">
                     <span style="background: #fbbf24; color: #1e3a8a; padding: 6px 20px; border-radius: 12px; font-weight: 900; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">${catMap[p.categoryId] || 'عمومی'}</span>
-                    <span style="font-size: 18px; text-shadow: 0 1px 3px rgba(0,0,0,0.3);">برند: ${p.company}</span>
+                    <span style="font-size: 18px; text-shadow: 0 1px 3px rgba(0,0,0,0.3);">${showCompany && p.company ? `برند: ${p.company}` : ''}</span>
                   </div>
                   <div style="background: rgba(255,255,255,0.25); padding: 6px 18px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.4);">صفحه ${currentPageIdx} از ${totalSelected}</div>
                 </div>
@@ -697,7 +692,7 @@
                     <div style="flex: 1; padding-left: 20px;">
                       <div style="font-size: 34px; font-weight: 900; color: #0f172a; margin-bottom: 15px; line-height: 1.3;">${p.name}</div>
                       <div style="display: flex; gap: 15px; font-size: 18px; font-weight: 800;">
-                        <span style="background: #ffffff; padding: 8px 16px; border-radius: 10px; border: 1px solid #cbd5e1; color: #475569; box-shadow: 0 2px 6px rgba(0,0,0,0.02);">انقضا: <span style="color: #1e3a8a;">${p.expiry.jy}/${p.expiry.jm}/${p.expiry.jd}</span></span>
+                        ${showExpiry ? `<span style="background: #ffffff; padding: 8px 16px; border-radius: 10px; border: 1px solid #cbd5e1; color: #475569; box-shadow: 0 2px 6px rgba(0,0,0,0.02);">انقضا: <span style="color: #1e3a8a;">${p.expiry.jy}/${p.expiry.jm}/${p.expiry.jd}</span></span>` : ''}
                         <span style="background: ${p.status === 'available' ? '#dcfce7' : '#fee2e2'}; color: ${p.status === 'available' ? '#16a34a' : '#dc2626'}; padding: 8px 16px; border-radius: 10px; border: 1px solid ${p.status === 'available' ? '#bbf7d0' : '#fecaca'};">${p.status === 'available' ? '✅ موجود' : '❌ ناموجود'}</span>
                       </div>
                       ${p.description ? `<div style="margin-top: 18px; font-size: 18px; color: #475569; font-weight: 700; line-height: 1.6;">${p.description}</div>` : ''}
@@ -852,8 +847,27 @@
 
     function downloadBackupFileDirectly() {
       const fullBackup = { app: 'MEHR_PAK_KOUHIJ', backupDate: new Date().toISOString(), products: DB.get(DB_KEYS.PRODUCTS), categories: DB.get(DB_KEYS.CATEGORIES), settings: DB.getSettings() };
-      const blob = new Blob([JSON.stringify(fullBackup, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = `MehrPakhsh_Backup_${Date.now()}.json`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+      const jsonStr = JSON.stringify(fullBackup, null, 2);
+      const fileName = `MehrPakhsh_Backup_${Date.now()}.json`;
+
+      if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.Filesystem) {
+         const Cap = window.Capacitor;
+         Cap.Plugins.Filesystem.writeFile({
+           path: fileName,
+           data: jsonStr,
+           directory: 'DOCUMENTS',
+           encoding: 'utf8'
+         }).then(res => {
+           alert('فایل پشتیبان در پوشه اسناد (Documents) دستگاه شما ذخیره شد.');
+         }).catch(err => {
+           triggerNativeShareBackup();
+         });
+      } else {
+         const blob = new Blob([jsonStr], { type: 'application/json' });
+         const url = URL.createObjectURL(blob);
+         const a = document.createElement('a'); a.href = url; a.download = fileName;
+         document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+      }
     }
 
     function triggerNativeShareBackup() {
