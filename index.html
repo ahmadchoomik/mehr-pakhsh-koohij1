@@ -592,7 +592,6 @@
       if (document.getElementById(tabId)) document.getElementById(tabId).classList.add('active');
       
       document.getElementById('invoiceCustomerBox').style.display = mode === 'invoice' ? 'block' : 'none'; 
-      // اعمال نمایش باکس تنظیمات کاتالوگ برای هر دو حالت کاتالوگ و ترخیص انقضا
       document.getElementById('catalogOptionsBox').style.display = (mode === 'catalog' || mode === 'expiry') ? 'block' : 'none'; 
       document.getElementById('invoiceTotalPreview').style.display = mode === 'invoice' ? 'block' : 'none'; 
       renderExportSection();
@@ -845,29 +844,18 @@
       }, 500);
     }
 
+    // متد اصلاح شده برای دانلود مستقیم فایل از طریق مرورگر/گوشی
     function downloadBackupFileDirectly() {
       const fullBackup = { app: 'MEHR_PAK_KOUHIJ', backupDate: new Date().toISOString(), products: DB.get(DB_KEYS.PRODUCTS), categories: DB.get(DB_KEYS.CATEGORIES), settings: DB.getSettings() };
-      const jsonStr = JSON.stringify(fullBackup, null, 2);
-      const fileName = `MehrPakhsh_Backup_${Date.now()}.json`;
-
-      if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.Filesystem) {
-         const Cap = window.Capacitor;
-         Cap.Plugins.Filesystem.writeFile({
-           path: fileName,
-           data: jsonStr,
-           directory: 'DOCUMENTS',
-           encoding: 'utf8'
-         }).then(res => {
-           alert('فایل پشتیبان در پوشه اسناد (Documents) دستگاه شما ذخیره شد.');
-         }).catch(err => {
-           triggerNativeShareBackup();
-         });
-      } else {
-         const blob = new Blob([jsonStr], { type: 'application/json' });
-         const url = URL.createObjectURL(blob);
-         const a = document.createElement('a'); a.href = url; a.download = fileName;
-         document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
-      }
+      const blob = new Blob([JSON.stringify(fullBackup, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob); 
+      const a = document.createElement('a'); 
+      a.href = url; 
+      a.download = `MehrPakhsh_Backup_${Date.now()}.json`; 
+      document.body.appendChild(a); 
+      a.click(); 
+      document.body.removeChild(a); 
+      URL.revokeObjectURL(url);
     }
 
     function triggerNativeShareBackup() {
