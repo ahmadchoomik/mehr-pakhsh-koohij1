@@ -132,6 +132,8 @@
     .pdf-frame-page:last-child { page-break-after: auto; }
       .financial-title { font-size: 11.5px; color: #cbd5e1; }
     .financial-value { font-size: 18px; font-weight: 800; margin-top: 2px; }
+      .pdf-frame-page { font-family: Tahoma, Arial, sans-serif !important; direction: rtl !important; }
+    .pdf-frame-page * { font-family: inherit !important; letter-spacing: 0px !important; }
   </style>
 </head>
 <body>
@@ -369,16 +371,30 @@
     </div>
   </div>
 
+  <div id="fileReadyModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header"><h3>✅ فایل آماده است</h3><button class="modal-close" onclick="closeModal('fileReadyModal')">&times;</button></div>
+      <p id="fileReadyName" style="direction:ltr; text-align:center; font-size:12px; color:var(--text-muted); margin-bottom:12px; word-break:break-all;"></p>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <button type="button" class="btn btn-warning btn-block" onclick="shareReadyFile()">📤 ارسال / ذخیره (اشتراک‌گذاری)</button>
+        <a id="fileReadyLink" class="btn btn-primary btn-block" style="text-decoration:none;">📥 ذخیره فایل در گوشی</a>
+        <button type="button" class="btn btn-secondary btn-block" onclick="openReadyFile()">👁 باز کردن</button>
+      </div>
+    </div>
+  </div>
+
   <div id="pdf-printable-area"></div>
 
   <script>
-    window.addEventListener('load', function() {
+    document.addEventListener('DOMContentLoaded', function() {
       setTimeout(() => {
         const splash = document.getElementById('splash-screen');
         if (splash) { splash.style.opacity = '0'; setTimeout(() => splash.remove(), 500); }
       }, 3000);
     });
 
+    let __errShown = false;
+    window.addEventListener('error', function (ev) { if (__errShown) return; __errShown = true; alert('خطا: ' + ev.message + ' (خط ' + ev.lineno + ')'); });
     const Jalali = (function () {
       const BREAKS = [-61, 9, 38, 199, 426, 686, 756, 818, 1111, 1181, 1210, 1635, 2060, 2097, 2192, 2262, 2324, 2394, 2456, 3178];
       const div = (a, b) => ~~(a / b);
@@ -829,115 +845,73 @@
       return true;
     }
 
+    let lastDelivery = null;
+    function deliverFile(blob, fileName, mime) {
+      if (lastDelivery && lastDelivery.url) { try { URL.revokeObjectURL(lastDelivery.url); } catch (e) {} }
+      const url = URL.createObjectURL(blob);
+      lastDelivery = { blob: blob, fileName: fileName, mime: mime, url: url };
+      document.getElementById('fileReadyName').innerText = fileName;
+      const a = document.getElementById('fileReadyLink'); a.href = url; a.download = fileName;
+      document.getElementById('fileReadyModal').classList.add('active');
+    }
+    function shareReadyFile() {
+      if (!lastDelivery) return;
+      const types = lastDelivery.mime === 'application/pdf' ? ['application/pdf'] : [lastDelivery.mime, 'text/plain'];
+      for (let i = 0; i < types.length; i++) {
+        const f = new File([lastDelivery.blob], lastDelivery.fileName, { type: types[i] });
+        if (navigator.canShare && navigator.canShare({ files: [f] })) {
+          navigator.share({ files: [f], title: lastDelivery.fileName }).catch(function (e) { if (e && e.name !== 'AbortError') alert('اشتراک‌گذاری ممکن نشد. از دکمه «ذخیره فایل» استفاده کنید.'); });
+          return;
+        }
+      }
+      alert('این دستگاه ارسال مستقیم فایل را پشتیبانی نمی‌کند. از «ذخیره فایل» یا «باز کردن» استفاده کنید.');
+    }
+    function openReadyFile() { if (lastDelivery) window.open(lastDelivery.url, '_blank'); }
+
     function generateAndOpenRealPdf(isShareAction) {
       if (!preparePrintableContent()) return;
-
       const btn = isShareAction ? document.getElementById('btnShareMessenger') : document.getElementById('btnDownloadPdf');
       const originalText = btn.innerHTML;
-      btn.innerHTML = '⏳ در حال ساخت...';
-      btn.disabled = true;
-
+      btn.innerHTML = '⏳ در حال ساخت...'; btn.disabled = true;
       const element = document.getElementById('pdf-printable-area');
-      element.style.display = 'block'; element.style.position = 'absolute'; element.style.top = '-9999px';
-
-      const fileName = currentExportMode === 'catalog' ? `MehrPakhsh_Catalog_${Date.now()}.pdf` : (currentExportMode === 'expiry' ? `MehrPakhsh_ExpiryList_${Date.now()}.pdf` : `MehrPakhsh_Invoice_${Date.now()}.pdf`);
-
-      const opt = {
-        margin: 0,
-        filename: fileName,
-        image: { type: 'jpeg', quality: 0.90 },
-        html2canvas: { scale: 1.6, useCORS: true, letterRendering: false },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-      };
-
-      if (!window.html2pdf) { 
-        alert('کتابخانه PDF بارگذاری نشده است.'); 
-        element.style.display = 'none'; btn.innerHTML = originalText; btn.disabled = false; return; 
+      const restore = function () { element.style.display = 'none'; element.style.position = ''; element.style.top = ''; btn.innerHTML = originalText; btn.disabled = false; };
+      if (!window.html2pdf) {
+        if (window.__h2pTried) { restore(); alert('کتابخانه PDF بارگذاری نشد. فایل html2pdf.bundle.min.js را کنار index.html در گیت‌هاب قرار دهید.'); return; }
+        window.__h2pTried = true;
+        const s = document.createElement('script');
+        s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+        s.onload = function () { restore(); generateAndOpenRealPdf(isShareAction); };
+        s.onerror = function () { restore(); alert('کتابخانه PDF بارگذاری نشد. اینترنت را بررسی کنید یا فایل html2pdf.bundle.min.js را کنار index.html قرار دهید.'); };
+        document.head.appendChild(s); return;
       }
-
-      setTimeout(() => {
+      element.style.display = 'block'; element.style.position = 'absolute'; element.style.top = '-9999px';
+      const fileName = 'MehrPakhsh_' + (currentExportMode === 'catalog' ? 'Catalog' : (currentExportMode === 'expiry' ? 'ExpiryList' : 'Invoice')) + '_' + Date.now() + '.pdf';
+      const opt = { margin: 0, filename: fileName, image: { type: 'jpeg', quality: 0.88 }, html2canvas: { scale: 1.4, useCORS: true, letterRendering: false }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } };
+      setTimeout(function () {
         try {
-          const pages = Array.from(document.querySelectorAll('.pdf-frame-page'));
+          const pages = Array.from(element.querySelectorAll('.pdf-frame-page'));
+          if (!pages.length) throw new Error('صفحه‌ای برای ساخت وجود ندارد');
           let worker = html2pdf().set(opt).from(pages[0]).toPdf();
-          for (let i = 1; i < pages.length; i++) { 
-            worker = worker.get('pdf').then(pdf => pdf.addPage()).from(pages[i]).toContainer().toCanvas().toPdf(); 
+          for (let i = 1; i < pages.length; i++) {
+            worker = worker.get('pdf').then(function (pdf) { return pdf.addPage(); }).from(pages[i]).toContainer().toCanvas().toPdf();
           }
-
-          worker.outputPdf('blob').then(async function(blob) {
-            element.style.display = 'none'; element.style.position = ''; btn.innerHTML = originalText; btn.disabled = false;
-            
-            try { 
-              if (isShareAction) {
-                const file = new File([blob], fileName, { type: 'application/pdf' }); 
-                if (navigator.canShare && navigator.canShare({ files: [file] })) { 
-                  navigator.share({ files: [file] }).catch(() => {}); 
-                  return; 
-                }
-              }
-            } catch(e) {}
-            
-            const url = window.URL.createObjectURL(blob); 
-            const a = document.createElement('a'); 
-            a.style.display = 'none';
-            a.href = url; 
-            a.download = fileName; 
-            document.body.appendChild(a); 
-            a.click(); 
-            setTimeout(() => {
-              document.body.removeChild(a);
-              window.URL.revokeObjectURL(url);
-            }, 100);
-          }).catch(function(err) { 
-            element.style.display = 'none'; element.style.position = ''; btn.innerHTML = originalText; btn.disabled = false; alert('خطا در تولید فایل: ' + err.message); 
-          });
-        } catch(e) {
-          element.style.display = 'none'; element.style.position = ''; btn.innerHTML = originalText; btn.disabled = false; alert('خطای غیرمنتظره در ساخت PDF: ' + e.message); 
-        }
-      }, 500);
+          worker.outputPdf('blob').then(function (blob) { restore(); deliverFile(blob, fileName, 'application/pdf'); })
+            .catch(function (err) { restore(); alert('خطا در تولید فایل: ' + (err && err.message ? err.message : err)); });
+        } catch (e) { restore(); alert('خطای غیرمنتظره در ساخت PDF: ' + e.message); }
+      }, 400);
     }
 
+    function buildBackupJson() {
+      return JSON.stringify({ app: 'MEHR_PAK_KOUHIJ', backupDate: new Date().toISOString(), products: DB.get(DB_KEYS.PRODUCTS), categories: DB.get(DB_KEYS.CATEGORIES), settings: DB.getSettings() }, null, 2);
+    }
     function downloadBackupFileDirectly() {
       try {
-        const fullBackup = { app: 'MEHR_PAK_KOUHIJ', backupDate: new Date().toISOString(), products: DB.get(DB_KEYS.PRODUCTS), categories: DB.get(DB_KEYS.CATEGORIES), settings: DB.getSettings() };
-        const blob = new Blob([JSON.stringify(fullBackup, null, 2)], { type: 'application/json' });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.style.display = 'none';
-        a.href = url;
-        a.download = `MehrPakhsh_Backup_${Date.now()}.json`;
-        document.body.appendChild(a);
-        a.click();
-        setTimeout(() => {
-          document.body.removeChild(a);
-          window.URL.revokeObjectURL(url);
-        }, 100);
-      } catch (err) {
-        alert('خطا در دانلود فایل: ' + err.message);
-      }
+        const blob = new Blob([buildBackupJson()], { type: 'application/json' });
+        closeModal('backupCenterModal');
+        deliverFile(blob, 'MehrPakhsh_Backup_' + Date.now() + '.json', 'application/json');
+      } catch (err) { alert('خطا در ساخت فایل: ' + err.message); }
     }
-
-    function triggerNativeShareBackup() {
-      try {
-        const fullBackup = { app: 'MEHR_PAK_KOUHIJ', backupDate: new Date().toISOString(), products: DB.get(DB_KEYS.PRODUCTS), categories: DB.get(DB_KEYS.CATEGORIES), settings: DB.getSettings() };
-        const jsonStr = JSON.stringify(fullBackup, null, 2);
-        
-        try {
-          const file = new File([jsonStr], `MehrPakhsh_Backup_${Date.now()}.json`, { type: 'application/json' });
-          if (navigator.canShare && navigator.canShare({ files: [file] })) {
-              navigator.share({ files: [file], title: 'فایل پشتیبان انبار' }).catch(()=>{});
-              return;
-          }
-        } catch (err) {}
-        
-        if (navigator.share) {
-            navigator.share({ title: 'پشتیبان انبار مهر پخش', text: jsonStr }).catch(()=>{ downloadBackupFileDirectly(); });
-        } else {
-            downloadBackupFileDirectly();
-        }
-      } catch (err) {
-        downloadBackupFileDirectly();
-      }
-    }
+    function triggerNativeShareBackup() { downloadBackupFileDirectly(); }
 
     function copyBackupToClipboard() {
       const fullBackup = { app: 'MEHR_PAK_KOUHIJ', backupDate: new Date().toISOString(), products: DB.get(DB_KEYS.PRODUCTS), categories: DB.get(DB_KEYS.CATEGORIES), settings: DB.getSettings() };
