@@ -126,6 +126,7 @@
     .export-tab-btn { flex: 1; padding: 9px; border-radius: 8px; border: 1px solid var(--border); background: #fff; font-weight: 700; font-size: 12px; cursor: pointer; text-align: center; color: var(--text-muted); }
     .export-tab-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
 
+    /* استایل اختصاصی خروجی PDF (مخفی در اپ، فقط برای رندر) */
     #pdf-printable-area { display: none; width: 794px; background: #ffffff; font-family: Tahoma, Arial, sans-serif !important; direction: rtl !important; }
     #pdf-printable-area * { font-family: inherit !important; letter-spacing: 0px !important; }
     .pdf-frame-page { width: 794px; height: 1122px; box-sizing: border-box; page-break-after: always; position: relative; overflow: hidden; }
@@ -180,8 +181,7 @@
           <button class="btn btn-primary" onclick="openProductModal()">➕ افزودن کالا</button>
           <button class="btn btn-warning" onclick="navigateTo('view-export')">🚨 لیست ترخیص انقضا</button>
           <button class="btn btn-secondary" onclick="navigateTo('view-categories')">📂 دسته‌بندی‌ها</button>
-          <!-- اصلاح شد -->
-          <button class="btn btn-success" onclick="generateMKPFile()">💾 پشتیبان‌گیری</button>
+          <button class="btn btn-success" onclick="openBackupCenterModal()">💾 پشتیبان‌گیری</button>
         </div>
       </div>
     </section>
@@ -190,23 +190,9 @@
       <div class="card">
         <div class="card-header"><div class="card-title">فهرست کالاها</div><button class="btn btn-primary btn-sm" onclick="openProductModal()">+ افزودن کالای جدید</button></div>
         <div class="form-row" style="margin-bottom: 10px;">
-          <div class="form-group" style="flex: 2;">
-            <input type="text" id="prodSearchInput" class="form-control" placeholder="جستجوی نام، برند..." oninput="renderProductList()">
-          </div>
-          <div class="form-group" style="flex: 1.2;">
-            <select id="prodCategoryFilter" class="form-control" onchange="renderProductList()"><option value="">همه دسته‌ها</option></select>
-          </div>
-          <div class="form-group" style="flex: 1;">
-            <select id="prodStatusFilter" class="form-control" onchange="renderProductList()">
-              <option value="">همه وضعیت‌ها</option>
-              <option value="available">موجود</option>
-              <option value="unavailable">ناموجود</option>
-              <option value="safe">ایمن</option>
-              <option value="near">نزدیک به انقضا</option>
-              <option value="very_near">خیلی نزدیک</option>
-              <option value="expired">منقضی شده</option>
-            </select>
-          </div>
+          <div class="form-group" style="flex: 2;"><input type="text" id="prodSearchInput" class="form-control" placeholder="جستجوی نام، برند..." oninput="renderProductList()"></div>
+          <div class="form-group" style="flex: 1.2;"><select id="prodCategoryFilter" class="form-control" onchange="renderProductList()"><option value="">همه دسته‌ها</option></select></div>
+          <div class="form-group" style="flex: 1;"><select id="prodStatusFilter" class="form-control" onchange="renderProductList()"><option value="">همه وضعیت‌ها</option><option value="available">موجود</option><option value="unavailable">ناموجود</option><option value="expired">منقضی شده</option></select></div>
         </div>
         <div id="productsListContainer"></div>
       </div>
@@ -233,18 +219,15 @@
             <div class="form-group"><label>شماره تماس خریدار</label><input type="text" id="invCustomerPhone" class="form-control" placeholder="۰۹۱۲..."></div>
           </div>
         </div>
-        
         <div id="catalogOptionsBox" class="form-group">
-          <label><b>تنظیمات خروجی PDF:</b></label>
+          <label><b>تنظیمات کاتالوگ:</b></label>
           <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 11.5px; margin-top: 4px;">
             <label><input type="checkbox" id="pdfOptHideUnavailable" checked> حذف خودکار ناموجودها</label>
             <label><input type="checkbox" id="pdfOptShowImage" checked> نمایش عکس کالا</label>
             <label><input type="checkbox" id="pdfOptShowPrice" checked> نمایش قیمت</label>
-            <label><input type="checkbox" id="pdfOptShowCompany" checked> نمایش برند تولیدکننده</label>
-            <label><input type="checkbox" id="pdfOptShowExpiry" checked> نمایش تاریخ انقضا</label>
+            <label><input type="checkbox" id="pdfOptShowCompany" checked> نمایش تولیدکننده</label>
           </div>
         </div>
-        
         <div class="form-row">
           <div class="form-group"><label>متن بالای سند</label><input type="text" id="pdfCustomHeaderNote" class="form-control" placeholder="مثال: لیست کاتالوگ"></div>
           <div class="form-group"><label>متن پایین سند</label><input type="text" id="pdfCustomFooterNote" class="form-control" placeholder="مثال: تحویل سریع"></div>
@@ -261,18 +244,16 @@
             <button class="btn btn-primary" id="btnDownloadPdf" style="flex: 1;" onclick="generateAndOpenRealPdf(false)">📥 دانلود مستقیم PDF</button>
             <button class="btn btn-warning" id="btnShareMessenger" style="flex: 1;" onclick="generateAndOpenRealPdf(true)">📤 ارسال PDF</button>
           </div>
-          <!-- اصلاح شد -->
           <button class="btn btn-success btn-block" onclick="generateMKPFile()">📦 ساخت فایل پشتیبان JSON</button>
         </div>
       </div>
       <div class="card">
         <div class="card-header"><div class="card-title">بازخوانی فایل پشتیبان انبار</div></div>
-        <input type="file" id="mkpFileInput" accept=".json,application/json,.txt" style="display: none;" onchange="importMKPFile(event)">
+        <input type="file" id="mkpFileInput" accept=".json,.mkp" style="display: none;" onchange="importMKPFile(event)">
         <button class="btn btn-secondary btn-block" onclick="document.getElementById('mkpFileInput').click()">📂 انتخاب فایل پشتیبان و بارگذاری</button>
       </div>
     </section>
 
-    <!-- ۵. تنظیمات -->
     <section id="view-settings" class="view-section">
       <div class="card">
         <div class="card-header"><div class="card-title">مشخصات شرکت و لوگو</div></div>
@@ -299,7 +280,7 @@
     <button onclick="navigateTo('view-dashboard')" id="nav-view-dashboard" class="active"><svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>داشبورد</button>
     <button onclick="navigateTo('view-products')" id="nav-view-products"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-9 14l-4-4 1.4-1.4 2.6 2.6 6.6-6.6 1.4 1.4-8 8z"/></svg>کالاها</button>
     <button onclick="navigateTo('view-categories')" id="nav-view-categories"><svg viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>دسته‌ها</button>
-    <button onclick="navigateTo('view-export')" id="nav-view-export"><svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>اسناد/بکاپ</button>
+    <button onclick="navigateTo('view-export')" id="nav-view-export"><svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>اسناد/بکاپ</button>
     <button onclick="navigateTo('view-settings')" id="nav-view-settings"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>تنظیمات</button>
   </nav>
 
@@ -307,11 +288,8 @@
     <div class="modal-box">
       <div class="modal-header"><h3>💾 مرکز پشتیبان‌گیری انبار</h3><button class="modal-close" onclick="closeModal('backupCenterModal')">&times;</button></div>
       <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:12px;">
-        <button class="btn btn-primary btn-block" onclick="downloadBackupFileDirectly()">📥 دانلود مستقیم فایل (.json)</button>
-        <button class="btn btn-success btn-block" onclick="triggerNativeShareBackup()">📤 ارسال فایل به پیام‌رسان</button>
-        <div style="margin: 10px 0; border-top: 1px dashed var(--border);"></div>
-        <p style="font-size: 11px; color: var(--text-muted); text-align: center;">اگر دانلود با خطا مواجه شد، با دکمه زیر اطلاعات را دستی کپی کنید:</p>
-        <button class="btn btn-secondary btn-block" style="border: 2px solid #94a3b8;" onclick="copyBackupToClipboard()">📋 کپی کل اطلاعات به صورت متن</button>
+        <button class="btn btn-primary btn-block" onclick="downloadBackupFileDirectly()">📥 دانلود مستقیم فایل پشتیبان (.json)</button>
+        <button class="btn btn-success btn-block" onclick="triggerNativeShareBackup()">📤 ارسال فایل پشتیبان به پیام‌رسان</button>
       </div>
     </div>
   </div>
@@ -360,10 +338,6 @@
       <form onsubmit="handleSaveCategory(event)">
         <input type="hidden" id="cmId">
         <div class="form-group"><label>نام دسته‌بندی *</label><input type="text" id="cmName" class="form-control" required></div>
-        <div class="form-group">
-          <label>اولویت نمایش در PDF (۱ = اولین دسته) *</label>
-          <input type="number" id="cmOrder" class="form-control" placeholder="مثلاً 1" required>
-        </div>
         <button type="submit" class="btn btn-primary btn-block">ذخیره دسته‌بندی</button>
       </form>
     </div>
@@ -375,34 +349,62 @@
     window.addEventListener('load', function() {
       setTimeout(() => {
         const splash = document.getElementById('splash-screen');
-        if (splash) { splash.style.opacity = '0'; setTimeout(() => splash.remove(), 500); }
+        if (splash) {
+          splash.style.opacity = '0';
+          setTimeout(() => splash.remove(), 500);
+        }
       }, 3000);
     });
 
     const Jalali = {
       gregorianToJalali: function(gy, gm, gd) {
         const g_d_m = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334]; 
-        let jy = (gy <= 1600) ? 0 : 979; gy -= (gy <= 1600) ? 621 : 1600; const gy2 = (gm > 2) ? (gy + 1) : gy;
+        let jy = (gy <= 1600) ? 0 : 979; 
+        gy -= (gy <= 1600) ? 621 : 1600; 
+        const gy2 = (gm > 2) ? (gy + 1) : gy;
         let days = (365 * gy) + Math.floor((gy2 + 3) / 4) - Math.floor((gy2 + 99) / 100) + Math.floor((gy2 + 399) / 400) - 80 + gd + g_d_m[gm - 1];
-        jy += 33 * Math.floor(days / 12053); days %= 12053; jy += 4 * Math.floor(days / 1461); days %= 1461; 
+        jy += 33 * Math.floor(days / 12053); 
+        days %= 12053; 
+        jy += 4 * Math.floor(days / 1461); 
+        days %= 1461; 
         if (days > 365) { jy += Math.floor((days - 1) / 365); days = (days - 1) % 365; }
-        let jm = (days < 186) ? 1 + Math.floor(days / 31) : 7 + Math.floor((days - 186) / 30); let jd = 1 + ((days < 186) ? (days % 31) : ((days - 186) % 30)); 
+        let jm = (days < 186) ? 1 + Math.floor(days / 31) : 7 + Math.floor((days - 186) / 30); 
+        let jd = 1 + ((days < 186) ? (days % 31) : ((days - 186) % 30)); 
         return { jy, jm, jd };
       },
       jalaliToGregorian: function(jy, jm, jd) {
-        let gy = (jy <= 979) ? 621 : 1600; jy -= (jy <= 979) ? 0 : 979; 
+        let gy = (jy <= 979) ? 621 : 1600; 
+        jy -= (jy <= 979) ? 0 : 979; 
         let days = (365 * jy) + (Math.floor(jy / 33) * 8) + Math.floor(((jy % 33) + 3) / 4) + 78 + jd + ((jm < 7) ? (jm - 1) * 31 : ((jm - 7) * 30) + 186);
-        gy += 400 * Math.floor(days / 146097); days %= 146097; 
+        gy += 400 * Math.floor(days / 146097); 
+        days %= 146097; 
         if (days > 36524) { days--; gy += 100 * Math.floor(days / 36524); days %= 36524; if (days >= 365) days++; }
-        gy += 4 * Math.floor(days / 1461); days %= 1461; if (days > 365) { gy += Math.floor((days - 1) / 365); days = (days - 1) % 365; }
+        gy += 4 * Math.floor(days / 1461); 
+        days %= 1461; 
+        if (days > 365) { gy += Math.floor((days - 1) / 365); days = (days - 1) % 365; }
         const sal_a = [0, 31, ((gy % 4 === 0 && gy % 100 !== 0) || (gy % 400 === 0)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-        let gm = 0; while (gm < 13 && days >= sal_a[gm]) { days -= sal_a[gm]; gm++; } 
+        let gm = 0; 
+        while (gm < 13 && days >= sal_a[gm]) { days -= sal_a[gm]; gm++; } 
         return new Date(gy, gm - 1, days + 1);
       },
-      today: function() { const d = new Date(); return this.gregorianToJalali(d.getFullYear(), d.getMonth() + 1, d.getDate()); },
-      diffDaysFromToday: function(jy, jm, jd) { const target = this.jalaliToGregorian(jy, jm, jd); const today = new Date(); today.setHours(0,0,0,0); return Math.round((target.getTime() - today.getTime()) / 86400000); },
-      isLeap: function(jy) { return (((((jy - 474) % 2820) + 474 + 38) * 682) % 2816) < 682; },
-      daysInMonth: function(jy, jm) { if (jm <= 6) return 31; if (jm <= 11) return 30; return this.isLeap(jy) ? 30 : 29; },
+      today: function() { 
+        const d = new Date(); 
+        return this.gregorianToJalali(d.getFullYear(), d.getMonth() + 1, d.getDate()); 
+      },
+      diffDaysFromToday: function(jy, jm, jd) { 
+        const target = this.jalaliToGregorian(jy, jm, jd); 
+        const today = new Date(); 
+        today.setHours(0,0,0,0); 
+        return Math.round((target.getTime() - today.getTime()) / 86400000); 
+      },
+      isLeap: function(jy) { 
+        return (((((jy - 474) % 2820) + 474 + 38) * 682) % 2816) < 682; 
+      },
+      daysInMonth: function(jy, jm) { 
+        if (jm <= 6) return 31; 
+        if (jm <= 11) return 30; 
+        return this.isLeap(jy) ? 30 : 29; 
+      },
       monthNames: ["فروردین","اردیبهشت","خرداد","تیر","مرداد","شهریور","مهر","آبان","آذر","دی","بهمن","اسفند"]
     };
 
@@ -416,7 +418,7 @@
 
     function initDatabase() {
       if (!localStorage.getItem(DB_KEYS.CATEGORIES)) {
-        DB.set(DB_KEYS.CATEGORIES, [{ id: 'cat_1', name: 'نوشیدنی‌ها', order: 1 }, { id: 'cat_2', name: 'تنقلات', order: 2 }, { id: 'cat_3', name: 'شوینده', order: 3 }]);
+        DB.set(DB_KEYS.CATEGORIES, [{ id: 'cat_1', name: 'نوشیدنی‌ها' }, { id: 'cat_2', name: 'تنقلات' }, { id: 'cat_3', name: 'شوینده' }]);
       }
       if (!localStorage.getItem(DB_KEYS.SETTINGS)) {
         DB.setSettings({ companyName: 'مهر پخش کوهیج', phone: '۰۹۱۲۳۴۵۶۷۸۹', address: 'استان هرمزگان، شهر کوهیج، مرکز پخش', logoBase64: '', nearDays: 30, veryNearDays: 20 });
@@ -438,49 +440,78 @@
 
     function renderDashboard() {
       try {
-        const products = DB.get(DB_KEYS.PRODUCTS); const categories = DB.get(DB_KEYS.CATEGORIES); const settings = DB.getSettings(); const todayJ = Jalali.today();
+        const products = DB.get(DB_KEYS.PRODUCTS); 
+        const categories = DB.get(DB_KEYS.CATEGORIES); 
+        const settings = DB.getSettings(); 
+        const todayJ = Jalali.today();
+        
         document.getElementById('dashCompName').innerText = settings.companyName || 'مهر پخش کوهیج'; 
         document.getElementById('dashLiveDate').innerText = `امروز: ${todayJ.jd} ${Jalali.monthNames[todayJ.jm - 1]} ${todayJ.jy}`;
         
-        const total = products.length; const available = products.filter(p => p.status === 'available').length;
-        let expired = 0, veryNear = 0, near = 0, safe = 0; let attentionItems = [];
+        const total = products.length; 
+        const available = products.filter(p => p.status === 'available').length;
+        
+        let expired = 0, veryNear = 0, near = 0, safe = 0; 
+        let attentionItems = [];
         
         products.forEach(p => {
           if (!p.expiry) p.expiry = { jy: todayJ.jy, jm: todayJ.jm, jd: todayJ.jd };
           const diff = Jalali.diffDaysFromToday(p.expiry.jy, p.expiry.jm, p.expiry.jd);
-          if (diff < 0) { expired++; attentionItems.push({ product: p, reason: 'منقضی شده', class: 'badge-expired' }); } 
-          else if (diff <= (settings.veryNearDays || 20)) { veryNear++; attentionItems.push({ product: p, reason: `${diff} روز`, class: 'badge-very-near' }); } 
-          else if (diff <= (settings.nearDays || 30)) { near++; attentionItems.push({ product: p, reason: `${diff} روز`, class: 'badge-near' }); } 
-          else { safe++; }
+          
+          if (diff < 0) { 
+            expired++; attentionItems.push({ product: p, reason: 'منقضی شده', class: 'badge-expired' }); 
+          } else if (diff <= (settings.veryNearDays || 20)) { 
+            veryNear++; attentionItems.push({ product: p, reason: `${diff} روز`, class: 'badge-very-near' }); 
+          } else if (diff <= (settings.nearDays || 30)) { 
+            near++; attentionItems.push({ product: p, reason: `${diff} روز`, class: 'badge-near' }); 
+          } else { 
+            safe++; 
+          }
         });
         
         document.getElementById('dashNearExpiryCount').innerText = (expired + veryNear + near) + ' قلم'; 
-        document.getElementById('dashTotalProducts').innerText = total; document.getElementById('dashAvailableProducts').innerText = available; 
-        document.getElementById('dashUnavailableProducts').innerText = total - available; document.getElementById('dashTotalCategories').innerText = categories.length; 
-        document.getElementById('dashExpiredCount').innerText = expired; document.getElementById('dashVeryNearCount').innerText = veryNear; 
-        document.getElementById('dashNearCount').innerText = near; document.getElementById('dashSafeCount').innerText = safe;
+        document.getElementById('dashTotalProducts').innerText = total; 
+        document.getElementById('dashAvailableProducts').innerText = available; 
+        document.getElementById('dashUnavailableProducts').innerText = total - available; 
+        document.getElementById('dashTotalCategories').innerText = categories.length; 
+        document.getElementById('dashExpiredCount').innerText = expired; 
+        document.getElementById('dashVeryNearCount').innerText = veryNear; 
+        document.getElementById('dashNearCount').innerText = near; 
+        document.getElementById('dashSafeCount').innerText = safe;
         
         const sum = total || 1; 
-        document.getElementById('barSafe').style.width = ((safe / sum) * 100) + '%'; document.getElementById('barNear').style.width = ((near / sum) * 100) + '%'; 
-        document.getElementById('barVeryNear').style.width = ((veryNear / sum) * 100) + '%'; document.getElementById('barExpired').style.width = ((expired / sum) * 100) + '%';
+        document.getElementById('barSafe').style.width = ((safe / sum) * 100) + '%'; 
+        document.getElementById('barNear').style.width = ((near / sum) * 100) + '%'; 
+        document.getElementById('barVeryNear').style.width = ((veryNear / sum) * 100) + '%'; 
+        document.getElementById('barExpired').style.width = ((expired / sum) * 100) + '%';
         
         const attCont = document.getElementById('dashAttentionContainer');
-        if (attentionItems.length === 0) { attCont.innerHTML = '<div style="color:#10b981; font-size:12px; padding:6px 0;">✅ تمام کالاهای موجود دارای تاریخ مصرف معتبر هستند.</div>'; } 
-        else { attCont.innerHTML = attentionItems.slice(0, 4).map(item => `<div class="attention-item"><div><b style="font-size:12.5px;">${item.product.name}</b><div style="font-size:10px; color:#64748b;">${item.product.company}</div></div><span class="badge ${item.class}">${item.reason}</span></div>`).join(''); }
-      } catch(e) { console.error("Dashboard Error: ", e); }
+        if (attentionItems.length === 0) {
+          attCont.innerHTML = '<div style="color:#10b981; font-size:12px; padding:6px 0;">✅ تمام کالاهای موجود دارای تاریخ مصرف معتبر هستند.</div>';
+        } else {
+          attCont.innerHTML = attentionItems.slice(0, 4).map(item => `<div class="attention-item"><div><b style="font-size:12.5px;">${item.product.name}</b><div style="font-size:10px; color:#64748b;">${item.product.company}</div></div><span class="badge ${item.class}">${item.reason}</span></div>`).join('');
+        }
+      } catch(e) {
+        console.error("Dashboard Error: ", e);
+      }
     }
 
-    function filterProductsByExpiry(type) { navigateTo('view-products'); document.getElementById('prodStatusFilter').value = type; renderProductList(); }
+    function filterProductsByExpiry(type) { 
+      navigateTo('view-products'); 
+      document.getElementById('prodStatusFilter').value = type; 
+      renderProductList(); 
+    }
 
     function populateCategoryFilters() {
-      const cats = DB.get(DB_KEYS.CATEGORIES).sort((a,b) => (a.order || 99) - (b.order || 99));
+      const cats = DB.get(DB_KEYS.CATEGORIES);
       document.getElementById('prodCategoryFilter').innerHTML = '<option value="">همه دسته‌ها</option>' + cats.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
       document.getElementById('pmCategory').innerHTML = '<option value="">-- انتخاب دسته‌بندی --</option>' + cats.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
     }
 
     function getExpiryStatus(p) {
       if (!p.expiry) p.expiry = Jalali.today();
-      const diff = Jalali.diffDaysFromToday(p.expiry.jy, p.expiry.jm, p.expiry.jd); const s = DB.getSettings();
+      const diff = Jalali.diffDaysFromToday(p.expiry.jy, p.expiry.jm, p.expiry.jd); 
+      const s = DB.getSettings();
       if (diff < 0) return { label: 'منقضی شده', class: 'badge-expired', code: 'expired' }; 
       if (diff <= (s.veryNearDays || 20)) return { label: `خیلی نزدیک`, class: 'badge-very-near', code: 'very_near' }; 
       if (diff <= (s.nearDays || 30)) return { label: `نزدیک`, class: 'badge-near', code: 'near' }; 
@@ -489,12 +520,16 @@
 
     function renderProductList() {
       const search = document.getElementById('prodSearchInput').value.trim().toLowerCase(); 
-      const catF = document.getElementById('prodCategoryFilter').value; const statF = document.getElementById('prodStatusFilter').value;
-      const cats = DB.get(DB_KEYS.CATEGORIES); const catMap = {}; cats.forEach(c => catMap[c.id] = c.name);
+      const catF = document.getElementById('prodCategoryFilter').value; 
+      const statF = document.getElementById('prodStatusFilter').value;
+      const cats = DB.get(DB_KEYS.CATEGORIES); 
+      const catMap = {}; 
+      cats.forEach(c => catMap[c.id] = c.name);
       
       let prods = DB.get(DB_KEYS.PRODUCTS).filter(p => {
         const matchesS = !search || p.name.toLowerCase().includes(search) || p.company.toLowerCase().includes(search); 
-        const matchesC = !catF || p.categoryId === catF; let matchesSt = true;
+        const matchesC = !catF || p.categoryId === catF; 
+        let matchesSt = true;
         if (statF === 'available') matchesSt = p.status === 'available'; 
         else if (statF === 'unavailable') matchesSt = p.status === 'unavailable'; 
         else if (statF) matchesSt = getExpiryStatus(p).code === statF; 
@@ -502,46 +537,90 @@
       });
       
       document.getElementById('productsListContainer').innerHTML = prods.length === 0 ? '<div style="text-align:center; padding: 25px; color: var(--text-muted);">کالایی یافت نشد.</div>' : prods.map(p => {
-        const exp = getExpiryStatus(p); const imgTag = p.image ? `<img src="${p.image}" class="product-thumb">` : `<div class="product-thumb">بی‌عکس</div>`;
+        const exp = getExpiryStatus(p); 
+        const imgTag = p.image ? `<img src="${p.image}" class="product-thumb">` : `<div class="product-thumb">بی‌عکس</div>`;
         return `<div class="product-item">${imgTag}<div class="product-info"><h4>${p.name}</h4><div class="product-sub">برند: ${p.company}</div><div style="display:flex; align-items:center; gap: 6px;"><span style="font-weight: bold; color: var(--primary); font-size: 12.5px;">${Number(p.price).toLocaleString('fa-IR')} تومان</span><span class="badge ${exp.class}">${exp.label}</span></div></div><div class="product-actions"><button class="btn btn-sm btn-secondary" onclick="viewProductDetail('${p.id}')">مشاهده</button><button class="btn btn-sm btn-primary" onclick="openProductModal('${p.id}')">ویرایش</button><button class="btn btn-sm btn-danger" onclick="deleteProduct('${p.id}')">حذف</button></div></div>`;
       }).join('');
     }
 
     function initJalaliDateDropdowns(y, m, d) {
-      const todayJ = Jalali.today(); const curY = y || todayJ.jy; const curM = m || todayJ.jm; const curD = d || todayJ.jd;
-      let ySelect = ''; for (let i = todayJ.jy - 1; i <= todayJ.jy + 8; i++) ySelect += `<option value="${i}" ${i === curY ? 'selected' : ''}>${i}</option>`;
-      document.getElementById('pmJalaliYear').innerHTML = ySelect; document.getElementById('pmJalaliMonth').value = curM; updateJalaliDaysSelector(curD);
+      const todayJ = Jalali.today(); 
+      const curY = y || todayJ.jy; 
+      const curM = m || todayJ.jm; 
+      const curD = d || todayJ.jd;
+      
+      let ySelect = ''; 
+      for (let i = todayJ.jy - 1; i <= todayJ.jy + 8; i++) ySelect += `<option value="${i}" ${i === curY ? 'selected' : ''}>${i}</option>`;
+      document.getElementById('pmJalaliYear').innerHTML = ySelect; 
+      document.getElementById('pmJalaliMonth').value = curM; 
+      updateJalaliDaysSelector(curD);
     }
 
     function updateJalaliDaysSelector(prefD) {
-      const y = parseInt(document.getElementById('pmJalaliYear').value); const m = parseInt(document.getElementById('pmJalaliMonth').value); 
-      const maxD = Jalali.daysInMonth(y, m); const curD = prefD || parseInt(document.getElementById('pmJalaliDay').value) || 1;
-      let dSelect = ''; for (let d = 1; d <= maxD; d++) dSelect += `<option value="${d}" ${d === Math.min(curD, maxD) ? 'selected' : ''}>${d}</option>`;
-      document.getElementById('pmJalaliDay').innerHTML = dSelect; document.getElementById('pmLeapYearNotice').innerText = (m === 12 && Jalali.isLeap(y)) ? 'سال کبیسه است (اسفند ۳۰ روزه)' : '';
+      const y = parseInt(document.getElementById('pmJalaliYear').value); 
+      const m = parseInt(document.getElementById('pmJalaliMonth').value); 
+      const maxD = Jalali.daysInMonth(y, m); 
+      const curD = prefD || parseInt(document.getElementById('pmJalaliDay').value) || 1;
+      
+      let dSelect = ''; 
+      for (let d = 1; d <= maxD; d++) dSelect += `<option value="${d}" ${d === Math.min(curD, maxD) ? 'selected' : ''}>${d}</option>`;
+      document.getElementById('pmJalaliDay').innerHTML = dSelect; 
+      document.getElementById('pmLeapYearNotice').innerText = (m === 12 && Jalali.isLeap(y)) ? 'سال کبیسه است (اسفند ۳۰ روزه)' : '';
     }
 
     function previewAndCompressImage(e) {
-      const file = e.target.files[0]; if (!file) return; const reader = new FileReader();
+      const file = e.target.files[0]; 
+      if (!file) return; 
+      const reader = new FileReader();
       reader.onload = function(evt) {
-        const img = new Image(); img.onload = function() {
-          const canvas = document.createElement('canvas'); const maxDim = 800; let w = img.width, h = img.height;
-          if (w > h && w > maxDim) { h = Math.round((h * maxDim) / w); w = maxDim; } else if (h > maxDim) { w = Math.round((w * maxDim) / h); h = maxDim; }
-          canvas.width = w; canvas.height = h; canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-          const b64 = canvas.toDataURL('image/jpeg', 0.90); 
-          document.getElementById('pmImageBase64').value = b64; document.getElementById('pmImagePreview').innerHTML = `<img src="${b64}" style="max-height:85px; border-radius:6px;">`;
-        }; img.src = evt.target.result;
-      }; reader.readAsDataURL(file);
+        const img = new Image(); 
+        img.onload = function() {
+          const canvas = document.createElement('canvas'); 
+          const maxDim = 450; 
+          let w = img.width, h = img.height;
+          if (w > h && w > maxDim) { h = Math.round((h * maxDim) / w); w = maxDim; } 
+          else if (h > maxDim) { w = Math.round((w * maxDim) / h); h = maxDim; }
+          canvas.width = w; 
+          canvas.height = h; 
+          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+          const b64 = canvas.toDataURL('image/jpeg', 0.55); 
+          document.getElementById('pmImageBase64').value = b64; 
+          document.getElementById('pmImagePreview').innerHTML = `<img src="${b64}" style="max-height:85px; border-radius:6px;">`;
+        }; 
+        img.src = evt.target.result;
+      }; 
+      reader.readAsDataURL(file);
     }
 
     function openProductModal(id = null) {
-      populateCategoryFilters(); document.getElementById('pmImagePreview').innerHTML = ''; document.getElementById('pmImageBase64').value = '';
+      populateCategoryFilters(); 
+      document.getElementById('pmImagePreview').innerHTML = ''; 
+      document.getElementById('pmImageBase64').value = '';
       if (id) {
         const p = DB.get(DB_KEYS.PRODUCTS).find(x => x.id === id); 
-        document.getElementById('productModalTitle').innerText = 'ویرایش کالا'; document.getElementById('pmId').value = p.id; document.getElementById('pmName').value = p.name; document.getElementById('pmCategory').value = p.categoryId; document.getElementById('pmPrice').value = p.price; document.getElementById('pmCompany').value = p.company; document.getElementById('pmCode').value = p.code || ''; document.getElementById('pmStatus').value = p.status; document.getElementById('pmDescription').value = p.description || '';
-        if (p.image) { document.getElementById('pmImageBase64').value = p.image; document.getElementById('pmImagePreview').innerHTML = `<img src="${p.image}" style="max-height:85px;">`; }
+        document.getElementById('productModalTitle').innerText = 'ویرایش کالا'; 
+        document.getElementById('pmId').value = p.id; 
+        document.getElementById('pmName').value = p.name; 
+        document.getElementById('pmCategory').value = p.categoryId; 
+        document.getElementById('pmPrice').value = p.price; 
+        document.getElementById('pmCompany').value = p.company; 
+        document.getElementById('pmCode').value = p.code || ''; 
+        document.getElementById('pmStatus').value = p.status; 
+        document.getElementById('pmDescription').value = p.description || '';
+        if (p.image) { 
+            document.getElementById('pmImageBase64').value = p.image; 
+            document.getElementById('pmImagePreview').innerHTML = `<img src="${p.image}" style="max-height:85px;">`; 
+        }
         initJalaliDateDropdowns(p.expiry.jy, p.expiry.jm, p.expiry.jd);
       } else {
-        document.getElementById('productModalTitle').innerText = 'افزودن کالا'; document.getElementById('pmId').value = ''; document.getElementById('pmName').value = ''; document.getElementById('pmPrice').value = ''; document.getElementById('pmCompany').value = ''; document.getElementById('pmStatus').value = 'available'; document.getElementById('pmDescription').value = ''; initJalaliDateDropdowns();
+        document.getElementById('productModalTitle').innerText = 'افزودن کالا'; 
+        document.getElementById('pmId').value = ''; 
+        document.getElementById('pmName').value = ''; 
+        document.getElementById('pmPrice').value = ''; 
+        document.getElementById('pmCompany').value = ''; 
+        document.getElementById('pmStatus').value = 'available'; 
+        document.getElementById('pmDescription').value = ''; 
+        initJalaliDateDropdowns();
       }
       document.getElementById('productModal').classList.add('active');
     }
@@ -549,100 +628,177 @@
     function handleSaveProduct(e) {
       e.preventDefault();
       const p = { 
-          id: document.getElementById('pmId').value || 'p_' + Date.now(), name: document.getElementById('pmName').value.trim(), categoryId: document.getElementById('pmCategory').value, price: parseFloat(document.getElementById('pmPrice').value), company: document.getElementById('pmCompany').value.trim(), code: document.getElementById('pmCode').value.trim(), status: document.getElementById('pmStatus').value, description: document.getElementById('pmDescription').value.trim(), image: document.getElementById('pmImageBase64').value, expiry: { jy: parseInt(document.getElementById('pmJalaliYear').value), jm: parseInt(document.getElementById('pmJalaliMonth').value), jd: parseInt(document.getElementById('pmJalaliDay').value) } 
+          id: document.getElementById('pmId').value || 'p_' + Date.now(), 
+          name: document.getElementById('pmName').value.trim(), 
+          categoryId: document.getElementById('pmCategory').value, 
+          price: parseFloat(document.getElementById('pmPrice').value), 
+          company: document.getElementById('pmCompany').value.trim(), 
+          code: document.getElementById('pmCode').value.trim(), 
+          status: document.getElementById('pmStatus').value, 
+          description: document.getElementById('pmDescription').value.trim(), 
+          image: document.getElementById('pmImageBase64').value, 
+          expiry: { 
+              jy: parseInt(document.getElementById('pmJalaliYear').value), 
+              jm: parseInt(document.getElementById('pmJalaliMonth').value), 
+              jd: parseInt(document.getElementById('pmJalaliDay').value) 
+          } 
       };
-      let prods = DB.get(DB_KEYS.PRODUCTS); const idx = prods.findIndex(x => x.id === p.id); if (idx >= 0) prods[idx] = p; else prods.unshift(p);
-      try { DB.set(DB_KEYS.PRODUCTS, prods); closeModal('productModal'); renderProductList(); renderDashboard(); } catch (err) { alert('حجم اطلاعات زیاد است. لطفا عکس را فشرده کنید.'); }
+      let prods = DB.get(DB_KEYS.PRODUCTS); 
+      const idx = prods.findIndex(x => x.id === p.id); 
+      if (idx >= 0) prods[idx] = p; else prods.unshift(p);
+      try { 
+          DB.set(DB_KEYS.PRODUCTS, prods); 
+          closeModal('productModal'); 
+          renderProductList(); 
+          renderDashboard(); 
+      } catch (err) { alert('حجم اطلاعات زیاد است. لطفا عکس را فشرده کنید.'); }
     }
 
-    function deleteProduct(id) { if (confirm('آیا از حذف کالا مطمئن هستید؟')) { DB.set(DB_KEYS.PRODUCTS, DB.get(DB_KEYS.PRODUCTS).filter(p => p.id !== id)); renderProductList(); renderDashboard(); } }
+    function deleteProduct(id) { 
+        if (confirm('آیا از حذف کالا مطمئن هستید؟')) { 
+            DB.set(DB_KEYS.PRODUCTS, DB.get(DB_KEYS.PRODUCTS).filter(p => p.id !== id)); 
+            renderProductList(); 
+            renderDashboard(); 
+        } 
+    }
 
     function viewProductDetail(id) {
-      const p = DB.get(DB_KEYS.PRODUCTS).find(x => x.id === id); const c = DB.get(DB_KEYS.CATEGORIES).find(x => x.id === p.categoryId);
+      const p = DB.get(DB_KEYS.PRODUCTS).find(x => x.id === id); 
+      const c = DB.get(DB_KEYS.CATEGORIES).find(x => x.id === p.categoryId);
       document.getElementById('pdmTitle').innerText = p.name;
       document.getElementById('pdmBody').innerHTML = `${p.image ? `<div style="text-align:center; margin-bottom:10px;"><img src="${p.image}" style="max-height:150px; border-radius:8px;"></div>` : ''}<div><b>برند:</b> ${p.company}</div><div><b>دسته‌‌بندی:</b> ${c ? c.name : ''}</div><div><b>قیمت:</b> ${Number(p.price).toLocaleString('fa-IR')} تومان</div><div><b>انقضا:</b> ${p.expiry.jy}/${p.expiry.jm}/${p.expiry.jd}</div>${p.description ? `<div><b>توضیحات:</b> ${p.description}</div>` : ''}`;
       document.getElementById('productDetailModal').classList.add('active');
     }
 
     function renderCategoryList() {
-      const cats = DB.get(DB_KEYS.CATEGORIES).sort((a,b) => (a.order || 99) - (b.order || 99)); 
+      const cats = DB.get(DB_KEYS.CATEGORIES); 
       const prods = DB.get(DB_KEYS.PRODUCTS);
       document.getElementById('categoryListContainer').innerHTML = cats.length === 0 ? 'خالی' : cats.map(c => {
         const count = prods.filter(p => p.categoryId === c.id).length;
-        return `<div style="display:flex; justify-content:space-between; align-items:center; padding:10px; border:1px solid var(--border); border-radius:8px; margin-bottom:8px; background:white;"><div><b style="color:var(--primary);">${c.name}</b><div style="font-size:10.5px; color:var(--text-muted); margin-top:2px;">${count} کالا | اولویت چاپ: ${c.order || 1}</div></div><div style="display:flex; gap:6px;"><button class="btn btn-sm btn-primary" onclick="openCategoryModal('${c.id}')">ویرایش</button><button class="btn btn-sm btn-danger" onclick="deleteCategory('${c.id}')">حذف</button></div></div>`;
+        return `<div style="display:flex; justify-content:space-between; align-items:center; padding:10px; border:1px solid var(--border); border-radius:8px; margin-bottom:8px; background:white;"><div><b>${c.name}</b><div style="font-size:10.5px;">${count} کالا</div></div><div style="display:flex; gap:6px;"><button class="btn btn-sm btn-primary" onclick="openCategoryModal('${c.id}')">ویرایش</button><button class="btn btn-sm btn-danger" onclick="deleteCategory('${c.id}')">حذف</button></div></div>`;
       }).join('');
     }
 
     function openCategoryModal(id = null) {
       if (id) { 
           const c = DB.get(DB_KEYS.CATEGORIES).find(x => x.id === id); 
-          document.getElementById('catModalTitle').innerText = 'ویرایش دسته‌بندی'; document.getElementById('cmId').value = c.id; document.getElementById('cmName').value = c.name; document.getElementById('cmOrder').value = c.order || 1;
+          document.getElementById('catModalTitle').innerText = 'ویرایش'; 
+          document.getElementById('cmId').value = c.id; 
+          document.getElementById('cmName').value = c.name; 
       } else { 
-          document.getElementById('catModalTitle').innerText = 'دسته‌بندی جدید'; document.getElementById('cmId').value = ''; document.getElementById('cmName').value = ''; document.getElementById('cmOrder').value = 1;
+          document.getElementById('catModalTitle').innerText = 'جدید'; 
+          document.getElementById('cmId').value = ''; 
+          document.getElementById('cmName').value = ''; 
       }
       document.getElementById('categoryModal').classList.add('active');
     }
 
     function handleSaveCategory(e) {
-      e.preventDefault(); const id = document.getElementById('cmId').value || 'cat_' + Date.now(); const name = document.getElementById('cmName').value.trim(); const order = parseInt(document.getElementById('cmOrder').value) || 1;
-      let cats = DB.get(DB_KEYS.CATEGORIES); const idx = cats.findIndex(c => c.id === id); if (idx >= 0) { cats[idx].name = name; cats[idx].order = order; } else { cats.push({ id, name, order }); }
-      cats.sort((a, b) => (a.order || 99) - (b.order || 99));
-      DB.set(DB_KEYS.CATEGORIES, cats); closeModal('categoryModal'); renderCategoryList(); populateCategoryFilters(); renderDashboard();
+      e.preventDefault(); 
+      const id = document.getElementById('cmId').value || 'cat_' + Date.now(); 
+      const name = document.getElementById('cmName').value.trim();
+      let cats = DB.get(DB_KEYS.CATEGORIES); 
+      const idx = cats.findIndex(c => c.id === id); 
+      if (idx >= 0) cats[idx].name = name; else cats.push({ id, name });
+      DB.set(DB_KEYS.CATEGORIES, cats); 
+      closeModal('categoryModal'); 
+      renderCategoryList(); 
+      populateCategoryFilters(); 
+      renderDashboard();
     }
 
-    function deleteCategory(id) { if (DB.get(DB_KEYS.PRODUCTS).some(p => p.categoryId === id)) return alert('این دسته شامل کالا است. ابتدا کالاها را حذف کنید.'); if (confirm('حذف دسته؟')) { DB.set(DB_KEYS.CATEGORIES, DB.get(DB_KEYS.CATEGORIES).filter(c => c.id !== id)); renderCategoryList(); populateCategoryFilters(); renderDashboard(); } }
+    function deleteCategory(id) { 
+        if (DB.get(DB_KEYS.PRODUCTS).some(p => p.categoryId === id)) return alert('این دسته شامل کالا است. ابتدا کالاها را حذف کنید.'); 
+        if (confirm('حذف دسته؟')) { 
+            DB.set(DB_KEYS.CATEGORIES, DB.get(DB_KEYS.CATEGORIES).filter(c => c.id !== id)); 
+            renderCategoryList(); 
+            populateCategoryFilters(); 
+            renderDashboard(); 
+        } 
+    }
 
-    function viewCategoryProducts(catId) { navigateTo('view-products'); document.getElementById('prodCategoryFilter').value = catId; renderProductList(); }
+    function viewCategoryProducts(catId) { 
+        navigateTo('view-products'); 
+        document.getElementById('prodCategoryFilter').value = catId; 
+        renderProductList(); 
+    }
 
     let currentExportMode = 'catalog';
     function setExportMode(mode) {
-      currentExportMode = mode; document.querySelectorAll('.export-tab-btn').forEach(b => b.classList.remove('active'));
+      currentExportMode = mode; 
+      document.querySelectorAll('.export-tab-btn').forEach(b => b.classList.remove('active'));
+      
       const tabId = mode === 'catalog' ? 'tabModeCatalog' : (mode === 'invoice' ? 'tabModeInvoice' : 'tabModeExpiry');
       if (document.getElementById(tabId)) document.getElementById(tabId).classList.add('active');
       
       document.getElementById('invoiceCustomerBox').style.display = mode === 'invoice' ? 'block' : 'none'; 
-      document.getElementById('catalogOptionsBox').style.display = (mode === 'catalog' || mode === 'expiry') ? 'block' : 'none'; 
+      document.getElementById('catalogOptionsBox').style.display = mode === 'catalog' ? 'block' : 'none'; 
       document.getElementById('invoiceTotalPreview').style.display = mode === 'invoice' ? 'block' : 'none'; 
       renderExportSection();
     }
 
     function renderExportSection() {
-      const prods = DB.get(DB_KEYS.PRODUCTS); let target = currentExportMode === 'expiry' ? prods.filter(p => ['expired','very_near','near'].includes(getExpiryStatus(p).code)) : prods;
+      const prods = DB.get(DB_KEYS.PRODUCTS); 
+      let target = currentExportMode === 'expiry' ? prods.filter(p => ['expired','very_near','near'].includes(getExpiryStatus(p).code)) : prods;
+      
       document.getElementById('exportProductsChecklist').innerHTML = target.length === 0 ? '<div style="padding:10px;">کالایی یافت نشد.</div>' : target.map(p => {
         const isA = p.status === 'available';
         return `<div style="display:flex; align-items:center; gap:8px; padding:6px 0; border-bottom:1px solid #f1f5f9; font-size:12px;"><input type="checkbox" class="export-prod-cb" value="${p.id}" ${isA ? 'checked' : ''} onchange="calculateInvoiceTotal()"><span style="flex:1;"><b>${p.name}</b><div style="font-size:10.5px; color:var(--text-muted);">انقضا: ${p.expiry.jy}/${p.expiry.jm}/${p.expiry.jd}</div></span>${currentExportMode === 'invoice' ? `<input type="number" class="export-prod-qty form-control" style="width:50px; padding:3px; text-align:center;" value="1" min="1" data-id="${p.id}" oninput="calculateInvoiceTotal()">` : ''}</div>`;
       }).join('');
+      
       if (currentExportMode === 'invoice') calculateInvoiceTotal();
     }
 
-    function toggleSelectAllExport(check) { document.querySelectorAll('.export-prod-cb').forEach(cb => cb.checked = check); calculateInvoiceTotal(); }
+    function toggleSelectAllExport(check) { 
+        document.querySelectorAll('.export-prod-cb').forEach(cb => cb.checked = check); 
+        calculateInvoiceTotal(); 
+    }
 
     function calculateInvoiceTotal() {
-      let total = 0; const prods = DB.get(DB_KEYS.PRODUCTS);
-      document.querySelectorAll('.export-prod-cb:checked').forEach(cb => { const p = prods.find(x => x.id === cb.value); if (p) { const q = document.querySelector(`.export-prod-qty[data-id="${p.id}"]`); total += p.price * (q ? parseInt(q.value) || 1 : 1); } });
+      let total = 0; 
+      const prods = DB.get(DB_KEYS.PRODUCTS);
+      document.querySelectorAll('.export-prod-cb:checked').forEach(cb => { 
+          const p = prods.find(x => x.id === cb.value); 
+          if (p) { 
+              const q = document.querySelector(`.export-prod-qty[data-id="${p.id}"]`); 
+              total += p.price * (q ? parseInt(q.value) || 1 : 1); 
+          } 
+      });
       document.getElementById('invTotalAmount').innerText = Number(total).toLocaleString('fa-IR');
     }
 
+    // =======================================================================================
+    // بخش تولید ظاهر گرافیکی PDF (اصلاح فضای عکس‌ها و گروه‌بندی دسته‌بندی‌ها)
+    // =======================================================================================
     function preparePrintableContent() {
       const selectedBoxes = Array.from(document.querySelectorAll('.export-prod-cb:checked'));
       if (selectedBoxes.length === 0) { alert('لطفاً حداقل یک کالا را انتخاب کنید.'); return false; }
 
-      const allProducts = DB.get(DB_KEYS.PRODUCTS); const sortedCats = DB.get(DB_KEYS.CATEGORIES).sort((a,b) => (a.order || 99) - (b.order || 99)); const catMap = {}; sortedCats.forEach(c => catMap[c.id] = c.name);
-      const settings = DB.getSettings(); const dateStr = `${Jalali.today().jy}/${Jalali.today().jm}/${Jalali.today().jd}`;
-      const headerNote = document.getElementById('pdfCustomHeaderNote').value.trim(); const footerNote = document.getElementById('pdfCustomFooterNote').value.trim();
-      const pdfContent = document.getElementById('pdf-printable-area'); pdfContent.innerHTML = '';
+      const allProducts = DB.get(DB_KEYS.PRODUCTS); 
+      const catMap = {}; 
+      DB.get(DB_KEYS.CATEGORIES).forEach(c => catMap[c.id] = c.name);
+      
+      const settings = DB.getSettings(); 
+      const dateStr = `${Jalali.today().jy}/${Jalali.today().jm}/${Jalali.today().jd}`;
+      const headerNote = document.getElementById('pdfCustomHeaderNote').value.trim(); 
+      const footerNote = document.getElementById('pdfCustomFooterNote').value.trim();
+      const pdfContent = document.getElementById('pdf-printable-area'); 
+      pdfContent.innerHTML = '';
 
+      // --- گروه‌بندی کالاها بر اساس دسته‌بندی ---
       const groupedProducts = {};
       selectedBoxes.forEach(cb => {
         const p = allProducts.find(x => x.id === cb.value);
-        if (p) { const cId = p.categoryId || 'unknown'; if (!groupedProducts[cId]) groupedProducts[cId] = []; groupedProducts[cId].push(p); }
+        if (p) {
+          const cId = p.categoryId || 'unknown';
+          if (!groupedProducts[cId]) groupedProducts[cId] = [];
+          groupedProducts[cId].push(p);
+        }
       });
 
       if (currentExportMode === 'catalog' || currentExportMode === 'expiry') {
         const showImage = document.getElementById('pdfOptShowImage') ? document.getElementById('pdfOptShowImage').checked : true;
         const showPrice = document.getElementById('pdfOptShowPrice') ? document.getElementById('pdfOptShowPrice').checked : true;
-        const showCompany = document.getElementById('pdfOptShowCompany') ? document.getElementById('pdfOptShowCompany').checked : true;
-        const showExpiry = document.getElementById('pdfOptShowExpiry') ? document.getElementById('pdfOptShowExpiry').checked : true;
 
         const coverHtml = `
           <div class="pdf-frame-page" style="padding:0; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);">
@@ -678,71 +834,70 @@
         let currentPageIdx = 1;
         const totalSelected = selectedBoxes.length;
 
-        const renderProductPage = (p) => {
-          pdfContent.innerHTML += `
-            <div class="pdf-frame-page" style="padding: 20px; background: #ffffff;">
-              <div style="width: 100%; height: 100%; border: 3px solid #e2e8f0; border-radius: 24px; position: relative; overflow: hidden; display: flex; flex-direction: column; box-shadow: inset 0 0 0 5px #f8fafc;">
-                
-                <div style="${currentExportMode === 'expiry' ? 'background: linear-gradient(90deg, #991b1b 0%, #dc2626 100%);' : 'background: linear-gradient(90deg, #1e3a8a 0%, #3b82f6 100%);'} color: white; padding: 18px 30px; display: flex; justify-content: space-between; align-items: center; font-size: 18px; font-weight: bold;">
-                  <div style="display:flex; align-items:center; gap: 18px;">
-                    <span style="background: #fbbf24; color: #1e3a8a; padding: 6px 20px; border-radius: 12px; font-weight: 900; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">${catMap[p.categoryId] || 'عمومی'}</span>
-                    <span style="font-size: 18px; text-shadow: 0 1px 3px rgba(0,0,0,0.3);">${showCompany && p.company ? `برند: ${p.company}` : ''}</span>
-                  </div>
-                  <div style="background: rgba(255,255,255,0.25); padding: 6px 18px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.4);">صفحه ${currentPageIdx} از ${totalSelected}</div>
-                </div>
-
-                <div style="flex: 1; padding: 30px; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle, #f8fafc 0%, #ffffff 80%); overflow: hidden;">
-                  ${showImage && p.image ? `<img src="${p.image}" style="width: 100%; max-width: 82%; max-height: 640px; object-fit: contain; filter: drop-shadow(0 15px 35px rgba(0,0,0,0.15)); border-radius: 8px;">` : '<div style="font-size: 32px; color:#cbd5e1; font-weight: 900;">تصویری ثبت نشده است</div>'}
-                </div>
-
-                <div style="background: #f8fafc; border-top: 3px solid #e2e8f0; padding: 30px;">
-                  <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <div style="flex: 1; padding-left: 20px;">
-                      <div style="font-size: 34px; font-weight: 900; color: #0f172a; margin-bottom: 15px; line-height: 1.3;">${p.name}</div>
-                      <div style="display: flex; gap: 15px; font-size: 18px; font-weight: 800;">
-                        ${showExpiry && p.expiry ? `<span style="background: #ffffff; padding: 8px 16px; border-radius: 10px; border: 1px solid #cbd5e1; color: #475569; box-shadow: 0 2px 6px rgba(0,0,0,0.02);">انقضا: <span style="color: #1e3a8a;">${p.expiry.jy}/${p.expiry.jm}/${p.expiry.jd}</span></span>` : ''}
-                        <span style="background: ${p.status === 'available' ? '#dcfce7' : '#fee2e2'}; color: ${p.status === 'available' ? '#16a34a' : '#dc2626'}; padding: 8px 16px; border-radius: 10px; border: 1px solid ${p.status === 'available' ? '#bbf7d0' : '#fecaca'};">${p.status === 'available' ? '✅ موجود' : '❌ ناموجود'}</span>
-                      </div>
-                      ${p.description ? `<div style="margin-top: 18px; font-size: 18px; color: #475569; font-weight: 700; line-height: 1.6;">${p.description}</div>` : ''}
+        // چاپ کالاها بر اساس دسته‌بندی
+        for (const catId in groupedProducts) {
+          groupedProducts[catId].forEach((p) => {
+            pdfContent.innerHTML += `
+              <div class="pdf-frame-page" style="padding: 20px; background: #ffffff;">
+                <div style="width: 100%; height: 100%; border: 3px solid #e2e8f0; border-radius: 24px; position: relative; overflow: hidden; display: flex; flex-direction: column; box-shadow: inset 0 0 0 5px #f8fafc;">
+                  
+                  <div style="${currentExportMode === 'expiry' ? 'background: linear-gradient(90deg, #991b1b 0%, #dc2626 100%);' : 'background: linear-gradient(90deg, #1e3a8a 0%, #3b82f6 100%);'} color: white; padding: 18px 30px; display: flex; justify-content: space-between; align-items: center; font-size: 18px; font-weight: bold;">
+                    <div style="display:flex; align-items:center; gap: 18px;">
+                      <span style="background: #fbbf24; color: #1e3a8a; padding: 6px 20px; border-radius: 12px; font-weight: 900; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">${catMap[p.categoryId] || 'عمومی'}</span>
+                      <span style="font-size: 18px; text-shadow: 0 1px 3px rgba(0,0,0,0.3);">برند: ${p.company}</span>
                     </div>
-                    ${showPrice ? `
-                    <div style="text-align: left; padding-right: 35px; border-right: 3px dashed #cbd5e1;">
-                      <div style="font-size: 16px; color: #64748b; font-weight: 900; margin-bottom: 8px;">قیمت فروش:</div>
-                      <div style="font-size: 42px; font-weight: 900; ${currentExportMode === 'expiry' ? 'color: #dc2626;' : 'color: #1e3a8a;'} display: flex; flex-direction: column; align-items: center; background: #ffffff; padding: 15px 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); border: 2px solid ${currentExportMode === 'expiry' ? '#fecaca' : '#bfdbfe'};">
-                        ${Number(p.price).toLocaleString('fa-IR')}
-                        <span style="font-size: 18px; ${currentExportMode === 'expiry' ? 'background:#dc2626;' : 'background:#1e3a8a;'} color:white; padding:4px 20px; border-radius:10px; margin-top:10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">تومان</span>
+                    <div style="background: rgba(255,255,255,0.25); padding: 6px 18px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.4);">صفحه ${currentPageIdx} از ${totalSelected}</div>
+                  </div>
+
+                  <!-- اصلاح سایز عکس: عرض 82 درصد برای ایجاد حاشیه سفید و لوکس -->
+                  <div style="flex: 1; padding: 30px; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle, #f8fafc 0%, #ffffff 80%); overflow: hidden;">
+                    ${showImage && p.image ? `<img src="${p.image}" style="width: 100%; max-width: 82%; max-height: 640px; object-fit: contain; filter: drop-shadow(0 15px 35px rgba(0,0,0,0.15)); border-radius: 8px;">` : '<div style="font-size: 32px; color:#cbd5e1; font-weight: 900;">تصویری ثبت نشده است</div>'}
+                  </div>
+
+                  <div style="background: #f8fafc; border-top: 3px solid #e2e8f0; padding: 30px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                      <div style="flex: 1; padding-left: 20px;">
+                        <div style="font-size: 34px; font-weight: 900; color: #0f172a; margin-bottom: 15px; line-height: 1.3;">${p.name}</div>
+                        <div style="display: flex; gap: 15px; font-size: 18px; font-weight: 800;">
+                          <span style="background: #ffffff; padding: 8px 16px; border-radius: 10px; border: 1px solid #cbd5e1; color: #475569; box-shadow: 0 2px 6px rgba(0,0,0,0.02);">انقضا: <span style="color: #1e3a8a;">${p.expiry.jy}/${p.expiry.jm}/${p.expiry.jd}</span></span>
+                          <span style="background: ${p.status === 'available' ? '#dcfce7' : '#fee2e2'}; color: ${p.status === 'available' ? '#16a34a' : '#dc2626'}; padding: 8px 16px; border-radius: 10px; border: 1px solid ${p.status === 'available' ? '#bbf7d0' : '#fecaca'};">${p.status === 'available' ? '✅ موجود' : '❌ ناموجود'}</span>
+                        </div>
+                        ${p.description ? `<div style="margin-top: 18px; font-size: 18px; color: #475569; font-weight: 700; line-height: 1.6;">${p.description}</div>` : ''}
                       </div>
-                    </div>` : ''}
+                      ${showPrice ? `
+                      <div style="text-align: left; padding-right: 35px; border-right: 3px dashed #cbd5e1;">
+                        <div style="font-size: 16px; color: #64748b; font-weight: 900; margin-bottom: 8px;">قیمت فروش:</div>
+                        <div style="font-size: 42px; font-weight: 900; ${currentExportMode === 'expiry' ? 'color: #dc2626;' : 'color: #1e3a8a;'} display: flex; flex-direction: column; align-items: center; background: #ffffff; padding: 15px 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); border: 2px solid ${currentExportMode === 'expiry' ? '#fecaca' : '#bfdbfe'};">
+                          ${Number(p.price).toLocaleString('fa-IR')}
+                          <span style="font-size: 18px; ${currentExportMode === 'expiry' ? 'background:#dc2626;' : 'background:#1e3a8a;'} color:white; padding:4px 20px; border-radius:10px; margin-top:10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">تومان</span>
+                        </div>
+                      </div>` : ''}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>`;
-          currentPageIdx++;
-        };
-
-        sortedCats.forEach(cat => {
-          if (groupedProducts[cat.id] && groupedProducts[cat.id].length > 0) { groupedProducts[cat.id].forEach(p => renderProductPage(p)); delete groupedProducts[cat.id]; }
-        });
-
-        for (const catId in groupedProducts) { groupedProducts[catId].forEach(p => renderProductPage(p)); }
-
+              </div>`;
+            currentPageIdx++;
+          });
+        }
       } else {
         const custName = document.getElementById('invCustomerName').value || 'مشتری گرامی';
-        let tableRows = ''; let total = 0; let rowIdx = 1;
+        let tableRows = ''; 
+        let total = 0; 
+        let rowIdx = 1;
 
-        const renderTableRows = (catId, catName) => {
-          if (groupedProducts[catId] && groupedProducts[catId].length > 0) {
-            tableRows += `<tr style="background: #e2e8f0; border-top: 2px solid #94a3b8;"><td colspan="6" style="font-weight:900; color:#1e3a8a; text-align:center; padding:12px; font-size:18px;">--- دسته: ${catName} ---</td></tr>`;
-            groupedProducts[catId].forEach(p => {
-              const q = document.querySelector(`.export-prod-qty[data-id="${p.id}"]`); const qty = q ? parseInt(q.value) || 1 : 1; total += p.price * qty;
-              tableRows += `<tr><td style="padding:14px;">${rowIdx++}</td><td style="font-weight:bold;text-align:right;">${p.name}</td><td>${p.company}</td><td style="font-weight:900;">${qty}</td><td>${Number(p.price).toLocaleString('fa-IR')}</td><td style="font-weight:900; color:#1e3a8a;">${Number(p.price * qty).toLocaleString('fa-IR')}</td></tr>`;
-            });
-            delete groupedProducts[catId];
-          }
-        };
+        // گروه‌بندی در پیش‌فاکتور با ردیف‌های جداکننده
+        for (const catId in groupedProducts) {
+          const catName = catMap[catId] || 'عمومی';
+          
+          tableRows += `<tr style="background: #e2e8f0; border-top: 2px solid #94a3b8;"><td colspan="6" style="font-weight:900; color:#1e3a8a; text-align:center; padding:12px; font-size:18px;">--- دسته: ${catName} ---</td></tr>`;
 
-        sortedCats.forEach(cat => renderTableRows(cat.id, cat.name));
-        for (const catId in groupedProducts) { renderTableRows(catId, 'سایر کالاها'); }
+          groupedProducts[catId].forEach(p => {
+            const q = document.querySelector(`.export-prod-qty[data-id="${p.id}"]`); 
+            const qty = q ? parseInt(q.value) || 1 : 1; 
+            total += p.price * qty;
+            tableRows += `<tr><td style="padding:14px;">${rowIdx++}</td><td style="font-weight:bold;text-align:right;">${p.name}</td><td>${p.company}</td><td style="font-weight:900;">${qty}</td><td>${Number(p.price).toLocaleString('fa-IR')}</td><td style="font-weight:900; color:#1e3a8a;">${Number(p.price * qty).toLocaleString('fa-IR')}</td></tr>`;
+          });
+        }
 
         pdfContent.innerHTML += `
           <div class="pdf-frame-page" style="padding:25px;">
@@ -798,7 +953,7 @@
 
       const btn = isShareAction ? document.getElementById('btnShareMessenger') : document.getElementById('btnDownloadPdf');
       const originalText = btn.innerHTML;
-      btn.innerHTML = '⏳ در حال ساخت...';
+      btn.innerHTML = '⏳ در حال ساخت صفحات...';
       btn.disabled = true;
 
       const element = document.getElementById('pdf-printable-area');
@@ -820,116 +975,49 @@
       }
 
       setTimeout(() => {
-        try {
-          const pages = Array.from(document.querySelectorAll('.pdf-frame-page'));
-          let worker = html2pdf().set(opt).from(pages[0]).toPdf();
-          for (let i = 1; i < pages.length; i++) { 
-            worker = worker.get('pdf').then(pdf => pdf.addPage()).from(pages[i]).toContainer().toCanvas().toPdf(); 
-          }
+        const pages = Array.from(document.querySelectorAll('.pdf-frame-page'));
+        let worker = html2pdf().set(opt).from(pages[0]).toPdf();
+        for (let i = 1; i < pages.length; i++) { 
+          worker = worker.get('pdf').then(pdf => pdf.addPage()).from(pages[i]).toContainer().toCanvas().toPdf(); 
+        }
 
-          worker.outputPdf('blob').then(async function(blob) {
-            element.style.display = 'none'; element.style.position = ''; btn.innerHTML = originalText; btn.disabled = false;
-            
+        worker.outputPdf('blob').then(async function(blob) {
+          element.style.display = 'none'; element.style.position = ''; btn.innerHTML = originalText; btn.disabled = false;
+          
+          const reader = new FileReader(); reader.readAsDataURL(blob);
+          reader.onloadend = async function() {
+            const base64Data = reader.result.split(',')[1]; const Cap = window.Capacitor;
+            if (Cap && Cap.Plugins && Cap.Plugins.Filesystem && Cap.Plugins.Share) {
+              try {
+                const writeResult = await Cap.Plugins.Filesystem.writeFile({ path: fileName, data: base64Data, directory: 'CACHE' });
+                await Cap.Plugins.Share.share({ title: 'سند انبار', url: writeResult.uri, dialogTitle: 'ذخیره/ارسال PDF' }); return;
+              } catch (err) { console.error('Share Error:', err); }
+            }
             try { 
-              if (isShareAction) {
-                const file = new File([blob], fileName, { type: 'application/pdf' }); 
-                if (navigator.canShare && navigator.canShare({ files: [file] })) { 
-                  navigator.share({ files: [file] }).catch(() => {}); 
-                  return; 
-                }
-              }
+              const file = new File([blob], fileName, { type: 'application/pdf' }); 
+              if (navigator.canShare && navigator.canShare({ files: [file] })) { 
+                navigator.share({ files: [file] }).catch(() => {}); return; 
+              } 
             } catch(e) {}
             
-            const url = window.URL.createObjectURL(blob); 
-            const a = document.createElement('a'); 
-            a.style.display = 'none';
-            a.href = url; 
-            a.download = fileName; 
-            document.body.appendChild(a); 
-            a.click(); 
-            setTimeout(() => {
-              document.body.removeChild(a);
-              window.URL.revokeObjectURL(url);
-            }, 100);
-          }).catch(function(err) { 
-            element.style.display = 'none'; element.style.position = ''; btn.innerHTML = originalText; btn.disabled = false; alert('خطا در تولید فایل: ' + err.message); 
-          });
-        } catch(e) {
-          element.style.display = 'none'; element.style.position = ''; btn.innerHTML = originalText; btn.disabled = false; alert('خطای غیرمنتظره در ساخت PDF: ' + e.message); 
-        }
+            const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = fileName; document.body.appendChild(a); a.click(); document.body.removeChild(a);
+          };
+        }).catch(function(err) { 
+          element.style.display = 'none'; element.style.position = ''; btn.innerHTML = originalText; btn.disabled = false; alert('خطا در تولید فایل: ' + err.message); 
+        });
       }, 500);
     }
 
     function downloadBackupFileDirectly() {
-      try {
-        const fullBackup = { app: 'MEHR_PAK_KOUHIJ', backupDate: new Date().toISOString(), products: DB.get(DB_KEYS.PRODUCTS), categories: DB.get(DB_KEYS.CATEGORIES), settings: DB.getSettings() };
-        const blob = new Blob([JSON.stringify(fullBackup, null, 2)], { type: 'application/json' });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.style.display = 'none';
-        a.href = url;
-        a.download = `MehrPakhsh_Backup_${Date.now()}.json`;
-        document.body.appendChild(a);
-        a.click();
-        setTimeout(() => {
-          document.body.removeChild(a);
-          window.URL.revokeObjectURL(url);
-        }, 100);
-      } catch (err) {
-        alert('خطا در دانلود فایل: ' + err.message);
-      }
+      const fullBackup = { app: 'MEHR_PAK_KOUHIJ', backupDate: new Date().toISOString(), products: DB.get(DB_KEYS.PRODUCTS), categories: DB.get(DB_KEYS.CATEGORIES), settings: DB.getSettings() };
+      const blob = new Blob([JSON.stringify(fullBackup, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = `MehrPakhsh_Backup_${Date.now()}.json`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
     }
 
     function triggerNativeShareBackup() {
-      try {
-        const fullBackup = { app: 'MEHR_PAK_KOUHIJ', backupDate: new Date().toISOString(), products: DB.get(DB_KEYS.PRODUCTS), categories: DB.get(DB_KEYS.CATEGORIES), settings: DB.getSettings() };
-        const jsonStr = JSON.stringify(fullBackup, null, 2);
-        
-        try {
-          const file = new File([jsonStr], `MehrPakhsh_Backup_${Date.now()}.json`, { type: 'application/json' });
-          if (navigator.canShare && navigator.canShare({ files: [file] })) {
-              navigator.share({ files: [file], title: 'فایل پشتیبان انبار' }).catch(()=>{});
-              return;
-          }
-        } catch (err) {}
-        
-        if (navigator.share) {
-            navigator.share({ title: 'پشتیبان انبار مهر پخش', text: jsonStr }).catch(()=>{ downloadBackupFileDirectly(); });
-        } else {
-            downloadBackupFileDirectly();
-        }
-      } catch (err) {
-        downloadBackupFileDirectly();
-      }
-    }
-
-    function copyBackupToClipboard() {
       const fullBackup = { app: 'MEHR_PAK_KOUHIJ', backupDate: new Date().toISOString(), products: DB.get(DB_KEYS.PRODUCTS), categories: DB.get(DB_KEYS.CATEGORIES), settings: DB.getSettings() };
-      const jsonStr = JSON.stringify(fullBackup, null, 2);
-      
-      if(navigator.clipboard && window.isSecureContext) {
-          navigator.clipboard.writeText(jsonStr).then(() => {
-              alert('✅ تمام اطلاعات انبار شما با موفقیت کپی شد! \n\nحالا یک یادداشت جدید در گوشی باز کنید یا وارد بخش پیام‌های ذخیره‌‌شده تلگرام شوید، انگشت خود را روی صفحه نگه دارید و گزینه Paste (جایگذاری) را بزنید و آن را ذخیره کنید.');
-          }).catch(err => { fallbackCopyText(jsonStr); });
-      } else {
-          fallbackCopyText(jsonStr);
-      }
-    }
-
-    function fallbackCopyText(text) {
-      const textArea = document.createElement("textarea");
-      textArea.value = text;
-      textArea.style.position = "fixed";
-      document.body.appendChild(textArea);
-      textArea.focus();
-      textArea.select();
-      try {
-          document.execCommand('copy');
-          alert('✅ تمام اطلاعات انبار شما با موفقیت کپی شد! \n\nحالا یک یادداشت جدید در گوشی باز کنید یا وارد بخش پیام‌های ذخیره‌شده تلگرام شوید، انگشت خود را روی صفحه نگه دارید و گزینه Paste (جایگذاری) را بزنید و آن را ذخیره کنید.');
-      } catch (err) {
-          alert('متاسفانه امکان کپی خودکار در این گوشی پشتیبانی نمی‌شود.');
-      }
-      document.body.removeChild(textArea);
+      const file = new File([JSON.stringify(fullBackup, null, 2)], `MehrPakhsh_Backup_${Date.now()}.json`, { type: 'application/json' });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) { navigator.share({ files: [file], title: 'فایل پشتیبان انبار' }).catch(()=>{}); } else { downloadBackupFileDirectly(); }
     }
 
     function importFullBackup(e) {
@@ -947,10 +1035,10 @@
             location.reload(); 
           }
         } catch (err) { 
-            alert('فایل پشتیبان نامعتبر است. لطفاً فایل صحیح را انتخاب کنید.'); 
+            alert('فایل پشتیبان نامعتبر است.'); 
         }
       }; 
-      reader.readAsText(file, 'UTF-8'); 
+      reader.readAsText(file); 
       e.target.value = ''; 
     }
 
@@ -1009,7 +1097,6 @@
     window.previewAndCompressImage = previewAndCompressImage; 
     window.updateJalaliDaysSelector = updateJalaliDaysSelector; 
     window.filterProductsByExpiry = filterProductsByExpiry;
-    window.copyBackupToClipboard = copyBackupToClipboard;
 
     initDatabase(); 
     renderDashboard();
