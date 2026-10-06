@@ -180,7 +180,8 @@
           <button class="btn btn-primary" onclick="openProductModal()">➕ افزودن کالا</button>
           <button class="btn btn-warning" onclick="navigateTo('view-export')">🚨 لیست ترخیص انقضا</button>
           <button class="btn btn-secondary" onclick="navigateTo('view-categories')">📂 دسته‌بندی‌ها</button>
-          <button class="btn btn-success" onclick="openBackupCenterModal()">💾 پشتیبان‌گیری</button>
+          <!-- اصلاح شد -->
+          <button class="btn btn-success" onclick="generateMKPFile()">💾 پشتیبان‌گیری</button>
         </div>
       </div>
     </section>
@@ -232,8 +233,9 @@
             <div class="form-group"><label>شماره تماس خریدار</label><input type="text" id="invCustomerPhone" class="form-control" placeholder="۰۹۱۲..."></div>
           </div>
         </div>
+        
         <div id="catalogOptionsBox" class="form-group">
-          <label><b>تنظیمات خروجی:</b></label>
+          <label><b>تنظیمات خروجی PDF:</b></label>
           <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 11.5px; margin-top: 4px;">
             <label><input type="checkbox" id="pdfOptHideUnavailable" checked> حذف خودکار ناموجودها</label>
             <label><input type="checkbox" id="pdfOptShowImage" checked> نمایش عکس کالا</label>
@@ -242,6 +244,7 @@
             <label><input type="checkbox" id="pdfOptShowExpiry" checked> نمایش تاریخ انقضا</label>
           </div>
         </div>
+        
         <div class="form-row">
           <div class="form-group"><label>متن بالای سند</label><input type="text" id="pdfCustomHeaderNote" class="form-control" placeholder="مثال: لیست کاتالوگ"></div>
           <div class="form-group"><label>متن پایین سند</label><input type="text" id="pdfCustomFooterNote" class="form-control" placeholder="مثال: تحویل سریع"></div>
@@ -258,7 +261,8 @@
             <button class="btn btn-primary" id="btnDownloadPdf" style="flex: 1;" onclick="generateAndOpenRealPdf(false)">📥 دانلود مستقیم PDF</button>
             <button class="btn btn-warning" id="btnShareMessenger" style="flex: 1;" onclick="generateAndOpenRealPdf(true)">📤 ارسال PDF</button>
           </div>
-          <button class="btn btn-success btn-block" onclick="openBackupCenterModal()">📦 ساخت فایل پشتیبان JSON</button>
+          <!-- اصلاح شد -->
+          <button class="btn btn-success btn-block" onclick="generateMKPFile()">📦 ساخت فایل پشتیبان JSON</button>
         </div>
       </div>
       <div class="card">
@@ -303,7 +307,6 @@
     <div class="modal-box">
       <div class="modal-header"><h3>💾 مرکز پشتیبان‌گیری انبار</h3><button class="modal-close" onclick="closeModal('backupCenterModal')">&times;</button></div>
       <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:12px;">
-        <!-- دکمه‌ها کاملاً خالص‌سازی شدند -->
         <button class="btn btn-primary btn-block" onclick="downloadBackupFileDirectly()">📥 دانلود مستقیم فایل (.json)</button>
         <button class="btn btn-success btn-block" onclick="triggerNativeShareBackup()">📤 ارسال فایل به پیام‌رسان</button>
         <div style="margin: 10px 0; border-top: 1px dashed var(--border);"></div>
@@ -356,7 +359,7 @@
       <div class="modal-header"><h3 id="catModalTitle">افزودن دسته‌بندی</h3><button class="modal-close" onclick="closeModal('categoryModal')">&times;</button></div>
       <form onsubmit="handleSaveCategory(event)">
         <input type="hidden" id="cmId">
-        <div class="form-group"><label>نام دسته‌‌بندی *</label><input type="text" id="cmName" class="form-control" required></div>
+        <div class="form-group"><label>نام دسته‌بندی *</label><input type="text" id="cmName" class="form-control" required></div>
         <div class="form-group">
           <label>اولویت نمایش در PDF (۱ = اولین دسته) *</label>
           <input type="number" id="cmOrder" class="form-control" placeholder="مثلاً 1" required>
@@ -790,7 +793,73 @@
       return true;
     }
 
-    // متد خالص دانلود فایل برای اجرا روی مرورگر
+    function generateAndOpenRealPdf(isShareAction) {
+      if (!preparePrintableContent()) return;
+
+      const btn = isShareAction ? document.getElementById('btnShareMessenger') : document.getElementById('btnDownloadPdf');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '⏳ در حال ساخت...';
+      btn.disabled = true;
+
+      const element = document.getElementById('pdf-printable-area');
+      element.style.display = 'block'; element.style.position = 'absolute'; element.style.top = '-9999px';
+
+      const fileName = currentExportMode === 'catalog' ? `MehrPakhsh_Catalog_${Date.now()}.pdf` : (currentExportMode === 'expiry' ? `MehrPakhsh_ExpiryList_${Date.now()}.pdf` : `MehrPakhsh_Invoice_${Date.now()}.pdf`);
+
+      const opt = {
+        margin: 0,
+        filename: fileName,
+        image: { type: 'jpeg', quality: 0.90 },
+        html2canvas: { scale: 1.6, useCORS: true, letterRendering: false },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
+
+      if (!window.html2pdf) { 
+        alert('کتابخانه PDF بارگذاری نشده است.'); 
+        element.style.display = 'none'; btn.innerHTML = originalText; btn.disabled = false; return; 
+      }
+
+      setTimeout(() => {
+        try {
+          const pages = Array.from(document.querySelectorAll('.pdf-frame-page'));
+          let worker = html2pdf().set(opt).from(pages[0]).toPdf();
+          for (let i = 1; i < pages.length; i++) { 
+            worker = worker.get('pdf').then(pdf => pdf.addPage()).from(pages[i]).toContainer().toCanvas().toPdf(); 
+          }
+
+          worker.outputPdf('blob').then(async function(blob) {
+            element.style.display = 'none'; element.style.position = ''; btn.innerHTML = originalText; btn.disabled = false;
+            
+            try { 
+              if (isShareAction) {
+                const file = new File([blob], fileName, { type: 'application/pdf' }); 
+                if (navigator.canShare && navigator.canShare({ files: [file] })) { 
+                  navigator.share({ files: [file] }).catch(() => {}); 
+                  return; 
+                }
+              }
+            } catch(e) {}
+            
+            const url = window.URL.createObjectURL(blob); 
+            const a = document.createElement('a'); 
+            a.style.display = 'none';
+            a.href = url; 
+            a.download = fileName; 
+            document.body.appendChild(a); 
+            a.click(); 
+            setTimeout(() => {
+              document.body.removeChild(a);
+              window.URL.revokeObjectURL(url);
+            }, 100);
+          }).catch(function(err) { 
+            element.style.display = 'none'; element.style.position = ''; btn.innerHTML = originalText; btn.disabled = false; alert('خطا در تولید فایل: ' + err.message); 
+          });
+        } catch(e) {
+          element.style.display = 'none'; element.style.position = ''; btn.innerHTML = originalText; btn.disabled = false; alert('خطای غیرمنتظره در ساخت PDF: ' + e.message); 
+        }
+      }, 500);
+    }
+
     function downloadBackupFileDirectly() {
       try {
         const fullBackup = { app: 'MEHR_PAK_KOUHIJ', backupDate: new Date().toISOString(), products: DB.get(DB_KEYS.PRODUCTS), categories: DB.get(DB_KEYS.CATEGORIES), settings: DB.getSettings() };
@@ -800,31 +869,34 @@
         a.style.display = 'none';
         a.href = url;
         a.download = `MehrPakhsh_Backup_${Date.now()}.json`;
-        // بدون استفاده از target="_blank"
         document.body.appendChild(a);
         a.click();
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
+        setTimeout(() => {
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
+        }, 100);
       } catch (err) {
-        alert('خطا در دانلود: ' + err.message);
+        alert('خطا در دانلود فایل: ' + err.message);
       }
     }
 
-    // متد ارسال خالص
     function triggerNativeShareBackup() {
       try {
         const fullBackup = { app: 'MEHR_PAK_KOUHIJ', backupDate: new Date().toISOString(), products: DB.get(DB_KEYS.PRODUCTS), categories: DB.get(DB_KEYS.CATEGORIES), settings: DB.getSettings() };
         const jsonStr = JSON.stringify(fullBackup, null, 2);
-        const file = new File([jsonStr], `MehrPakhsh_Backup_${Date.now()}.json`, { type: 'application/json' });
         
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-            navigator.share({ files: [file], title: 'فایل پشتیبان انبار' }).catch(()=>{});
+        try {
+          const file = new File([jsonStr], `MehrPakhsh_Backup_${Date.now()}.json`, { type: 'application/json' });
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+              navigator.share({ files: [file], title: 'فایل پشتیبان انبار' }).catch(()=>{});
+              return;
+          }
+        } catch (err) {}
+        
+        if (navigator.share) {
+            navigator.share({ title: 'پشتیبان انبار مهر پخش', text: jsonStr }).catch(()=>{ downloadBackupFileDirectly(); });
         } else {
-            if(navigator.share) {
-                navigator.share({ title: 'پشتیبان انبار مهر پخش', text: jsonStr }).catch(()=>{ downloadBackupFileDirectly(); });
-            } else {
-                downloadBackupFileDirectly();
-            }
+            downloadBackupFileDirectly();
         }
       } catch (err) {
         downloadBackupFileDirectly();
@@ -837,7 +909,7 @@
       
       if(navigator.clipboard && window.isSecureContext) {
           navigator.clipboard.writeText(jsonStr).then(() => {
-              alert('✅ تمام اطلاعات انبار شما با موفقیت کپی شد! \n\nحالا یک یادداشت جدید در گوشی باز کنید یا وارد بخش پیام‌های ذخیره‌شده تلگرام شوید، انگشت خود را روی صفحه نگه دارید و گزینه Paste (جایگذاری) را بزنید و آن را ذخیره کنید.');
+              alert('✅ تمام اطلاعات انبار شما با موفقیت کپی شد! \n\nحالا یک یادداشت جدید در گوشی باز کنید یا وارد بخش پیام‌های ذخیره‌‌شده تلگرام شوید، انگشت خود را روی صفحه نگه دارید و گزینه Paste (جایگذاری) را بزنید و آن را ذخیره کنید.');
           }).catch(err => { fallbackCopyText(jsonStr); });
       } else {
           fallbackCopyText(jsonStr);
