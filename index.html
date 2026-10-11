@@ -499,10 +499,14 @@
         products.forEach(p => {
           if (!p.expiry) p.expiry = { jy: todayJ.jy, jm: todayJ.jm, jd: todayJ.jd };
           const diff = Jalali.diffDaysFromToday(p.expiry.jy, p.expiry.jm, p.expiry.jd);
-          if (diff < 0) { expired++; attentionItems.push({ product: p, reason: 'منقضی شده', class: 'badge-expired' }); } 
-          else if (diff <= (settings.veryNearDays || 20)) { veryNear++; attentionItems.push({ product: p, reason: `${diff} روز`, class: 'badge-very-near' }); } 
-          else if (diff <= (settings.nearDays || 30)) { near++; attentionItems.push({ product: p, reason: `${diff} روز`, class: 'badge-near' }); } 
-          else { safe++; }
+          
+          // حل مشکل دوم: تنها در صورتی که کالا "موجود" باشد در وضعیت انقضا بررسی می‌شود
+          if (p.status === 'available') {
+              if (diff < 0) { expired++; attentionItems.push({ product: p, reason: 'منقضی شده', class: 'badge-expired' }); } 
+              else if (diff <= (settings.veryNearDays || 20)) { veryNear++; attentionItems.push({ product: p, reason: `${diff} روز`, class: 'badge-very-near' }); } 
+              else if (diff <= (settings.nearDays || 30)) { near++; attentionItems.push({ product: p, reason: `${diff} روز`, class: 'badge-near' }); } 
+              else { safe++; }
+          }
         });
         
         document.getElementById('dashNearExpiryCount').innerText = (expired + veryNear + near) + ' قلم'; 
@@ -511,7 +515,8 @@
         document.getElementById('dashExpiredCount').innerText = expired; document.getElementById('dashVeryNearCount').innerText = veryNear; 
         document.getElementById('dashNearCount').innerText = near; document.getElementById('dashSafeCount').innerText = safe;
         
-        const sum = total || 1; 
+        // محاسبه نوار سلامت فقط بر اساس کالاهای موجود
+        const sum = available || 1; 
         document.getElementById('barSafe').style.width = ((safe / sum) * 100) + '%'; document.getElementById('barNear').style.width = ((near / sum) * 100) + '%'; 
         document.getElementById('barVeryNear').style.width = ((veryNear / sum) * 100) + '%'; document.getElementById('barExpired').style.width = ((expired / sum) * 100) + '%';
         
@@ -571,14 +576,15 @@
       document.getElementById('pmJalaliDay').innerHTML = dSelect; document.getElementById('pmLeapYearNotice').innerText = (m === 12 && Jalali.isLeap(y)) ? 'سال کبیسه است (اسفند ۳۰ روزه)' : '';
     }
 
+    // حل مشکل اول: فشرده سازی عکس‌ها با کاهش حداکثر ابعاد به ۵۰۰ و کیفیت به ۶۰ درصد
     function previewAndCompressImage(e) {
       const file = e.target.files[0]; if (!file) return; const reader = new FileReader();
       reader.onload = function(evt) {
         const img = new Image(); img.onload = function() {
-          const canvas = document.createElement('canvas'); const maxDim = 800; let w = img.width, h = img.height;
+          const canvas = document.createElement('canvas'); const maxDim = 500; let w = img.width, h = img.height;
           if (w > h && w > maxDim) { h = Math.round((h * maxDim) / w); w = maxDim; } else if (h > maxDim) { w = Math.round((w * maxDim) / h); h = maxDim; }
           canvas.width = w; canvas.height = h; canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-          const b64 = canvas.toDataURL('image/jpeg', 0.90); 
+          const b64 = canvas.toDataURL('image/jpeg', 0.60); 
           document.getElementById('pmImageBase64').value = b64; document.getElementById('pmImagePreview').innerHTML = `<img src="${b64}" style="max-height:85px; border-radius:6px;">`;
         }; img.src = evt.target.result;
       }; reader.readAsDataURL(file);
