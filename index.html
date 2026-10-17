@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>مهر پخش کوهیج</title>
   <script src="html2pdf.bundle.min.js"></script>
 
@@ -130,84 +130,84 @@
     #pdf-printable-area * { font-family: inherit !important; letter-spacing: 0px !important; }
     .pdf-frame-page { width: 794px; height: 1122px; box-sizing: border-box; page-break-after: always; position: relative; overflow: hidden; }
     .pdf-frame-page:last-child { page-break-after: auto; }
-      .financial-title { font-size: 11.5px; color: #cbd5e1; }
+    .financial-title { font-size: 11.5px; color: #cbd5e1; }
     .financial-value { font-size: 18px; font-weight: 800; margin-top: 2px; }
-      .pdf-frame-page { font-family: Tahoma, Arial, sans-serif !important; direction: rtl !important; }
+    .pdf-frame-page { font-family: Tahoma, Arial, sans-serif !important; direction: rtl !important; }
     .pdf-frame-page * { font-family: inherit !important; letter-spacing: 0px !important; }
   </style>
 </head>
 <body>
 
   <div id="splash-screen">
-    <div class="splash-logo-box">&#x1F4E6;</div>
-    <div class="splash-title">&#x645;&#x647;&#x631; &#x67E;&#x62E;&#x634; &#x6A9;&#x648;&#x647;&#x6CC;&#x62C;</div>
-    <div class="splash-subtitle">&#x633;&#x627;&#x645;&#x627;&#x646;&#x647; &#x62C;&#x627;&#x645;&#x639; &#x645;&#x62F;&#x6CC;&#x631;&#x6CC;&#x62A; &#x627;&#x646;&#x628;&#x627;&#x631; &#x648; &#x67E;&#x627;&#x6CC;&#x634; &#x627;&#x646;&#x642;&#x636;&#x627;</div>
-    <div class="splash-creator">&#x62A;&#x648;&#x633;&#x639;&#x647;&#x200C;&#x62F;&#x647;&#x646;&#x62F;&#x647;: &#x627;&#x62D;&#x645;&#x62F; &#x686;&#x648;&#x645;&#x6CC;&#x6A9;</div>
+    <div class="splash-logo-box">📦</div>
+    <div class="splash-title">مهر پخش کوهیج</div>
+    <div class="splash-subtitle">سامانه جامع مدیریت انبار و پایش انقضا</div>
+    <div class="splash-creator">توسعه‌دهنده: احمد چومیک</div>
   </div>
 
   <main>
     <section id="view-dashboard" class="view-section active">
       <div class="hero-banner">
         <div class="hero-header">
-          <div><div class="hero-title" id="dashCompName">&#x645;&#x647;&#x631; &#x67E;&#x62E;&#x634; &#x6A9;&#x648;&#x647;&#x6CC;&#x62C;</div><div class="hero-date" id="dashLiveDate">&#x62F;&#x631; &#x62D;&#x627;&#x644; &#x645;&#x62D;&#x627;&#x633;&#x628;&#x647; &#x62A;&#x627;&#x631;&#x6CC;&#x62E;...</div></div>
-          <div class="hero-badge">&#x633;&#x627;&#x645;&#x627;&#x646;&#x647; &#x627;&#x646;&#x628;&#x627;&#x631; &#x641;&#x639;&#x627;&#x644;</div>
+          <div><div class="hero-title" id="dashCompName">مهر پخش کوهیج</div><div class="hero-date" id="dashLiveDate">در حال محاسبه تاریخ...</div></div>
+          <div class="hero-badge">سامانه انبار فعال</div>
         </div>
         <div class="financial-card" style="margin-top: 10px; padding-top: 8px;">
-          <div class="financial-title">&#x627;&#x642;&#x644;&#x627;&#x645; &#x646;&#x6CC;&#x627;&#x632;&#x645;&#x646;&#x62F; &#x62A;&#x631;&#x62E;&#x6CC;&#x635; (&#x646;&#x632;&#x62F;&#x6CC;&#x6A9; &#x628;&#x647; &#x627;&#x646;&#x642;&#x636;&#x627;):</div>
-          <div class="financial-value" id="dashNearExpiryCount" style="color:#fbbf24;">&#x6F0; &#x642;&#x644;&#x645;</div>
+          <div class="financial-title">اقلام نیازمند ترخیص (نزدیک به انقضا):</div>
+          <div class="financial-value" id="dashNearExpiryCount" style="color:#fbbf24;">۰ قلم</div>
         </div>
       </div>
 
       <div class="stat-grid">
-        <div class="stat-card"><div class="stat-card-header"><span class="stat-card-title">&#x6A9;&#x644; &#x627;&#x642;&#x644;&#x627;&#x645;</span><div class="stat-card-icon" style="background:#e0f2fe; color:#0284c7;">&#x1F4E6;</div></div><div class="stat-card-number" id="dashTotalProducts">&#x6F0;</div></div>
-        <div class="stat-card"><div class="stat-card-header"><span class="stat-card-title">&#x645;&#x648;&#x62C;&#x648;&#x62F;</span><div class="stat-card-icon" style="background:#dcfce7; color:#16a34a;">&#x2705;</div></div><div class="stat-card-number" id="dashAvailableProducts">&#x6F0;</div></div>
-        <div class="stat-card"><div class="stat-card-header"><span class="stat-card-title">&#x646;&#x627;&#x645;&#x648;&#x62C;&#x648;&#x62F;</span><div class="stat-card-icon" style="background:#fee2e2; color:#dc2626;">&#x274C;</div></div><div class="stat-card-number" id="dashUnavailableProducts">&#x6F0;</div></div>
-        <div class="stat-card"><div class="stat-card-header"><span class="stat-card-title">&#x62F;&#x633;&#x62A;&#x647;&#x200C;&#x647;&#x627;</span><div class="stat-card-icon" style="background:#f3e8ff; color:#9333ea;">&#x1F4C2;</div></div><div class="stat-card-number" id="dashTotalCategories">&#x6F0;</div></div>
+        <div class="stat-card"><div class="stat-card-header"><span class="stat-card-title">کل اقلام</span><div class="stat-card-icon" style="background:#e0f2fe; color:#0284c7;">📦</div></div><div class="stat-card-number" id="dashTotalProducts">۰</div></div>
+        <div class="stat-card"><div class="stat-card-header"><span class="stat-card-title">موجود</span><div class="stat-card-icon" style="background:#dcfce7; color:#16a34a;">✅</div></div><div class="stat-card-number" id="dashAvailableProducts">۰</div></div>
+        <div class="stat-card"><div class="stat-card-header"><span class="stat-card-title">ناموجود</span><div class="stat-card-icon" style="background:#fee2e2; color:#dc2626;">❌</div></div><div class="stat-card-number" id="dashUnavailableProducts">۰</div></div>
+        <div class="stat-card"><div class="stat-card-header"><span class="stat-card-title">دسته‌ها</span><div class="stat-card-icon" style="background:#f3e8ff; color:#9333ea;">📂</div></div><div class="stat-card-number" id="dashTotalCategories">۰</div></div>
       </div>
 
       <div class="card">
-        <div class="card-header"><div class="card-title">&#x67E;&#x627;&#x6CC;&#x634; &#x627;&#x646;&#x642;&#x636;&#x627;&#x6CC; &#x627;&#x646;&#x628;&#x627;&#x631; (&#x62E;&#x648;&#x631;&#x634;&#x6CC;&#x62F;&#x6CC;)</div></div>
+        <div class="card-header"><div class="card-title">پایش انقضای انبار (خورشیدی)</div></div>
         <div class="health-bar-container"><div id="barSafe" class="health-seg seg-safe" style="width: 25%"></div><div id="barNear" class="health-seg seg-near" style="width: 25%"></div><div id="barVeryNear" class="health-seg seg-very-near" style="width: 25%"></div><div id="barExpired" class="health-seg seg-expired" style="width: 25%"></div></div>
         <div class="expiry-chips-grid">
-          <div class="expiry-chip" onclick="filterProductsByExpiry('safe')"><span>&#x1F7E2; &#x627;&#x6CC;&#x645;&#x646;</span><span class="chip-count" id="dashSafeCount" style="color:#16a34a;">&#x6F0;</span></div>
-          <div class="expiry-chip" onclick="filterProductsByExpiry('near')"><span>&#x1F7E1; &#x646;&#x632;&#x62F;&#x6CC;&#x6A9;</span><span class="chip-count" id="dashNearCount" style="color:#d97706;">&#x6F0;</span></div>
-          <div class="expiry-chip" onclick="filterProductsByExpiry('very_near')"><span>&#x1F7E0; &#x62E;&#x6CC;&#x644;&#x6CC; &#x646;&#x632;&#x62F;&#x6CC;&#x6A9;</span><span class="chip-count" id="dashVeryNearCount" style="color:#ea580c;">&#x6F0;</span></div>
-          <div class="expiry-chip" onclick="filterProductsByExpiry('expired')"><span>&#x1F534; &#x645;&#x646;&#x642;&#x636;&#x6CC;</span><span class="chip-count" id="dashExpiredCount" style="color:#dc2626;">&#x6F0;</span></div>
+          <div class="expiry-chip" onclick="filterProductsByExpiry('safe')"><span>🟢 ایمن</span><span class="chip-count" id="dashSafeCount" style="color:#16a34a;">۰</span></div>
+          <div class="expiry-chip" onclick="filterProductsByExpiry('near')"><span>🟡 نزدیک</span><span class="chip-count" id="dashNearCount" style="color:#d97706;">۰</span></div>
+          <div class="expiry-chip" onclick="filterProductsByExpiry('very_near')"><span>🟠 خیلی نزدیک</span><span class="chip-count" id="dashVeryNearCount" style="color:#ea580c;">۰</span></div>
+          <div class="expiry-chip" onclick="filterProductsByExpiry('expired')"><span>🔴 منقضی</span><span class="chip-count" id="dashExpiredCount" style="color:#dc2626;">۰</span></div>
         </div>
       </div>
 
-      <div class="card"><div class="card-header"><div class="card-title">&#x26A0;&#xFE0F; &#x6A9;&#x627;&#x644;&#x627;&#x647;&#x627;&#x6CC; &#x646;&#x6CC;&#x627;&#x632;&#x645;&#x646;&#x62F; &#x62A;&#x648;&#x62C;&#x647;</div></div><div id="dashAttentionContainer"></div></div>
+      <div class="card"><div class="card-header"><div class="card-title">⚠️ کالاهای نیازمند توجه</div></div><div id="dashAttentionContainer"></div></div>
 
       <div class="card">
-        <div class="card-header"><div class="card-title">&#x26A1; &#x627;&#x642;&#x62F;&#x627;&#x645;&#x627;&#x62A; &#x633;&#x631;&#x6CC;&#x639;</div></div>
+        <div class="card-header"><div class="card-title">⚡ اقدامات سریع</div></div>
         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
-          <button class="btn btn-primary" onclick="openProductModal()">&#x2795; &#x627;&#x641;&#x632;&#x648;&#x62F;&#x646; &#x6A9;&#x627;&#x644;&#x627;</button>
-          <button class="btn btn-warning" onclick="navigateTo('view-export')">&#x1F6A8; &#x644;&#x6CC;&#x633;&#x62A; &#x62A;&#x631;&#x62E;&#x6CC;&#x635; &#x627;&#x646;&#x642;&#x636;&#x627;</button>
-          <button class="btn btn-secondary" onclick="navigateTo('view-categories')">&#x1F4C2; &#x62F;&#x633;&#x62A;&#x647;&#x200C;&#x628;&#x646;&#x62F;&#x6CC;&#x200C;&#x647;&#x627;</button>
-          <button class="btn btn-success" onclick="generateMKPFile()">&#x1F4BE; &#x67E;&#x634;&#x62A;&#x6CC;&#x628;&#x627;&#x646;&#x200C;&#x6AF;&#x6CC;&#x631;&#x6CC;</button>
+          <button class="btn btn-primary" onclick="openProductModal()">➕ افزودن کالا</button>
+          <button class="btn btn-warning" onclick="navigateTo('view-export')">🚨 لیست ترخیص انقضا</button>
+          <button class="btn btn-secondary" onclick="navigateTo('view-categories')">📂 دسته‌بندی‌ها</button>
+          <button class="btn btn-success" onclick="generateMKPFile()">💾 پشتیبان‌گیری</button>
         </div>
       </div>
     </section>
 
     <section id="view-products" class="view-section">
       <div class="card">
-        <div class="card-header"><div class="card-title">&#x641;&#x647;&#x631;&#x633;&#x62A; &#x6A9;&#x627;&#x644;&#x627;&#x647;&#x627;</div><button class="btn btn-primary btn-sm" onclick="openProductModal()">+ &#x627;&#x641;&#x632;&#x648;&#x62F;&#x646; &#x6A9;&#x627;&#x644;&#x627;&#x6CC; &#x62C;&#x62F;&#x6CC;&#x62F;</button></div>
+        <div class="card-header"><div class="card-title">فهرست کالاها</div><button class="btn btn-primary btn-sm" onclick="openProductModal()">+ افزودن کالای جدید</button></div>
         <div class="form-row" style="margin-bottom: 10px;">
           <div class="form-group" style="flex: 2;">
-            <input type="text" id="prodSearchInput" class="form-control" placeholder="&#x62C;&#x633;&#x62A;&#x62C;&#x648;&#x6CC; &#x646;&#x627;&#x645;&#x60C; &#x628;&#x631;&#x646;&#x62F;..." oninput="renderProductList()">
+            <input type="text" id="prodSearchInput" class="form-control" placeholder="جستجوی نام، برند..." oninput="renderProductList()">
           </div>
           <div class="form-group" style="flex: 1.2;">
-            <select id="prodCategoryFilter" class="form-control" onchange="renderProductList()"><option value="">&#x647;&#x645;&#x647; &#x62F;&#x633;&#x62A;&#x647;&#x200C;&#x647;&#x627;</option></select>
+            <select id="prodCategoryFilter" class="form-control" onchange="renderProductList()"><option value="">همه دسته‌ها</option></select>
           </div>
           <div class="form-group" style="flex: 1;">
             <select id="prodStatusFilter" class="form-control" onchange="renderProductList()">
-              <option value="">&#x647;&#x645;&#x647; &#x648;&#x636;&#x639;&#x6CC;&#x62A;&#x200C;&#x647;&#x627;</option>
-              <option value="available">&#x645;&#x648;&#x62C;&#x648;&#x62F;</option>
-              <option value="unavailable">&#x646;&#x627;&#x645;&#x648;&#x62C;&#x648;&#x62F;</option>
-              <option value="safe">&#x627;&#x6CC;&#x645;&#x646;</option>
-              <option value="near">&#x646;&#x632;&#x62F;&#x6CC;&#x6A9; &#x628;&#x647; &#x627;&#x646;&#x642;&#x636;&#x627;</option>
-              <option value="very_near">&#x62E;&#x6CC;&#x644;&#x6CC; &#x646;&#x632;&#x62F;&#x6CC;&#x6A9;</option>
-              <option value="expired">&#x645;&#x646;&#x642;&#x636;&#x6CC; &#x634;&#x62F;&#x647;</option>
+              <option value="">همه وضعیت‌ها</option>
+              <option value="available">موجود</option>
+              <option value="unavailable">ناموجود</option>
+              <option value="safe">ایمن</option>
+              <option value="near">نزدیک به انقضا</option>
+              <option value="very_near">خیلی نزدیک</option>
+              <option value="expired">منقضی شده</option>
             </select>
           </div>
         </div>
@@ -217,168 +217,167 @@
 
     <section id="view-categories" class="view-section">
       <div class="card">
-        <div class="card-header"><div class="card-title">&#x62F;&#x633;&#x62A;&#x647;&#x200C;&#x200C;&#x628;&#x646;&#x62F;&#x6CC;&#x200C;&#x647;&#x627;&#x6CC; &#x6A9;&#x627;&#x644;&#x627;</div><button class="btn btn-primary btn-sm" onclick="openCategoryModal()">+ &#x62F;&#x633;&#x62A;&#x647;&#x200C;&#x628;&#x646;&#x62F;&#x6CC; &#x62C;&#x62F;&#x6CC;&#x62F;</button></div>
+        <div class="card-header"><div class="card-title">دسته‌‌بندی‌های کالا</div><button class="btn btn-primary btn-sm" onclick="openCategoryModal()">+ دسته‌بندی جدید</button></div>
         <div id="categoryListContainer"></div>
       </div>
     </section>
 
     <section id="view-export" class="view-section">
       <div class="card">
-        <div class="card-header"><div class="card-title">&#x635;&#x62F;&#x648;&#x631; &#x627;&#x633;&#x646;&#x627;&#x62F;&#x60C; &#x6A9;&#x627;&#x62A;&#x627;&#x644;&#x648;&#x6AF; &#x648; &#x62E;&#x631;&#x648;&#x62C;&#x6CC;</div></div>
+        <div class="card-header"><div class="card-title">صدور اسناد، کاتالوگ و خروجی</div></div>
         <div class="export-mode-tabs">
-          <button type="button" class="export-tab-btn active" id="tabModeCatalog" onclick="setExportMode('catalog')">&#x1F5BC; &#x6A9;&#x627;&#x62A;&#x627;&#x644;&#x648;&#x6AF; &#x67E;&#x648;&#x633;&#x62A;&#x631;</button>
-          <button type="button" class="export-tab-btn" id="tabModeInvoice" onclick="setExportMode('invoice')">&#x1F9FE; &#x67E;&#x6CC;&#x634;&#x200C;&#x641;&#x627;&#x6A9;&#x62A;&#x648;&#x631;</button>
-          <button type="button" class="export-tab-btn" id="tabModeExpiry" onclick="setExportMode('expiry')">&#x1F6A8; &#x62A;&#x631;&#x62E;&#x6CC;&#x635; &#x627;&#x646;&#x642;&#x636;&#x627;</button>
+          <button type="button" class="export-tab-btn active" id="tabModeCatalog" onclick="setExportMode('catalog')">🖼 کاتالوگ پوستر</button>
+          <button type="button" class="export-tab-btn" id="tabModeInvoice" onclick="setExportMode('invoice')">🧾 پیش‌فاکتور</button>
+          <button type="button" class="export-tab-btn" id="tabModeExpiry" onclick="setExportMode('expiry')">🚨 ترخیص انقضا</button>
         </div>
         <div id="invoiceCustomerBox" style="display:none; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 10px; margin-bottom: 10px;">
           <div class="form-row">
-            <div class="form-group"><label>&#x646;&#x627;&#x645; &#x62E;&#x631;&#x6CC;&#x62F;&#x627;&#x631; / &#x641;&#x631;&#x648;&#x634;&#x6AF;&#x627;&#x647; *</label><input type="text" id="invCustomerName" class="form-control" placeholder="&#x633;&#x648;&#x67E;&#x631;&#x645;&#x627;&#x631;&#x6A9;&#x62A;..."></div>
-            <div class="form-group"><label>&#x634;&#x645;&#x627;&#x631;&#x647; &#x62A;&#x645;&#x627;&#x633; &#x62E;&#x631;&#x6CC;&#x62F;&#x627;&#x631;</label><input type="text" id="invCustomerPhone" class="form-control" placeholder="&#x6F0;&#x6F9;&#x6F1;&#x6F2;..."></div>
+            <div class="form-group"><label>نام خریدار / فروشگاه *</label><input type="text" id="invCustomerName" class="form-control" placeholder="سوپرمارکت..."></div>
+            <div class="form-group"><label>شماره تماس خریدار</label><input type="text" id="invCustomerPhone" class="form-control" placeholder="۰۹۱۲..."></div>
           </div>
         </div>
         
         <div id="catalogOptionsBox" class="form-group">
-          <label><b>&#x62A;&#x646;&#x638;&#x6CC;&#x645;&#x627;&#x62A; &#x62E;&#x631;&#x648;&#x62C;&#x6CC; PDF:</b></label>
+          <label><b>تنظیمات خروجی PDF:</b></label>
           <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 11.5px; margin-top: 4px;">
-            <label><input type="checkbox" id="pdfOptHideUnavailable" checked> &#x62D;&#x630;&#x641; &#x62E;&#x648;&#x62F;&#x6A9;&#x627;&#x631; &#x646;&#x627;&#x645;&#x648;&#x62C;&#x648;&#x62F;&#x647;&#x627;</label>
-            <label><input type="checkbox" id="pdfOptShowImage" checked> &#x646;&#x645;&#x627;&#x6CC;&#x634; &#x639;&#x6A9;&#x633; &#x6A9;&#x627;&#x644;&#x627;</label>
-            <label><input type="checkbox" id="pdfOptShowPrice" checked> &#x646;&#x645;&#x627;&#x6CC;&#x634; &#x642;&#x6CC;&#x645;&#x62A;</label>
-            <label><input type="checkbox" id="pdfOptShowCompany" checked> &#x646;&#x645;&#x627;&#x6CC;&#x634; &#x628;&#x631;&#x646;&#x62F; &#x62A;&#x648;&#x644;&#x6CC;&#x62F;&#x6A9;&#x646;&#x646;&#x62F;&#x647;</label>
-            <label><input type="checkbox" id="pdfOptShowExpiry" checked> &#x646;&#x645;&#x627;&#x6CC;&#x634; &#x62A;&#x627;&#x631;&#x6CC;&#x62E; &#x627;&#x646;&#x642;&#x636;&#x627;</label>
+            <label><input type="checkbox" id="pdfOptHideUnavailable" checked> حذف خودکار ناموجودها</label>
+            <label><input type="checkbox" id="pdfOptShowImage" checked> نمایش عکس کالا</label>
+            <label><input type="checkbox" id="pdfOptShowPrice" checked> نمایش قیمت</label>
+            <label><input type="checkbox" id="pdfOptShowCompany" checked> نمایش برند تولیدکننده</label>
+            <label><input type="checkbox" id="pdfOptShowExpiry" checked> نمایش تاریخ انقضا</label>
           </div>
         </div>
         
         <div class="form-row">
-          <div class="form-group"><label>&#x645;&#x62A;&#x646; &#x628;&#x627;&#x644;&#x627;&#x6CC; &#x633;&#x646;&#x62F;</label><input type="text" id="pdfCustomHeaderNote" class="form-control" placeholder="&#x645;&#x62B;&#x627;&#x644;: &#x644;&#x6CC;&#x633;&#x62A; &#x6A9;&#x627;&#x62A;&#x627;&#x644;&#x648;&#x6AF;"></div>
-          <div class="form-group"><label>&#x645;&#x62A;&#x646; &#x67E;&#x627;&#x6CC;&#x6CC;&#x646; &#x633;&#x646;&#x62F;</label><input type="text" id="pdfCustomFooterNote" class="form-control" placeholder="&#x645;&#x62B;&#x627;&#x644;: &#x62A;&#x62D;&#x648;&#x6CC;&#x644; &#x633;&#x631;&#x6CC;&#x639;"></div>
+          <div class="form-group"><label>متن بالای سند</label><input type="text" id="pdfCustomHeaderNote" class="form-control" placeholder="مثال: لیست کاتالوگ"></div>
+          <div class="form-group"><label>متن پایین سند</label><input type="text" id="pdfCustomFooterNote" class="form-control" placeholder="مثال: تحویل سریع"></div>
         </div>
         <div class="card-header" style="margin-top: 6px;">
-          <div style="font-size: 12.5px; font-weight: 600;" id="checklistTitleLabel">&#x627;&#x642;&#x644;&#x627;&#x645; &#x645;&#x648;&#x631;&#x62F; &#x646;&#x638;&#x631; &#x631;&#x627; &#x627;&#x646;&#x62A;&#x62E;&#x627;&#x628; &#x6A9;&#x646;&#x6CC;&#x62F;:</div>
-          <div><button class="btn btn-sm btn-secondary" onclick="toggleSelectAllExport(true)">&#x647;&#x645;&#x647;</button><button class="btn btn-sm btn-secondary" onclick="toggleSelectAllExport(false)">&#x647;&#x6CC;&#x686;&#x200C;&#x6A9;&#x62F;&#x627;&#x645;</button></div>
+          <div style="font-size: 12.5px; font-weight: 600;" id="checklistTitleLabel">اقلام مورد نظر را انتخاب کنید:</div>
+          <div><button class="btn btn-sm btn-secondary" onclick="toggleSelectAllExport(true)">همه</button><button class="btn btn-sm btn-secondary" onclick="toggleSelectAllExport(false)">هیچ‌کدام</button></div>
         </div>
         <div id="exportProductsChecklist" style="max-height: 260px; overflow-y: auto; border: 1px solid var(--border); border-radius: 8px; padding: 6px; margin-bottom: 10px;"></div>
-        <div id="invoiceTotalPreview" style="display:none; text-align: left; margin-bottom: 12px; font-size: 13.5px; font-weight: bold; color: var(--primary);">&#x62C;&#x645;&#x639; &#x6A9;&#x644; &#x67E;&#x6CC;&#x634;&#x200C;&#x641;&#x627;&#x6A9;&#x62A;&#x648;&#x631;: <span id="invTotalAmount">&#x6F0;</span> &#x62A;&#x648;&#x645;&#x627;&#x646;</div>
+        <div id="invoiceTotalPreview" style="display:none; text-align: left; margin-bottom: 12px; font-size: 13.5px; font-weight: bold; color: var(--primary);">جمع کل پیش‌فاکتور: <span id="invTotalAmount">۰</span> تومان</div>
         
         <div style="display: flex; flex-direction: column; gap: 8px;">
           <div style="display: flex; gap: 8px;">
-            <button class="btn btn-primary" id="btnDownloadPdf" style="flex: 1;" onclick="generateAndOpenRealPdf(false)">&#x1F4E5; &#x62F;&#x627;&#x646;&#x644;&#x648;&#x62F; &#x645;&#x633;&#x62A;&#x642;&#x6CC;&#x645; PDF</button>
-            <button class="btn btn-warning" id="btnShareMessenger" style="flex: 1;" onclick="generateAndOpenRealPdf(true)">&#x1F4E4; &#x627;&#x631;&#x633;&#x627;&#x644; PDF</button>
+            <button class="btn btn-primary" id="btnDownloadPdf" style="flex: 1;" onclick="generateAndOpenRealPdf(false)">📥 دانلود مستقیم PDF</button>
+            <button class="btn btn-warning" id="btnShareMessenger" style="flex: 1;" onclick="generateAndOpenRealPdf(true)">📤 ارسال PDF</button>
           </div>
-          <button class="btn btn-success btn-block" onclick="generateMKPFile()">&#x1F4E6; &#x633;&#x627;&#x62E;&#x62A; &#x641;&#x627;&#x6CC;&#x644; &#x67E;&#x634;&#x62A;&#x6CC;&#x628;&#x627;&#x646; JSON</button>
+          <button class="btn btn-success btn-block" onclick="generateMKPFile()">📦 ساخت فایل پشتیبان JSON</button>
         </div>
       </div>
       <div class="card">
-        <div class="card-header"><div class="card-title">&#x628;&#x627;&#x632;&#x62E;&#x648;&#x627;&#x646;&#x6CC; &#x641;&#x627;&#x6CC;&#x644; &#x67E;&#x634;&#x62A;&#x6CC;&#x628;&#x627;&#x646; &#x627;&#x646;&#x628;&#x627;&#x631;</div></div>
+        <div class="card-header"><div class="card-title">بازخوانی فایل پشتیبان انبار</div></div>
         <input type="file" id="mkpFileInput" accept=".json,application/json,.txt" style="display: none;" onchange="importMKPFile(event)">
-        <button class="btn btn-secondary btn-block" onclick="document.getElementById('mkpFileInput').click()">&#x1F4C2; &#x627;&#x646;&#x62A;&#x62E;&#x627;&#x628; &#x641;&#x627;&#x6CC;&#x644; &#x67E;&#x634;&#x62A;&#x6CC;&#x628;&#x627;&#x646; &#x648; &#x628;&#x627;&#x631;&#x6AF;&#x630;&#x627;&#x631;&#x6CC;</button>
+        <button class="btn btn-secondary btn-block" onclick="document.getElementById('mkpFileInput').click()">📂 انتخاب فایل پشتیبان و بارگذاری</button>
       </div>
     </section>
 
-    <!-- &#x6F5;. &#x62A;&#x646;&#x638;&#x6CC;&#x645;&#x627;&#x62A; -->
     <section id="view-settings" class="view-section">
       <div class="card">
-        <div class="card-header"><div class="card-title">&#x645;&#x634;&#x62E;&#x635;&#x627;&#x62A; &#x634;&#x631;&#x6A9;&#x62A; &#x648; &#x644;&#x648;&#x6AF;&#x648;</div></div>
+        <div class="card-header"><div class="card-title">مشخصات شرکت و لوگو</div></div>
         <div class="form-row">
-          <div class="form-group"><label>&#x646;&#x627;&#x645; &#x634;&#x631;&#x6A9;&#x62A;</label><input type="text" id="setCompanyName" class="form-control" value="&#x645;&#x647;&#x631; &#x67E;&#x62E;&#x634; &#x6A9;&#x648;&#x647;&#x6CC;&#x62C;"></div>
-          <div class="form-group"><label>&#x634;&#x645;&#x627;&#x631;&#x647; &#x62A;&#x645;&#x627;&#x633;</label><input type="text" id="setCompanyPhone" class="form-control" placeholder="&#x6F0;&#x6F9;&#x6F1;&#x6F2;..."></div>
+          <div class="form-group"><label>نام شرکت</label><input type="text" id="setCompanyName" class="form-control" value="مهر پخش کوهیج"></div>
+          <div class="form-group"><label>شماره تماس</label><input type="text" id="setCompanyPhone" class="form-control" placeholder="۰۹۱۲..."></div>
         </div>
-        <div class="form-group"><label>&#x622;&#x62F;&#x631;&#x633; &#x631;&#x633;&#x645;&#x6CC;</label><input type="text" id="setCompanyAddress" class="form-control" placeholder="&#x647;&#x631;&#x645;&#x632;&#x6AF;&#x627;&#x646;&#x60C; &#x6A9;&#x648;&#x647;&#x6CC;&#x62C;..."></div>
-        <div class="form-group"><label>&#x644;&#x648;&#x6AF;&#x648;&#x6CC; &#x634;&#x631;&#x6A9;&#x62A;</label><input type="file" id="setCompanyLogoFile" accept="image/*" class="form-control" onchange="handleLogoUpload(event)"><div id="setLogoPreview" style="margin-top: 6px; text-align: center;"></div></div>
-        <button class="btn btn-primary btn-sm" onclick="saveCompanySettings()">&#x630;&#x62E;&#x6CC;&#x631;&#x647; &#x627;&#x637;&#x644;&#x627;&#x639;&#x627;&#x62A; &#x634;&#x631;&#x6A9;&#x62A;</button>
+        <div class="form-group"><label>آدرس رسمی</label><input type="text" id="setCompanyAddress" class="form-control" placeholder="هرمزگان، کوهیج..."></div>
+        <div class="form-group"><label>لوگوی شرکت</label><input type="file" id="setCompanyLogoFile" accept="image/*" class="form-control" onchange="handleLogoUpload(event)"><div id="setLogoPreview" style="margin-top: 6px; text-align: center;"></div></div>
+        <button class="btn btn-primary btn-sm" onclick="saveCompanySettings()">ذخیره اطلاعات شرکت</button>
       </div>
       <div class="card">
-        <div class="card-header"><div class="card-title">&#x62D;&#x633;&#x627;&#x633;&#x6CC;&#x62A; &#x627;&#x646;&#x642;&#x636;&#x627;</div></div>
+        <div class="card-header"><div class="card-title">حساسیت انقضا</div></div>
         <div class="form-row">
-          <div class="form-group"><label>&#x631;&#x648;&#x632; &#x62A;&#x627; &#x646;&#x632;&#x62F;&#x6CC;&#x6A9; &#x628;&#x647; &#x627;&#x646;&#x642;&#x636;&#x627;</label><input type="number" id="setNearDays" class="form-control" value="30"></div>
-          <div class="form-group"><label>&#x631;&#x648;&#x632; &#x62A;&#x627; &#x62E;&#x6CC;&#x644;&#x6CC; &#x646;&#x632;&#x62F;&#x6CC;&#x6A9;</label><input type="number" id="setVeryNearDays" class="form-control" value="20"></div>
+          <div class="form-group"><label>روز تا نزدیک به انقضا</label><input type="number" id="setNearDays" class="form-control" value="30"></div>
+          <div class="form-group"><label>روز تا خیلی نزدیک</label><input type="number" id="setVeryNearDays" class="form-control" value="20"></div>
         </div>
-        <button class="btn btn-primary btn-sm" onclick="saveExpirySettings()">&#x630;&#x62E;&#x6CC;&#x631;&#x647; &#x628;&#x627;&#x632;&#x647;&#x200C;&#x647;&#x627;</button>
+        <button class="btn btn-primary btn-sm" onclick="saveExpirySettings()">ذخیره بازه‌ها</button>
       </div>
     </section>
   </main>
 
   <nav class="bottom-nav">
-    <button onclick="navigateTo('view-dashboard')" id="nav-view-dashboard" class="active"><svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>&#x62F;&#x627;&#x634;&#x628;&#x648;&#x631;&#x62F;</button>
-    <button onclick="navigateTo('view-products')" id="nav-view-products"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-9 14l-4-4 1.4-1.4 2.6 2.6 6.6-6.6 1.4 1.4-8 8z"/></svg>&#x6A9;&#x627;&#x644;&#x627;&#x647;&#x627;</button>
-    <button onclick="navigateTo('view-categories')" id="nav-view-categories"><svg viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>&#x62F;&#x633;&#x62A;&#x647;&#x200C;&#x647;&#x627;</button>
-    <button onclick="navigateTo('view-export')" id="nav-view-export"><svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>&#x627;&#x633;&#x646;&#x627;&#x62F;/&#x628;&#x6A9;&#x627;&#x67E;</button>
-    <button onclick="navigateTo('view-settings')" id="nav-view-settings"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>&#x62A;&#x646;&#x638;&#x6CC;&#x645;&#x627;&#x62A;</button>
+    <button onclick="navigateTo('view-dashboard')" id="nav-view-dashboard" class="active"><svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>داشبورد</button>
+    <button onclick="navigateTo('view-products')" id="nav-view-products"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-9 14l-4-4 1.4-1.4 2.6 2.6 6.6-6.6 1.4 1.4-8 8z"/></svg>کالاها</button>
+    <button onclick="navigateTo('view-categories')" id="nav-view-categories"><svg viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>دسته‌ها</button>
+    <button onclick="navigateTo('view-export')" id="nav-view-export"><svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>اسناد/بکاپ</button>
+    <button onclick="navigateTo('view-settings')" id="nav-view-settings"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>تنظیمات</button>
   </nav>
 
   <div id="backupCenterModal" class="modal-overlay">
     <div class="modal-box">
-      <div class="modal-header"><h3>&#x1F4BE; &#x645;&#x631;&#x6A9;&#x632; &#x67E;&#x634;&#x62A;&#x6CC;&#x628;&#x627;&#x646;&#x200C;&#x6AF;&#x6CC;&#x631;&#x6CC; &#x627;&#x646;&#x628;&#x627;&#x631;</h3><button class="modal-close" onclick="closeModal('backupCenterModal')">&times;</button></div>
+      <div class="modal-header"><h3>💾 مرکز پشتیبان‌گیری انبار</h3><button class="modal-close" onclick="closeModal('backupCenterModal')">&times;</button></div>
       <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:12px;">
-        <button class="btn btn-primary btn-block" onclick="downloadBackupFileDirectly()">&#x1F4E5; &#x62F;&#x627;&#x646;&#x644;&#x648;&#x62F; &#x645;&#x633;&#x62A;&#x642;&#x6CC;&#x645; &#x641;&#x627;&#x6CC;&#x644; (.json)</button>
-        <button class="btn btn-success btn-block" onclick="triggerNativeShareBackup()">&#x1F4E4; &#x627;&#x631;&#x633;&#x627;&#x644; &#x641;&#x627;&#x6CC;&#x644; &#x628;&#x647; &#x67E;&#x6CC;&#x627;&#x645;&#x200C;&#x631;&#x633;&#x627;&#x646;</button>
+        <button class="btn btn-primary btn-block" onclick="downloadBackupFileDirectly()">📥 دانلود مستقیم فایل (.json)</button>
+        <button class="btn btn-success btn-block" onclick="triggerNativeShareBackup()">📤 ارسال فایل به پیام‌رسان</button>
         <div style="margin: 10px 0; border-top: 1px dashed var(--border);"></div>
-        <p style="font-size: 11px; color: var(--text-muted); text-align: center;">&#x627;&#x6AF;&#x631; &#x62F;&#x627;&#x646;&#x644;&#x648;&#x62F; &#x628;&#x627; &#x62E;&#x637;&#x627; &#x645;&#x648\u0627\u062C\u0647 \u0634\u062F\u060C \u0628\u0627 \u062F\u06A9\u0645\u0647 \u0632\u06CC\u0631 \u0627\u0637\u0644\u0627\u0639\u0627\u062A \u0631\u0627 \u062F\u0633\u062A\u06CC \u06A9\u067E\u06CC \u06A9\u0646\u06CC\u062F:</p>
-        <button class="btn btn-secondary btn-block" style="border: 2px solid #94a3b8;" onclick="copyBackupToClipboard()">&#x1F4CB; \u06A9\u067E\u06CC \u06A9\u0644 \u0627\u0637\u0644\u0627\u0639\u0627\u062A \u0628\u0647 \u0635\u0648\u0631\u062A \u0645\u062A\u0646</button>
+        <p style="font-size: 11px; color: var(--text-muted); text-align: center;">اگر دانلود با خطا مواجه شد، با دکمه زیر اطلاعات را دستی کپی کنید:</p>
+        <button class="btn btn-secondary btn-block" style="border: 2px solid #94a3b8;" onclick="copyBackupToClipboard()">📋 کپی کل اطلاعات به صورت متن</button>
       </div>
     </div>
   </div>
 
   <div id="productModal" class="modal-overlay">
     <div class="modal-box">
-      <div class="modal-header"><h3 id="productModalTitle">\u0627\u0641\u0632\u0648\u062F\u0646 \u06A9\u0627\u0644\u0627</h3><button class="modal-close" onclick="closeModal('productModal')">&times;</button></div>
+      <div class="modal-header"><h3 id="productModalTitle">افزودن کالا</h3><button class="modal-close" onclick="closeModal('productModal')">&times;</button></div>
       <form onsubmit="handleSaveProduct(event)">
         <input type="hidden" id="pmId">
-        <div class="form-group"><label>\u0646\u0627\u0645 \u06A9\u0627\u0644\u0627 *</label><input type="text" id="pmName" class="form-control" required></div>
+        <div class="form-group"><label>نام کالا *</label><input type="text" id="pmName" class="form-control" required></div>
         <div class="form-row">
-          <div class="form-group"><label>\u062F\u0633\u062A\u0647\u200C\u0628\u0646\u062F\u06CC *</label><select id="pmCategory" class="form-control" required></select></div>
-          <div class="form-group"><label>\u0642\u06CC\u0645\u062A (\u062A\u0648\u0645\u0627\u0646) *</label><input type="text" inputmode="decimal" id="pmPrice" class="form-control" required></div>
+          <div class="form-group"><label>دسته‌بندی *</label><select id="pmCategory" class="form-control" required></select></div>
+          <div class="form-group"><label>قیمت (تومان) *</label><input type="text" inputmode="decimal" id="pmPrice" class="form-control" required></div>
         </div>
         <div class="form-row">
-          <div class="form-group"><label>\u0628\u0631\u0646\u062F *</label><input type="text" id="pmCompany" class="form-control" required></div>
-          <div class="form-group"><label>\u06A9\u062F \u06A9\u0627\u0644\u0627</label><input type="text" id="pmCode" class="form-control"></div>
+          <div class="form-group"><label>برند *</label><input type="text" id="pmCompany" class="form-control" required></div>
+          <div class="form-group"><label>کد کالا</label><input type="text" id="pmCode" class="form-control"></div>
         </div>
-        <div class="form-group"><label>\u0648\u0636\u0639\u06CC\u062A</label><select id="pmStatus" class="form-control"><option value="available">\u0645\u0648\u062C\u0648\u062F</option><option value="unavailable">\u0646\u0627\u0645\u0648\u062C\u0648\u062F</option></select></div>
+        <div class="form-group"><label>وضعیت</label><select id="pmStatus" class="form-control"><option value="available">موجود</option><option value="unavailable">ناموجود</option></select></div>
         <div class="form-group" style="background: #f1f5f9; padding: 10px; border-radius: 8px;">
-          <label><b>\u062A\u0627\u0631\u06CC\u062E \u0627\u0646\u0642\u0636\u0627 *</b></label>
+          <label><b>تاریخ انقضا *</b></label>
           <div class="form-row" style="margin-top: 5px;">
-            <div class="form-group"><label>\u0633\u0627\u0644</label><select id="pmJalaliYear" class="form-control" onchange="updateJalaliDaysSelector()"></select></div>
-            <div class="form-group"><label>\u0645\u0627\u0647</label><select id="pmJalaliMonth" class="form-control" onchange="updateJalaliDaysSelector()"><option value="1">\u06F1</option><option value="2">\u06F2</option><option value="3">\u06F3</option><option value="4">\u06F4</option><option value="5">\u06F5</option><option value="6">\u06F6</option><option value="7">\u06F7</option><option value="8">\u06F8</option><option value="9">\u06F9</option><option value="10">\u06F1\u06F0</option><option value="11">\u06F1\u06F1</option><option value="12">\u06F1\u06F2</option></select></div>
-            <div class="form-group"><label>\u0631\u0648\u0632</label><select id="pmJalaliDay" class="form-control"></select></div>
+            <div class="form-group"><label>سال</label><select id="pmJalaliYear" class="form-control" onchange="updateJalaliDaysSelector()"></select></div>
+            <div class="form-group"><label>ماه</label><select id="pmJalaliMonth" class="form-control" onchange="updateJalaliDaysSelector()"><option value="1">۱</option><option value="2">۲</option><option value="3">۳</option><option value="4">۴</option><option value="5">۵</option><option value="6">۶</option><option value="7">۷</option><option value="8">۸</option><option value="9">۹</option><option value="10">۱۰</option><option value="11">۱۱</option><option value="12">۱۲</option></select></div>
+            <div class="form-group"><label>روز</label><select id="pmJalaliDay" class="form-control"></select></div>
           </div>
           <div id="pmLeapYearNotice" style="font-size: 11px; margin-top: 3px;"></div>
         </div>
-        <div class="form-group"><label>\u0639\u06A9\u0633 \u06A9\u0627\u0644\u0627</label><input type="file" id="pmImageFile" accept="image/*" class="form-control" onchange="previewAndCompressImage(event)"><input type="hidden" id="pmImageBase64"><div id="pmImagePreview" style="margin-top: 6px; text-align: center;"></div></div>
-        <div class="form-group"><label>\u062A\u0648\u0636\u06CC\u062D\u0627\u062A</label><textarea id="pmDescription" class="form-control" rows="2"></textarea></div>
-        <button type="submit" class="btn btn-primary btn-block">\u062B\u0628\u062A \u06A9\u0627\u0644\u0627</button>
+        <div class="form-group"><label>عکس کالا</label><input type="file" id="pmImageFile" accept="image/*" class="form-control" onchange="previewAndCompressImage(event)"><input type="hidden" id="pmImageBase64"><div id="pmImagePreview" style="margin-top: 6px; text-align: center;"></div></div>
+        <div class="form-group"><label>توضیحات</label><textarea id="pmDescription" class="form-control" rows="2"></textarea></div>
+        <button type="submit" class="btn btn-primary btn-block">ثبت کالا</button>
       </form>
     </div>
   </div>
 
   <div id="productDetailModal" class="modal-overlay">
     <div class="modal-box">
-      <div class="modal-header"><h3 id="pdmTitle">\u0627\u0637\u0644\u0627\u0639\u0627\u062A \u06A9\u0627\u0644\u0627</h3><button class="modal-close" onclick="closeModal('productDetailModal')">&times;</button></div>
+      <div class="modal-header"><h3 id="pdmTitle">اطلاعات کالا</h3><button class="modal-close" onclick="closeModal('productDetailModal')">&times;</button></div>
       <div id="pdmBody" style="font-size: 13px; line-height: 1.8;"></div>
     </div>
   </div>
 
   <div id="categoryModal" class="modal-overlay">
     <div class="modal-box">
-      <div class="modal-header"><h3 id="catModalTitle">\u0627\u0641\u0632\u0648\u062F\u0646 \u062F\u0633\u062A\u0647\u200C\u0628\u0646\u062F\u06CC</h3><button class="modal-close" onclick="closeModal('categoryModal')">&times;</button></div>
+      <div class="modal-header"><h3 id="catModalTitle">افزودن دسته‌بندی</h3><button class="modal-close" onclick="closeModal('categoryModal')">&times;</button></div>
       <form onsubmit="handleSaveCategory(event)">
         <input type="hidden" id="cmId">
-        <div class="form-group"><label>\u0646\u0627\u0645 \u062F\u0633\u062A\u0647\u200C\u0628\u0646\u062F\u06CC *</label><input type="text" id="cmName" class="form-control" required></div>
+        <div class="form-group"><label>نام دسته‌بندی *</label><input type="text" id="cmName" class="form-control" required></div>
         <div class="form-group">
-          <label>\u0627\u0648\u0644\u0648\u06CC\u062A \u0646\u0645\u0627\u06CC\u0634 \u062F\u0631 PDF (\u06F1 = \u0627\u0648\u0644\u06CC\u0646 \u062F\u0633\u062A\u0647) *</label>
-          <input type="number" id="cmOrder" class="form-control" placeholder="\u0645\u062B\u0644\u0627\u064B 1" required>
+          <label>اولویت نمایش در PDF (۱ = اولین دسته) *</label>
+          <input type="number" id="cmOrder" class="form-control" placeholder="مثلاً 1" required>
         </div>
-        <button type="submit" class="btn btn-primary btn-block">\u0630\u062E\u06CC\u0631\u0647 \u062F\u0633\u062A\u0647\u200C\u0628\u0646\u062F\u06CC</button>
+        <button type="submit" class="btn btn-primary btn-block">ذخیره دسته‌بندی</button>
       </form>
     </div>
   </div>
 
   <div id="fileReadyModal" class="modal-overlay">
     <div class="modal-box">
-      <div class="modal-header"><h3>\u2705 \u0641\u0627\u06CC\u0644 \u0622\u0645\u0627\u062F\u0647 \u0627\u0633\u062A</h3><button class="modal-close" onclick="closeModal('fileReadyModal')">&times;</button></div>
+      <div class="modal-header"><h3>✅ فایل آماده است</h3><button class="modal-close" onclick="closeModal('fileReadyModal')">&times;</button></div>
       <p id="fileReadyName" style="direction:ltr; text-align:center; font-size:12px; color:var(--text-muted); margin-bottom:12px; word-break:break-all;"></p>
       <div style="display:flex; flex-direction:column; gap:10px;">
-        <button type="button" class="btn btn-warning btn-block" onclick="shareReadyFile()">\u0627\u0631\u0633\u0627\u0644 / \u0630\u062E\u06CC\u0631\u0647 (\u0627\u0634\u062A\u0631\u0627\u06A9\u200C\u06AF\u0630\u0627\u0631\u06CC)</button>
-        <a id="fileReadyLink" class="btn btn-primary btn-block" style="text-decoration:none;">\u0630\u062E\u06CC\u0631\u0647 \u0641\u0627\u06CC\u0644 \u062F\u0631 \u06AF\u0648\u0634\u06CC</a>
-        <button type="button" class="btn btn-secondary btn-block" onclick="openReadyFile()">\u0628\u0627\u0632 \u06A9\u0631\u062F\u0646</button>
+        <button type="button" class="btn btn-warning btn-block" onclick="shareReadyFile()">📤 ارسال / ذخیره (اشتراک‌گذاری)</button>
+        <a id="fileReadyLink" class="btn btn-primary btn-block" style="text-decoration:none;">📥 ذخیره فایل در گوشی</a>
+        <button type="button" class="btn btn-secondary btn-block" onclick="openReadyFile()">👁 باز کردن</button>
       </div>
     </div>
   </div>
@@ -394,7 +393,7 @@
     });
 
     let __errShown = false;
-    window.addEventListener('error', function (ev) { if (__errShown) return; __errShown = true; alert('\u062E\u0637\u0627: ' + ev.message + ' (\u062E\u0637 ' + ev.lineno + ')'); });
+    window.addEventListener('error', function (ev) { if (__errShown) return; __errShown = true; alert('خطا: ' + ev.message + ' (خط ' + ev.lineno + ')'); });
     const Jalali = (function () {
       const BREAKS = [-61, 9, 38, 199, 426, 686, 756, 818, 1111, 1181, 1210, 1635, 2060, 2097, 2192, 2262, 2324, 2394, 2456, 3178];
       const div = (a, b) => ~~(a / b);
@@ -402,7 +401,7 @@
       function jalCal(jy) {
         const bl = BREAKS.length, gy = jy + 621;
         let leapJ = -14, jp = BREAKS[0], jm, jump = 0, n, i;
-        if (jy < jp || jy >= BREAKS[bl - 1]) throw new Error('\u0633\u0627\u0644 \u062C\u0644\u0627\u0644\u06CC \u0646\u0627\u0645\u0639\u062A\u0628\u0631: ' + jy);
+        if (jy < jp || jy >= BREAKS[bl - 1]) throw new Error('سال جلالی نامعتبر: ' + jy);
         for (i = 1; i < bl; i++) {
           jm = BREAKS[i]; jump = jm - jp;
           if (jy < jm) break;
@@ -440,7 +439,7 @@
         return { jy, jm, jd };
       }
       return {
-        monthNames: ["\u0641\u0631\u0648\u0631\u062F\u06CC\u0646","\u0627\u0631\u062F\u06CC\u0628\u0647\u0634\u062A","\u062E\u0631\u062F\u0627\u062F","\u062A\u06CC\u0631","\u0645\u0631\u062F\u0627\u062F","\u0634\u0647\u0631\u06CC\u0648\u0631","\u0645\u0647\u0631","\u0622\u0628\u0627\u0646","\u0622\u0630\u0631","\u062F\u06CC","\u0628\u0647\u0645\u0646","\u0627\u0633\u0641\u0646\u062F"],
+        monthNames: ["فروردین","اردیبهشت","خرداد","تیر","مرداد","شهریور","مهر","آبان","آذر","دی","بهمن","اسفند"],
         gregorianToJalali: (gy, gm, gd) => d2j(g2d(gy, gm, gd)),
         jalaliToGregorian: (jy, jm, jd) => { const g = d2g(j2d(jy, jm, jd)); return new Date(g.gy, g.gm - 1, g.gd); },
         today: () => { const d = new Date(); return d2j(g2d(d.getFullYear(), d.getMonth() + 1, d.getDate())); },
@@ -453,7 +452,7 @@
 
     const DB_KEYS = { PRODUCTS: 'mkp_products_db', CATEGORIES: 'mkp_categories_db', SETTINGS: 'mkp_settings_db' };
     const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-    function faToEn(str) { return String(str ?? '').replace(/[\u06F0-\u06F9]/g, d => '\u06F0\u06F1\u06F2\u06F3\u06F4\u06F5\u06F6\u06F7\u06F8\u06F9'.indexOf(d)).replace(/[\u0660-\u0669]/g, d => '\u0660\u0661\u0662\u0663\u0664\u0665\u0666\u0667\u0668\u0669'.indexOf(d)).replace(/[\u066C,]/g, ''); }
+    function faToEn(str) { return String(str ?? '').replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/[٬,]/g, ''); }
     function parsePrice(v) { const n = parseFloat(faToEn(v)); return Number.isFinite(n) ? n : NaN; }
     const newId = prefix => prefix + '_' + (window.crypto && crypto.randomUUID ? crypto.randomUUID() : Date.now() + '_' + Math.random().toString(36).slice(2));
     function fmtExp(p) { const e = p.expiry || Jalali.today(); return e.jy + '/' + e.jm + '/' + e.jd; }
@@ -465,8 +464,7 @@
       setSettings: (v) => localStorage.setItem(DB_KEYS.SETTINGS, JSON.stringify(v))
     };
 
-    // ====== \u0630\u062E\u06CC\u0631\u0647\u200C\u0633\u0627\u0632\u06CC \u0639\u06A9\u0633 \u06A9\u0627\u0644\u0627\u0647\u0627 \u062F\u0631 IndexedDB (\u0628\u0647\u200C\u062C\u0627\u06CC localStorage \u06A9\u0647 \u0641\u0642\u0637 ~\u06F5 \u0645\u06AF\u0627\u0628\u0627\u06CC\u062A \u0638\u0631\u0641\u06CC\u062A \u062F\u0627\u0631\u062F) ======
-    const IMG = {}; // \u06A9\u0634 \u062D\u0627\u0641\u0638\u0647: \u0634\u0646\u0627\u0633\u0647 \u06A9\u0627\u0644\u0627 -> \u0639\u06A9\u0633 (base64)
+    const IMG = {}; 
     function getImg(p) { return (p && (IMG[p.id] || p.image)) || ''; }
     function isQuotaError(err) { return !!err && (err.name === 'QuotaExceededError' || err.code === 22 || err.code === 1014); }
     function errMsg(err) { return err && err.message ? err.message : String(err); }
@@ -505,7 +503,7 @@
             const tx = this.db.transaction('images', 'readwrite');
             tx.objectStore('images').put(val, id);
             tx.oncomplete = () => res();
-            tx.onerror = tx.onabort = () => rej(tx.error || new Error('\u0646\u0648\u0634\u062A\u0646 \u0639\u06A9\u0633 \u0646\u0627\u0645\u0648\u0641\u0642 \u0628\u0648\u062F'));
+            tx.onerror = tx.onabort = () => rej(tx.error || new Error('نوشتن عکس ناموفق بود'));
           } catch (e) { rej(e); }
         });
       },
@@ -515,13 +513,12 @@
             const tx = this.db.transaction('images', 'readwrite');
             tx.objectStore('images').delete(id);
             tx.oncomplete = () => res();
-            tx.onerror = tx.onabort = () => rej(tx.error || new Error('\u062D\u0630\u0641 \u0639\u06A9\u0633 \u0646\u0627\u0645\u0648\u0641\u0642 \u0628\u0648\u062F'));
+            tx.onerror = tx.onabort = () => rej(tx.error || new Error('حذف عکس ناموفق بود'));
           } catch (e) { rej(e); }
         });
       }
     };
 
-    // \u0627\u0646\u062A\u0642\u0627\u0644 \u062E\u0648\u062F\u06A9\u0627\u0631 \u0639\u06A9\u0633\u200C\u0647\u0627\u06CC \u0642\u062F\u06CC\u0645\u06CC \u0627\u0632 localStorage \u0628\u0647 IndexedDB
     async function migrateImagesToIDB() {
       const prods = DB.get(DB_KEYS.PRODUCTS);
       const withImg = prods.filter(p => p && typeof p.image === 'string' && p.image);
@@ -532,10 +529,10 @@
 
     function initDatabase() {
       if (!localStorage.getItem(DB_KEYS.CATEGORIES)) {
-        DB.set(DB_KEYS.CATEGORIES, [{ id: 'cat_1', name: '\u0646\u0648\u0634\u06CC\u062F\u0646\u06CC\u200C\u0647\u0627', order: 1 }, { id: 'cat_2', name: '\u062A\u0646\u0642\u0644\u0627\u062A', order: 2 }, { id: 'cat_3', name: '\u0634\u0648\u06CC\u0646\u062F\u0647', order: 3 }]);
+        DB.set(DB_KEYS.CATEGORIES, [{ id: 'cat_1', name: 'نوشیدنی‌ها', order: 1 }, { id: 'cat_2', name: 'تنقلات', order: 2 }, { id: 'cat_3', name: 'شوینده', order: 3 }]);
       }
       if (!localStorage.getItem(DB_KEYS.SETTINGS)) {
-        DB.setSettings({ companyName: '\u0645\u0647\u0631 \u067E\u062E\u0634 \u06A9\u0648\u0647\u06CC\u062C', phone: '\u06F0\u06F9\u06F1\u06F2\u06F3\u06F4\u06F5\u06F6\u06F7\u06F8\u06F9', address: '\u0627\u0633\u062A\u0627\u0646 \u0647\u0631\u0645\u0632\u06AF\u0627\u0646\u060C \u0634\u0647\u0631 \u06A9\u0648\u0647\u06CC\u062C\u060C \u0645\u0631\u06A9\u0632 \u067E\u062E\u0634', logoBase64: '', nearDays: 30, veryNearDays: 20 });
+        DB.setSettings({ companyName: 'مهر پخش کوهیج', phone: '۰۹۱۲۳۴۵۶۷۸۹', address: 'استان هرمزگان، شهر کوهیج، مرکز پخش', logoBase64: '', nearDays: 30, veryNearDays: 20 });
       }
     }
 
@@ -555,8 +552,8 @@
     function renderDashboard() {
       try {
         const products = DB.get(DB_KEYS.PRODUCTS); const categories = DB.get(DB_KEYS.CATEGORIES); const settings = DB.getSettings(); const todayJ = Jalali.today();
-        document.getElementById('dashCompName').innerText = settings.companyName || '\u0645\u0647\u0631 \u067E\u062E\u0634 \u06A9\u0648\u0647\u06CC\u062C'; 
-        document.getElementById('dashLiveDate').innerText = `\u0627\u0645\u0631\u0648\u0632: ${todayJ.jd} ${Jalali.monthNames[todayJ.jm - 1]} ${todayJ.jy}`;
+        document.getElementById('dashCompName').innerText = settings.companyName || 'مهر پخش کوهیج'; 
+        document.getElementById('dashLiveDate').innerText = `امروز: ${todayJ.jd} ${Jalali.monthNames[todayJ.jm - 1]} ${todayJ.jy}`;
         
         const total = products.length; const available = products.filter(p => p.status === 'available').length;
         let expired = 0, veryNear = 0, near = 0, safe = 0; let attentionItems = [];
@@ -566,14 +563,14 @@
           const diff = Jalali.diffDaysFromToday(p.expiry.jy, p.expiry.jm, p.expiry.jd);
           
           if (p.status === 'available') {
-              if (diff < 0) { expired++; attentionItems.push({ product: p, reason: '\u0645\u0646\u0642\u0636\u06CC \u0634\u062F\u0647', class: 'badge-expired' }); } 
-              else if (diff <= (settings.veryNearDays || 20)) { veryNear++; attentionItems.push({ product: p, reason: `${diff} \u0631\u0648\u0632`, class: 'badge-very-near' }); } 
-              else if (diff <= (settings.nearDays || 30)) { near++; attentionItems.push({ product: p, reason: `${diff} \u0631\u0648\u0632`, class: 'badge-near' }); } 
+              if (diff < 0) { expired++; attentionItems.push({ product: p, reason: 'منقضی شده', class: 'badge-expired' }); } 
+              else if (diff <= (settings.veryNearDays || 20)) { veryNear++; attentionItems.push({ product: p, reason: `${diff} روز`, class: 'badge-very-near' }); } 
+              else if (diff <= (settings.nearDays || 30)) { near++; attentionItems.push({ product: p, reason: `${diff} روز`, class: 'badge-near' }); } 
               else { safe++; }
           }
         });
         
-        document.getElementById('dashNearExpiryCount').innerText = (expired + veryNear + near) + ' \u0642\u0644\u0645'; 
+        document.getElementById('dashNearExpiryCount').innerText = (expired + veryNear + near) + ' قلم'; 
         document.getElementById('dashTotalProducts').innerText = total; document.getElementById('dashAvailableProducts').innerText = available; 
         document.getElementById('dashUnavailableProducts').innerText = total - available; document.getElementById('dashTotalCategories').innerText = categories.length; 
         document.getElementById('dashExpiredCount').innerText = expired; document.getElementById('dashVeryNearCount').innerText = veryNear; 
@@ -584,7 +581,7 @@
         document.getElementById('barVeryNear').style.width = ((veryNear / sum) * 100) + '%'; document.getElementById('barExpired').style.width = ((expired / sum) * 100) + '%';
         
         const attCont = document.getElementById('dashAttentionContainer');
-        if (attentionItems.length === 0) { attCont.innerHTML = '<div style="color:#10b981; font-size:12px; padding:6px 0;">\u2705 \u062A\u0645\u0627\u0645 \u06A9\u0627\u0644\u0627\u0647\u0627\u06CC \u0645\u0648\u062C\u0648\u062F \u062F\u0627\u0631\u0627\u06CC \u062A\u0627\u0631\u06CC\u062E \u0645\u0635\u0631\u0641 \u0645\u0639\u062A\u0628\u0631 \u0647\u0633\u062A\u0646\u062F.</div>'; } 
+        if (attentionItems.length === 0) { attCont.innerHTML = '<div style="color:#10b981; font-size:12px; padding:6px 0;">✅ تمام کالاهای موجود دارای تاریخ مصرف معتبر هستند.</div>'; } 
         else { attCont.innerHTML = attentionItems.slice(0, 4).map(item => `<div class="attention-item"><div><b style="font-size:12.5px;">${esc(item.product.name)}</b><div style="font-size:10px; color:#64748b;">${esc(item.product.company)}</div></div><span class="badge ${item.class}">${item.reason}</span></div>`).join(''); }
       } catch(e) { console.error("Dashboard Error: ", e); }
     }
@@ -593,17 +590,17 @@
 
     function populateCategoryFilters() {
       const cats = DB.get(DB_KEYS.CATEGORIES).sort((a,b) => (a.order || 99) - (b.order || 99));
-      document.getElementById('prodCategoryFilter').innerHTML = '<option value="">\u0647\u0645\u0647 \u062F\u0633\u062A\u0647\u200C\u0647\u0627</option>' + cats.map(c => `<option value="${c.id}">${esc(c.name)}</option>`).join('');
-      document.getElementById('pmCategory').innerHTML = '<option value="">-- \u0627\u0646\u062A\u062E\u0627\u0628 \u062F\u0633\u062A\u0647\u200C\u0628\u0646\u062F\u06CC --</option>' + cats.map(c => `<option value="${c.id}">${esc(c.name)}</option>`).join('');
+      document.getElementById('prodCategoryFilter').innerHTML = '<option value="">همه دسته‌ها</option>' + cats.map(c => `<option value="${c.id}">${esc(c.name)}</option>`).join('');
+      document.getElementById('pmCategory').innerHTML = '<option value="">-- انتخاب دسته‌بندی --</option>' + cats.map(c => `<option value="${c.id}">${esc(c.name)}</option>`).join('');
     }
 
     function getExpiryStatus(p) {
       if (!p.expiry) p.expiry = Jalali.today();
       const diff = Jalali.diffDaysFromToday(p.expiry.jy, p.expiry.jm, p.expiry.jd); const s = DB.getSettings();
-      if (diff < 0) return { label: '\u0645\u0646\u0642\u0636\u06CC \u0634\u062F\u0647', class: 'badge-expired', code: 'expired' }; 
-      if (diff <= (s.veryNearDays || 20)) return { label: `\u062E\u06CC\u0644\u06CC \u0646\u0632\u062F\u06CC\u06A9`, class: 'badge-very-near', code: 'very_near' }; 
-      if (diff <= (s.nearDays || 30)) return { label: `\u0646\u0632\u062F\u06CC\u06A9`, class: 'badge-near', code: 'near' }; 
-      return { label: `\u0627\u06CC\u0645\u0646`, class: 'badge-safe', code: 'safe' };
+      if (diff < 0) return { label: 'منقضی شده', class: 'badge-expired', code: 'expired' }; 
+      if (diff <= (s.veryNearDays || 20)) return { label: `خیلی نزدیک`, class: 'badge-very-near', code: 'very_near' }; 
+      if (diff <= (s.nearDays || 30)) return { label: `نزدیک`, class: 'badge-near', code: 'near' }; 
+      return { label: `ایمن`, class: 'badge-safe', code: 'safe' };
     }
 
     function renderProductList() {
@@ -620,9 +617,9 @@
         return matchesS && matchesC && matchesSt;
       });
       
-      document.getElementById('productsListContainer').innerHTML = prods.length === 0 ? '<div style="text-align:center; padding: 25px; color: var(--text-muted);">\u06A9\u0627\u0644\u0627\u06CC\u06CC \u06CC\u0627\u0641\u062A \u0646\u0634\u062F.</div>' : prods.map(p => {
-        const exp = getExpiryStatus(p); const im = getImg(p); const imgTag = im ? `<img src="${im}" class="product-thumb">` : `<div class="product-thumb">\u0628\u06CC\u200C\u0639\u06A9\u0633</div>`;
-        return `<div class="product-item">${imgTag}<div class="product-info"><h4>${esc(p.name)}</h4><div class="product-sub">\u0628\u0631\u0646\u062F: ${esc(p.company)}</div><div style="display:flex; align-items:center; gap: 6px;"><span style="font-weight: bold; color: var(--primary); font-size: 12.5px;">${Number(p.price).toLocaleString('fa-IR')} \u062A\u0648\u0645\u0627\u0646</span><span class="badge ${exp.class}">${exp.label}</span></div></div><div class="product-actions"><button class="btn btn-sm btn-secondary" onclick="viewProductDetail('${p.id}')">\u0645\u0634\u0627\u0647\u062F\u0647</button><button class="btn btn-sm btn-primary" onclick="openProductModal('${p.id}')">\u0648\u06CC\u0631\u0627\u06CC\u0634</button><button class="btn btn-sm btn-danger" onclick="deleteProduct('${p.id}')">\u062D\u0630\u0641</button></div></div>`;
+      document.getElementById('productsListContainer').innerHTML = prods.length === 0 ? '<div style="text-align:center; padding: 25px; color: var(--text-muted);">کالایی یافت نشد.</div>' : prods.map(p => {
+        const exp = getExpiryStatus(p); const im = getImg(p); const imgTag = im ? `<img src="${im}" class="product-thumb">` : `<div class="product-thumb">بی‌عکس</div>`;
+        return `<div class="product-item">${imgTag}<div class="product-info"><h4>${esc(p.name)}</h4><div class="product-sub">برند: ${esc(p.company)}</div><div style="display:flex; align-items:center; gap: 6px;"><span style="font-weight: bold; color: var(--primary); font-size: 12.5px;">${Number(p.price).toLocaleString('fa-IR')} تومان</span><span class="badge ${exp.class}">${exp.label}</span></div></div><div class="product-actions"><button class="btn btn-sm btn-secondary" onclick="viewProductDetail('${p.id}')">مشاهده</button><button class="btn btn-sm btn-primary" onclick="openProductModal('${p.id}')">ویرایش</button><button class="btn btn-sm btn-danger" onclick="deleteProduct('${p.id}')">حذف</button></div></div>`;
       }).join('');
     }
 
@@ -636,15 +633,15 @@
       const y = parseInt(document.getElementById('pmJalaliYear').value); const m = parseInt(document.getElementById('pmJalaliMonth').value); 
       const maxD = Jalali.daysInMonth(y, m); const curD = prefD || parseInt(document.getElementById('pmJalaliDay').value) || 1;
       let dSelect = ''; for (let d = 1; d <= maxD; d++) dSelect += `<option value="${d}" ${d === Math.min(curD, maxD) ? 'selected' : ''}>${d}</option>`;
-      document.getElementById('pmJalaliDay').innerHTML = dSelect; document.getElementById('pmLeapYearNotice').innerText = (m === 12 && Jalali.isLeap(y)) ? '\u0633\u0627\u0644 \u06A9\u0628\u06CC\u0633\u0647 \u0627\u0633\u062A (\u0627\u0633\u0641\u0646\u062F \u06F3\u06F0 \u0631\u0648\u0632\u0647)' : '';
+      document.getElementById('pmJalaliDay').innerHTML = dSelect; document.getElementById('pmLeapYearNotice').innerText = (m === 12 && Jalali.isLeap(y)) ? 'سال کبیسه است (اسفند ۳۰ روزه)' : '';
     }
 
     function previewAndCompressImage(e) {
       const file = e.target.files[0]; if (!file) return; const reader = new FileReader();
-      reader.onerror = function() { alert('\u062E\u0648\u0627\u0646\u062F\u0646 \u0639\u06A9\u0633 \u0646\u0627\u0645\u0648\u0641\u0642 \u0628\u0648\u062F.'); };
+      reader.onerror = function() { alert('خواندن عکس ناموفق بود.'); };
       reader.onload = function(evt) {
         const img = new Image();
-        img.onerror = function() { alert('\u0627\u06CC\u0646 \u0641\u0627\u06CC\u0644 \u0639\u06A9\u0633 \u0645\u0639\u062A\u0628\u0631 \u0646\u06CC\u0633\u062A.'); };
+        img.onerror = function() { alert('این فایل عکس معتبر نیست.'); };
         img.onload = function() {
           const canvas = document.createElement('canvas'); const maxDim = 700; let w = img.width, h = img.height;
           if (w > h && w > maxDim) { h = Math.round((h * maxDim) / w); w = maxDim; } else if (h > maxDim) { w = Math.round((w * maxDim) / h); h = maxDim; }
@@ -661,12 +658,12 @@
       document.getElementById('pmImageFile').value = '';
       if (id) {
         const p = DB.get(DB_KEYS.PRODUCTS).find(x => x.id === id); 
-        document.getElementById('productModalTitle').innerText = '\u0648\u06CC\u0631\u0627\u06CC\u0634 \u06A9\u0627\u0644\u0627'; document.getElementById('pmId').value = p.id; document.getElementById('pmName').value = p.name; document.getElementById('pmCategory').value = p.categoryId; document.getElementById('pmPrice').value = p.price; document.getElementById('pmCompany').value = p.company; document.getElementById('pmCode').value = p.code || ''; document.getElementById('pmStatus').value = p.status; document.getElementById('pmDescription').value = p.description || '';
+        document.getElementById('productModalTitle').innerText = 'ویرایش کالا'; document.getElementById('pmId').value = p.id; document.getElementById('pmName').value = p.name; document.getElementById('pmCategory').value = p.categoryId; document.getElementById('pmPrice').value = p.price; document.getElementById('pmCompany').value = p.company; document.getElementById('pmCode').value = p.code || ''; document.getElementById('pmStatus').value = p.status; document.getElementById('pmDescription').value = p.description || '';
         const im = getImg(p);
         if (im) { document.getElementById('pmImageBase64').value = im; document.getElementById('pmImagePreview').innerHTML = `<img src="${im}" style="max-height:85px;">`; }
         { const ex = p.expiry || Jalali.today(); initJalaliDateDropdowns(ex.jy, ex.jm, ex.jd); }
       } else {
-        document.getElementById('productModalTitle').innerText = '\u0627\u0641\u0632\u0648\u062F\u0646 \u06A9\u0627\u0644\u0627'; document.getElementById('pmId').value = ''; document.getElementById('pmName').value = ''; document.getElementById('pmPrice').value = ''; document.getElementById('pmCompany').value = ''; document.getElementById('pmStatus').value = 'available'; document.getElementById('pmDescription').value = ''; document.getElementById('pmCode').value = ''; document.getElementById('pmCategory').value = ''; initJalaliDateDropdowns();
+        document.getElementById('productModalTitle').innerText = 'افزودن کالا'; document.getElementById('pmId').value = ''; document.getElementById('pmName').value = ''; document.getElementById('pmPrice').value = ''; document.getElementById('pmCompany').value = ''; document.getElementById('pmStatus').value = 'available'; document.getElementById('pmDescription').value = ''; document.getElementById('pmCode').value = ''; document.getElementById('pmCategory').value = ''; initJalaliDateDropdowns();
       }
       document.getElementById('productModal').classList.add('active');
     }
@@ -677,26 +674,26 @@
       const p = { 
           id: document.getElementById('pmId').value || newId('p'), name: document.getElementById('pmName').value.trim(), categoryId: document.getElementById('pmCategory').value, price: parsePrice(document.getElementById('pmPrice').value), company: document.getElementById('pmCompany').value.trim(), code: document.getElementById('pmCode').value.trim(), status: document.getElementById('pmStatus').value, description: document.getElementById('pmDescription').value.trim(), expiry: { jy: parseInt(document.getElementById('pmJalaliYear').value), jm: parseInt(document.getElementById('pmJalaliMonth').value), jd: parseInt(document.getElementById('pmJalaliDay').value) } 
       };
-      if (!Number.isFinite(p.price) || p.price < 0) { alert('\u0642\u06CC\u0645\u062A \u0646\u0627\u0645\u0639\u062A\u0628\u0631 \u0627\u0633\u062A.'); return; }
+      if (!Number.isFinite(p.price) || p.price < 0) { alert('قیمت نامعتبر است.'); return; }
 
       try {
         if (ImgDB.ok) {
           if (img) { await ImgDB.put(p.id, img); IMG[p.id] = img; }
           else { await ImgDB.del(p.id); delete IMG[p.id]; }
         } else { p.image = img; }
-      } catch (err) { alert('\u062E\u0637\u0627 \u062F\u0631 \u0630\u062E\u06CC\u0631\u0647 \u0639\u06A9\u0633: ' + errMsg(err)); return; }
+      } catch (err) { alert('خطا در ذخیره عکس: ' + errMsg(err)); return; }
 
       let prods = DB.get(DB_KEYS.PRODUCTS); const idx = prods.findIndex(x => x.id === p.id); if (idx >= 0) prods[idx] = p; else prods.unshift(p);
       try { DB.set(DB_KEYS.PRODUCTS, prods); }
       catch (err) {
-        alert(isQuotaError(err) ? '\u062D\u0627\u0641\u0638\u0647 \u0628\u0631\u0646\u0627\u0645\u0647 \u067E\u0631 \u0627\u0633\u062A. \u0628\u0627 \u062F\u06A9\u0645\u0647 \u00AB\u062F\u0627\u0646\u0644\u0648\u062F \u0645\u0633\u062A\u0642\u06CC\u0645 \u0641\u0627\u06CC\u0644\u00BB \u06CC\u0627 \u00AB\u06A9\u067E\u06CC \u06A9\u0644 \u0627\u0637\u0644\u0627\u0639\u0627\u062A\u00BB \u067E\u0634\u062A\u06CC\u0628\u0627\u0646 \u0628\u06AF\u06CC\u0631\u06CC\u062F \u0648 \u06A9\u0627\u0644\u0627\u0647\u0627\u06CC \u063A\u06CC\u0631\u0636\u0631\u0648\u0631\u06CC \u0631\u0627 \u062D\u0630\u0641 \u06A9\u0646\u06CC\u062F.' : '\u062E\u0637\u0627 \u062F\u0631 \u0630\u062E\u06CC\u0631\u0647 \u06A9\u0627\u0644\u0627: ' + errMsg(err));
+        alert(isQuotaError(err) ? 'حافظه برنامه پر است. با دکمه «دانلود مستقیم فایل» پشتیبان بگیرید و کالاهای غیرضروری را حذف کنید.' : 'خطا در ذخیره کالا: ' + errMsg(err));
         return;
       }
       closeModal('productModal'); renderProductList(); renderDashboard();
     }
 
     function deleteProduct(id) {
-      if (confirm('\u0622\u06CC\u0627 \u0627\u0632 \u062D\u0630\u0641 \u06A9\u0627\u0644\u0627 \u0645\u0637\u0645\u0626\u0646 \u0647\u0633\u062A\u06CC\u062F\u061F')) {
+      if (confirm('آیا از حذف کالا مطمئن هستید؟')) {
         DB.set(DB_KEYS.PRODUCTS, DB.get(DB_KEYS.PRODUCTS).filter(p => p.id !== id));
         delete IMG[id]; if (ImgDB.ok) ImgDB.del(id).catch(function () {});
         renderProductList(); renderDashboard();
@@ -706,25 +703,25 @@
     function viewProductDetail(id) {
       const p = DB.get(DB_KEYS.PRODUCTS).find(x => x.id === id); const c = DB.get(DB_KEYS.CATEGORIES).find(x => x.id === p.categoryId); const im = getImg(p);
       document.getElementById('pdmTitle').innerText = p.name;
-      document.getElementById('pdmBody').innerHTML = `${im ? `<div style="text-align:center; margin-bottom:10px;"><img src="${im}" style="max-height:150px; border-radius:8px;"></div>` : ''}<div><b>\u0628\u0631\u0646\u062F:</b> ${esc(p.company)}</div><div><b>\u062F\u0633\u062A\u0647\u200C\u200C\u0628\u0646\u062F\u06CC:</b> ${c ? esc(c.name) : ''}</div><div><b>\u0642\u06CC\u0645\u062A:</b> ${Number(p.price).toLocaleString('fa-IR')} \u062A\u0648\u0645\u0627\u0646</div><div><b>\u0627\u0646\u0642\u0636\u0627:</b> ${fmtExp(p)}</div>${p.description ? `<div><b>\u062A\u0648\u0636\u06CC\u062D\u0627\u062A:</b> ${esc(p.description)}</div>` : ''}`;
+      document.getElementById('pdmBody').innerHTML = `${im ? `<div style="text-align:center; margin-bottom:10px;"><img src="${im}" style="max-height:150px; border-radius:8px;"></div>` : ''}<div><b>برند:</b> ${esc(p.company)}</div><div><b>دسته‌بندی:</b> ${c ? esc(c.name) : ''}</div><div><b>قیمت:</b> ${Number(p.price).toLocaleString('fa-IR')} تومان</div><div><b>انقضا:</b> ${fmtExp(p)}</div>${p.description ? `<div><b>توضیحات:</b> ${esc(p.description)}</div>` : ''}`;
       document.getElementById('productDetailModal').classList.add('active');
     }
 
     function renderCategoryList() {
       const cats = DB.get(DB_KEYS.CATEGORIES).sort((a,b) => (a.order || 99) - (b.order || 99)); 
       const prods = DB.get(DB_KEYS.PRODUCTS);
-      document.getElementById('categoryListContainer').innerHTML = cats.length === 0 ? '\u062E\u0627\u0644\u06CC' : cats.map(c => {
+      document.getElementById('categoryListContainer').innerHTML = cats.length === 0 ? 'خالی' : cats.map(c => {
         const count = prods.filter(p => p.categoryId === c.id).length;
-        return `<div style="display:flex; justify-content:space-between; align-items:center; padding:10px; border:1px solid var(--border); border-radius:8px; margin-bottom:8px; background:white;"><div><b style="color:var(--primary);">${esc(c.name)}</b><div style="font-size:10.5px; color:var(--text-muted); margin-top:2px;">${count} \u06A9\u0627\u0644\u0627 | \u0627\u0648\u0644\u0648\u06CC\u062A \u0686\u0627\u067E: ${c.order || 1}</div></div><div style="display:flex; gap:6px;"><button class="btn btn-sm btn-primary" onclick="openCategoryModal('${c.id}')">\u0648\u06CC\u0631\u0627\u06CC\u0634</button><button class="btn btn-sm btn-danger" onclick="deleteCategory('${c.id}')">\u062D\u0630\u0641</button></div></div>`;
+        return `<div style="display:flex; justify-content:space-between; align-items:center; padding:10px; border:1px solid var(--border); border-radius:8px; margin-bottom:8px; background:white;"><div><b style="color:var(--primary);">${esc(c.name)}</b><div style="font-size:10.5px; color:var(--text-muted); margin-top:2px;">${count} کالا | اولویت چاپ: ${c.order || 1}</div></div><div style="display:flex; gap:6px;"><button class="btn btn-sm btn-primary" onclick="openCategoryModal('${c.id}')">ویرایش</button><button class="btn btn-sm btn-danger" onclick="deleteCategory('${c.id}')">حذف</button></div></div>`;
       }).join('');
     }
 
     function openCategoryModal(id = null) {
       if (id) { 
           const c = DB.get(DB_KEYS.CATEGORIES).find(x => x.id === id); 
-          document.getElementById('catModalTitle').innerText = '\u0648\u06CC\u0631\u0627\u06CC\u0634 \u062F\u0633\u062A\u0647\u200C\u0628\u0646\u062F\u06CC'; document.getElementById('cmId').value = c.id; document.getElementById('cmName').value = c.name; document.getElementById('cmOrder').value = c.order || 1;
+          document.getElementById('catModalTitle').innerText = 'ویرایش دسته‌بندی'; document.getElementById('cmId').value = c.id; document.getElementById('cmName').value = c.name; document.getElementById('cmOrder').value = c.order || 1;
       } else { 
-          document.getElementById('catModalTitle').innerText = '\u062F\u0633\u062A\u0647\u200C\u0628\u0646\u062F\u06CC \u062C\u062F\u06CC\u062F'; document.getElementById('cmId').value = ''; document.getElementById('cmName').value = ''; document.getElementById('cmOrder').value = 1;
+          document.getElementById('catModalTitle').innerText = 'دسته‌بندی جدید'; document.getElementById('cmId').value = ''; document.getElementById('cmName').value = ''; document.getElementById('cmOrder').value = 1;
       }
       document.getElementById('categoryModal').classList.add('active');
     }
@@ -733,10 +730,10 @@
       e.preventDefault(); const id = document.getElementById('cmId').value || newId('cat'); const name = document.getElementById('cmName').value.trim(); const order = parseInt(document.getElementById('cmOrder').value) || 1;
       let cats = DB.get(DB_KEYS.CATEGORIES); const idx = cats.findIndex(c => c.id === id); if (idx >= 0) { cats[idx].name = name; cats[idx].order = order; } else { cats.push({ id, name, order }); }
       cats.sort((a, b) => (a.order || 99) - (b.order || 99));
-      try { DB.set(DB_KEYS.CATEGORIES, cats); closeModal('categoryModal'); renderCategoryList(); populateCategoryFilters(); renderDashboard(); } catch (err) { alert('\u0630\u062E\u06CC\u0631\u0647\u200C\u0633\u0627\u0632\u06CC \u0646\u0627\u0645\u0648\u0641\u0642 \u0628\u0648\u062F (\u062D\u0627\u0641\u0638\u0647 \u067E\u0631 \u0627\u0633\u062A).'); }
+      try { DB.set(DB_KEYS.CATEGORIES, cats); closeModal('categoryModal'); renderCategoryList(); populateCategoryFilters(); renderDashboard(); } catch (err) { alert('ذخیره‌سازی ناموفق بود (حافظه پر است).'); }
     }
 
-    function deleteCategory(id) { if (DB.get(DB_KEYS.PRODUCTS).some(p => p.categoryId === id)) return alert('\u0627\u06CC\u0646 \u062F\u0633\u062A\u0647 \u0634\u0627\u0645\u0644 \u06A9\u0627\u0644\u0627 \u0627\u0633\u062A. \u0627\u0628\u062A\u062F\u0627 \u06A9\u0627\u0644\u0627\u0647\u0627 \u0631\u0627 \u062D\u0630\u0641 \u06A9\u0646\u06CC\u062F.'); if (confirm('\u062D\u0630\u0641 \u062F\u0633\u062A\u0647\u061F')) { DB.set(DB_KEYS.CATEGORIES, DB.get(DB_KEYS.CATEGORIES).filter(c => c.id !== id)); renderCategoryList(); populateCategoryFilters(); renderDashboard(); } }
+    function deleteCategory(id) { if (DB.get(DB_KEYS.PRODUCTS).some(p => p.categoryId === id)) return alert('این دسته شامل کالا است. ابتدا کالاها را حذف کنید.'); if (confirm('حذف دسته؟')) { DB.set(DB_KEYS.CATEGORIES, DB.get(DB_KEYS.CATEGORIES).filter(c => c.id !== id)); renderCategoryList(); populateCategoryFilters(); renderDashboard(); } }
 
     function viewCategoryProducts(catId) { navigateTo('view-products'); document.getElementById('prodCategoryFilter').value = catId; renderProductList(); }
 
@@ -754,9 +751,9 @@
 
     function renderExportSection() {
       const prods = DB.get(DB_KEYS.PRODUCTS); let target = currentExportMode === 'expiry' ? prods.filter(p => p.status === 'available' && ['expired','very_near','near'].includes(getExpiryStatus(p).code)) : prods;
-      document.getElementById('exportProductsChecklist').innerHTML = target.length === 0 ? '<div style="padding:10px;">\u06A9\u0627\u0644\u0627\u06CC\u06CC \u06CC\u0627\u0641\u062A \u0646\u0634\u062F.</div>' : target.map(p => {
+      document.getElementById('exportProductsChecklist').innerHTML = target.length === 0 ? '<div style="padding:10px;">کالایی یافت نشد.</div>' : target.map(p => {
         const isA = p.status === 'available';
-        return `<div style="display:flex; align-items:center; gap:8px; padding:6px 0; border-bottom:1px solid #f1f5f9; font-size:12px;"><input type="checkbox" class="export-prod-cb" value="${p.id}" ${isA ? 'checked' : ''} onchange="calculateInvoiceTotal()"><span style="flex:1;"><b>${esc(p.name)}</b><div style="font-size:10.5px; color:var(--text-muted);">\u0627\u0646\u0642\u0636\u0627: ${fmtExp(p)}</div></span>${currentExportMode === 'invoice' ? `<input type="number" class="export-prod-qty form-control" style="width:50px; padding:3px; text-align:center;" value="1" min="1" data-id="${p.id}" oninput="calculateInvoiceTotal()">` : ''}</div>`;
+        return `<div style="display:flex; align-items:center; gap:8px; padding:6px 0; border-bottom:1px solid #f1f5f9; font-size:12px;"><input type="checkbox" class="export-prod-cb" value="${p.id}" ${isA ? 'checked' : ''} onchange="calculateInvoiceTotal()"><span style="flex:1;"><b>${esc(p.name)}</b><div style="font-size:10.5px; color:var(--text-muted);">انقضا: ${fmtExp(p)}</div></span>${currentExportMode === 'invoice' ? `<input type="number" class="export-prod-qty form-control" style="width:50px; padding:3px; text-align:center;" value="1" min="1" data-id="${p.id}" oninput="calculateInvoiceTotal()">` : ''}</div>`;
       }).join('');
       if (currentExportMode === 'invoice') calculateInvoiceTotal();
     }
@@ -771,7 +768,7 @@
 
     function preparePrintableContent() {
       const selectedBoxes = Array.from(document.querySelectorAll('.export-prod-cb:checked'));
-      if (selectedBoxes.length === 0) { alert('\u0644\u0637\u0641\u0627\u064B \u062D\u062F\u0627\u0642\u0644 \u06CC\u06A9 \u06A9\u0627\u0644\u0627 \u0631\u0627 \u0627\u0646\u062A\u062E\u0627\u0628 \u06A9\u0646\u06CC\u062F.'); return false; }
+      if (selectedBoxes.length === 0) { alert('لطفاً حداقل یک کالا را انتخاب کنید.'); return false; }
 
       const allProducts = DB.get(DB_KEYS.PRODUCTS); const sortedCats = DB.get(DB_KEYS.CATEGORIES).sort((a,b) => (a.order || 99) - (b.order || 99)); const catMap = {}; sortedCats.forEach(c => catMap[c.id] = c.name);
       const settings = DB.getSettings(); const dateStr = `${Jalali.today().jy}/${Jalali.today().jm}/${Jalali.today().jd}`;
@@ -797,7 +794,7 @@
               
               <div style="text-align: center; margin-bottom: 35px; margin-top: 15px;">
                 <span style="background: #fbbf24; color: #1e3a8a; font-size: 20px; font-weight: 900; padding: 12px 40px; border-radius: 30px; box-shadow: 0 8px 20px rgba(0,0,0,0.2); border: 2px solid #fff;">
-                  ${currentExportMode === 'expiry' ? '\u06AF\u0632\u0627\u0631\u0634 \u0648\u06CC\u0698\u0647 \u062D\u0631\u0627\u062C \u0648 \u062A\u0631\u062E\u06CC\u0635 \u0627\u0646\u0642\u0636\u0627' : '\u06A9\u0627\u062A\u0627\u0644\u0648\u06AF \u062C\u0627\u0645\u0639 \u0645\u062D\u0635\u0648\u0644\u0627\u062A'}
+                  ${currentExportMode === 'expiry' ? 'گزارش ویژه حراج و ترخیص انقضا' : 'کاتالوگ جامع محصولات'}
                 </span>
               </div>
               
@@ -806,23 +803,23 @@
               </div>
               
               <div style="text-align: center; background: rgba(255,255,255,0.95); padding: 50px 30px; border-radius: 28px; box-shadow: 0 25px 50px rgba(0,0,0,0.1); border: 1px solid #fff; flex: 1;">
-                <h1 style="font-size: 58px; font-weight: 900; ${currentExportMode === 'expiry' ? 'color: #dc2626;' : 'color: #1e3a8a;'} margin-bottom: 15px; text-shadow: 0 2px 5px rgba(0,0,0,0.1); line-height: 1.2;">${esc(settings.companyName || '\u0645\u0647\u0631 \u067E\u062E\u0634 \u06A9\u0648\u0647\u06CC\u062C')}</h1>
-                <h2 style="font-size: 26px; color: #0d9488; font-weight: 800; margin-bottom: 35px;">\u0645\u0631\u06A9\u0632 \u062A\u062E\u0635\u0635\u06CC \u067E\u062E\u0634 \u0648 \u062A\u0648\u0632\u06CC\u0639 \u0645\u0648\u06CC\u0631\u06AF\u06CC \u06A9\u0627\u0644\u0627</h2>
+                <h1 style="font-size: 58px; font-weight: 900; ${currentExportMode === 'expiry' ? 'color: #dc2626;' : 'color: #1e3a8a;'} margin-bottom: 15px; text-shadow: 0 2px 5px rgba(0,0,0,0.1); line-height: 1.2;">${esc(settings.companyName || 'مهر پخش کوهیج')}</h1>
+                <h2 style="font-size: 26px; color: #0d9488; font-weight: 800; margin-bottom: 35px;">مرکز تخصصی پخش و توزیع مویرگی کالا</h2>
                 <div style="width: 140px; height: 6px; ${currentExportMode === 'expiry' ? 'background: linear-gradient(90deg, #dc2626 0%, #1e3a8a 100%);' : 'background: linear-gradient(90deg, #fbbf24 0%, #1e3a8a 100%);'} margin: 0 auto 35px auto; border-radius: 4px;"></div>
                 <p style="font-size: 22px; color: #475569; font-weight: 800; line-height: 1.8;">${esc(headerNote)}</p>
               </div>
               
               <div style="margin-top: 35px; ${currentExportMode === 'expiry' ? 'background: #7f1d1d;' : 'background: #1e3a8a;'} color: white; border-radius: 24px; padding: 30px; display: flex; justify-content: space-between; font-size: 18px; font-weight: 700; box-shadow: 0 10px 25px rgba(0,0,0,0.25); border: 2px solid rgba(255,255,255,0.2);">
-                <div>\uD83D\uDCC5 \u0635\u062F\u0648\u0631: ${dateStr}</div>
-                <div>\uD83D\uDCDE \u062A\u0644\u0641\u0646: <span style="direction:ltr; display:inline-block;">${settings.phone || '---'}</span></div>
+                <div>📅 صدور: ${dateStr}</div>
+                <div>📞 تلفن: <span style="direction:ltr; display:inline-block;">${settings.phone || '---'}</span></div>
               </div>
-              <div style="text-align:center; font-size:15px; font-weight:bold; color:#64748b; margin-top:20px;">${esc(footerNote || '\u0633\u0646\u062F \u062F\u06CC\u062C\u06CC\u062A\u0627\u0644 \u0627\u0646\u0628\u0627\u0631')}</div>
+              <div style="text-align:center; font-size:15px; font-weight:bold; color:#64748b; margin-top:20px;">${esc(footerNote || 'سند دیجیتال انبار')}</div>
             </div>
           </div>`;
         pdfContent.innerHTML += coverHtml;
 
         let currentPageIdx = 1;
-        const totalSelected = Object.keys(groupedProducts).reduce((n, k) => n + groupedProducts[k].length, 0); if (!totalSelected) { alert('\u06A9\u0627\u0644\u0627\u06CC \u0642\u0627\u0628\u0644 \u0686\u0627\u067E (\u0645\u0648\u062C\u0648\u062F) \u0627\u0646\u062A\u062E\u0627\u0628 \u0646\u0634\u062F\u0647 \u0627\u0633\u062A.'); return false; }
+        const totalSelected = Object.keys(groupedProducts).reduce((n, k) => n + groupedProducts[k].length, 0); if (!totalSelected) { alert('کالای قابل چاپ (موجود) انتخاب نشده است.'); return false; }
 
         const renderProductPage = (p) => {
           const im = getImg(p);
@@ -832,14 +829,14 @@
                 
                 <div style="${currentExportMode === 'expiry' ? 'background: linear-gradient(90deg, #991b1b 0%, #dc2626 100%);' : 'background: linear-gradient(90deg, #1e3a8a 0%, #3b82f6 100%);'} color: white; padding: 18px 30px; display: flex; justify-content: space-between; align-items: center; font-size: 18px; font-weight: bold;">
                   <div style="display:flex; align-items:center; gap: 18px;">
-                    <span style="background: #fbbf24; color: #1e3a8a; padding: 6px 20px; border-radius: 12px; font-weight: 900; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">${esc(catMap[p.categoryId] || '\u0639\u0645\u0648\u0645\u06CC')}</span>
-                    <span style="font-size: 18px; text-shadow: 0 1px 3px rgba(0,0,0,0.3);">${showCompany && p.company ? `\u0628\u0631\u0646\u062F: ${esc(p.company)}` : ''}</span>
+                    <span style="background: #fbbf24; color: #1e3a8a; padding: 6px 20px; border-radius: 12px; font-weight: 900; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">${esc(catMap[p.categoryId] || 'عمومی')}</span>
+                    <span style="font-size: 18px; text-shadow: 0 1px 3px rgba(0,0,0,0.3);">${showCompany && p.company ? `برند: ${esc(p.company)}` : ''}</span>
                   </div>
-                  <div style="background: rgba(255,255,255,0.25); padding: 6px 18px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.4);">\u0635\u0641\u062D\u0647 ${currentPageIdx} \u0627\u0632 ${totalSelected}</div>
+                  <div style="background: rgba(255,255,255,0.25); padding: 6px 18px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.4);">صفحه ${currentPageIdx} از ${totalSelected}</div>
                 </div>
 
                 <div style="flex: 1; padding: 30px; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle, #f8fafc 0%, #ffffff 80%); overflow: hidden;">
-                  ${showImage && im ? `<img src="${im}" style="width: 100%; max-width: 82%; max-height: 640px; object-fit: contain; filter: drop-shadow(0 15px 35px rgba(0,0,0,0.15)); border-radius: 8px;">` : '<div style="font-size: 32px; color:#cbd5e1; font-weight: 900;">\u062A\u0635\u0648\u06CC\u0631\u06CC \u062B\u0628\u062A \u0646\u0634\u062F\u0647 \u0627\u0633\u062A</div>'}
+                  ${showImage && im ? `<img src="${im}" style="width: 100%; max-width: 82%; max-height: 640px; object-fit: contain; filter: drop-shadow(0 15px 35px rgba(0,0,0,0.15)); border-radius: 8px;">` : '<div style="font-size: 32px; color:#cbd5e1; font-weight: 900;">تصویری ثبت نشده است</div>'}
                 </div>
 
                 <div style="background: #f8fafc; border-top: 3px solid #e2e8f0; padding: 30px;">
@@ -847,17 +844,17 @@
                     <div style="flex: 1; padding-left: 20px;">
                       <div style="font-size: 34px; font-weight: 900; color: #0f172a; margin-bottom: 15px; line-height: 1.3;">${esc(p.name)}</div>
                       <div style="display: flex; gap: 15px; font-size: 18px; font-weight: 800;">
-                        ${showExpiry && p.expiry ? `<span style="background: #ffffff; padding: 8px 16px; border-radius: 10px; border: 1px solid #cbd5e1; color: #475569; box-shadow: 0 2px 6px rgba(0,0,0,0.02);">\u0627\u0646\u0642\u0636\u0627: <span style="color: #1e3a8a;">${fmtExp(p)}</span></span>` : ''}
-                        <span style="background: ${p.status === 'available' ? '#dcfce7' : '#fee2e2'}; color: ${p.status === 'available' ? '#16a34a' : '#dc2626'}; padding: 8px 16px; border-radius: 10px; border: 1px solid ${p.status === 'available' ? '#bbf7d0' : '#fecaca'};">${p.status === 'available' ? '\u2705 \u0645\u0648\u062C\u0648\u062F' : '\u274C \u0646\u0627\u0645\u0648\u062C\u0648\u062F'}</span>
+                        ${showExpiry && p.expiry ? `<span style="background: #ffffff; padding: 8px 16px; border-radius: 10px; border: 1px solid #cbd5e1; color: #475569; box-shadow: 0 2px 6px rgba(0,0,0,0.02);">انقضا: <span style="color: #1e3a8a;">${fmtExp(p)}</span></span>` : ''}
+                        <span style="background: ${p.status === 'available' ? '#dcfce7' : '#fee2e2'}; color: ${p.status === 'available' ? '#16a34a' : '#dc2626'}; padding: 8px 16px; border-radius: 10px; border: 1px solid ${p.status === 'available' ? '#bbf7d0' : '#fecaca'};">${p.status === 'available' ? '✅ موجود' : '❌ ناموجود'}</span>
                       </div>
                       ${p.description ? `<div style="margin-top: 18px; font-size: 18px; color: #475569; font-weight: 700; line-height: 1.6;">${esc(p.description)}</div>` : ''}
                     </div>
                     ${showPrice ? `
                     <div style="text-align: left; padding-right: 35px; border-right: 3px dashed #cbd5e1;">
-                      <div style="font-size: 16px; color: #64748b; font-weight: 900; margin-bottom: 8px;">\u0642\u06CC\u0645\u062A \u0641\u0631\u0648\u0634:</div>
+                      <div style="font-size: 16px; color: #64748b; font-weight: 900; margin-bottom: 8px;">قیمت فروش:</div>
                       <div style="font-size: 42px; font-weight: 900; ${currentExportMode === 'expiry' ? 'color: #dc2626;' : 'color: #1e3a8a;'} display: flex; flex-direction: column; align-items: center; background: #ffffff; padding: 15px 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); border: 2px solid ${currentExportMode === 'expiry' ? '#fecaca' : '#bfdbfe'};">
                         ${Number(p.price).toLocaleString('fa-IR')}
-                        <span style="font-size: 18px; ${currentExportMode === 'expiry' ? 'background:#dc2626;' : 'background:#1e3a8a;'} color:white; padding:4px 20px; border-radius:10px; margin-top:10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">\u062A\u0648\u0645\u0627\u0646</span>
+                        <span style="font-size: 18px; ${currentExportMode === 'expiry' ? 'background:#dc2626;' : 'background:#1e3a8a;'} color:white; padding:4px 20px; border-radius:10px; margin-top:10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">تومان</span>
                       </div>
                     </div>` : ''}
                   </div>
@@ -874,12 +871,12 @@
         for (const catId in groupedProducts) { groupedProducts[catId].forEach(p => renderProductPage(p)); }
 
       } else {
-        const custName = document.getElementById('invCustomerName').value || '\u0645\u0634\u062A\u0631\u06CC \u06AF\u0631\u0627\u0645\u06CC';
+        const custName = document.getElementById('invCustomerName').value || 'مشتری گرامی';
         let tableRows = ''; let total = 0; let rowIdx = 1;
 
         const renderTableRows = (catId, catName) => {
           if (groupedProducts[catId] && groupedProducts[catId].length > 0) {
-            tableRows += `<tr style="background: #e2e8f0; border-top: 2px solid #94a3b8;"><td colspan="6" style="font-weight:900; color:#1e3a8a; text-align:center; padding:12px; font-size:18px;">--- \u062F\u0633\u062A\u0647: ${esc(catName)} ---</td></tr>`;
+            tableRows += `<tr style="background: #e2e8f0; border-top: 2px solid #94a3b8;"><td colspan="6" style="font-weight:900; color:#1e3a8a; text-align:center; padding:12px; font-size:18px;">--- دسته: ${esc(catName)} ---</td></tr>`;
             groupedProducts[catId].forEach(p => {
               const q = document.querySelector(`.export-prod-qty[data-id="${p.id}"]`); const qty = q ? parseInt(q.value) || 1 : 1; total += p.price * qty;
               tableRows += `<tr><td style="padding:14px;">${rowIdx++}</td><td style="font-weight:bold;text-align:right;">${esc(p.name)}</td><td>${esc(p.company)}</td><td style="font-weight:900;">${qty}</td><td>${Number(p.price).toLocaleString('fa-IR')}</td><td style="font-weight:900; color:#1e3a8a;">${Number(p.price * qty).toLocaleString('fa-IR')}</td></tr>`;
@@ -889,7 +886,7 @@
         };
 
         sortedCats.forEach(cat => renderTableRows(cat.id, cat.name));
-        for (const catId in groupedProducts) { renderTableRows(catId, '\u0633\u0627\u06CC\u0631 \u06A9\u0627\u0644\u0627\u0647\u0627'); }
+        for (const catId in groupedProducts) { renderTableRows(catId, 'سایر کالاها'); }
 
         pdfContent.innerHTML += `
           <div class="pdf-frame-page" style="padding:25px;">
@@ -897,42 +894,42 @@
               <div>
                 <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:3px solid #1e3a8a; padding-bottom:25px; margin-bottom:30px;">
                   <div>
-                    <h1 style="font-size:36px; font-weight:900; color:#1e3a8a; margin-bottom:10px;">${esc(settings.companyName || '\u0645\u0647\u0631 \u067E\u062E\u0634 \u06A9\u0648\u0647\u06CC\u062C')}</h1>
-                    <div style="font-size:20px; font-weight:800; color:#0d9488;">\u067E\u06CC\u0634\u200C\u0641\u0627\u06A9\u062A\u0648\u0631 \u0631\u0633\u0645\u06CC \u0641\u0631\u0648\u0634 \u0648 \u0633\u0641\u0627\u0631\u0634 \u06A9\u0627\u0644\u0627</div>
+                    <h1 style="font-size:36px; font-weight:900; color:#1e3a8a; margin-bottom:10px;">${esc(settings.companyName || 'مهر پخش کوهیج')}</h1>
+                    <div style="font-size:20px; font-weight:800; color:#0d9488;">پیش‌فاکتور رسمی فروش و سفارش کالا</div>
                   </div>
                   <div style="text-align:left; font-size:16px; line-height:2.2;">
-                    <div><b>\u062A\u0627\u0631\u06CC\u062E \u0635\u062F\u0648\u0631:</b> ${dateStr}</div>
-                    <div><b>\u0634\u0645\u0627\u0631\u0647 \u062A\u0645\u0627\u0633:</b> <span style="direction:ltr; display:inline-block;">${settings.phone || '---'}</span></div>
+                    <div><b>تاریخ صدور:</b> ${dateStr}</div>
+                    <div><b>شماره تماس:</b> <span style="direction:ltr; display:inline-block;">${settings.phone || '---'}</span></div>
                   </div>
                 </div>
                 
                 <div style="background:#f8fafc; padding:20px 25px; border-radius:16px; margin-bottom:30px; border:1px solid #cbd5e1; display:flex; justify-content:space-between; align-items:center; font-size:18px;">
-                  <div><b style="color:#475569;">\u062E\u0631\u06CC\u062F\u0627\u0631 / \u0641\u0631\u0648\u0634\u06AF\u0627\u0647:</b> <span style="font-weight:900; color:#0f172a;">${esc(custName)}</span></div>
+                  <div><b style="color:#475569;">خریدار / فروشگاه:</b> <span style="font-weight:900; color:#0f172a;">${esc(custName)}</span></div>
                 </div>
 
                 <table style="width: 100%; border-collapse: collapse; font-size: 16px; text-align: center;">
                   <thead>
                     <tr style="background: #f1f5f9; border-bottom: 3px solid #cbd5e1;">
                       <th style="padding:15px; border:1px solid #e2e8f0; color:#1e3a8a; width:45px;">#</th>
-                      <th style="padding:15px; border:1px solid #e2e8f0; color:#1e3a8a;">\u0646\u0627\u0645 \u06A9\u0627\u0644\u0627</th>
-                      <th style="padding:15px; border:1px solid #e2e8f0; color:#1e3a8a;">\u0628\u0631\u0646\u062F</th>
-                      <th style="padding:15px; border:1px solid #e2e8f0; color:#1e3a8a; width:80px;">\u062A\u0639\u062F\u0627\u062F</th>
-                      <th style="padding:15px; border:1px solid #e2e8f0; color:#1e3a8a;">\u0642\u06CC\u0645\u062A \u0648\u0627\u062D\u062F (\u062A\u0648\u0645\u0627\u0646)</th>
-                      <th style="padding:15px; border:1px solid #e2e8f0; color:#1e3a8a;">\u0645\u0628\u0644\u063A \u06A9\u0644 (\u062A\u0648\u0645\u0627\u0646)</th>
+                      <th style="padding:15px; border:1px solid #e2e8f0; color:#1e3a8a;">نام کالا</th>
+                      <th style="padding:15px; border:1px solid #e2e8f0; color:#1e3a8a;">برند</th>
+                      <th style="padding:15px; border:1px solid #e2e8f0; color:#1e3a8a; width:80px;">تعداد</th>
+                      <th style="padding:15px; border:1px solid #e2e8f0; color:#1e3a8a;">قیمت واحد (تومان)</th>
+                      <th style="padding:15px; border:1px solid #e2e8f0; color:#1e3a8a;">مبلغ کل (تومان)</th>
                     </tr>
                   </thead>
                   <tbody>${tableRows}</tbody>
                   <tfoot>
                     <tr>
-                      <td colspan="5" style="text-align:left; padding: 20px; font-weight:900; font-size:22px; border:1px solid #e2e8f0; background: #f8fafc;">\u062C\u0645\u0639 \u06A9\u0644 \u0641\u0627\u06A9\u062A\u0648\u0631:</td>
+                      <td colspan="5" style="text-align:left; padding: 20px; font-weight:900; font-size:22px; border:1px solid #e2e8f0; background: #f8fafc;">جمع کل فاکتور:</td>
                       <td style="font-weight:900; font-size:24px; color:#1e3a8a; border:1px solid #e2e8f0; background: #eff6ff;">${Number(total).toLocaleString('fa-IR')}</td>
                     </tr>
                   </tfoot>
                 </table>
               </div>
               <div style="margin-top:50px; padding-top:25px; border-top:3px dashed #cbd5e1; display:flex; justify-content:space-between; align-items:center;">
-                <div style="font-size:16px; font-weight:700; color:#64748b;">${esc(footerNote || '\u062A\u062D\u0648\u06CC\u0644 \u062F\u0631 \u0633\u0631\u06CC\u0639\u200C\u062A\u0631\u06CC\u0646 \u0632\u0645\u0627\u0646 \u0645\u0645\u06A9\u0646 \u062F\u0631 \u0645\u062D\u0644 \u0641\u0631\u0648\u0634\u06AF\u0627\u0647')}</div>
-                <div style="font-size:18px; font-weight:900; color:#1e3a8a;">\u0645\u0647\u0631 \u0648 \u0627\u0645\u0636\u0627\u06CC \u0627\u0645\u0648\u0631 \u0641\u0631\u0648\u0634 / \u0627\u0646\u0628\u0627\u0631</div>
+                <div style="font-size:16px; font-weight:700; color:#64748b;">${esc(footerNote || 'تحویل در سریع‌ترین زمان ممکن در محل فروشگاه')}</div>
+                <div style="font-size:18px; font-weight:900; color:#1e3a8a;">مهر و امضای امور فروش / انبار</div>
               </div>
             </div>
           </div>`;
@@ -946,21 +943,21 @@
       return new Promise(function (res, rej) {
         const r = new FileReader();
         r.onload = function () { res(String(r.result).split(',')[1]); };
-        r.onerror = function () { rej(new Error('\u062E\u0648\u0627\u0646\u062F\u0646 \u0641\u0627\u06CC\u0644 \u0646\u0627\u0645\u0648\u0641\u0642 \u0628\u0648\u062F')); };
+        r.onerror = function () { rej(new Error('خواندن فایل ناموفق بود')); };
         r.readAsDataURL(blob);
       });
     }
     async function nativeShareFile() {
       try {
         const P = window.Capacitor.Plugins;
-        if (!P.Filesystem || !P.Share) throw new Error('\u0627\u0641\u0632\u0648\u0646\u0647 \u0627\u0631\u0633\u0627\u0644 \u0641\u0627\u06CC\u0644 \u062F\u0631 \u0628\u0631\u0646\u0627\u0645\u0647 \u0646\u0635\u0628 \u0646\u0634\u062F\u0647 \u0627\u0633\u062A');
+        if (!P.Filesystem || !P.Share) throw new Error('افزونه ارسال فایل در برنامه نصب نشده است');
         const data = await blobToBase64(lastDelivery.blob);
         await P.Filesystem.writeFile({ path: lastDelivery.fileName, data: data, directory: 'CACHE' });
         const uri = await P.Filesystem.getUri({ path: lastDelivery.fileName, directory: 'CACHE' });
-        await P.Share.share({ title: lastDelivery.fileName, dialogTitle: '\u0627\u0631\u0633\u0627\u0644 \u06CC\u0627 \u0630\u062E\u06CC\u0631\u0647 \u0641\u0627\u06CC\u0644', url: uri.uri });
+        await P.Share.share({ title: lastDelivery.fileName, dialogTitle: 'ارسال یا ذخیره فایل', url: uri.uri });
       } catch (e) {
         const msg = String(e && e.message ? e.message : e);
-        if (!/cancel/i.test(msg)) alert('\u062E\u0637\u0627 \u062F\u0631 \u0627\u0631\u0633\u0627\u0644 \u0641\u0627\u06CC\u0644: ' + msg);
+        if (!/cancel/i.test(msg)) alert('خطا در ارسال فایل: ' + msg);
       }
     }
     function deliverFile(blob, fileName, mime) {
@@ -979,11 +976,11 @@
       for (let i = 0; i < types.length; i++) {
         const f = new File([lastDelivery.blob], lastDelivery.fileName, { type: types[i] });
         if (navigator.canShare && navigator.canShare({ files: [f] })) {
-          navigator.share({ files: [f], title: lastDelivery.fileName }).catch(function (e) { if (e && e.name !== 'AbortError') alert('\u0627\u0634\u062A\u0631\u0627\u06A9\u200C\u06AF\u0630\u0627\u0631\u06CC \u0645\u0645\u06A9\u0646 \u0646\u0634\u062F. \u0627\u0632 \u062F\u06A9\u0645\u0647 \u00AB\u0630\u062E\u06CC\u0631\u0647 \u0641\u0627\u06CC\u0644\u00BB \u0627\u0633\u062A\u0641\u0627\u062F\u0647 \u06A9\u0646\u06CC\u062F.'); });
+          navigator.share({ files: [f], title: lastDelivery.fileName }).catch(function (e) { if (e && e.name !== 'AbortError') alert('اشتراک‌گذاری ممکن نشد. از دکمه «ذخیره فایل» استفاده کنید.'); });
           return;
         }
       }
-      alert('\u0627\u06CC\u0646 \u062F\u0633\u062A\u06AF\u0627\u0647 \u0627\u0631\u0633\u0627\u0644 \u0645\u0633\u062A\u0642\u06CC\u0645 \u0641\u0627\u06CC\u0644 \u0631\u0627 \u067E\u0634\u062A\u06CC\u0628\u0627\u0646\u06CC \u0646\u0645\u06CC\u200C\u06A9\u0646\u062F. \u0627\u0632 \u00AB\u0630\u062E\u06CC\u0631\u0647 \u0641\u0627\u06CC\u0644\u00BB \u06CC\u0627 \u00AB\u0628\u0627\u0632 \u06A9\u0631\u062F\u0646\u00BB \u0627\u0633\u062A\u0641\u0627\u062F\u0647 \u06A9\u0646\u06CC\u062F.');
+      alert('این دستگاه ارسال مستقیم فایل را پشتیبانی نمی‌کند. از «ذخیره فایل» یا «باز کردن» استفاده کنید.');
     }
     function openReadyFile() {
       if (!lastDelivery) return;
@@ -995,16 +992,16 @@
       if (!preparePrintableContent()) return;
       const btn = isShareAction ? document.getElementById('btnShareMessenger') : document.getElementById('btnDownloadPdf');
       const originalText = btn.innerHTML;
-      btn.innerHTML = '\u23F3 \u062F\u0631 \u062D\u0627\u0644 \u0633\u0627\u062E\u062A...'; btn.disabled = true;
+      btn.innerHTML = '⏳ در حال ساخت...'; btn.disabled = true;
       const element = document.getElementById('pdf-printable-area');
       const restore = function () { element.style.display = 'none'; element.style.position = ''; element.style.top = ''; btn.innerHTML = originalText; btn.disabled = false; };
       if (!window.html2pdf) {
-        if (window.__h2pTried) { restore(); alert('\u06A9\u062A\u0627\u0628\u062E\u0627\u0646\u0647 PDF \u0628\u0627\u0631\u06AF\u0630\u0627\u0631\u06CC \u0646\u0634\u062F. \u0641\u0627\u06CC\u0644 html2pdf.bundle.min.js \u0631\u0627 \u06A9\u0646\u0627\u0631 index.html \u062F\u0631 \u06AF\u06CC\u062A\u200C\u0647\u0627\u0628 \u0642\u0631\u0627\u0631 \u062F\u0647\u06CC\u062F.'); return; }
+        if (window.__h2pTried) { restore(); alert('کتابخانه PDF بارگذاری نشد. فایل html2pdf.bundle.min.js را کنار index.html در گیت‌هاب قرار دهید.'); return; }
         window.__h2pTried = true;
         const s = document.createElement('script');
         s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
         s.onload = function () { restore(); generateAndOpenRealPdf(isShareAction); };
-        s.onerror = function () { restore(); alert('\u06A9\u062A\u0627\u0628\u062E\u0627\u0646\u0647 PDF \u0628\u0627\u0631\u06AF\u0630\u0627\u0631\u06CC \u0646\u0634\u062F. \u0627\u06CC\u0646\u062A\u0631\u0646\u062A \u0631\u0627 \u0628\u0631\u0631\u0633\u06CC \u06A9\u0646\u06CC\u062F \u06CC\u0627 \u0641\u0627\u06CC\u0644 html2pdf.bundle.min.js \u0631\u0627 \u06A9\u0646\u0627\u0631 index.html \u0642\u0631\u0627\u0631 \u062F\u0647\u06CC\u062F.'); };
+        s.onerror = function () { restore(); alert('کتابخانه PDF بارگذاری نشد. اینترنت را بررسی کنید یا فایل html2pdf.bundle.min.js را کنار index.html قرار دهید.'); };
         document.head.appendChild(s); return;
       }
       element.style.display = 'block'; element.style.position = 'absolute'; element.style.top = '-9999px';
@@ -1013,18 +1010,17 @@
       setTimeout(function () {
         try {
           const pages = Array.from(element.querySelectorAll('.pdf-frame-page'));
-          if (!pages.length) throw new Error('\u0635\u0641\u062D\u0647\u200C\u0627\u06CC \u0628\u0631\u0627\u06CC \u0633\u0627\u062E\u062A \u0648\u062C\u0648\u062F \u0646\u062F\u0627\u0631\u062F');
+          if (!pages.length) throw new Error('صفحه‌ای برای ساخت وجود ندارد');
           let worker = html2pdf().set(opt).from(pages[0]).toPdf();
           for (let i = 1; i < pages.length; i++) {
             worker = worker.get('pdf').then(function (pdf) { return pdf.addPage(); }).from(pages[i]).toContainer().toCanvas().toPdf();
           }
           worker.outputPdf('blob').then(function (blob) { restore(); deliverFile(blob, fileName, 'application/pdf'); })
-            .catch(function (err) { restore(); alert('\u062E\u0637\u0627 \u062F\u0631 \u062A\u0648\u0644\u06CC\u062F \u0641\u0627\u06CC\u0644: ' + (err && err.message ? err.message : err)); });
-        } catch (e) { restore(); alert('\u062E\u0637\u0627\u06CC \u063A\u06CC\u0631\u0645\u0646\u062A\u0638\u0631\u0647 \u062F\u0631 \u0633\u0627\u062E\u062A PDF: ' + e.message); }
+            .catch(function (err) { restore(); alert('خطا در تولید فایل: ' + (err && err.message ? err.message : err)); });
+        } catch (e) { restore(); alert('خطای غیرمنتظره در ساخت PDF: ' + e.message); }
       }, 400);
     }
 
-    // \u067E\u0634\u062A\u06CC\u0628\u0627\u0646 \u06A9\u0627\u0645\u0644: \u0639\u06A9\u0633\u200C\u0647\u0627 \u0647\u0645 \u062F\u0627\u062E\u0644 \u0641\u0627\u06CC\u0644 \u0642\u0631\u0627\u0631 \u0645\u06CC\u200C\u06AF\u06CC\u0631\u0646\u062F (\u0627\u0632 IndexedDB \u062E\u0648\u0627\u0646\u062F\u0647 \u0645\u06CC\u200C\u0634\u0648\u0646\u062F)
     function buildBackupObject() {
       return {
         app: 'MEHR_PAK_KOUHIJ',
@@ -1040,7 +1036,7 @@
         const blob = new Blob([buildBackupJson()], { type: 'application/json' });
         closeModal('backupCenterModal');
         deliverFile(blob, 'MehrPakhsh_Backup_' + Date.now() + '.json', 'application/json');
-      } catch (err) { alert('\u062E\u0637\u0627 \u062F\u0631 \u0633\u0627\u062E\u062A \u0641\u0627\u06CC\u0644: ' + err.message); }
+      } catch (err) { alert('خطا در ساخت فایل: ' + err.message); }
     }
     function triggerNativeShareBackup() { downloadBackupFileDirectly(); }
 
@@ -1049,7 +1045,7 @@
       
       if(navigator.clipboard && window.isSecureContext) {
           navigator.clipboard.writeText(jsonStr).then(() => {
-              alert('\u2705 \u062A\u0645\u0627\u0645 \u0627\u0637\u0644\u0627\u0639\u0627\u062A \u0627\u0646\u0628\u0627\u0631 \u0634\u0645\u0627 \u0628\u0627 \u0645\u0648\u0641\u0642\u06CC\u062A \u06A9\u067E\u06CC \u0634\u062F! \n\n\u062D\u0627\u0644\u0627 \u06CC\u06A9 \u06CC\u0627\u062F\u062F\u0627\u0634\u062A \u062C\u062F\u06CC\u062F \u062F\u0631 \u06AF\u0648\u0634\u06CC \u0628\u0627\u0632 \u06A9\u0646\u06CC\u062F \u06CC\u0627 \u0648\u0627\u0631\u062F \u0628\u062E\u0634 \u067E\u06CC\u0627\u0645\u200C\u0647\u0627\u06CC \u0630\u062E\u06CC\u0631\u0647\u200C\u200C\u0634\u062F\u0647 \u062A\u0644\u06AF\u0631\u0627\u0645 \u0634\u0648\u06CC\u062F\u060C \u0627\u0646\u06AF\u0634\u062A \u062E\u0648\u062F \u0631\u0627 \u0631\u0648\u06CC \u0635\u0641\u062D\u0647 \u0646\u06AF\u0647 \u062F\u0627\u0631\u06CC\u062F \u0648 \u06AF\u0632\u06CC\u0646\u0647 Paste (\u062C\u0627\u06CC\u06AF\u0630\u0627\u0631\u06CC) \u0631\u0627 \u0628\u0632\u0646\u06CC\u062F \u0648 \u0622\u0646 \u0631\u0627 \u0630\u062E\u06CC\u0631\u0647 \u06A9\u0646\u06CC\u062F.');
+              alert('✅ تمام اطلاعات انبار شما با موفقیت کپی شد! \n\nحالا یک یادداشت جدید در گوشی باز کنید یا وارد بخش پیام‌های ذخیره‌‌شده تلگرام شوید، انگشت خود را روی صفحه نگه دارید و گزینه Paste (جایگذاری) را بزنید و آن را ذخیره کنید.');
           }).catch(err => { fallbackCopyText(jsonStr); });
       } else {
           fallbackCopyText(jsonStr);
@@ -1065,9 +1061,9 @@
       textArea.select();
       try {
           document.execCommand('copy');
-          alert('\u2705 \u062A\u0645\u0627\u0645 \u0627\u0637\u0644\u0627\u0639\u0627\u062A \u0627\u0646\u0628\u0627\u0631 \u0634\u0645\u0627 \u0628\u0627 \u0645\u0648\u0641\u0642\u06CC\u062A \u06A9\u067E\u06CC \u0634\u062F! \n\n\u062D\u0627\u0644\u0627 \u06CC\u06A9 \u06CC\u0627\u062F\u062F\u0627\u0634\u062A \u062C\u062F\u06CC\u062F \u062F\u0631 \u06AF\u0648\u0634\u06CC \u0628\u0627\u0632 \u06A9\u0646\u06CC\u062F \u06CC\u0627 \u0648\u0627\u0631\u062F \u0628\u062E\u0634 \u067E\u06CC\u0627\u0645\u200C\u0647\u0627\u06CC \u0630\u062E\u06CC\u0631\u0647\u200C\u0634\u062F\u0647 \u062A\u0644\u06AF\u0631\u0627\u0645 \u0634\u0648\u06CC\u062F\u060C \u0627\u0646\u06AF\u0634\u062A \u062E\u0648\u062F \u0631\u0627 \u0631\u0648\u06CC \u0635\u0641\u062D\u0647 \u0646\u06AF\u0647 \u062F\u0627\u0631\u06CC\u062F \u0648 \u06AF\u0632\u06CC\u0646\u0647 Paste (\u062C\u0627\u06CC\u06AF\u0630\u0627\u0631\u06CC) \u0631\u0627 \u0628\u0632\u0646\u06CC\u062F \u0648 \u0622\u0646 \u0631\u0627 \u0630\u062E\u06CC\u0631\u0647 \u06A9\u0646\u06CC\u062F.');
+          alert('✅ تمام اطلاعات انبار شما با موفقیت کپی شد! \n\nحالا یک یادداشت جدید در گوشی باز کنید یا وارد بخش پیام‌های ذخیره‌شده تلگرام شوید، انگشت خود را روی صفحه نگه دارید و گزینه Paste (جایگذاری) را بزنید و آن را ذخیره کنید.');
       } catch (err) {
-          alert('\u0645\u062A\u0627\u0633\u0641\u0627\u0646\u0647 \u0627\u0645\u06A9\u0627\u0646 \u06A9\u067E\u06CC \u062E\u0648\u062F\u06A9\u0627\u0631 \u062F\u0631 \u0627\u06CC\u0646 \u06AF\u0648\u0634\u06CC \u067E\u0634\u062A\u06CC\u0628\u0627\u0646\u06CC \u0646\u0645\u06CC\u200C\u0634\u0648\u062F.');
+          alert('متاسفانه امکان کپی خودکار در این گوشی پشتیبانی نمی‌شود.');
       }
       document.body.removeChild(textArea);
     }
@@ -1087,45 +1083,42 @@
     function sanitizeSettings(s) {
       s = (s && typeof s === 'object') ? s : {};
       const logo = (typeof s.logoBase64 === 'string' && (s.logoBase64 === '' || s.logoBase64.indexOf('data:image/') === 0)) ? s.logoBase64 : '';
-      return { companyName: String(s.companyName || '\u0645\u0647\u0631 \u067E\u062E\u0634 \u06A9\u0648\u0647\u06CC\u062C').slice(0, 200), phone: String(s.phone || '').slice(0, 50), address: String(s.address || '').slice(0, 300), logoBase64: logo, nearDays: Math.max(1, parseInt(s.nearDays) || 30), veryNearDays: Math.max(1, parseInt(s.veryNearDays) || 20) };
+      return { companyName: String(s.companyName || 'مهر پخش کوهیج').slice(0, 200), phone: String(s.phone || '').slice(0, 50), address: String(s.address || '').slice(0, 300), logoBase64: logo, nearDays: Math.max(1, parseInt(s.nearDays) || 30), veryNearDays: Math.max(1, parseInt(s.veryNearDays) || 20) };
     }
     function importFullBackup(e) {
       const file = e.target.files[0]; e.target.value = '';
       if (!file) return;
-      if (file.size > 300 * 1024 * 1024) return alert('\u0641\u0627\u06CC\u0644 \u0628\u06CC\u0634 \u0627\u0632 \u062D\u062F \u0628\u0632\u0631\u06AF \u0627\u0633\u062A.');
+      if (file.size > 300 * 1024 * 1024) return alert('فایل بیش از حد بزرگ است.');
       const reader = new FileReader();
-      reader.onerror = () => alert('\u062E\u0648\u0627\u0646\u062F\u0646 \u0641\u0627\u06CC\u0644 \u0646\u0627\u0645\u0648\u0641\u0642 \u0628\u0648\u062F.');
+      reader.onerror = () => alert('خواندن فایل ناموفق بود.');
       reader.onload = async function (evt) {
         let d;
-        try { d = JSON.parse(evt.target.result); } catch (err) { return alert('\u0641\u0627\u06CC\u0644 \u067E\u0634\u062A\u06CC\u0628\u0627\u0646 \u0646\u0627\u0645\u0639\u062A\u0628\u0631 \u0627\u0633\u062A.'); }
-        if (!d || d.app !== 'MEHR_PAK_KOUHIJ' || !Array.isArray(d.products) || !Array.isArray(d.categories)) return alert('\u0627\u06CC\u0646 \u0641\u0627\u06CC\u0644\u060C \u067E\u0634\u062A\u06CC\u0628\u0627\u0646 \u0627\u06CC\u0646 \u0628\u0631\u0646\u0627\u0645\u0647 \u0646\u06CC\u0633\u062A.');
+        try { d = JSON.parse(evt.target.result); } catch (err) { return alert('فایل پشتیبان نامعتبر است.'); }
+        if (!d || d.app !== 'MEHR_PAK_KOUHIJ' || !Array.isArray(d.products) || !Array.isArray(d.categories)) return alert('این فایل، پشتیبان این برنامه نیست.');
         const products = d.products.map(sanitizeProduct).filter(Boolean);
         const categories = d.categories.map(sanitizeCategory).filter(Boolean);
         const settings = sanitizeSettings(d.settings);
         const skipped = d.products.length - products.length;
-        if (!confirm(products.length + ' \u06A9\u0627\u0644\u0627 \u0648 ' + categories.length + ' \u062F\u0633\u062A\u0647\u200C\u0628\u0646\u062F\u06CC \u0628\u0627\u0631\u06AF\u0630\u0627\u0631\u06CC \u0645\u06CC\u200C\u0634\u0648\u062F' + (skipped ? ' (' + skipped + ' \u06A9\u0627\u0644\u0627\u06CC \u0646\u0627\u0645\u0639\u062A\u0628\u0631 \u0646\u0627\u062F\u06CC\u062F\u0647 \u06AF\u0631\u0641\u062A\u0647 \u0634\u062F)' : '') + '.\n\u0627\u0637\u0644\u0627\u0639\u0627\u062A \u0641\u0639\u0644\u06CC \u06A9\u0627\u0645\u0644\u0627\u064B \u062C\u0627\u06CC\u06AF\u0632\u06CC\u0646 \u0645\u06CC\u200C\u0634\u0648\u062F. \u0645\u0637\u0645\u0626\u0646 \u0647\u0633\u062A\u06CC\u062F\u061F')) return;
+        if (!confirm(products.length + ' کالا و ' + categories.length + ' دسته‌بندی بارگذاری می‌شود' + (skipped ? ' (' + skipped + ' کالای نامعتبر نادیده گرفته شد)' : '') + '.\nاطلاعات فعلی کاملاً جایگزین می‌شود. مطمئن هستید؟')) return;
         const old = [DB_KEYS.PRODUCTS, DB_KEYS.CATEGORIES, DB_KEYS.SETTINGS].map(k => [k, localStorage.getItem(k)]);
         try {
-          // \u06F1) \u0639\u06A9\u0633\u200C\u0647\u0627 \u062F\u0631 IndexedDB
           if (ImgDB.ok) {
             for (const p of products) {
               if (p.image) await ImgDB.put(p.id, p.image); else await ImgDB.del(p.id);
             }
           }
-          // \u06F2) \u0627\u0637\u0644\u0627\u0639\u0627\u062A \u06A9\u0627\u0644\u0627\u0647\u0627 (\u0628\u062F\u0648\u0646 \u0639\u06A9\u0633) \u062F\u0631 localStorage
           DB.set(DB_KEYS.PRODUCTS, ImgDB.ok ? products.map(stripImage) : products);
           DB.set(DB_KEYS.CATEGORIES, categories);
           DB.setSettings(settings);
-          // \u06F3) \u062D\u0630\u0641 \u0639\u06A9\u0633\u200C\u0647\u0627\u06CC \u0628\u06CC\u200C\u0635\u0627\u062D\u0628 \u06A9\u0627\u0644\u0627\u0647\u0627\u06CC \u0642\u0628\u0644\u06CC
           if (ImgDB.ok) {
             const keep = new Set(products.map(p => p.id));
             const all = await ImgDB.getAll();
             for (const k of Object.keys(all)) { if (!keep.has(k)) await ImgDB.del(k); }
           }
-          alert('\u0628\u0627\u0632\u06AF\u0631\u062F\u0627\u0646\u06CC \u0628\u0627 \u0645\u0648\u0641\u0642\u06CC\u062A \u0627\u0646\u062C\u0627\u0645 \u0634\u062F.'); location.reload();
+          alert('بازگردانی با موفقیت انجام شد.'); location.reload();
         } catch (err) {
           try { old.forEach(x => x[1] === null ? localStorage.removeItem(x[0]) : localStorage.setItem(x[0], x[1])); } catch (e2) {}
-          alert(isQuotaError(err) ? '\u062D\u0627\u0641\u0638\u0647 \u06A9\u0627\u0641\u06CC \u0646\u06CC\u0633\u062A\u061B \u0627\u0637\u0644\u0627\u0639\u0627\u062A \u0642\u0628\u0644\u06CC \u062D\u0641\u0638 \u0634\u062F.' : '\u0628\u0627\u0632\u06AF\u0631\u062F\u0627\u0646\u06CC \u0646\u0627\u0645\u0648\u0641\u0642 \u0628\u0648\u062F: ' + errMsg(err));
+          alert(isQuotaError(err) ? 'حافظه کافی نیست؛ اطلاعات قبلی حفظ شد.' : 'بازگردانی ناموفق بود: ' + errMsg(err));
         }
       };
       reader.readAsText(file, 'UTF-8');
@@ -1137,12 +1130,12 @@
 
     function renderSettingsSection() {
       const s = DB.getSettings(); 
-      document.getElementById('setCompanyName').value = s.companyName || '\u0645\u0647\u0631 \u067E\u062E\u0634 \u06A9\u0648\u0647\u06CC\u062C'; 
+      document.getElementById('setCompanyName').value = s.companyName || 'مهر پخش کوهیج'; 
       document.getElementById('setCompanyPhone').value = s.phone || ''; 
       document.getElementById('setCompanyAddress').value = s.address || ''; 
       document.getElementById('setNearDays').value = s.nearDays || 30; 
       document.getElementById('setVeryNearDays').value = s.veryNearDays || 20; 
-      document.getElementById('setLogoPreview').innerHTML = s.logoBase64 ? `<img src="${s.logoBase64}" style="max-height:70px; border-radius:6px; padding:2px;">` : '\u0644\u0648\u06AF\u0648 \u0627\u0646\u062A\u062E\u0627\u0628 \u0646\u0634\u062F\u0647';
+      document.getElementById('setLogoPreview').innerHTML = s.logoBase64 ? `<img src="${s.logoBase64}" style="max-height:70px; border-radius:6px; padding:2px;">` : 'لوگو انتخاب نشده';
     }
 
     function handleLogoUpload(e) {
@@ -1150,18 +1143,18 @@
       const reader = new FileReader(); 
       reader.onload = function(evt) {
         const img = new Image(); 
-        img.onerror = function() { alert('\u0627\u06CC\u0646 \u0641\u0627\u06CC\u0644 \u0639\u06A9\u0633 \u0645\u0639\u062A\u0628\u0631 \u0646\u06CC\u0633\u062A.'); };
+        img.onerror = function() { alert('این فایل عکس معتبر نیست.'); };
         img.onload = function() {
           const canvas = document.createElement('canvas'); const ctx = canvas.getContext('2d'); canvas.width = img.width > 300 ? 300 : img.width; canvas.height = img.width > 300 ? Math.round((img.height * 300) / img.width) : img.height;
           ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
           try { const s = DB.getSettings(); s.logoBase64 = canvas.toDataURL('image/jpeg', 0.8); DB.setSettings(s); renderSettingsSection(); }
-          catch (err) { alert(isQuotaError(err) ? '\u062D\u0627\u0641\u0638\u0647 \u0628\u0631\u0646\u0627\u0645\u0647 \u067E\u0631 \u0627\u0633\u062A\u061B \u0644\u0648\u06AF\u0648 \u0630\u062E\u06CC\u0631\u0647 \u0646\u0634\u062F.' : '\u062E\u0637\u0627 \u062F\u0631 \u0630\u062E\u06CC\u0631\u0647 \u0644\u0648\u06AF\u0648: ' + errMsg(err)); }
+          catch (err) { alert(isQuotaError(err) ? 'حافظه برنامه پر است؛ لوگو ذخیره نشد.' : 'خطا در ذخیره لوگو: ' + errMsg(err)); }
         }; img.src = evt.target.result;
       }; reader.readAsDataURL(file);
     }
 
-    function saveCompanySettings() { const s = DB.getSettings(); s.companyName = document.getElementById('setCompanyName').value.trim(); s.phone = document.getElementById('setCompanyPhone').value.trim(); s.address = document.getElementById('setCompanyAddress').value.trim(); DB.setSettings(s); renderDashboard(); alert('\u0630\u062E\u06CC\u0631\u0647 \u0634\u062F.'); }
-    function saveExpirySettings() { const s = DB.getSettings(); s.nearDays = parseInt(document.getElementById('setNearDays').value) || 30; s.veryNearDays = parseInt(document.getElementById('setVeryNearDays').value) || 20; DB.setSettings(s); renderDashboard(); alert('\u0630\u062E\u06CC\u0631\u0647 \u0634\u062F.'); }
+    function saveCompanySettings() { const s = DB.getSettings(); s.companyName = document.getElementById('setCompanyName').value.trim(); s.phone = document.getElementById('setCompanyPhone').value.trim(); s.address = document.getElementById('setCompanyAddress').value.trim(); DB.setSettings(s); renderDashboard(); alert('ذخیره شد.'); }
+    function saveExpirySettings() { const s = DB.getSettings(); s.nearDays = parseInt(document.getElementById('setNearDays').value) || 30; s.veryNearDays = parseInt(document.getElementById('setVeryNearDays').value) || 20; DB.setSettings(s); renderDashboard(); alert('ذخیره شد.'); }
     function closeModal(id) { document.getElementById(id).classList.remove('active'); }
     function generateMKPFile() { document.getElementById('backupCenterModal').classList.add('active'); }
 
@@ -1192,7 +1185,6 @@
     window.filterProductsByExpiry = filterProductsByExpiry;
     window.copyBackupToClipboard = copyBackupToClipboard;
 
-    // \u0631\u0627\u0647\u200C\u0627\u0646\u062F\u0627\u0632\u06CC: \u0627\u0628\u062A\u062F\u0627 IndexedDB \u0628\u0627\u0632 \u0645\u06CC\u200C\u0634\u0648\u062F\u060C \u0639\u06A9\u0633\u200C\u0647\u0627 \u0628\u0627\u0631\u06AF\u0630\u0627\u0631\u06CC \u0648 \u0639\u06A9\u0633\u200C\u0647\u0627\u06CC \u0642\u062F\u06CC\u0645\u06CC \u0645\u0646\u062A\u0642\u0644 \u0645\u06CC\u200C\u0634\u0648\u0646\u062F\u060C \u0633\u067E\u0633 \u0631\u0627\u0628\u0637 \u0646\u0645\u0627\u06CC\u0634 \u062F\u0627\u062F\u0647 \u0645\u06CC\u200C\u0634\u0648\u062F
     (async function boot() {
       try {
         await ImgDB.open();
